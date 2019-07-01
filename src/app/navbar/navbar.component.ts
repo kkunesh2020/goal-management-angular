@@ -4,7 +4,7 @@ import { TestUtils } from '../shared/models/test-utils';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'gms-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })

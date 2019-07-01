@@ -15,7 +15,7 @@ export class TestUtils {
         new UserClass('3', 'Noah', 'nrizika@gmail.com', false)
       ];
     }
-    return new GroupClass(name, users);
+    return new GroupClass('1', name, users);
   }
 
   static getRandomUID(): string {
