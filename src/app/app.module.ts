@@ -11,6 +11,7 @@ import { MaterialModule } from './shared/material.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from 'src/environments/environment';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 
@@ -26,7 +27,8 @@ import { environment } from 'src/environments/environment';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
