@@ -5,6 +5,7 @@ import { User } from './user.model';
 
 import { ComponentRef } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
+import GoalClass from './goal';
 
 export class TestUtils {
   static getTestGroup(name: string, users?: Array<User>): Group {
@@ -30,7 +31,7 @@ export class TestUtils {
   }
 
   static getTestUser(
-    uid = this.getRandomUID(),
+    uid = '5',
     name = 'Test User',
     email = 'testemail@email.com',
     isAdmin = false,
@@ -42,5 +43,24 @@ export class TestUtils {
   static getElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {
     const element: HTMLElement = fixture.nativeElement as HTMLElement;
     return element;
+  }
+
+  static getTestGoal(
+    description = 'Test Goal',
+    dueDate = new Date('2019-07-03'),
+    isCompleted = false,
+    createdBy = this.getTestUser(),
+    assignedTo = [
+      new UserClass('1', 'Katie', 'kkunesh@gmail.com', false),
+      new UserClass('2', 'Jacob', 'jdulai@gmail.com', false),
+      new UserClass('3', 'Noah', 'nrizika@gmail.com', false)
+    ],
+    notes = 'do something',
+    groups = [
+      this.getTestGroup('group 1'),
+      this.getTestGroup('group 2')
+    ]
+  ) {
+    return new GoalClass(description, dueDate, isCompleted, createdBy, assignedTo, notes, groups);
   }
 }

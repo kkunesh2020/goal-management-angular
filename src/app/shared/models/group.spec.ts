@@ -59,7 +59,4 @@ describe('GroupClass Tests', () => {
     expect(group.users).toContain(newUser);
   });
 
-  it('should', () => {
-    expect();
-  });
 });
