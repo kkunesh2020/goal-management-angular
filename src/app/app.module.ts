@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from 'src/environments/environment';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SideNavbarComponent } from './side-navbar/side-navbar.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -20,7 +21,8 @@ import { SideNavbarComponent } from './side-navbar/side-navbar.component';
   declarations: [
     AppComponent,
     NavbarComponent,
-    SideNavbarComponent
+    SideNavbarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
