@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { User } from '../shared/models/user.model';
 import { TestUtils } from '../shared/models/test-utils';
 import { AuthService } from '../shared/services/auth.service';
@@ -9,6 +9,8 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
+  @Output() toggleSidenav = new EventEmitter<void>();
 
   constructor(public auth: AuthService) { }
 

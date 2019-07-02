@@ -12,13 +12,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from 'src/environments/environment';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    SideNavbarComponent
   ],
   imports: [
     BrowserModule,
