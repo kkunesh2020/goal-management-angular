@@ -1,6 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { User } from '../shared/models/user.model';
-import { TestUtils } from '../shared/models/test-utils';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({

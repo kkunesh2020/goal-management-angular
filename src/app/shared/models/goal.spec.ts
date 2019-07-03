@@ -1,5 +1,5 @@
 import GoalClass from './goal';
-import { TestUtils } from './test-utils';
+import { TestUtils } from '../utils/test-utils';
 import UserClass from './user';
 
 describe('goalClassTests', () => {

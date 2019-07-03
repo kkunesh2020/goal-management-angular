@@ -1,5 +1,5 @@
 import UserClass from './user';
-import { TestUtils } from './test-utils';
+import { TestUtils } from '../utils/test-utils';
 
 describe('UserClass tests', () => {
     let user: UserClass = null;
@@ -44,7 +44,7 @@ describe('UserClass tests', () => {
 
     it('should set groups correctly through constructor', () => {
         const groups = [TestUtils.getTestGroup('Test Group')];
-        user = new UserClass('1','Test User', 'test@email.com', false, groups);
+        user = new UserClass('1', 'Test User', 'test@email.com', false, groups);
         expect(user.groups).not.toBeNull();
         expect(user.groups).toEqual(groups);
     });

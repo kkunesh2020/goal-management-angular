@@ -1,11 +1,10 @@
-import { Group } from './group.model';
-import UserClass from './user';
-import GroupClass from './group';
-import { User } from './user.model';
-
+import { Group } from '../models/group.model';
+import UserClass from '../models/user';
+import GroupClass from '../models/group';
+import { User } from '../models/user.model';
 import { ComponentRef } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import GoalClass from './goal';
+import GoalClass from '../models/goal';
 
 export class TestUtils {
   static getTestGroup(name: string, users?: Array<User>): Group {
