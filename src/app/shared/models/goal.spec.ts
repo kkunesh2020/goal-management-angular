@@ -29,17 +29,17 @@ describe('goalClassTests', () => {
     goal.dueDate = new Date('2019-07-04');
     expect(goal.dueDate).toEqual(new Date('2019-07-04'));
   });
-  it('should set is completed correctly through the constructor', () => {
+  it('should set isCompleted correctly through the constructor', () => {
     expect(goal.isCompleted).toEqual(false);
   });
-  it('should be able to set is completed', () => {
+  it('should be able to set isCompleted', () => {
     goal.isCompleted = true;
     expect(goal.isCompleted).toEqual(true);
   });
-  it('should set created by correctly through the constructor', () => {
+  it('should set createdBy correctly through the constructor', () => {
     expect(goal.createdBy).toEqual(TestUtils.getTestUser());
   });
-  it('should be able to set created by', () => {
+  it('should be able to set createdBy', () => {
     const user = new UserClass('6', 'user', 'email', false);
     goal.createdBy = user;
     expect(goal.createdBy).toEqual(user);
