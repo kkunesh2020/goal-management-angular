@@ -1,29 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../shared/services/home.service';
 import { Observable } from 'rxjs';
+import { User } from '../shared/models/user.model';
+import { Goal } from '../shared/models/goal.model';
 
 export interface PeriodicElement {
   name: string;
   goalsAssigned: number;
   goalsCompleted: number;
-}
-
-export interface GoalsData {
-  description: string;
-  dueDate: Date;
-  isCompleted: boolean;
-  createdBy: string;
+  view: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {name: 'Anastasia', goalsAssigned: 5, goalsCompleted: 5},
-  {name: 'Bob', goalsAssigned: 3, goalsCompleted: 2},
-  {name: 'Cheryl', goalsAssigned: 16, goalsCompleted: 0},
-];
-
-const GOALS_DATA: GoalsData[] = [
-  {description: 'make table', dueDate: new Date('2019-07-03'), isCompleted: false, createdBy: 'JD'},
-  {description: 'eat chipotle', dueDate: new Date('2019-07-03'), isCompleted: true, createdBy: 'JD'},
+  {name: 'Anastasia', goalsAssigned: 5, goalsCompleted: 5, view: 'view'},
+  {name: 'Bob', goalsAssigned: 3, goalsCompleted: 2, view: 'view'},
+  {name: 'Cheryl', goalsAssigned: 16, goalsCompleted: 0, view: 'view'},
 ];
 
 @Component({
@@ -33,25 +24,25 @@ const GOALS_DATA: GoalsData[] = [
 })
 export class HomeComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'goalsAssigned', 'goalsCompleted'];
-  goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
+  displayedColumns: string[] = ['name', 'goalsAssigned', 'goalsCompleted', 'view'];
   dataSource = ELEMENT_DATA;
-  goalsDataSource = GOALS_DATA;
+  userNames = [];
+  // userNames = [
+  //   {userId: 'mR9T1tHEwVcQbbUScFGY4TFqz0j2', name: 'J.D. DeVaughn-Brown'},
+  //   {userId: 'SFyyskdkeERiwVJmHx0Bi2HNxg62', name: 'Jacob Dulai'},
+  //   {userId: 'iyv2OTl7APb3gDqJKJuvFLPXozB3', name: 'Katie Kunesh'}
+  // ]
 
   constructor(private homeService: HomeService) { }
 
   ngOnInit() {
-    this.showGoals();
+    // this.showGoals();
   }
 
   showGoals() {
     this.homeService.getAddedGoals().subscribe( goals => {
       this.goalsDataSource = goals;
     });
+    console.log(this.goalsDataSource);
   }
-
-  getUser(userId: string): Observable<any> {
-    return this.homeService.getUser(userId);
-  }
-
 }
