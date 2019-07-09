@@ -1,5 +1,5 @@
 <!-- Main toolbar -->
-<mat-toolbar color="primary">
+<mat-toolbar>
   <div fxHide.gt-xs>
     <button mat-icon-button (click)="toggleSidenav.emit()">
       <mat-icon>menu</mat-icon>
@@ -14,7 +14,7 @@
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout fxLayoutGap="20px" class="navigation-items">
       <li>
-        <a>
+        <a routerLink="">
           <mat-icon id="home-icon" class="icon">home</mat-icon>
           <span class="label">Home</span>
         </a>

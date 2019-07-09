@@ -5,5 +5,6 @@ export interface User {
     name: string;
     email: string;
     isAdmin: boolean;
-    groups?: Array<Group>;
+    goalsCompleted: number;
+    goalsAssigned: number;
 }

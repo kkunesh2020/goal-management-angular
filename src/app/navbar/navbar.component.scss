@@ -2,6 +2,9 @@ mat-sidenav-container, mat-sidenav-content, mat-sidenav {
   height: 100%;
 }
 
+mat-toolbar {
+  background-color: #66545e;
+}
 mat-sidenav {
   width: 15rem;
   color: blue;

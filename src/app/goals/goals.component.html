@@ -1,5 +1,9 @@
 <div fxLayoutAlign="center center">
-<table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8">
+  <div class="indicator" [hidden]="dataReceived">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <canvas id="icon" [hidden]="!dataRecieved"></canvas>
+  <table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8">
 
   <!-- Description Column -->
   <ng-container matColumnDef="description">

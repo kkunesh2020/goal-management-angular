@@ -6,19 +6,22 @@ export default class UserClass implements User {
   name: string;
   email: string;
   isAdmin: boolean;
-  groups?: Array<Group>;
+  goalsCompleted: number;
+  goalsAssigned: number;
 
   constructor(
     uid: string,
     name: string,
     email: string,
     isAdmin: boolean,
-    groups?: Array<Group>,
+    goalsCompleted: number,
+    goalsAssigned: number,
   ) {
     this.uid = uid;
     this.name = name;
     this.email = email;
     this.isAdmin = isAdmin;
-    this.groups = groups;
+    this.goalsCompleted = goalsCompleted;
+    this.goalsAssigned = goalsAssigned;
   }
 }

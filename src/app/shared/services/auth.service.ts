@@ -18,7 +18,7 @@ import { auth } from 'firebase';
 })
 export class AuthService {
   user$: Observable<User>;
-
+  // userName: string;
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     // Get the auth state, then fetch the Firestore user document or return null
     this.user$ = this.afAuth.authState.pipe(
@@ -52,12 +52,15 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
-
+    // this.userName = user.displayName;
+    //   console.log(this.userName);
     const data = {
       uid: user.uid,
       name: user.displayName,
       email: user.email,
-      isAdmin: false
+      isAdmin: false,
+      goalsAssigned: 0,
+      goalsCompleted: 0
     };
 
     return userRef.set(data, { merge: true });

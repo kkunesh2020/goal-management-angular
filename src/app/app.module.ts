@@ -15,6 +15,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 import { HomeComponent } from './home/home.component';
 import { GoalsComponent } from './goals/goals.component';
+import { TeacherComponent } from './teacher/teacher.component';
 
 
 
@@ -24,7 +25,8 @@ import { GoalsComponent } from './goals/goals.component';
     NavbarComponent,
     SideNavbarComponent,
     HomeComponent,
-    GoalsComponent
+    GoalsComponent,
+    TeacherComponent
   ],
   imports: [
     BrowserModule,

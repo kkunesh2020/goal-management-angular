@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../shared/services/home.service';
-
+import { Observable, of } from 'rxjs';
+import { browser } from 'protractor';
 
 export interface GoalElement {
   description: string;
@@ -17,22 +18,28 @@ const GOAL_DATA: GoalElement[] = [];
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.scss']
 })
-
 export class GoalsComponent implements OnInit {
   dataSource = GOAL_DATA;
-  goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
+  goalsDisplayedColumns: string[] = [
+    'description',
+    'dueDate',
+    'isCompleted',
+    'createdBy'
+  ];
   goalsDataSource: Array<GoalElement>;
   userNames = [];
-
-  constructor(private homeService: HomeService) { }
+  dataReceived = false;
+  constructor(private homeService: HomeService) {}
 
   ngOnInit() {
     this.showGoals();
   }
 
   showGoals() {
-    this.homeService.getAddedGoals().subscribe(goals => {
+    this.homeService.getUserGoals().subscribe(goals => {
       this.goalsDataSource = goals;
+      this.createUserNameDictionary(this.goalsDataSource);
+      console.log(this.userNames);
     });
   }
 
@@ -42,26 +49,18 @@ export class GoalsComponent implements OnInit {
       createdByIDs.push(goal.createdBy);
     });
     this.homeService.getUserNames(createdByIDs).then(result => {
-      this.userNames = result;
+      // this.userNames = result;
+      this.dataReceived = true;
     });
   }
 
   getUserName(userId: string): string {
     if (this.userNames.length) {
-      return this.userNames.find(element => element.userId === userId).name;
+      const blah = this.userNames.find(element => element.userId === userId)
+        .name;
+      console.log(blah);
+      return blah;
     }
     return '';
   }
-
-  getAssignedTo(uid: string): string {
-    if (this.goalsDataSource.length) {
-      return
-    }
-  }
-
-  getUserGoals(assignedTo: string): Array<GoalElement> {
-    return this.goalsDataSource.filter(element => element.assignedTo === assignedTo);
-  }
-
-
 }
