@@ -16,14 +16,14 @@ constructor(private readonly afs: AngularFirestore) {
 
 async getUserNames(userIds: Array<string>) {
     const usersCollection = this.afs.collection<User>('users');
-    let userNames = new Set();
+    const userNames = new Set();
     const reads = userIds.map(id => {
       // grab the user
       const user$ = usersCollection.doc<User>(id).valueChanges();
       // add their name to a set
       user$.subscribe(user => {
         userNames.add(user.name);
-      })
+      });
     });
     await Promise.all(reads);
     return Array.from(userNames.values());

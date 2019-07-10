@@ -12,7 +12,7 @@ describe('GroupClass Tests', () => {
     group = null;
   });
 
-  it('should have a valid constructor',() => {
+  it('should have a valid constructor', () => {
     expect(group).not.toBeNull();
   });
 
@@ -36,25 +36,25 @@ describe('GroupClass Tests', () => {
 
   it('should set users correctly through constructor', () => {
     const users = [
-      new UserClass('1', 'Katie', 'kkunesh@gmail.com', false),
-      new UserClass('2', 'Jacob', 'jdulai@gmail.com', false),
-      new UserClass('3', 'Noah', 'nrizika@gmail.com', false)
+      new UserClass('1', 'Katie', 'kkunesh@gmail.com', false, 5, 2),
+      new UserClass('2', 'Jacob', 'jdulai@gmail.com', false, 10, 5),
+      new UserClass('3', 'Noah', 'nrizika@gmail.com', false, 20, 7)
     ];
     expect(group.users).toEqual(users);
   });
 
   it('should be able to set users', () => {
     const users = [
-      new UserClass('1', 'Sam', 'kkunesh@gmail.com', false),
-      new UserClass('2', 'Jacob', 'jdulai@gmail.com', false),
-      new UserClass('3', 'Noah', 'nrizika@gmail.com', false)
+      new UserClass('1', 'Sam', 'kkunesh@gmail.com', false, 5, 2),
+      new UserClass('2', 'Jacob', 'jdulai@gmail.com', false, 10, 5),
+      new UserClass('3', 'Noah', 'nrizika@gmail.com', false, 20, 7)
     ];
     group.users = users;
     expect(group.users).toEqual(users);
   });
 
   it('should add a user to users', () => {
-    const newUser = new UserClass('4', 'Jd', 'jd@mail.com', true);
+    const newUser = new UserClass('4', 'Jd', 'jd@mail.com', true, 10, 5);
     group.users.push(newUser);
     expect(group.users).toContain(newUser);
   });
