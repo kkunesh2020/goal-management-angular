@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { User } from '../shared/models/user.model';
-import { AuthService } from '../shared/services/auth.service';
+import { User } from '../../shared/models/user.model';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'gms-navbar',

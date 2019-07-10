@@ -40,30 +40,30 @@ describe('goalClassTests', () => {
     expect(goal.createdBy).toEqual(TestUtils.getTestUser());
   });
   it('should be able to set createdBy', () => {
-    const user = new UserClass('6', 'user', 'email', false);
+    const user = new UserClass('6', 'user', 'email', false, 5, 2);
     goal.createdBy = user;
     expect(goal.createdBy).toEqual(user);
   });
   it('should set assignedTo correctly through constructor', () => {
     expect(goal.assignedTo).toEqual(
       [
-        new UserClass('1', 'Katie', 'kkunesh@gmail.com', false),
-        new UserClass('2', 'Jacob', 'jdulai@gmail.com', false),
-        new UserClass('3', 'Noah', 'nrizika@gmail.com', false)
+        new UserClass('1', 'Katie', 'kkunesh@gmail.com', false, 5, 2),
+        new UserClass('2', 'Jacob', 'jdulai@gmail.com', false, 10, 5),
+        new UserClass('3', 'Noah', 'nrizika@gmail.com', false, 20, 7)
       ]
     );
   });
   it('should be able to set assignedTo', () => {
     const users = [
-      new UserClass('4', 'Katie', 'kkunesh@gmail.com', false),
-      new UserClass('5', 'Jacob', 'jdulai@gmail.com', false),
-      new UserClass('6', 'Noah', 'nrizika@gmail.com', false)
+      new UserClass('4', 'Katie', 'kkunesh@gmail.com', false, 5, 2),
+      new UserClass('5', 'Jacob', 'jdulai@gmail.com', false, 5, 2),
+      new UserClass('6', 'Noah', 'nrizika@gmail.com', false, 5, 2)
     ];
     goal.assignedTo = users;
     expect(goal.assignedTo).toEqual(users);
   });
   it('should add a user to assignedTo', () => {
-    const user = new UserClass('4', 'JD', 'jd@gmail.com', false);
+    const user = new UserClass('4', 'JD', 'jd@gmail.com', false, 5, 2);
     goal.assignedTo.push(user);
     expect(goal.assignedTo).toContain(user);
   });

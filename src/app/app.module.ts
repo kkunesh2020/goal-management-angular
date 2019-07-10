@@ -5,14 +5,16 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
+
 import { environment } from 'src/environments/environment';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import { SideNavbarComponent } from './side-navbar/side-navbar.component';
+
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './navigation/navbar/navbar.component';
+import { SideNavbarComponent } from './navigation/side-navbar/side-navbar.component';
 import { HomeComponent } from './home/home.component';
 import { GoalsComponent } from './goals/goals.component';
 import { TeacherComponent } from './teacher/teacher.component';
