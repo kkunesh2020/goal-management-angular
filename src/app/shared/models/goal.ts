@@ -27,4 +27,4 @@ export default class GoalClass implements Goal {
       this.notes = notes;
       this.groups = groups;
     }
-};
+}

@@ -7,16 +7,11 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./teacher.component.scss']
 })
 export class TeacherComponent implements OnInit {
-  teacherName: string;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
 
   }
-
-  // showName() {
-  //   return this.authService.userName;
-
-  // }
 
 }
