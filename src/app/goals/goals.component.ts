@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../shared/services/home.service';
+import { StudentTableService } from '../shared/services/student-table.service';
 import { Observable, of } from 'rxjs';
 import { browser } from 'protractor';
 import { Goal } from '../shared/models/goal.model';
@@ -38,7 +38,7 @@ export class GoalsComponent implements OnInit {
   dataReceived = false;
 
 
-  constructor(private homeService: HomeService) {}
+  constructor(private studentTableService: StudentTableService) {}
 
   ngOnInit() {
     this.showGoals();
@@ -49,7 +49,7 @@ export class GoalsComponent implements OnInit {
    * creates a username dictionary
    */
   showGoals() {
-    this.homeService.getUserGoals().subscribe(goals => {
+    this.studentTableService.getUserGoals().subscribe(goals => {
       this.goalsDataSource = goals;
       this.createUserNameDictionary(this.goalsDataSource);
     });
@@ -64,7 +64,7 @@ export class GoalsComponent implements OnInit {
     goals.map(goal => {
       createdByIDs.push(goal.createdBy);
     });
-    this.homeService.getUserNames(createdByIDs).then(result => {
+    this.studentTableService.getUserNames(createdByIDs).then(result => {
       // this.userNames = result;
       this.dataReceived = true;
     });
