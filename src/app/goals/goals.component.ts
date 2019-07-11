@@ -2,48 +2,64 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../shared/services/home.service';
 import { Observable, of } from 'rxjs';
 import { browser } from 'protractor';
-
-export interface GoalElement {
-  description: string;
-  dueDate: Date;
-  isCompleted: boolean;
-  createdBy: string;
-  assignedTo: string;
-}
-
-const GOAL_DATA: GoalElement[] = [];
+import { Goal } from '../shared/models/goal.model';
 
 @Component({
   selector: 'gms-goals',
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.scss']
 })
+
 export class GoalsComponent implements OnInit {
-  dataSource = GOAL_DATA;
+
+  /**
+   * columns displayed in the table.
+   */
   goalsDisplayedColumns: string[] = [
     'description',
     'dueDate',
     'isCompleted',
     'createdBy'
   ];
-  goalsDataSource: Array<GoalElement>;
+
+  /**
+   * The array of all goals.
+   */
+  goalsDataSource: Array<Goal>;
+
+  /**
+   * The array of usernames.
+   */
   userNames = [];
+
+  /**
+   * If the goals data has been recieved from the database.
+   */
   dataReceived = false;
+
+
   constructor(private homeService: HomeService) {}
 
   ngOnInit() {
     this.showGoals();
   }
 
+  /**
+   * Retrieves the goals of the selected user from the database;
+   * creates a username dictionary
+   */
   showGoals() {
     this.homeService.getUserGoals().subscribe(goals => {
       this.goalsDataSource = goals;
       this.createUserNameDictionary(this.goalsDataSource);
-      console.log(this.userNames);
     });
   }
 
-  createUserNameDictionary(goals: Array<GoalElement>): void {
+  /**
+   * Creates a username dictionary.
+   * @param goals the given goals
+   */
+  createUserNameDictionary(goals: Array<Goal>): void {
     const createdByIDs = [];
     goals.map(goal => {
       createdByIDs.push(goal.createdBy);
@@ -54,12 +70,14 @@ export class GoalsComponent implements OnInit {
     });
   }
 
+  /**
+   * Gets the username of a user given the user ID.
+   * @param userId the given user ID
+   */
   getUserName(userId: string): string {
     if (this.userNames.length) {
-      const blah = this.userNames.find(element => element.userId === userId)
+      return this.userNames.find(element => element.userId === userId)
         .name;
-      console.log(blah);
-      return blah;
     }
     return '';
   }

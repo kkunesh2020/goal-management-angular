@@ -17,8 +17,12 @@ import { auth } from 'firebase';
   providedIn: 'root'
 })
 export class AuthService {
+
+  /**
+   * The current user.
+   */
   user$: Observable<User>;
-  // userName: string;
+
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     // Get the auth state, then fetch the Firestore user document or return null
     this.user$ = this.afAuth.authState.pipe(
@@ -35,7 +39,7 @@ export class AuthService {
   }
 
   /**
-   * Opens popup, signs user into google account, and adds user data to firebase
+   * Opens popup, signs user into google account, and adds user data to firebase.
    */
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
@@ -44,7 +48,7 @@ export class AuthService {
   }
 
   /**
-   * adds user data to firebase after login
+   * Adds user data to firebase after login.
    * @param user -
    */
   private updateUserData(user) {
@@ -52,8 +56,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
-    // this.userName = user.displayName;
-    //   console.log(this.userName);
+
     const data = {
       uid: user.uid,
       name: user.displayName,
@@ -66,6 +69,9 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
+  /**
+   * Signs the user out.
+   */
   async signOut() {
     await this.afAuth.auth.signOut();
     // this.router.navigate(['/']);

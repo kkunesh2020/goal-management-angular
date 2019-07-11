@@ -1,6 +1,6 @@
 import { NgModule, ViewChild } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SideNavbarComponent } from './side-navbar/side-navbar.component';
+import { SideNavbarComponent } from './navigation/side-navbar/side-navbar.component';
 import { GoalsComponent } from './goals/goals.component';
 import { HomeComponent } from './home/home.component';
 import { TeacherComponent } from './teacher/teacher.component';

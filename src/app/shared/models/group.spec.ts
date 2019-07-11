@@ -12,7 +12,7 @@ describe('GroupClass Tests', () => {
     group = null;
   });
 
-  it('should have a valid constructor',() => {
+  it('should have a valid constructor', () => {
     expect(group).not.toBeNull();
   });
 

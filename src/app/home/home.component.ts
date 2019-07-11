@@ -6,7 +6,9 @@ import { Goal } from '../shared/models/goal.model';
 import { Router } from '@angular/router';
 import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 
-
+/**
+ * Test User data.
+ */
 const ELEMENT_DATA: User[] = [
   {uid: '39aneZGNNmfA5wOqZf1yb48LxuP2', name: 'Anastasia', email: 'smenzelos2023@chadwickschool.org',
    isAdmin: false, goalsAssigned: 5, goalsCompleted: 5},
@@ -22,31 +24,31 @@ const ELEMENT_DATA: User[] = [
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  /**
+   * columns displayed in the table.
+   */
   displayedColumns: string[] = ['name', 'goalsAssigned', 'goalsCompleted'];
+  /**
+   * Stores the test user data.
+   */
   dataSource = ELEMENT_DATA;
+  /**
+   * The array of usernames
+   */
   userNames = [];
-  // userNames = [
-  //   {userId: 'mR9T1tHEwVcQbbUScFGY4TFqz0j2', name: 'J.D. DeVaughn-Brown'},
-  //   {userId: 'SFyyskdkeERiwVJmHx0Bi2HNxg62', name: 'Jacob Dulai'},
-  //   {userId: 'iyv2OTl7APb3gDqJKJuvFLPXozB3', name: 'Katie Kunesh'}
-  // ]
 
   constructor(private homeService: HomeService, private router: Router) { }
 
   ngOnInit() {
-    // this.showGoals();
+
   }
 
-  showGoals() {
-    // this.homeService.getAddedGoals().subscribe( goals => {
-    //   this.goalsDataSource = goals;
-    // });
-    // console.log(this.goalsDataSource);
-  }
-
+  /**
+   * Opens the goal component and sets the current student's id in home service.
+   * @param uid the given user id.
+   */
   openGoals(uid: string) {
       this.router.navigateByUrl('/goals');
-      this.homeService.currentStudent = uid;
+      this.homeService.currentStudentId = uid;
   }
 }
