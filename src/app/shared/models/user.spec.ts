@@ -5,7 +5,7 @@ describe('UserClass tests', () => {
     let user: UserClass = null;
 
     beforeEach(() => {
-        user = new UserClass('1', 'Test User', 'test@email.com', false);
+        user = new UserClass('1', 'Test User', 'test@email.com', false, 4, 6);
     });
     afterEach(() => {
         user = null;
@@ -40,20 +40,6 @@ describe('UserClass tests', () => {
     it('should be able to set isAdmin', () => {
         user.isAdmin = true;
         expect(user.isAdmin).toEqual(true);
-    });
-
-    it('should set groups correctly through constructor', () => {
-        const groups = [TestUtils.getTestGroup('Test Group')];
-        user = new UserClass('1', 'Test User', 'test@email.com', false, groups);
-        expect(user.groups).not.toBeNull();
-        expect(user.groups).toEqual(groups);
-    });
-
-    it('should be able to set groups', () => {
-        const groups = [TestUtils.getTestGroup('Jimmys Group')];
-        user = new UserClass('1', 'Jimmy', 'jimmy@gmail.com', true, groups);
-        expect(user.groups).not.toBeNull();
-        expect(user.groups).toEqual(groups);
     });
 
     it('should set id correctly through constructor', () => {
