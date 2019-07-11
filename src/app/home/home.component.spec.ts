@@ -7,6 +7,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { RouterModule } from '@angular/router';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -20,7 +21,8 @@ describe('HomeComponent', () => {
         MaterialModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
-        AngularFireAuthModule,]
+        AngularFireAuthModule,
+        RouterModule.forRoot([])]
     })
       .compileComponents();
   }));

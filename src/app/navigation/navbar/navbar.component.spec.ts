@@ -44,10 +44,10 @@
 //         AngularFirestoreModule,
 //         AngularFireAuthModule
 //       ],
-//       providers: [{
-//         provide: AuthService,
-//         useValue: authServiceStub
-//       }]
+      // providers: [{
+      //   provide: AuthService,
+      //   useValue: authServiceStub
+      // }]
 //     }).compileComponents();
 //   }));
 
@@ -57,39 +57,39 @@
 //     fixture.detectChanges();
 //   });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-
-//   it('should display login when logged out', () => {
-//     component.auth.signOut();
-//     const element = TestUtils.getElement(fixture);
-//     expect(element.innerText).not.toContain('Log Out');
-//     expect(element.innerText).toContain('Log In');
-//   });
-
-//   it('should display log out when logged in', () => {
-//     component.auth.googleSignin();
-//     fixture.detectChanges();
-//     const element = TestUtils.getElement(fixture);
-//     expect(element.innerText).not.toContain('Log In');
-//     expect(element.innerText).toContain('Log Out');
-//   });
-
-//   it('should display goal history when student is logged in', () => {
-//     component.auth.googleSignin();
-//     fixture.detectChanges();
-//     const element = TestUtils.getElement(fixture);
-//     expect(element.innerText).toContain('Goal History');
-//   });
-
-//   it('should display view students when teacher is logged in', () => {
-//     const user = TestUtils.getTestUser();
-//     user.isAdmin = true;
-//     component.auth.user$ = of(user);
-//     console.log('Set admin to true');
-//     fixture.detectChanges();
-//     const element = TestUtils.getElement(fixture);
-//     expect(element.innerText).toContain('View Students');
-//   });
+  // it('should create', () => {
+  //   expect(component).toBeTruthy();
+  // });
+  //
+  // it('should display login when logged out', () => {
+  //   component.auth.signOut();
+  //   const element = TestUtils.getElement(fixture);
+  //   expect(element.innerText).not.toContain('Log Out');
+  //   expect(element.innerText).toContain('Log In');
+  // });
+  //
+  // it('should display log out when logged in', () => {
+  //   component.auth.googleSignin();
+  //   fixture.detectChanges();
+  //   const element = TestUtils.getElement(fixture);
+  //   expect(element.innerText).not.toContain('Log In');
+  //   expect(element.innerText).toContain('Log Out');
+  // });
+  //
+  // it('should display goal history when student is logged in', () => {
+  //   component.auth.googleSignin();
+  //   fixture.detectChanges();
+  //   const element = TestUtils.getElement(fixture);
+  //   expect(element.innerText).toContain('Goal History');
+  // });
+  //
+  // it('should display view students when teacher is logged in', () => {
+  //   const user = TestUtils.getTestUser();
+  //   user.isAdmin = true;
+  //   component.auth.user$ = of(user);
+  //   console.log('Set admin to true');
+  //   fixture.detectChanges();
+  //   const element = TestUtils.getElement(fixture);
+  //   expect(element.innerText).toContain('View Students');
+  // });
 // });

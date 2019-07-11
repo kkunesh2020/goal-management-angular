@@ -10,6 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
 
+
 import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { SideNavbarComponent } from './navigation/side-navbar/side-navbar.compon
 import { HomeComponent } from './home/home.component';
 import { GoalsComponent } from './goals/goals.component';
 import { TeacherComponent } from './teacher/teacher.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -38,7 +40,8 @@ import { TeacherComponent } from './teacher/teacher.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    RouterModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

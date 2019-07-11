@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { RouterModule } from '@angular/router';
 
 describe('TeacherComponent', () => {
   let component: TeacherComponent;
@@ -22,7 +23,8 @@ describe('TeacherComponent', () => {
         MaterialModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
-        AngularFireAuthModule]
+        AngularFireAuthModule,
+        RouterModule.forRoot([])]
     })
       .compileComponents();
   }));
