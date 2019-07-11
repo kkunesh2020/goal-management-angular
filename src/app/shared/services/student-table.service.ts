@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class StudentTableService {
   /**
    * A collection of goals stored in the firestore database.
    */

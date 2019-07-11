@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TeacherComponent } from './teacher.component';
 import { MaterialModule } from '../shared/material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from '../home/home.component';
+import { StudentTableComponent } from '../student-table/student-table.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -17,7 +17,7 @@ describe('TeacherComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TeacherComponent,
-        HomeComponent],
+        StudentTableComponent],
       imports: [MaterialModule,
         NoopAnimationsModule,
         MaterialModule,

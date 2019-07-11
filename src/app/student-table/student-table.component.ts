@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../shared/services/home.service';
+import { StudentTableService } from '../shared/services/student-table.service';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user.model';
 import { Goal } from '../shared/models/goal.model';
@@ -20,11 +20,11 @@ const ELEMENT_DATA: User[] = [
 ];
 
 @Component({
-  selector: 'gms-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'gms-student-table',
+  templateUrl: './student-table.component.html',
+  styleUrls: ['./student-table.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class StudentTableComponent implements OnInit {
   /**
    * columns displayed in the table.
    */
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
    */
   userNames = [];
 
-  constructor(private homeService: HomeService, private router: Router) { }
+  constructor(private studentTableService: StudentTableService, private router: Router) { }
 
   ngOnInit() {
 
@@ -50,6 +50,6 @@ export class HomeComponent implements OnInit {
    */
   openGoals(uid: string) {
       this.router.navigateByUrl('/goals');
-      this.homeService.currentStudentId = uid;
+      this.studentTableService.currentStudentId = uid;
   }
 }

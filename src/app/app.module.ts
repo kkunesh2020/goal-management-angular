@@ -16,10 +16,11 @@ import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { SideNavbarComponent } from './navigation/side-navbar/side-navbar.component';
-import { HomeComponent } from './home/home.component';
+import { StudentTableComponent } from './student-table/student-table.component';
 import { GoalsComponent } from './goals/goals.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { RouterModule } from '@angular/router';
+import { GuestComponent } from './guest/guest.component';
 
 
 
@@ -28,9 +29,10 @@ import { RouterModule } from '@angular/router';
     AppComponent,
     NavbarComponent,
     SideNavbarComponent,
-    HomeComponent,
+    StudentTableComponent,
     GoalsComponent,
-    TeacherComponent
+    TeacherComponent,
+    GuestComponent
   ],
   imports: [
     BrowserModule,
