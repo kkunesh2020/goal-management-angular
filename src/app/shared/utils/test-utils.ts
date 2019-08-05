@@ -5,6 +5,7 @@ import { User } from '../models/user.model';
 import { ComponentRef } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import GoalClass from '../models/goal';
+import { Status } from '../models/status';
 
 export class TestUtils {
   static getTestGroup(name: string, users?: Array<User>): Group {
@@ -48,19 +49,17 @@ export class TestUtils {
   static getTestGoal(
     description = 'Test Goal',
     dueDate = new Date('2019-07-03'),
-    isCompleted = false,
+    status = Status.In_Progress,
     createdBy = this.getTestUser(),
-    assignedTo = [
+    createdAt = new Date('2019-07-01'),
+    assignedTo =
       new UserClass('1', 'Katie', 'kkunesh@gmail.com', false, 4, 6),
-      new UserClass('2', 'Jacob', 'jdulai@gmail.com', false, 4, 6),
-      new UserClass('3', 'Noah', 'nrizika@gmail.com', false, 4, 6)
-    ],
     notes = 'do something',
     groups = [
       this.getTestGroup('group 1'),
       this.getTestGroup('group 2')
     ]
   ) {
-    return new GoalClass(description, dueDate, isCompleted, createdBy, assignedTo, notes, groups);
+    return new GoalClass(description, dueDate, status, createdBy, createdAt, assignedTo, notes);
   }
 }

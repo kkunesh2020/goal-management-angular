@@ -1,13 +1,12 @@
 import { User } from './user.model';
-import { Group } from './group.model';
+import { Status } from './status';
 
 export interface Goal {
   description: string;
   dueDate: Date;
-  isCompleted: boolean;
+  status: Status;
   createdBy: User;
-  assignedTo?: Array<User>;
+  createdAt: Date;
+  assignedTo?: User;
   notes?: string;
-  groups?: Array<Group>;
-
 }

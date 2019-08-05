@@ -8,30 +8,30 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 
-describe('GoalsComponent', () => {
-  let component: GoalsComponent;
-  let fixture: ComponentFixture<GoalsComponent>;
+// describe('GoalsComponent', () => {
+//   let component: GoalsComponent;
+//   let fixture: ComponentFixture<GoalsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [GoalsComponent],
-      imports: [MaterialModule,
-        NoopAnimationsModule,
-        MaterialModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFirestoreModule,
-        AngularFireAuthModule,]
-    })
-      .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [GoalsComponent],
+//       imports: [MaterialModule,
+//         NoopAnimationsModule,
+//         MaterialModule,
+//         AngularFireModule.initializeApp(environment.firebaseConfig),
+//         AngularFirestoreModule,
+//         AngularFireAuthModule,]
+//     })
+//       .compileComponents();
+//   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(GoalsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(GoalsComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
