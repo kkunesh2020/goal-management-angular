@@ -63,7 +63,7 @@ describe('SideNavbarComponent', () => {
 
   it('should display login when logged out', () => {
     component.auth.signOut();
-    const element = TestUtils.getElement(fixture);
+    const element = TestUtils.getNativeElement(fixture);
     expect(element.innerText).not.toContain('Logout');
     expect(element.innerText).toContain('Login');
   });
@@ -71,7 +71,7 @@ describe('SideNavbarComponent', () => {
   it('should display log out when logged in', () => {
     component.auth.googleSignin();
     fixture.detectChanges();
-    const element = TestUtils.getElement(fixture);
+    const element = TestUtils.getNativeElement(fixture);
     expect(element.innerText).not.toContain('Login');
     expect(element.innerText).toContain('Logout');
   });
@@ -79,7 +79,7 @@ describe('SideNavbarComponent', () => {
   it('should display goal history when student is logged in', () => {
     component.auth.googleSignin();
     fixture.detectChanges();
-    const element = TestUtils.getElement(fixture);
+    const element = TestUtils.getNativeElement(fixture);
     expect(element.innerText).toContain('Goal History');
   });
 
@@ -89,7 +89,7 @@ describe('SideNavbarComponent', () => {
     component.auth.user$ = of(user);
     console.log('Set admin to true');
     fixture.detectChanges();
-    const element = TestUtils.getElement(fixture);
+    const element = TestUtils.getNativeElement(fixture);
     expect(element.innerText).toContain('View Students');
   });
 });

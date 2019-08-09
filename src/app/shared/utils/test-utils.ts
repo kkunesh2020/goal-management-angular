@@ -41,7 +41,7 @@ export class TestUtils {
     return new UserClass(uid, name, email, isAdmin, goalsCompleted, goalsAssigned);
   }
 
-  static getElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {
+  static getNativeElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {
     const element: HTMLElement = fixture.nativeElement as HTMLElement;
     return element;
   }
@@ -54,11 +54,7 @@ export class TestUtils {
     createdAt = new Date('2019-07-01'),
     assignedTo =
       new UserClass('1', 'Katie', 'kkunesh@gmail.com', false, 4, 6),
-    notes = 'do something',
-    groups = [
-      this.getTestGroup('group 1'),
-      this.getTestGroup('group 2')
-    ]
+    notes = 'do something'
   ) {
     return new GoalClass(description, dueDate, status, createdBy, createdAt, assignedTo, notes);
   }

@@ -30,10 +30,10 @@ describe('goalClassTests', () => {
     goal.dueDate = new Date('2019-07-04');
     expect(goal.dueDate).toEqual(new Date('2019-07-04'));
   });
-  it('should set isCompleted correctly through the constructor', () => {
+  it('should set status correctly through the constructor', () => {
     expect(goal.status).toEqual(Status.In_Progress);
   });
-  it('should be able to set isCompleted', () => {
+  it('should be able to set status', () => {
     goal.status = Status.Completed;
     expect(goal.status).toEqual(Status.Completed);
   });

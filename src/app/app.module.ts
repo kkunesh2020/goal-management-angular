@@ -7,6 +7,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
 
@@ -21,6 +22,8 @@ import { GoalsComponent } from './goals/goals.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { RouterModule } from '@angular/router';
 import { GuestComponent } from './guest/guest.component';
+import { TodaysGoalComponent } from './todays-goal/todays-goal.component';
+import { StudentHomeComponent } from './student-home/student-home.component';
 
 
 
@@ -32,7 +35,9 @@ import { GuestComponent } from './guest/guest.component';
     StudentTableComponent,
     GoalsComponent,
     TeacherComponent,
-    GuestComponent
+    GuestComponent,
+    TodaysGoalComponent,
+    StudentHomeComponent
   ],
   imports: [
     BrowserModule,

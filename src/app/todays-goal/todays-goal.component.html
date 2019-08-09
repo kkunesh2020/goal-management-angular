@@ -1,0 +1,12 @@
+<div *ngIf="goal; else noGoalAssigned">
+  {{ goal.description }}
+  <button mat-flat-button color="primary" id="accept-button">
+    Accept
+  </button>
+  <button mat-flat-button color="warn" id="reject-button">
+    Reject
+  </button>
+</div>
+<ng-template #noGoalAssigned>
+  No Goal Assigned
+</ng-template>

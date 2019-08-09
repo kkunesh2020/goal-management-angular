@@ -54,7 +54,6 @@ export class StudentTableService {
    * Gets all the goals assigned to the current student from the database.
    */
   getUserGoals(): Observable<any> {
-    console.log(this.currentStudentId);
     return this.afs
       .collection('goals', ref =>
         ref.where('assignedTo', '==', this.currentStudentId)

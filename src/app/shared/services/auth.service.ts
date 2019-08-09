@@ -69,6 +69,9 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
+  getCurrentUser(): Observable<User> {
+    return this.user$;
+  }
   /**
    * Signs the user out.
    */
