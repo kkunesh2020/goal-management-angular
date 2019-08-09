@@ -22,13 +22,14 @@ export class AuthService {
    * The current user.
    */
   user$: Observable<User>;
-
+  currentUserId: string;
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     // Get the auth state, then fetch the Firestore user document or return null
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         // Logged in
         if (user) {
+          this.currentUserId = user.uid;
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out

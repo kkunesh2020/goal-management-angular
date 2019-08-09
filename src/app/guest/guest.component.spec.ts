@@ -15,11 +15,6 @@ describe('GuestComponent', () => {
       this.user$ = of(TestUtils.getTestUser());
     },
 
-    async googleSignInWithAdmin() {
-      const user = TestUtils.getTestUser();
-      user.isAdmin = true;
-      return of(user);
-    },
     async signOut() {
       this.user$ = of(null);
     }

@@ -18,10 +18,10 @@ export class GoalService {
    */
   constructor(private readonly afs: AngularFirestore) {}
 
-  async getTodaysGoal(student: User): Promise<Goal> {
+  async getTodaysGoal(userId: string): Promise<Goal> {
     const todayDate = Utils.getSimplifiedDate(new Date());
     const query = this.afs.collection<Goal>('goals').ref
-        .where('assignedTo', '==', student.uid)
+        .where('assignedTo', '==', userId)
         // .where('dueDate', '==', todayDate)
         .limit(1);
 

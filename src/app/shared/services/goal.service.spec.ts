@@ -50,7 +50,7 @@ describe('GoalService', () => {
     it('returns the first goal for student', () => {
 
       const goalService: GoalService = TestBed.get(GoalService);
-      goalService.getTodaysGoal(currentUser).then(goal => {
+      goalService.getTodaysGoal(currentUser.uid).then(goal => {
         expect(goal).toEqual(currentGoals);
       });
     });
