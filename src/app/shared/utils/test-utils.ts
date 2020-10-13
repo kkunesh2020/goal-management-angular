@@ -48,6 +48,7 @@ export class TestUtils {
     description = 'Test Goal',
     dueDate = new Date('2019-07-03'),
     isCompleted = false,
+    id: 'abc123',
     createdBy = this.getTestUser(),
     assignedTo = [
       new UserClass('1', 'Katie', 'kkunesh@gmail.com', false),
@@ -60,6 +61,6 @@ export class TestUtils {
       this.getTestGroup('group 2')
     ]
   ) {
-    return new GoalClass(description, dueDate, isCompleted, createdBy, assignedTo, notes, groups);
+    return new GoalClass(description, dueDate, id, isCompleted, createdBy, assignedTo, notes, groups);
   }
 }

@@ -1,12 +1,21 @@
 <h1 mat-dialog-title>Update Goal</h1>
 <div mat-dialog-content>
-  <p>Description: {{data.description}}</p>
-  <p>Due Date: {{data.dueDate}}</p>
-  <p>Is Completed: {{data.isCompleted}}</p>
-  <p>Created By: {{data.createdBy}}</p>
+  <p>Description: {{currentGoal.description}}</p>
+  <p>Due Date: {{currentGoal.dueDate.seconds * 1000 | date}}</p>
+  <p>Created By: {{currentGoal.createdBy.name}}</p>
+  <p>Is Completed: {{currentGoal.isCompleted}}</p>
+  <div class="actionButton" *ngIf="!currentGoal.isCompleted">
+    <button *ngIf="!isLoading" mat-raised-button (click)="updateGoal(true)">Mark As Done</button>
+  </div>
+
+  <div class="actionButton" *ngIf="currentGoal.isCompleted">
+    <button *ngIf="!isLoading" mat-raised-button (click)="updateGoal(false)">UnSubmit</button>
+  </div>
+
+
 
 </div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button cdkFocusInitial>Ok</button>
+  <button mat-button mat-dialog-close [disabled]="isLoading">Cancel</button>
+  <button mat-button cdkFocusInitial [class.spinner]="isLoading" [disabled]="!madeChanges || isLoading" (click)="saveChanges()">Save Changes</button>
 </div>

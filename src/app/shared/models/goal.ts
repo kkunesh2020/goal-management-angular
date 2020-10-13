@@ -9,10 +9,12 @@ export default class GoalClass implements Goal {
   assignedTo?: Array<User>;
   notes?: string;
   groups?: Array<Group>;
+  id:string;
 
   constructor(
     description: string,
     dueDate: Date,
+    id: string,
     isCompleted: boolean,
     createdBy: User,
     assignedTo?: Array<User>,
@@ -26,5 +28,6 @@ export default class GoalClass implements Goal {
       this.assignedTo = assignedTo;
       this.notes = notes;
       this.groups = groups;
+      this.id = id;
     }
 };

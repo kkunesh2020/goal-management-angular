@@ -9,5 +9,5 @@ export interface Goal {
   assignedTo?: Array<User>;
   notes?: string;
   groups?: Array<Group>;
-
+  id: string;
 }

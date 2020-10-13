@@ -9,13 +9,15 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
 import { AppComponent } from './app.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from 'src/environments/environment';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 import { HomeComponent } from './home/home.component';
 import { UpdateGoalComponent } from './dialogs/update-goal/update-goal.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -36,6 +38,7 @@ import { UpdateGoalComponent } from './dialogs/update-goal/update-goal.component
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule
   ],
   providers: [],
