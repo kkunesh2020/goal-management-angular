@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../shared/services/home.service';
 import { Observable } from 'rxjs';
+import { UpdateGoalComponent } from '../dialogs/update-goal/update-goal.component';
+import {MatDialog} from '@angular/material/dialog';
+
 
 export interface PeriodicElement {
   name: string;
@@ -38,7 +41,7 @@ export class HomeComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   goalsDataSource = GOALS_DATA;
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.showGoals();
@@ -52,6 +55,12 @@ export class HomeComponent implements OnInit {
 
   getUser(userId: string): Observable<any> {
     return this.homeService.getUser(userId);
+  }
+
+
+  openDialog(data: any){
+    console.log("the data", data);
+    this.dialog.open(UpdateGoalComponent, {data});
   }
 
 }

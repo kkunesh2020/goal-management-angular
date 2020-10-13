@@ -9,11 +9,13 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
 import { AppComponent } from './app.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from 'src/environments/environment';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 import { HomeComponent } from './home/home.component';
+import { UpdateGoalComponent } from './dialogs/update-goal/update-goal.component';
 
 
 
@@ -22,11 +24,13 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     NavbarComponent,
     SideNavbarComponent,
-    HomeComponent
+    HomeComponent,
+    UpdateGoalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatDialogModule,
     MaterialModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -35,6 +39,7 @@ import { HomeComponent } from './home/home.component';
     FlexLayoutModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [UpdateGoalComponent]
 })
 export class AppModule { }
