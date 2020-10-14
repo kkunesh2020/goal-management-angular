@@ -18,6 +18,8 @@ import { UpdateGoalComponent } from './dialogs/update-goal/update-goal.component
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { StudentTableComponent } from './teacher/student-table/student-table.component';
+import { ClassListComponent } from './teacher/class-list/class-list.component';
 
 
 
@@ -27,7 +29,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NavbarComponent,
     SideNavbarComponent,
     HomeComponent,
-    UpdateGoalComponent
+    UpdateGoalComponent,
+    StudentTableComponent,
+    ClassListComponent
   ],
   imports: [
     BrowserModule,

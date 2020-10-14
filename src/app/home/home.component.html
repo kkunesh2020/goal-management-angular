@@ -27,8 +27,8 @@
 </table>
 </div>
 
-<div fxLayoutAlign="center center">
-<table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8">
+<div fxLayoutAlign="center center" *ngIf="auth.user$ | async as user">
+<table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8" *ngIf="!user.isAdmin">
 
   <!-- Description Column -->
   <ng-container matColumnDef="description">
