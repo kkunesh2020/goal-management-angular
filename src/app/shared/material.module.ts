@@ -39,7 +39,8 @@ import {
         MatSelectModule,
         MatTableModule,
         MatToolbarModule,
-    ]
+    ],
+    declarations: []
 })
 
 export class MaterialModule {}

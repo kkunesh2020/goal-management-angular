@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StudentTableComponent } from './teacher/student-table/student-table.component';
 import { ClassListComponent } from './teacher/class-list/class-list.component';
+import { ClassComponent } from './teacher/class/class.component';
 
 
 
@@ -31,7 +32,8 @@ import { ClassListComponent } from './teacher/class-list/class-list.component';
     HomeComponent,
     UpdateGoalComponent,
     StudentTableComponent,
-    ClassListComponent
+    ClassListComponent,
+    ClassComponent
   ],
   imports: [
     BrowserModule,

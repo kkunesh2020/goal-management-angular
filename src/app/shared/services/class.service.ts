@@ -22,4 +22,18 @@ export class ClassService {
     }).catch(err => console.log(err));
     return classes;
   }
+
+  async getClass(teacherUID: string, classID:string): Promise<any> {
+    let promise = this.afs.firestore.collection('classes').doc(classID).get().then(doc => {
+      console.log("got the class", doc.exists, doc.data().teacherUID == teacherUID, teacherUID);
+      if (doc.exists && doc.data().teacherUID == teacherUID) {
+        console.log("correct class", doc.data())
+        return doc.data();
+    } else {
+        console.log("No such document or inavlid teacher uid!");
+        return null;
+    }
+    })
+    return promise;
+  }
 }
