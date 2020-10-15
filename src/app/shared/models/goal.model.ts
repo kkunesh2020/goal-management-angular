@@ -4,7 +4,7 @@ import { Group } from './group.model';
 export interface Goal {
   description: string;
   dueDate: Date;
-  isCompleted: boolean;
+  hasCompleted: string[];
   createdBy: User;
   assignedTo?: Array<User>;
   assignedToID: Array<String>;

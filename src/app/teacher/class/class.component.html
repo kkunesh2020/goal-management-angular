@@ -74,7 +74,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="goalsDisplayedColumns"></tr>
-    <tr mat-row (click)="openDialog(row)" *matRowDef="let row; columns: goalsDisplayedColumns;"
+    <tr mat-row (click)="openDialog(row.goalReference, uid, row.isCompleted)" *matRowDef="let row; columns: goalsDisplayedColumns;"
     [class.green-row]="row.isCompleted"
     [class.red-row]="!row.isCompleted"></tr>
   </table>

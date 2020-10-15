@@ -6,50 +6,26 @@ import {MatDialog} from '@angular/material/dialog';
 import { AuthService } from '../shared/services/auth.service';
 
 
-export interface GoalsData {
-  description: string;
-  dueDate: Date;
-  isCompleted: boolean;
-  createdBy: string;
-}
-
-
-const GOALS_DATA: GoalsData[] = [
-  {description: 'make table', dueDate: new Date('2019-07-03'), isCompleted: false, createdBy: 'JD'},
-  {description: 'eat chipotle', dueDate: new Date('2019-07-03'), isCompleted: true, createdBy: 'JD'},
-];
-
 @Component({
   selector: 'gms-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  loggedIn: boolean = false;
+  loading: boolean = true;
 
-  goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
 
-  goalsDataSource = GOALS_DATA;
-
-  constructor(private homeService: HomeService, public dialog: MatDialog, public auth: AuthService) { }
+  constructor(private homeService: HomeService, public dialog: MatDialog, public auth: AuthService) {
+    this.auth.user$.subscribe(async (userProfile) => {
+      userProfile == null ? this.loggedIn = false : this.loggedIn = true;
+      this.loading = false;
+    })
+   }
 
   ngOnInit() {
-    this.showGoals();
+
   }
 
-  showGoals() {
-    this.homeService.getAddedGoals().subscribe( goals => {
-      this.goalsDataSource = goals;
-    });
-  }
-
-  getUser(userId: string): Observable<any> {
-    return this.homeService.getUser(userId);
-  }
-
-
-  openDialog(data: any){
-    console.log("the data", data);
-    this.dialog.open(UpdateGoalComponent, {data});
-  }
 
 }

@@ -4,7 +4,7 @@ import { Group } from './group.model';
 
 export default class GoalClass implements Goal {
   description: string;  dueDate: Date;
-  isCompleted: boolean;
+  hasCompleted: string[];
   createdBy: User;
   assignedTo?: Array<User>;
   notes?: string;
@@ -17,8 +17,8 @@ export default class GoalClass implements Goal {
     description: string,
     dueDate: Date,
     classID: string,
+    hasCompleted: string[],
     id: string,
-    isCompleted: boolean,
     createdBy: User,
     assignedToID: Array<String>,
     assignedTo?: Array<User>,
@@ -27,7 +27,7 @@ export default class GoalClass implements Goal {
     ) {
       this.description = description;
       this.dueDate = dueDate;
-      this.isCompleted = isCompleted;
+      this.hasCompleted = hasCompleted;
       this.createdBy = createdBy;
       this.assignedTo = assignedTo;
       this.notes = notes;

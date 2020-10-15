@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, Inject} from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Goal } from '../../shared/models/goal.model';
 
 @Component({
@@ -8,30 +8,34 @@ import { Goal } from '../../shared/models/goal.model';
   templateUrl: './update-goal.component.html',
   styleUrls: ['./update-goal.component.scss']
 })
-export class UpdateGoalComponent implements OnInit{
+
+
+export class UpdateGoalComponent{
   madeChanges:boolean = false;
   isLoading:boolean = false;
-  original: Goal;
   currentGoal: Goal;
+  isCompleted: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UpdateGoalComponent>, private afs: AngularFirestore) {
-    this.currentGoal = data;
-    this.original = data;
+    this.currentGoal = {description: data.description, dueDate: data.dueDate, hasCompleted: data.hasCompleted, createdBy: data.createdBy,
+      assignedToID: data.assignedToID, id: data.id, classID: data.classID};
+    this.isCompleted = data.isCompleted;
    }
-  ngOnInit(): void {
 
-  }
 
   updateGoal(isDone){
-    this.currentGoal.isCompleted = isDone;
+    console.log(this.currentGoal, "current goal");
+    if(isDone){
+      if(this.currentGoal.hasCompleted == null){
+        this.currentGoal.hasCompleted = [this.data.uid];
+      }else{
+        this.currentGoal.hasCompleted.push(this.data.uid);
+      }
+    }else{
+      this.currentGoal.hasCompleted = this.currentGoal.hasCompleted.filter(item => item !== this.data.uid);
+    }
     this.madeChanges = true;
-  }
-
-
-  saveChanges(){
     this.isLoading = true;
-    console.log(this.currentGoal.id);
-
     this.afs.doc<Goal>(`goals/` + this.currentGoal.id).set(this.currentGoal).then(() => {
       this.isLoading = false;
       this.madeChanges = true;

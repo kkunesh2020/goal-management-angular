@@ -7,5 +7,6 @@ export interface Class {
   title: string;
   teacherUID: string;
   students: DocumentReference[];
+  goals: DocumentReference[];
   id: string;
 }

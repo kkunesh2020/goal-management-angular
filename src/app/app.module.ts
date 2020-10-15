@@ -33,8 +33,8 @@ import { ClassComponent } from './teacher/class/class.component';
     NavbarComponent,
     SideNavbarComponent,
     HomeComponent,
-    UpdateGoalComponent,
     StudentTableComponent,
+    UpdateGoalComponent,
     ClassListComponent,
     ClassComponent
   ],

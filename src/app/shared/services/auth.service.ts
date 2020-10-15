@@ -19,7 +19,7 @@ import { auth } from 'firebase';
 export class AuthService {
   user$: Observable<User>;
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
+  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private route: Router) {
     // Get the auth state, then fetch the Firestore user document or return null
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -40,7 +40,9 @@ export class AuthService {
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return this.updateUserData(credential.user);
+    this.updateUserData(credential.user);
+    this.route.navigate(['/classes']);
+    return;
   }
 
   /**
@@ -63,10 +65,11 @@ export class AuthService {
         userRef.set(data, {merge: true});
       }
     })
+
   }
 
   async signOut() {
     await this.afAuth.auth.signOut();
-    // this.router.navigate(['/']);
+    this.route.navigate(['/']);
   }
 }
