@@ -18,8 +18,10 @@
     <div *ngIf="auth.user$ | async as user">
       <div *ngIf="user.isAdmin; then admin else studentBlock"></div>
       <ng-template #admin>
-        <mat-icon id="sidenav-dash-icon" class="icon">dashboard</mat-icon>
-        <span class="label">View Students</span>
+        <div class="action" routerLink="['/classes']">
+          <mat-icon id="sidenav-dash-icon" class="icon">dashboard</mat-icon>
+          <span class="label">View Classes</span>
+        </div>
       </ng-template>
       <ng-template #studentBlock>
         <mat-icon id="dash-icon" class="icon">dashboard</mat-icon>

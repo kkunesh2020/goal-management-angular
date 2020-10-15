@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { UpdateGoalComponent } from './dialogs/update-goal/update-goal.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StudentTableComponent } from './teacher/student-table/student-table.component';
 import { ClassListComponent } from './teacher/class-list/class-list.component';
@@ -45,6 +46,7 @@ import { ClassComponent } from './teacher/class/class.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
     FlexLayoutModule
   ],
   providers: [],
