@@ -12,13 +12,32 @@ export class ClassService {
   constructor(private afs: AngularFirestore) {
    }
 
-   getClasses(teacherUID: string): Class[] {
+   allowedInClass(userID: string, classID: string){
+     let allowed: boolean = false;
+     this.afs.firestore.collection('users').doc(userID).get().then(doc => {
+      if(doc.exists){
+        doc.data().classes.forEach(ref => {
+          ref.get().then(doc => {
+            if(doc.data().classID == classID){
+              return true;
+            }
+          });
+        })
+      }
+    })
+    return allowed;
+   }
+
+   getClasses(userID: string): Class[] {
     const classes: Class[] = [];
-    console.log('getting classes for teacher');
-    this.afs.firestore.collection('classes').where('teacherUID', '==', teacherUID).get().then((querySnapshot) => {
-      querySnapshot.forEach(function(doc) {
-        classes.push({id: doc.id, teacherUID: doc.data().teacherUID, students: doc.data().students, title: doc.data().title, members: doc.data().members});
-      });
+    console.log('getting classes for user');
+    this.afs.firestore.collection('users').doc(userID).get().then((doc) => {
+      if(doc.exists){
+        doc.data().classes.forEach(ref => {
+          ref.get().then(doc => classes.push(doc.data()));
+        })
+      }
+
     }).catch(err => console.log(err));
     return classes;
   }

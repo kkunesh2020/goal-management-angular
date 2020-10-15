@@ -1,7 +1,7 @@
 <div class="main" *ngIf="class">
   <h1 class="title">{{class.title}}</h1>
   <div fxLayoutAlign="center center">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="table">
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -27,6 +27,22 @@
       [class.yellow-row]="row.goalsCompleted/row.goalsAssigned >= .5"
       [class.red-row]="row.goalsCompleted/row.goalsAssigned < .5"></tr>
     </table>
+    </div>
+
+    <div fxLayoutAlign="center center">
+      <mat-accordion class="table">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Class Goals
+            </mat-panel-title>
+            <mat-panel-description>
+              Currently I am
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
 </div>
 

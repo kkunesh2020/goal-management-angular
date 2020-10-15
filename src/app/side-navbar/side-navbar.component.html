@@ -10,7 +10,7 @@
       <span class="label" (click)="auth.googleSignin()">Login</span>
     </ng-template>
   </a>
-  <a mat-list-item type="button">
+  <a mat-list-item type="button" [routerLink]="['/']" >
     <mat-icon class="icon">home</mat-icon>
     <span class="label">Home</span>
   </a>
@@ -18,10 +18,8 @@
     <div *ngIf="auth.user$ | async as user">
       <div *ngIf="user.isAdmin; then admin else studentBlock"></div>
       <ng-template #admin>
-        <div class="action" routerLink="['/classes']">
           <mat-icon id="sidenav-dash-icon" class="icon">dashboard</mat-icon>
-          <span class="label">View Classes</span>
-        </div>
+          <span class="label" [routerLink]="['/classes']">View Classes</span>
       </ng-template>
       <ng-template #studentBlock>
         <mat-icon id="dash-icon" class="icon">dashboard</mat-icon>

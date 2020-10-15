@@ -1,19 +1,32 @@
+.classes{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+
 .block{
+  margin-top: 5%;
   width: 13rem;
   height: 13rem;
   text-align: center;
 
   mat-icon{
-    font-size: 8rem;
-    width:8rem;
-    height: 8rem;
+    font-size: 6rem;
+    width:6rem;
+    height: 6rem;
+
+    .h2{
+      font-weight: bold;
+    }
   }
 
-  .h2{
-
-  }
 }
 
 mat-card:hover{
+  box-shadow: 0 8px 8px 8px rgba(0,0,0,.2), 0 8px 8px 0 rgba(0,0,0,.14), 0 8px 8px 0 rgba(0,0,0,.12) !important;
+  transform: translate3d(0,0,0);
+  transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
   cursor: pointer;
 }

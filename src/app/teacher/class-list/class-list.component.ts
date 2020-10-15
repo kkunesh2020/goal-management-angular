@@ -26,8 +26,8 @@ export class ClassListComponent implements OnInit {
     this.router.navigate([`/classes/${classID}`]);
   }
 
-  getClasses(teacherUID: string){
-    this.classes = this.classService.getClasses(teacherUID);
+  getClasses(userId: string){
+    this.classes = this.classService.getClasses(userId);
   }
 
 }

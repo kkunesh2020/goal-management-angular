@@ -1,3 +1,5 @@
+import { DocumentReference } from '@angular/fire/firestore';
+import { Class } from './class.model';
 import { Group } from './group.model';
 
 export interface User {
@@ -5,5 +7,5 @@ export interface User {
     name: string;
     email: string;
     isAdmin: boolean;
-    groups?: Array<Group>;
+    classes: Array<DocumentReference>;
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
@@ -8,9 +9,10 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class SideNavbarComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  constructor(public auth: AuthService, private route: Router) { }
 
   ngOnInit() {
   }
+
 
 }

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -47,7 +48,8 @@ import { ClassComponent } from './teacher/class/class.component';
     AngularFirestoreModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],

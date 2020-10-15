@@ -49,9 +49,7 @@ export class AuthService {
    */
   private updateUserData(user) {
     // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-      `users/${user.uid}`
-    );
+    const userRef = this.afs.firestore.doc(`users/${user.uid}`);
 
     const data = {
       uid: user.uid,
@@ -60,7 +58,11 @@ export class AuthService {
       isAdmin: false
     };
 
-    return userRef.set(data, { merge: true });
+    userRef.get().then((doc) => {
+      if(!doc.exists){
+        userRef.set(data, {merge: true});
+      }
+    })
   }
 
   async signOut() {
