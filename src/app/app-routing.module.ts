@@ -8,7 +8,8 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { ClassAuthGuard } from './shared/guards/class-auth.guard';
 
 const routes: Routes = [
-  {path:'', component: ClassComponent},
+  {path:'', component: HomeComponent},
+  {path: 'classes', component: ClassListComponent, canActivate: [AuthGuard]},
   {path: 'classes/:classID', component: ClassComponent, canActivate:[ClassAuthGuard]},
 ];
 

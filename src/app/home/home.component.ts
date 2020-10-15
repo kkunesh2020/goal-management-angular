@@ -6,12 +6,6 @@ import {MatDialog} from '@angular/material/dialog';
 import { AuthService } from '../shared/services/auth.service';
 
 
-export interface PeriodicElement {
-  name: string;
-  goalsAssigned: number;
-  goalsCompleted: number;
-}
-
 export interface GoalsData {
   description: string;
   dueDate: Date;
@@ -19,11 +13,6 @@ export interface GoalsData {
   createdBy: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {name: 'Anastasia', goalsAssigned: 5, goalsCompleted: 5},
-  {name: 'Bob', goalsAssigned: 3, goalsCompleted: 2},
-  {name: 'Cheryl', goalsAssigned: 16, goalsCompleted: 0},
-];
 
 const GOALS_DATA: GoalsData[] = [
   {description: 'make table', dueDate: new Date('2019-07-03'), isCompleted: false, createdBy: 'JD'},
@@ -37,9 +26,8 @@ const GOALS_DATA: GoalsData[] = [
 })
 export class HomeComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'goalsAssigned', 'goalsCompleted'];
   goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
-  dataSource = ELEMENT_DATA;
+
   goalsDataSource = GOALS_DATA;
 
   constructor(private homeService: HomeService, public dialog: MatDialog, public auth: AuthService) { }

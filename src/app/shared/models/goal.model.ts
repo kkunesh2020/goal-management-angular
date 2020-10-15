@@ -7,7 +7,9 @@ export interface Goal {
   isCompleted: boolean;
   createdBy: User;
   assignedTo?: Array<User>;
+  assignedToID: Array<String>;
   notes?: string;
   groups?: Array<Group>;
   id: string;
+  classID: String;
 }

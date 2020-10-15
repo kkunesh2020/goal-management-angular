@@ -9,14 +9,18 @@ export default class GoalClass implements Goal {
   assignedTo?: Array<User>;
   notes?: string;
   groups?: Array<Group>;
+  assignedToID: Array<String>;
   id:string;
+  classID: string;
 
   constructor(
     description: string,
     dueDate: Date,
+    classID: string,
     id: string,
     isCompleted: boolean,
     createdBy: User,
+    assignedToID: Array<String>,
     assignedTo?: Array<User>,
     notes?: string,
     groups?: Array<Group>
@@ -27,7 +31,9 @@ export default class GoalClass implements Goal {
       this.createdBy = createdBy;
       this.assignedTo = assignedTo;
       this.notes = notes;
+      this.assignedToID = assignedToID;
       this.groups = groups;
       this.id = id;
+      this.classID = classID;
     }
 };

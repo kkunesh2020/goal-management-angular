@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { UpdateGoalComponent } from './dialogs/update-goal/update-goal.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StudentTableComponent } from './teacher/student-table/student-table.component';
@@ -48,6 +49,7 @@ import { ClassComponent } from './teacher/class/class.component';
     AngularFirestoreModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
+    MatPaginatorModule,
     FlexLayoutModule,
     RouterModule
   ],
