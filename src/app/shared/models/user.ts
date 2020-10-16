@@ -9,6 +9,8 @@ export default class UserClass implements User {
   email: string;
   isAdmin: boolean;
   classes: Array<DocumentReference>;
+  goalsAssigned: Array<DocumentReference>;
+  goalsCompleted: Array<DocumentReference>;
 
   constructor(
     uid: string,
@@ -16,11 +18,15 @@ export default class UserClass implements User {
     email: string,
     isAdmin: boolean,
     classes: Array<DocumentReference>,
+    goalsAssigned: Array<DocumentReference>,
+    goalsCompleted: Array<DocumentReference>
   ) {
     this.uid = uid;
     this.name = name;
     this.email = email;
     this.isAdmin = isAdmin;
     this.classes = classes;
+    this.goalsAssigned = goalsAssigned;
+    this.goalsCompleted = goalsCompleted;
   }
 }

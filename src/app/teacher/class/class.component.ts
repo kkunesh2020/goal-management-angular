@@ -54,19 +54,19 @@ export class ClassComponent implements OnInit {
   class: Class;
   isAdmin: boolean;
   uid: string;
+  classID: string;
   dataSource = ELEMENT_DATA;
 
   constructor(private route: ActivatedRoute, private classService: ClassService, private auth: AuthService,
               public dialog: MatDialog, private goalService: GoalService) {
     this.auth.user$.subscribe(async (userProfile) => {
-      const id = this.route.snapshot.paramMap.get('classID');
+      this.classID = this.route.snapshot.paramMap.get('classID');
       if(!userProfile) return;
-      console.log("getting class for " + id);
-      this.getClass(id, userProfile.uid);
+      this.getClass(this.classID, userProfile.uid);
       this.isAdmin = userProfile.isAdmin;
       this.uid = userProfile.uid;
       if(!this.isAdmin){
-        this.getGoalsForStudent(id, userProfile.uid);
+        this.getGoalsForStudent(this.classID, userProfile.uid);
       }
     })
 
@@ -121,7 +121,13 @@ export class ClassComponent implements OnInit {
   openDialog(data: any, userID: string, isCompleted: boolean){
     data.uid = userID;
     data.isCompleted = isCompleted;
-    this.dialog.open(UpdateGoalComponent, {data});
+    let dialogRef = this.dialog.open(UpdateGoalComponent, {data});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'updated' && !this.isAdmin){
+        this.getGoalsForStudent(this.classID, this.uid);
+      }
+    });
   }
 
   ngOnInit() {

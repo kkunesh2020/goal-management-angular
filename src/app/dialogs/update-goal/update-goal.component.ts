@@ -1,6 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { GoalService } from 'src/app/shared/services/goal.service';
 import { Goal } from '../../shared/models/goal.model';
 
 @Component({
@@ -16,7 +17,7 @@ export class UpdateGoalComponent{
   currentGoal: Goal;
   isCompleted: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UpdateGoalComponent>, private afs: AngularFirestore) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UpdateGoalComponent>, private afs: AngularFirestore, private goalService: GoalService) {
     this.currentGoal = {description: data.description, dueDate: data.dueDate, hasCompleted: data.hasCompleted, createdBy: data.createdBy,
       assignedToID: data.assignedToID, id: data.id, classID: data.classID};
     this.isCompleted = data.isCompleted;
@@ -25,22 +26,21 @@ export class UpdateGoalComponent{
 
   updateGoal(isDone){
     console.log(this.currentGoal, "current goal");
-    if(isDone){
-      if(this.currentGoal.hasCompleted == null){
-        this.currentGoal.hasCompleted = [this.data.uid];
-      }else{
-        this.currentGoal.hasCompleted.push(this.data.uid);
-      }
-    }else{
-      this.currentGoal.hasCompleted = this.currentGoal.hasCompleted.filter(item => item !== this.data.uid);
-    }
     this.madeChanges = true;
     this.isLoading = true;
-    this.afs.doc<Goal>(`goals/` + this.currentGoal.id).set(this.currentGoal).then(() => {
-      this.isLoading = false;
-      this.madeChanges = true;
-      this.dialogRef.close();
-    }).catch(err => console.log(err));
+    if(isDone){ // mark as done
+      this.goalService.completeGoal(this.currentGoal, this.data.uid).then(() => {
+        this.isLoading = false;
+        this.madeChanges = true;
+        this.dialogRef.close('updated');
+      });
+    }else{// unsubmit
+      this.goalService.unsubmitGoal(this.currentGoal, this.data.uid).then(() => {
+        this.isLoading = false;
+        this.madeChanges = true;
+        this.dialogRef.close('updated');
+      });
+    }
   }
 
 

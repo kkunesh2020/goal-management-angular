@@ -8,4 +8,6 @@ export interface User {
     email: string;
     isAdmin: boolean;
     classes: Array<DocumentReference>;
+    goalsAssigned: Array<DocumentReference>;
+    goalsCompleted: Array<DocumentReference>;
 }

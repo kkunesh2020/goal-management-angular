@@ -57,7 +57,9 @@ export class AuthService {
       uid: user.uid,
       name: user.displayName,
       email: user.email,
-      isAdmin: false
+      isAdmin: false,
+      goalsAssigned: [],
+      goalsCompleted: []
     };
 
     userRef.get().then((doc) => {

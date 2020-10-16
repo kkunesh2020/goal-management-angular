@@ -11,9 +11,9 @@ export class TestUtils {
   static getTestGroup(name: string, users?: Array<User>): Group {
     if (!users) {
       users = [
-        new UserClass('1', 'Katie', 'kkunesh@gmail.com', false, []),
-        new UserClass('2', 'Jacob', 'jdulai@gmail.com', false, []),
-        new UserClass('3', 'Noah', 'nrizika@gmail.com', false, [])
+        new UserClass('1', 'Katie', 'kkunesh@gmail.com', false, [], [], []),
+        new UserClass('2', 'Jacob', 'jdulai@gmail.com', false, [], [], []),
+        new UserClass('3', 'Noah', 'nrizika@gmail.com', false, [], [], [])
       ];
     }
     return new GroupClass('1', name, users);
@@ -35,9 +35,11 @@ export class TestUtils {
     name = 'Test User',
     email = 'testemail@email.com',
     isAdmin = false,
-    classes: Array<DocumentReference>
+    classes: Array<DocumentReference>,
+    goalsAssigned: Array<DocumentReference>,
+    goalsCompleted: Array<DocumentReference>,
   ): User {
-    return new UserClass(uid, name, email, isAdmin, classes);
+    return new UserClass(uid, name, email, isAdmin, classes, goalsAssigned, goalsCompleted);
   }
 
   static getElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {
