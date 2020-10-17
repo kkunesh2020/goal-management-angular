@@ -2,6 +2,7 @@ import { query } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { StudentData } from 'src/app/teacher/class/class.component';
 import { Class } from '../models/class.model';
 
 @Injectable({
@@ -25,14 +26,24 @@ export class ClassService {
         })
       }
     })
-    return allowed;
+     return allowed;
    }
 
-   getStudentData(studentRef: DocumentReference): Promise<any>{
-     let promise = studentRef.get().then((doc) => {
-       return doc.data();
+   getStudentsData(studentRefs: DocumentReference[]){
+    let studentData = [];
+    studentRefs.forEach(ref => {
+       ref.get().then(doc => {
+        studentData.push({name: doc.data().name, uid: doc.data().uid});
+       });
      })
 
+    return studentData;
+   }
+
+   getStudentData(ref: DocumentReference):Promise<any>{
+     let promise = ref.get().then(doc => {
+       return doc;
+     })
      return promise;
    }
 

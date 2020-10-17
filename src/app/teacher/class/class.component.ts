@@ -65,7 +65,7 @@ export class ClassComponent implements OnInit {
               public dialog: MatDialog, private goalService: GoalService) {
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
-      if(!userProfile) return;
+      if(!userProfile) { return; }
       this.getClass(this.classID, userProfile.uid).then(() => {
         this.isAdmin = userProfile.isAdmin;
         this.uid = userProfile.uid;
@@ -74,7 +74,7 @@ export class ClassComponent implements OnInit {
         }else{
           this.getAllGoalsForTeacher(this.classID);
           this.getStudentData();
-          console.log("the student data", this.studentDataSource);
+          console.log('the student data', this.studentDataSource);
         }
       });
     })
@@ -85,8 +85,8 @@ export class ClassComponent implements OnInit {
     let studentData: StudentData[] = [];
     this.class.students.forEach(ref => {
       this.classService.getStudentData(ref).then((student) => {
-        let data: StudentData  = {name: student.name, goalsAssigned: student.goalsAssigned.length,
-          goalsCompleted: student.goalsCompleted.length};
+        let data: StudentData  = {name: student.name, goalsAssigned: this.getLengthOf(student.goalsAssigned),
+          goalsCompleted: this.getLengthOf(student.goalsCompleted)};
         studentData.push(data);
       });
     })
@@ -162,7 +162,7 @@ export class ClassComponent implements OnInit {
   }
 
   createGoalDialog(){
-    let data = {createdBy: this.uid, classID: this.classID, students: this.class.students};
+    let data = {createdBy: this.uid, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
     let dialogRef = this.dialog.open(CreateGoalComponent, {data});
 
     dialogRef.afterClosed().subscribe(result => {

@@ -8,7 +8,6 @@ export default class GoalClass implements Goal {
   hasCompleted: Array<String>;
   createdBy: User;
   assignedTo?: Array<User>;
-  notes?: string;
   groups?: Array<Group>;
   assignedToID: Array<String>;
   id:string;
@@ -22,18 +21,14 @@ export default class GoalClass implements Goal {
     id: string,
     createdBy: User,
     assignedToID: Array<String>,
-    assignedTo?: Array<User>,
-    notes?: string,
-    groups?: Array<Group>
+    assignedTo?: Array<User>
     ) {
       this.description = description;
       this.dueDate = dueDate;
       this.hasCompleted = hasCompleted;
       this.createdBy = createdBy;
       this.assignedTo = assignedTo;
-      this.notes = notes;
       this.assignedToID = assignedToID;
-      this.groups = groups;
       this.id = id;
       this.classID = classID;
     }
