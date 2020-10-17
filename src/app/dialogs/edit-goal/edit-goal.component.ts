@@ -22,10 +22,9 @@ export class EditGoalComponent implements OnInit {
     this.students = this.classService.getStudentsDataByID(data.assignedToStudents);
 
   //retrieve the data (class id, createdBy, assignedTo <= users)
-    this.goal = new GoalClass(data.description, data.dueDate, data.classID, data.completedStudents,
+  console.log(new Date(data.dueDate.seconds * 1000));
+    this.goal = new GoalClass(data.description, new Date(data.dueDate.seconds * 1000), data.classID, data.completedStudents,
       data.id, data.createdBy, data.assignedToStudents);
-
-    console.log("studesnt::: ", data.assignedToStudents);
    }
 
   ngOnInit() {
