@@ -3,8 +3,9 @@ import { User } from './user.model';
 import { Group } from './group.model';
 
 export default class GoalClass implements Goal {
-  description: string;  dueDate: Date;
-  hasCompleted: string[];
+  description: string;
+  dueDate: Date;
+  hasCompleted: Array<String>;
   createdBy: User;
   assignedTo?: Array<User>;
   notes?: string;
@@ -17,7 +18,7 @@ export default class GoalClass implements Goal {
     description: string,
     dueDate: Date,
     classID: string,
-    hasCompleted: string[],
+    hasCompleted: Array<String>,
     id: string,
     createdBy: User,
     assignedToID: Array<String>,

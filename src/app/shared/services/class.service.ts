@@ -1,6 +1,6 @@
 import { query } from '@angular/animations';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Class } from '../models/class.model';
 
@@ -26,6 +26,14 @@ export class ClassService {
       }
     })
     return allowed;
+   }
+
+   getStudentData(studentRef: DocumentReference): Promise<any>{
+     let promise = studentRef.get().then((doc) => {
+       return doc.data();
+     })
+
+     return promise;
    }
 
    getClasses(userID: string): Class[] {

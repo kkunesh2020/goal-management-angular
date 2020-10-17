@@ -61,7 +61,6 @@ export class GoalService {
 
     let promise = this.afs.doc<Goal>(`goals/` + goal.id).set(goal).then(() => {
       let ref = this.afs.firestore.collection("goals").doc(goal.id);
-      this.afs.firestore.collection("users").doc(uid).update({goalsAssigned: firebase.firestore.FieldValue.arrayRemove(ref)});
       this.afs.firestore.collection("users").doc(uid).update({goalsCompleted: firebase.firestore.FieldValue.arrayUnion(ref)});
     }).catch(err => console.log(err));
 
@@ -72,7 +71,6 @@ export class GoalService {
     goal.hasCompleted = goal.hasCompleted.filter(item => item !== uid);
     let promise = this.afs.doc<Goal>(`goals/` + goal.id).set(goal).then(() => {
       let ref = this.afs.firestore.collection("goals").doc(goal.id);
-      this.afs.firestore.collection("users").doc(uid).update({goalsAssigned: firebase.firestore.FieldValue.arrayUnion(ref)});
       this.afs.firestore.collection("users").doc(uid).update({goalsCompleted: firebase.firestore.FieldValue.arrayRemove(ref)});
     }).catch(err => console.log(err));
 

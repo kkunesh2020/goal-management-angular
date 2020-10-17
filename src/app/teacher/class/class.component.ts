@@ -9,8 +9,9 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ClassService } from 'src/app/shared/services/class.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { BehaviorSubject } from 'rxjs';
+import { CreateGoalComponent } from 'src/app/dialogs/create-goal/create-goal.component';
 
-export interface PeriodicElement {
+export interface StudentData {
   name: string;
   goalsAssigned: number;
   goalsCompleted: number;
@@ -24,6 +25,7 @@ export interface GoalsTableData {
   goalReference: Goal
 }
 
+
 export interface GoalStat{
   description: string;
   dueDate: Date;
@@ -32,13 +34,13 @@ export interface GoalStat{
 }
 
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {name: 'Anastasia', goalsAssigned: 5, goalsCompleted: 5},
-  {name: 'Bob', goalsAssigned: 3, goalsCompleted: 2},
-  {name: 'Cheryl', goalsAssigned: 16, goalsCompleted: 0},
+const STUDENT_DATA: StudentData[] = [
 ];
 
 const GOALS_DATA: GoalsTableData[] = [
+];
+
+const CLASS_GOALS_DATA: GoalStat[] = [
 ];
 
 @Component({
@@ -49,27 +51,47 @@ const GOALS_DATA: GoalsTableData[] = [
 export class ClassComponent implements OnInit {
   displayedColumns: string[] = ['name', 'goalsAssigned', 'goalsCompleted'];
   goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
+  classgoalsDisplayedColumns: string[] = ['description', 'dueDate', 'assignedTo', 'completed'];
   goalsDataSource = GOALS_DATA;
+  classGoals = CLASS_GOALS_DATA;
   goalData: Goal[];
   class: Class;
   isAdmin: boolean;
   uid: string;
   classID: string;
-  dataSource = ELEMENT_DATA;
+  studentDataSource = STUDENT_DATA;
 
   constructor(private route: ActivatedRoute, private classService: ClassService, private auth: AuthService,
               public dialog: MatDialog, private goalService: GoalService) {
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
       if(!userProfile) return;
-      this.getClass(this.classID, userProfile.uid);
-      this.isAdmin = userProfile.isAdmin;
-      this.uid = userProfile.uid;
-      if(!this.isAdmin){
-        this.getGoalsForStudent(this.classID, userProfile.uid);
-      }
+      this.getClass(this.classID, userProfile.uid).then(() => {
+        this.isAdmin = userProfile.isAdmin;
+        this.uid = userProfile.uid;
+        if(!this.isAdmin){
+          this.getGoalsForStudent(this.classID, userProfile.uid);
+        }else{
+          this.getAllGoalsForTeacher(this.classID);
+          this.getStudentData();
+          console.log("the student data", this.studentDataSource);
+        }
+      });
     })
 
+  }
+
+  getStudentData(){ //work on this
+    let studentData: StudentData[] = [];
+    this.class.students.forEach(ref => {
+      this.classService.getStudentData(ref).then((student) => {
+        let data: StudentData  = {name: student.name, goalsAssigned: student.goalsAssigned.length,
+          goalsCompleted: student.goalsCompleted.length};
+        studentData.push(data);
+      });
+    })
+    this.studentDataSource = studentData;
+    console.log(this.studentDataSource);
   }
 
   goalIsCompleted(hasCompleted: string[], userID: string){
@@ -77,10 +99,11 @@ export class ClassComponent implements OnInit {
     return this.goalService.userHasCompleted(hasCompleted, userID);
   }
 
-  getClass(id: string, teacherUID: string){
-    this.classService.getClass(teacherUID, id).then((data) => {
+  getClass(id: string, teacherUID: string): Promise<any>{
+    let promise = this.classService.getClass(teacherUID, id).then((data) => {
       this.class = data;
     });
+    return promise;
   }
 
   getAllGoalsForTeacher(classID:string){
@@ -90,12 +113,21 @@ export class ClassComponent implements OnInit {
         let newGoal: GoalStat  = {
           description: element.description,
           dueDate: element.dueDate,
-          assignedTo: element.assignedTo.length,
-          completed: element.hasCompleted.length,
+          assignedTo: this.getLengthOf(element.assignedTo),
+          completed: this.getLengthOf(element.hasCompleted),
         }
         goals.push(newGoal);
       });
+      this.classGoals = goals;
+      console.log("class goals", this.classGoals);
     })
+  }
+
+  getLengthOf(array: any[]){
+    if(array == null){
+      return 0;
+    }
+    return array.length;
   }
 
 
@@ -103,7 +135,6 @@ export class ClassComponent implements OnInit {
     let goals: GoalsTableData[] = [];
     this.goalService.getGoalsForClassWithId(classID, studentID).then((data) => {
       data.forEach(element => {
-        console.log("the element", element);
         let newGoal: GoalsTableData  = {
           description: element.description,
           dueDate: element.dueDate,
@@ -126,6 +157,17 @@ export class ClassComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'updated' && !this.isAdmin){
         this.getGoalsForStudent(this.classID, this.uid);
+      }
+    });
+  }
+
+  createGoalDialog(){
+    let data = {createdBy: this.uid, classID: this.classID, students: this.class.students};
+    let dialogRef = this.dialog.open(CreateGoalComponent, {data});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'success' && this.isAdmin){
+        this.getAllGoalsForTeacher(this.classID);
       }
     });
   }

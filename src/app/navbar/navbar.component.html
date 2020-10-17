@@ -6,7 +6,7 @@
     </button>
   </div>
   <div>
-    <a>
+    <a [routerLink]="'/'">
       Chadwick Goal Management System
     </a>
   </div>
@@ -14,14 +14,14 @@
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout fxLayoutGap="20px" class="navigation-items">
       <li>
-        <a>
+        <a [routerLink]="'/'">
           <mat-icon id="home-icon" class="icon">home</mat-icon>
           <span class="label">Home</span>
         </a>
       </li>
       <div *ngIf="auth.user$ | async as user">
         <li>
-          <a>
+          <a [routerLink]="'/classes'">
             <div *ngIf="user.isAdmin; then admin; else studentBlock"></div>
             <ng-template #admin>
               <mat-icon class="icon">dashboard</mat-icon>

@@ -1,7 +1,7 @@
 <div class="teacherSection" *ngIf="class && isAdmin">
   <h1 class="title">{{class.title}}</h1>
   <div fxLayoutAlign="center center">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="table">
+    <table mat-table [dataSource]="studentDataSource" class="mat-elevation-z8" class="table">
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -29,21 +29,40 @@
     </table>
     </div>
 
+    <button mat-raised-button (click)="createGoalDialog()">Create Goal</button>
     <div fxLayoutAlign="center center">
-      <mat-accordion class="table">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Class Goals
-            </mat-panel-title>
-            <mat-panel-description>
-              Currently I am
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </div>
+    <table mat-table [dataSource]="classGoals" class="mat-elevation-z8" class="table">
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+      <!-- Due Date Column -->
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef> Due Date </th>
+        <td mat-cell *matCellDef="let element" >{{ element.dueDate.seconds * 1000 | date}}</td>
+      </ng-container>
+
+      <!-- isCompleted Column -->
+      <ng-container matColumnDef="assignedTo">
+        <th mat-header-cell *matHeaderCellDef> Assigned To </th>
+        <td mat-cell *matCellDef="let element"> {{element.assignedTo}} </td>
+      </ng-container>
+
+      <!-- isCompleted Column -->
+      <ng-container matColumnDef="completed">
+        <th mat-header-cell *matHeaderCellDef> Completed </th>
+        <td mat-cell *matCellDef="let element"> {{ element.completed}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="classgoalsDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: classgoalsDisplayedColumns;"
+      [class.green-row]="row.completed/row.assignedTo >= .8"
+      [class.yellow-row]="row.completed/row.assignedTo >= .5"
+      [class.red-row]="row.completed/row.assignedTo < .5"></tr>
+    </table>
+  </div>
 </div>
 
 <div class="studentSection" *ngIf="class && !isAdmin" fxLayoutAlign="center center">
