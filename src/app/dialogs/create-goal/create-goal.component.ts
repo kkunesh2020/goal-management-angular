@@ -18,7 +18,7 @@ export class CreateGoalComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
               public dialogRef: MatDialogRef<CreateGoalComponent>) {
-    this.goal = new GoalClass('', null, data.classID, [], '', data.createdBy, [], []);
+    this.goal = new GoalClass('', null, data.classID, [], '', data.createdBy, []);
    }
 
   ngOnInit() {
@@ -28,10 +28,8 @@ export class CreateGoalComponent implements OnInit {
     this.allAssigned = assign;
     this.data.students.forEach(student => {
       if(assign){
-        this.goal.assignedTo.push(student);
         this.goal.assignedToID.push(student.uid);
       }else{
-        this.goal.assignedTo = [];
         this.goal.assignedToID = [];
       }
 
@@ -39,7 +37,7 @@ export class CreateGoalComponent implements OnInit {
   }
 
   checkAssignedTo(studentUID: string){
-    if(this.goal.assignedTo == []){
+    if(this.goal.assignedToID == []){
       return false;
     }
     return this.goal.assignedToID.includes(studentUID);
@@ -51,13 +49,11 @@ export class CreateGoalComponent implements OnInit {
 
   checkSpecific(student: any, assigned: boolean){
     if(assigned){
-      this.goal.assignedTo.push(student);
       this.goal.assignedToID.push(student.uid);
     }else{ //removes student entrys from assigned to arrays
       this.allAssigned = false;
       console.log("student uid", student.uid);
       this.goal.assignedToID = this.goal.assignedToID.filter(uid => uid != student.uid);
-      this.goal.assignedTo = this.goal.assignedTo.filter(student => student.uid != student.uid);
     }
   }
 

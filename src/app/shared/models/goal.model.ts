@@ -6,7 +6,6 @@ export interface Goal {
   dueDate: Date;
   hasCompleted: Array<String>;
   createdBy: User;
-  assignedTo?: Array<User>;
   assignedToID: Array<String>;
   id: string;
   classID: String;

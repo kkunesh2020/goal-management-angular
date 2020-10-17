@@ -13,6 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CreateGoalComponent } from 'src/app/dialogs/create-goal/create-goal.component';
 import UserClass from 'src/app/shared/models/user';
 import { DocumentReference } from '@angular/fire/firestore';
+import { User } from '../../shared/models/user.model';
 
 export interface StudentData {
   name: string;
@@ -34,6 +35,7 @@ export interface GoalStat{
   dueDate: Date;
   assignedToStudents: Array<string>;
   completedStudents: Array<string>;
+  assignedTo: Array<User>;
   id: string;
 }
 
@@ -58,9 +60,9 @@ export class ClassComponent implements OnInit {
   classgoalsDisplayedColumns: string[] = ['description', 'dueDate', 'assignedTo', 'completed'];
   goalsDataSource = GOALS_DATA;
   classGoals = CLASS_GOALS_DATA;
-  goalData: Goal[];
   class: Class;
   isAdmin: boolean;
+  loading: boolean;
   uid: string;
   user: UserClass;
   classID: string;
@@ -68,6 +70,7 @@ export class ClassComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private classService: ClassService, private auth: AuthService,
               public dialog: MatDialog, private goalService: GoalService) {
+    this.loading = true;
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
       if(!userProfile) { return; }
@@ -79,12 +82,12 @@ export class ClassComponent implements OnInit {
           this.getGoalsForStudent(this.classID, userProfile.uid);
         }else{
           this.getAllGoalsForTeacher(this.classID);
-          this.getStudentData();
+          // this.getStudentData();
           console.log('the student data', this.studentDataSource);
         }
       });
     })
-
+    this.loading = false;
   }
 
   getStudentData(){ //work on this
@@ -101,7 +104,7 @@ export class ClassComponent implements OnInit {
   }
 
   goalIsCompleted(hasCompleted: string[], userID: string){
-    console.log("goalIsCompleted?", this.goalService.userHasCompleted(hasCompleted, userID))
+    console.log('goalIsCompleted?', this.goalService.userHasCompleted(hasCompleted, userID))
     return this.goalService.userHasCompleted(hasCompleted, userID);
   }
 
@@ -116,18 +119,19 @@ export class ClassComponent implements OnInit {
     let goals: GoalStat[] = [];
     this.goalService.getGoalsForClass(classID).then((data) => {
       data.forEach(element => {
-        console.log("element.assignedTo", element.assignedToID);
+        console.log('element.assignedTo', element.assignedTo);
         let newGoal: GoalStat  = {
           description: element.description,
           dueDate: element.dueDate,
           completedStudents: element.hasCompleted,
           assignedToStudents: element.assignedToID,
-          id: element.id
+          id: element.id,
+          assignedTo: element.assignedTo
         }
         goals.push(newGoal);
       });
       this.classGoals = goals;
-      console.log("class goals", this.classGoals);
+      console.log('class goals', this.classGoals);
     })
   }
 
@@ -180,14 +184,24 @@ export class ClassComponent implements OnInit {
     });
   }
 
-  editDialog(newGoal: GoalStat){
-    let dialogRef = this.dialog.open(EditGoalComponent, {data: newGoal});
+  //class id, createdBy, assignedTo
+  editDialog(goal: GoalStat) {
+    let editData = {
+      description: goal.description,
+      dueDate: goal.dueDate,
+      assignedToStudents: goal.assignedToStudents,
+      completedStudents: goal.completedStudents,
+      id: goal.id,
+      classID: this.classID,
+      createdBy: this.uid
+    }
+    const dialogRef = this.dialog.open(EditGoalComponent, {data: editData});
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == 'success' && this.isAdmin){
-        this.getAllGoalsForTeacher(this.classID);
-      }
-    });
+    if (result === 'success' && this.isAdmin){
+      this.getAllGoalsForTeacher(this.classID);
+    }
+  })
   }
 
   ngOnInit() {

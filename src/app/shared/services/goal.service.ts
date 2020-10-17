@@ -3,6 +3,7 @@ import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { GoalStat } from 'src/app/teacher/class/class.component';
 import { Goal } from '../models/goal.model';
+import GoalClass from 'src/app/shared/models/goal';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class GoalService {
     let promise = this.goalsCollection.where('classID', '==', classID).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         goals.push({description: doc.data().description, dueDate: doc.data().dueDate, id: doc.id, createdBy: doc.data().createdBy, hasCompleted: doc.data().hasCompleted, classID: doc.data().classID,
-          assignedToID: doc.data().assignedToID, assignedTo: doc.data().assignedTo});
+          assignedToID: doc.data().assignedToID});
       })
       return goals;
     })
@@ -36,10 +37,15 @@ export class GoalService {
     let promise = this.goalsCollection.where('classID', '==', classID).where('assignedToID', 'array-contains', userID).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         goals.push({description: doc.data().description, dueDate: doc.data().dueDate, id: doc.id, createdBy: doc.data().createdBy, hasCompleted: doc.data().hasCompleted,
-          classID: doc.data().classID, assignedToID: doc.data().assignedToID, assignedTo: doc.data().assignedTo});
+          classID: doc.data().classID, assignedToID: doc.data().assignedToID});
       })
       return goals;
     })
+    return promise;
+  }
+
+  getGoalById(goalID: string): Promise<any>{
+    let promise = this.goalsCollection.doc(goalID).get().then(doc => {return doc;}).catch(err => {console.log(err)});
     return promise;
   }
 
@@ -104,6 +110,12 @@ export class GoalService {
 
     //remove doc from goal collection
     let promise = goalRef.delete().then(() => {return;}).catch(err => console.log(err));
+    return promise;
+  }
+
+  editGoal(goal: GoalClass): Promise<any>{
+    let promise = this.goalsCollection.doc(goal.id).set(goal).then(() => {return;})
+    .catch(err => console.log(err));
     return promise;
   }
 
