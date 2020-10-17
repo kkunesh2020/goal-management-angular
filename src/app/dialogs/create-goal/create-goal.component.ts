@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GoalService } from 'src/app/shared/services/goal.service';
+import { StudentData } from 'src/app/teacher/class/class.component';
 import GoalClass from '../../shared/models/goal';
 
 @Component({
@@ -13,6 +14,7 @@ export class CreateGoalComponent implements OnInit {
   goal : GoalClass;
   allAssigned: boolean = false;
   loading: boolean = false;
+
 
   //data needed: createdBy classID
 

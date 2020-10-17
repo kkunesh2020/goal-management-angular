@@ -33,9 +33,8 @@ export interface GoalsTableData {
 export interface GoalStat{
   description: string;
   dueDate: Date;
-  assignedToStudents: Array<string>;
+  assignedToID: Array<string>;
   completedStudents: Array<string>;
-  assignedTo: Array<User>;
   id: string;
 }
 
@@ -119,15 +118,14 @@ export class ClassComponent implements OnInit {
     let goals: GoalStat[] = [];
     this.goalService.getGoalsForClass(classID).then((data) => {
       data.forEach(element => {
-        console.log('element.assignedTo', element.assignedTo);
         let newGoal: GoalStat  = {
           description: element.description,
           dueDate: element.dueDate,
           completedStudents: element.hasCompleted,
-          assignedToStudents: element.assignedToID,
-          id: element.id,
-          assignedTo: element.assignedTo
+          assignedToID: element.assignedToID,
+          id: element.id
         }
+        console.log("new goal", newGoal);
         goals.push(newGoal);
       });
       this.classGoals = goals;
@@ -186,15 +184,18 @@ export class ClassComponent implements OnInit {
 
   //class id, createdBy, assignedTo
   editDialog(goal: GoalStat) {
+    let students = this.classService.getStudentsData(this.class.students);
     let editData = {
       description: goal.description,
       dueDate: goal.dueDate,
-      assignedToStudents: goal.assignedToStudents,
+      assignedToStudents: goal.assignedToID,
       completedStudents: goal.completedStudents,
       id: goal.id,
       classID: this.classID,
-      createdBy: this.uid
+      createdBy: this.uid,
+      students
     }
+    console.log("edit data", editData);
     const dialogRef = this.dialog.open(EditGoalComponent, {data: editData});
 
     dialogRef.afterClosed().subscribe(result => {

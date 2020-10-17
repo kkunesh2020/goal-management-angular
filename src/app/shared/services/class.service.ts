@@ -40,6 +40,16 @@ export class ClassService {
     return studentData;
    }
 
+   getStudentsDataByID(studentUID: string[]): any[]{
+    let studentData = [];
+    studentUID.forEach(uid => {
+        this.afs.firestore.collection("users").doc(uid).get().then(doc => {
+          studentData.push({name: doc.data().name, uid: doc.data().uid});
+        });
+      })
+    return studentData;
+   }
+
    getStudentData(ref: DocumentReference):Promise<any>{
      let promise = ref.get().then(doc => {
        return doc;

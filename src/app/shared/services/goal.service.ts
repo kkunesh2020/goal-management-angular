@@ -24,8 +24,8 @@ export class GoalService {
     let goals: Goal[] = [];
     let promise = this.goalsCollection.where('classID', '==', classID).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        goals.push({description: doc.data().description, dueDate: doc.data().dueDate, id: doc.id, createdBy: doc.data().createdBy, hasCompleted: doc.data().hasCompleted, classID: doc.data().classID,
-          assignedToID: doc.data().assignedToID});
+        goals.push({description: doc.data().description, dueDate: doc.data().dueDate, id: doc.id, createdBy: doc.data().createdBy, hasCompleted: doc.data().hasCompleted,
+          classID: doc.data().classID, assignedToID: doc.data().assignedToID});
       })
       return goals;
     })
@@ -100,7 +100,7 @@ export class GoalService {
   deleteGoal(goalData: GoalStat): Promise<any>{
     // remove goal from student assignedGoals field
     const goalRef = this.goalsCollection.doc(goalData.id);
-    goalData.assignedToStudents.forEach(studentID => {
+    goalData.assignedToID.forEach(studentID => {
       this.usersCollection.doc(studentID).update({goalsAssigned: firebase.firestore.FieldValue.arrayRemove(goalRef)});
     });
     // remove goal from student goalsCompleted field

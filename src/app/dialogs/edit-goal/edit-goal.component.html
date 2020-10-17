@@ -26,7 +26,7 @@
       </span>
       <span class="example-list-section">
         <ul>
-          <li *ngFor="let student of data.students">
+          <li *ngFor="let student of students">
             <mat-checkbox (change)="checkSpecific(student,$event.checked)" [checked]="isAssigned(student.uid)">
               {{student.name}}
             </mat-checkbox>
