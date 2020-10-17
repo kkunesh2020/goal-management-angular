@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Delete Goal</h1>
+<div mat-dialog-content>
+  <p>Are you sure? This goal will be deleted permanently</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button cdkFocusInitial [class.spinner]="loading" [disabled]="loading" (click)="deleteGoal()">Delete</button>
+</div>

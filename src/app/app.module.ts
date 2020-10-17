@@ -21,6 +21,7 @@ import { UpdateGoalComponent } from './dialogs/update-goal/update-goal.component
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -28,6 +29,7 @@ import { StudentTableComponent } from './teacher/student-table/student-table.com
 import { ClassListComponent } from './teacher/class-list/class-list.component';
 import { ClassComponent } from './teacher/class/class.component';
 import { CreateGoalComponent } from './dialogs/create-goal/create-goal.component';
+import { EditGoalComponent } from './dialogs/edit-goal/edit-goal.component';
 
 
 
@@ -42,7 +44,8 @@ import { CreateGoalComponent } from './dialogs/create-goal/create-goal.component
     UpdateGoalComponent,
     ClassListComponent,
     ClassComponent,
-    CreateGoalComponent
+    CreateGoalComponent,
+    EditGoalComponent
   ],
   imports: [
     BrowserModule,
@@ -60,10 +63,11 @@ import { CreateGoalComponent } from './dialogs/create-goal/create-goal.component
     MatDatepickerModule,
     MatPaginatorModule,
     FlexLayoutModule,
+    MatMenuModule,
     RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [UpdateGoalComponent, CreateGoalComponent]
+  entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent]
 })
 export class AppModule { }

@@ -4,12 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Class } from 'src/app/shared/models/class.model';
 import { Goal } from 'src/app/shared/models/goal.model';
 import { UpdateGoalComponent } from '../../dialogs/update-goal/update-goal.component';
+import { EditGoalComponent } from '../../dialogs/edit-goal/edit-goal.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ClassService } from 'src/app/shared/services/class.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { BehaviorSubject } from 'rxjs';
 import { CreateGoalComponent } from 'src/app/dialogs/create-goal/create-goal.component';
+import UserClass from 'src/app/shared/models/user';
+import { DocumentReference } from '@angular/fire/firestore';
 
 export interface StudentData {
   name: string;
@@ -29,8 +32,9 @@ export interface GoalsTableData {
 export interface GoalStat{
   description: string;
   dueDate: Date;
-  assignedTo: number;
-  completed: number;
+  assignedToStudents: Array<string>;
+  completedStudents: Array<string>;
+  id: string;
 }
 
 
@@ -58,6 +62,7 @@ export class ClassComponent implements OnInit {
   class: Class;
   isAdmin: boolean;
   uid: string;
+  user: UserClass;
   classID: string;
   studentDataSource = STUDENT_DATA;
 
@@ -67,6 +72,7 @@ export class ClassComponent implements OnInit {
       this.classID = this.route.snapshot.paramMap.get('classID');
       if(!userProfile) { return; }
       this.getClass(this.classID, userProfile.uid).then(() => {
+        this.user = userProfile;
         this.isAdmin = userProfile.isAdmin;
         this.uid = userProfile.uid;
         if(!this.isAdmin){
@@ -110,11 +116,13 @@ export class ClassComponent implements OnInit {
     let goals: GoalStat[] = [];
     this.goalService.getGoalsForClass(classID).then((data) => {
       data.forEach(element => {
+        console.log("element.assignedTo", element.assignedToID);
         let newGoal: GoalStat  = {
           description: element.description,
           dueDate: element.dueDate,
-          assignedTo: this.getLengthOf(element.assignedTo),
-          completed: this.getLengthOf(element.hasCompleted),
+          completedStudents: element.hasCompleted,
+          assignedToStudents: element.assignedToID,
+          id: element.id
         }
         goals.push(newGoal);
       });
@@ -162,8 +170,18 @@ export class ClassComponent implements OnInit {
   }
 
   createGoalDialog(){
-    let data = {createdBy: this.uid, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
+    let data = {createdBy: this.user, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
     let dialogRef = this.dialog.open(CreateGoalComponent, {data});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'success' && this.isAdmin){
+        this.getAllGoalsForTeacher(this.classID);
+      }
+    });
+  }
+
+  editDialog(newGoal: GoalStat){
+    let dialogRef = this.dialog.open(EditGoalComponent, {data: newGoal});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'success' && this.isAdmin){

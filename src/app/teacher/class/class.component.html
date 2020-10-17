@@ -44,23 +44,23 @@
         <td mat-cell *matCellDef="let element" >{{ element.dueDate.seconds * 1000 | date}}</td>
       </ng-container>
 
-      <!-- isCompleted Column -->
+      <!-- Assigned To Column -->
       <ng-container matColumnDef="assignedTo">
         <th mat-header-cell *matHeaderCellDef> Assigned To </th>
-        <td mat-cell *matCellDef="let element"> {{element.assignedTo}} </td>
+        <td mat-cell *matCellDef="let element"> {{getLengthOf(element.assignedToStudents)}} </td>
       </ng-container>
 
       <!-- isCompleted Column -->
       <ng-container matColumnDef="completed">
         <th mat-header-cell *matHeaderCellDef> Completed </th>
-        <td mat-cell *matCellDef="let element"> {{ element.completed}} </td>
+        <td mat-cell *matCellDef="let element"> {{ getLengthOf(element.completedStudents)}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="classgoalsDisplayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: classgoalsDisplayedColumns;"
-      [class.green-row]="row.completed/row.assignedTo >= .8"
-      [class.yellow-row]="row.completed/row.assignedTo >= .5"
-      [class.red-row]="row.completed/row.assignedTo < .5"></tr>
+      [class.green-row]="getLengthOf(row.completedStudents)/getLengthOf(row.assignedToStudents) >= .8"
+      [class.yellow-row]="getLengthOf(row.completedStudents)/getLengthOf(row.assignedToStudents) >= .5"
+      [class.red-row]="getLengthOf(row.completedStudents)/getLengthOf(row.assignedToStudents) < .5" (click)="editDialog(row)"></tr>
     </table>
   </div>
 </div>

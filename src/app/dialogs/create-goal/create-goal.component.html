@@ -35,5 +35,5 @@
       </span>
     </section>
 
-    <button mat-raised-button color="primary" (click)="createGoal()" [disabled]="!formComplete()">Create Goal</button>
+    <button mat-raised-button color="primary" (click)="createGoal()" [class.spinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
 </div>

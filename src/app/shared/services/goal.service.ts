@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
+import { GoalStat } from 'src/app/teacher/class/class.component';
 import { Goal } from '../models/goal.model';
 
 @Injectable({
@@ -9,9 +10,11 @@ import { Goal } from '../models/goal.model';
 export class GoalService {
 
   goalsCollection: CollectionReference;
+  usersCollection: CollectionReference;
 
   constructor(private afs: AngularFirestore) {
     this.goalsCollection = this.afs.firestore.collection("goals");
+    this.usersCollection = this.afs.firestore.collection("users");
    }
 
 
@@ -85,6 +88,22 @@ export class GoalService {
 
   createGoal(goal: Goal): Promise<any>{
     let promise = this.goalsCollection.add({...goal}).catch(err => console.log(err));
+    return promise;
+  }
+
+  deleteGoal(goalData: GoalStat): Promise<any>{
+    // remove goal from student assignedGoals field
+    const goalRef = this.goalsCollection.doc(goalData.id);
+    goalData.assignedToStudents.forEach(studentID => {
+      this.usersCollection.doc(studentID).update({goalsAssigned: firebase.firestore.FieldValue.arrayRemove(goalRef)});
+    });
+    // remove goal from student goalsCompleted field
+    goalData.completedStudents.forEach(studentID => {
+      this.usersCollection.doc(studentID).update({goalsCompleted: firebase.firestore.FieldValue.arrayRemove(goalRef)});
+    })
+
+    //remove doc from goal collection
+    let promise = goalRef.delete().then(() => {return;}).catch(err => console.log(err));
     return promise;
   }
 
