@@ -8,7 +8,6 @@ export default class GoalClass implements Goal {
   hasCompleted: Array<string>;
   createdBy: User;
   assignedTo?: Array<any>;
-  groups?: Array<Group>;
   assignedToID: Array<string>;
   id:string;
   classID: string;

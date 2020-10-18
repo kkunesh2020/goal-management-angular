@@ -14,6 +14,7 @@ import { CreateGoalComponent } from 'src/app/dialogs/create-goal/create-goal.com
 import UserClass from 'src/app/shared/models/user';
 import { DocumentReference } from '@angular/fire/firestore';
 import { User } from '../../shared/models/user.model';
+import GoalClass from 'src/app/shared/models/goal';
 
 export interface StudentData {
   name: string;
@@ -34,7 +35,7 @@ export interface GoalStat{
   description: string;
   dueDate: Date;
   assignedToID: Array<string>;
-  completedStudents: Array<string>;
+  hasCompleted: Array<string>;
   id: string;
 }
 
@@ -121,7 +122,7 @@ export class ClassComponent implements OnInit {
         let newGoal: GoalStat  = {
           description: element.description,
           dueDate: element.dueDate,
-          completedStudents: element.hasCompleted,
+          hasCompleted: element.hasCompleted,
           assignedToID: element.assignedToID,
           id: element.id
         }
@@ -185,16 +186,8 @@ export class ClassComponent implements OnInit {
   //class id, createdBy, assignedTo
   editDialog(goal: GoalStat) {
     let students = this.classService.getStudentsData(this.class.students);
-    let editData = {
-      description: goal.description,
-      dueDate: goal.dueDate,
-      assignedToID: goal.assignedToID,
-      completedStudents: goal.completedStudents,
-      id: goal.id,
-      classID: this.classID,
-      createdBy: this.uid,
-      students
-    }
+    console.log("completed students", goal.hasCompleted)
+    let editData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
     console.log("edit data", editData);
     const dialogRef = this.dialog.open(EditGoalComponent, {data: editData});
 

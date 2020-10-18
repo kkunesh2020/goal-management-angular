@@ -97,7 +97,7 @@ export class GoalService {
     return promise;
   }
 
-  createGoal(goal: Goal): Promise<any>{
+  createGoal(goal: GoalClass): Promise<any>{
     let promise = this.goalsCollection.add({...goal}).catch(err => console.log(err));
     return promise;
   }
@@ -120,8 +120,7 @@ export class GoalService {
   }
 
   editGoal(goal: GoalClass): Promise<any>{
-    let promise = this.goalsCollection.doc(goal.id).set(goal).then(() => {return;})
-    .catch(err => console.log(err));
+    let promise = this.goalsCollection.doc(goal.id).set({...goal}).catch(err => console.log(err));
     return promise;
   }
 

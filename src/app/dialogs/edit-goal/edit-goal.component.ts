@@ -15,15 +15,17 @@ export class EditGoalComponent implements OnInit {
   loading: boolean = false;
   allAssigned: boolean = false;
   students: any[];
+  editDate: Date;
 
-  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
   public dialogRef: MatDialogRef<EditGoalComponent>, private classService: ClassService) {
 
+    this.editDate = new Date(data.dueDate.seconds * 1000);
     console.log("edit assignedToID", data.assignedToID)
     this.students = this.classService.getStudentsDataByID(data.assignedToID);
 
   //retrieve the data (class id, createdBy, assignedTo <= users)
-    this.goal = new GoalClass(data.description, new Date(data.dueDate.seconds * 1000), data.classID, data.completedStudents,
+    this.goal = new GoalClass(data.description, this.editDate, data.classID, data.hasCompleted,
       data.id, data.createdBy, data.assignedToID);
 
    }
@@ -77,8 +79,13 @@ export class EditGoalComponent implements OnInit {
   }
 
   editGoal(){
+    this.goal.dueDate = this.editDate;
+    if(this.goal.hasCompleted == null){
+      this.goal.hasCompleted = [];
+    }
+    console.log("editing goal", this.goal);
     this.loading = true;
-    this.goalService.editGoal(this.data).then(() => {
+    this.goalService.editGoal(this.goal).then(() => {
       this.loading = false;
       this.dialogRef.close('success');
     })
