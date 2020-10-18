@@ -19,12 +19,13 @@ export class EditGoalComponent implements OnInit {
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
   public dialogRef: MatDialogRef<EditGoalComponent>, private classService: ClassService) {
 
-    this.students = this.classService.getStudentsDataByID(data.assignedToStudents);
+    console.log("edit assignedToID", data.assignedToID)
+    this.students = this.classService.getStudentsDataByID(data.assignedToID);
 
   //retrieve the data (class id, createdBy, assignedTo <= users)
-  console.log(new Date(data.dueDate.seconds * 1000));
     this.goal = new GoalClass(data.description, new Date(data.dueDate.seconds * 1000), data.classID, data.completedStudents,
-      data.id, data.createdBy, data.assignedToStudents);
+      data.id, data.createdBy, data.assignedToID);
+
    }
 
   ngOnInit() {
@@ -69,7 +70,7 @@ export class EditGoalComponent implements OnInit {
 
   deleteGoal(){
     this.loading = true;
-    this.goalService.deleteGoal(this.data).then(() => {
+    this.goalService.deleteGoal(this.goal).then(() => {
       this.loading = false;
       this.dialogRef.close('success');
     })

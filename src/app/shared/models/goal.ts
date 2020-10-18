@@ -5,11 +5,11 @@ import { Group } from './group.model';
 export default class GoalClass implements Goal {
   description: string;
   dueDate: Date;
-  hasCompleted: Array<String>;
+  hasCompleted: Array<string>;
   createdBy: User;
   assignedTo?: Array<any>;
   groups?: Array<Group>;
-  assignedToID: Array<String>;
+  assignedToID: Array<string>;
   id:string;
   classID: string;
 
@@ -17,10 +17,10 @@ export default class GoalClass implements Goal {
     description: string,
     dueDate: Date,
     classID: string,
-    hasCompleted: Array<String>,
+    hasCompleted: Array<string>,
     id: string,
     createdBy: User,
-    assignedToID: Array<String>
+    assignedToID: Array<string>
     ) {
       this.description = description;
       this.dueDate = dueDate;

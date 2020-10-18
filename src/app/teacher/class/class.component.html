@@ -60,9 +60,9 @@
 
       <tr mat-header-row *matHeaderRowDef="classgoalsDisplayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: classgoalsDisplayedColumns;"
-      [class.green-row]="getLengthOf(row.completedStudents)/getLengthOf(row.assignedToStudents) >= .8"
-      [class.yellow-row]="getLengthOf(row.completedStudents)/getLengthOf(row.assignedToStudents) >= .5"
-      [class.red-row]="getLengthOf(row.completedStudents)/getLengthOf(row.assignedToStudents) < .5" (click)="editDialog(row)"></tr>
+      [class.green-row]="getLengthOf(row.completedStudents)/getLengthOf(row.assignedToID) >= .8"
+      [class.yellow-row]="getLengthOf(row.completedStudents)/getLengthOf(row.assignedToID) >= .5"
+      [class.red-row]="getLengthOf(row.completedStudents)/getLengthOf(row.assignedToID) < .5" (click)="editDialog(row)"></tr>
     </table>
   </div>
 </div>

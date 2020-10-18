@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
+import { AngularFirestore, CollectionReference, DocumentReference } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { GoalStat } from 'src/app/teacher/class/class.component';
 import { Goal } from '../models/goal.model';
@@ -46,6 +46,11 @@ export class GoalService {
 
   getGoalById(goalID: string): Promise<any>{
     let promise = this.goalsCollection.doc(goalID).get().then(doc => {return doc;}).catch(err => {console.log(err)});
+    return promise;
+  }
+
+  getGoalByReference(doc: DocumentReference): Promise<any>{
+    let promise = doc.get().then(doc => {return doc;});
     return promise;
   }
 
@@ -97,14 +102,15 @@ export class GoalService {
     return promise;
   }
 
-  deleteGoal(goalData: GoalStat): Promise<any>{
+  deleteGoal(goalData: GoalClass): Promise<any>{
+    console.log("gottem goalData", goalData);
     // remove goal from student assignedGoals field
     const goalRef = this.goalsCollection.doc(goalData.id);
     goalData.assignedToID.forEach(studentID => {
       this.usersCollection.doc(studentID).update({goalsAssigned: firebase.firestore.FieldValue.arrayRemove(goalRef)});
     });
     // remove goal from student goalsCompleted field
-    goalData.completedStudents.forEach(studentID => {
+    goalData.hasCompleted.forEach(studentID => {
       this.usersCollection.doc(studentID).update({goalsCompleted: firebase.firestore.FieldValue.arrayRemove(goalRef)});
     })
 

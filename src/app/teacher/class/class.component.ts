@@ -188,7 +188,7 @@ export class ClassComponent implements OnInit {
     let editData = {
       description: goal.description,
       dueDate: goal.dueDate,
-      assignedToStudents: goal.assignedToID,
+      assignedToID: goal.assignedToID,
       completedStudents: goal.completedStudents,
       id: goal.id,
       classID: this.classID,

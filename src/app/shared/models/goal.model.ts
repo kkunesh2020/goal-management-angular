@@ -4,9 +4,9 @@ import { Group } from './group.model';
 export interface Goal {
   description: string;
   dueDate: Date;
-  hasCompleted: Array<String>;
+  hasCompleted: Array<string>;
   createdBy: User;
-  assignedToID: Array<String>;
+  assignedToID: Array<string>;
   id: string;
-  classID: String;
+  classID: string;
 }
