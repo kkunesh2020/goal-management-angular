@@ -98,6 +98,12 @@ export class GoalService {
   }
 
   createGoal(goal: GoalClass): Promise<any>{
+    console.log("creted", goal.assignedToID)
+    goal.assignedToID.forEach(id => {
+      let userRef = this.usersCollection.doc(id);
+      console.log("creating goal for", id, userRef);
+      userRef.update({goalsAssigned: firebase.firestore.FieldValue.arrayUnion({...goal})});
+    })
     let promise = this.goalsCollection.add({...goal}).catch(err => console.log(err));
     return promise;
   }

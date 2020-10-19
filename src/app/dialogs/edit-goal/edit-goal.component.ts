@@ -45,6 +45,8 @@ export class EditGoalComponent implements OnInit {
     })
   }
 
+  //if the edited goal is different from what it used to
+
   checkSpecific(student: any, assigned: boolean){
     if(assigned){
       this.goal.assignedToID.push(student.uid);

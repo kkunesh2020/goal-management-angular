@@ -1,10 +1,20 @@
 .table {
-  margin-top: 4%;
   width: 70%;
+  margin-bottom: 2rem;
 }
 
 mat-accordion{
   margin-top: 4%;
+}
+
+#createGoal{
+  margin-left: 75%;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+
+  mat-icon{
+    margin-right: .3rem;
+  }
 }
 
 .red-row {
@@ -24,6 +34,6 @@ mat-accordion{
 }
 
 
-.title{
+.title, h2{
   text-align: center;
 }
