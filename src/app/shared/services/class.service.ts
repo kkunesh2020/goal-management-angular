@@ -52,7 +52,8 @@ export class ClassService {
 
    getStudentData(ref: DocumentReference):Promise<any>{
      let promise = ref.get().then(doc => {
-       return doc;
+       console.log("got the student data", doc.data());
+       return doc.data();
      })
      return promise;
    }

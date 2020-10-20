@@ -1,5 +1,7 @@
 <div class="main">
-  <h1 class="title">Chadwick School Goal Management System</h1>
+  <img src="../../assets/chadwicklogo.jpeg" class="logo"/>
+  <h1 class="title">CHADWICK SCHOOL GOAL MANAGEMENT</h1>
+
   <div class="loader" *ngIf="loading"></div>
   <div class="logIn" *ngIf="!loggedIn" [hidden]="loading">
     <button type="button" class="google-button" (click)="auth.googleSignin()">
@@ -10,8 +12,6 @@
     </button>
   </div>
   <div *ngIf="loggedIn" [hidden]="loading">
-    <button type="button" class="class-button" [routerLink]="['/classes']">
-      View Classes
-    </button>
+    <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
   </div>
 </div>

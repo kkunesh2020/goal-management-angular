@@ -6,8 +6,9 @@
     </button>
   </div>
   <div>
-    <a [routerLink]="'/'">
-      Chadwick Goal Management System
+    <a [routerLink]="'/'" class="title">
+      <img src="../../assets/chadwicklogo.jpeg" class="logo"/>
+      <span class="text">CHADWICK GMS</span>
     </a>
   </div>
 
@@ -16,7 +17,7 @@
       <li>
         <a [routerLink]="'/'">
           <mat-icon id="home-icon" class="icon">home</mat-icon>
-          <span class="label">Home</span>
+          <span class="label">HOME</span>
         </a>
       </li>
       <div *ngIf="auth.user$ | async as user">
@@ -25,11 +26,11 @@
             <div *ngIf="user.isAdmin; then admin; else studentBlock"></div>
             <ng-template #admin>
               <mat-icon class="icon">dashboard</mat-icon>
-              <span class="label">View Students</span>
+              <span class="label">CLASSES</span>
             </ng-template>
             <ng-template #studentBlock>
               <mat-icon class="icon">dashboard</mat-icon>
-              <span class="label">Goal History</span>
+              <span class="label">GOALS</span>
             </ng-template>
           </a>
         </li>
@@ -39,10 +40,10 @@
           <mat-icon id="input-icon" class="icon">input</mat-icon>
           <div *ngIf="auth.user$ | async; then user; else guest"></div>
           <ng-template #user>
-            <span class="label" (click)="auth.signOut()">Logout</span>
+            <span class="label" (click)="auth.signOut()">LOGOUT</span>
           </ng-template>
           <ng-template #guest>
-            <span class="label" (click)="auth.googleSignin()">Login</span>
+            <span class="label" (click)="auth.googleSignin()">LOGIN</span>
           </ng-template>
         </a>
       </li>

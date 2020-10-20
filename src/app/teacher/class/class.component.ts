@@ -66,6 +66,7 @@ export class ClassComponent implements OnInit {
   uid: string;
   user: UserClass;
   classID: string;
+  studentSource: StudentData[];
   studentDataSource = STUDENT_DATA;
 
   constructor(private route: ActivatedRoute, private classService: ClassService, private auth: AuthService,
@@ -81,26 +82,34 @@ export class ClassComponent implements OnInit {
         if(!this.isAdmin){
           this.getGoalsForStudent(this.classID, userProfile.uid);
         }else{
+          this.updateStudentTable();
           this.getAllGoalsForTeacher(this.classID);
-          // this.getStudentData();
-          console.log('the student data', this.studentDataSource);
         }
       });
     })
     this.loading = false;
   }
 
+
+  updateStudentTable(){
+    this.getStudentData();
+    this.studentDataSource = this.studentSource;
+  }
+
   getStudentData(){ //work on this
-    let studentData: StudentData[] = [];
+    let studentData: StudentData[] = [{name: "Bob", goalsAssigned: 0, goalsCompleted: 0}];
     this.class.students.forEach(ref => {
       this.classService.getStudentData(ref).then((student) => {
         let data: StudentData  = {name: student.name, goalsAssigned: this.getLengthOf(student.goalsAssigned),
           goalsCompleted: this.getLengthOf(student.goalsCompleted)};
         studentData.push(data);
       });
-    })
-    this.studentDataSource = studentData;
-    console.log(this.studentDataSource);
+    });
+
+
+    this.studentSource = studentData;
+    console.log("studentDataSource", this.studentSource);
+
   }
 
   goalIsCompleted(hasCompleted: string[], userID: string){
@@ -125,8 +134,7 @@ export class ClassComponent implements OnInit {
           hasCompleted: element.hasCompleted,
           assignedToID: element.assignedToID,
           id: element.id
-        }
-        console.log("new goal", newGoal);
+        };
         goals.push(newGoal);
       });
       this.classGoals = goals;
@@ -185,7 +193,6 @@ export class ClassComponent implements OnInit {
 
   //class id, createdBy, assignedTo
   editDialog(goal: GoalStat) {
-    let students = this.classService.getStudentsData(this.class.students);
     console.log("completed students", goal.hasCompleted)
     let editData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
     console.log("edit data", editData);
