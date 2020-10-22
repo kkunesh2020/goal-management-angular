@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UpdateGoalComponent } from '../dialogs/update-goal/update-goal.component';
+import { Goal } from '../shared/models/goal.model';
 import { AuthService } from '../shared/services/auth.service';
 import { GoalService } from '../shared/services/goal.service';
 import { GoalsTableData, GoalStat } from '../teacher/class/class.component';
@@ -23,7 +24,7 @@ export class GoalsComponent implements OnInit {
     private router: Router) {
     this.loading = true;
     this.auth.user$.subscribe(async (userProfile) => {
-      if(!userProfile) { return; }
+      if(userProfile == null) { return; }
       this.uid = userProfile.uid;
       if(userProfile.goalsAssigned.length > 0){
         this.getStudentGoals(userProfile.goalsAssigned);
@@ -36,7 +37,7 @@ export class GoalsComponent implements OnInit {
   }
 
   getStudentGoals(goalArray: DocumentReference[]){
-    this.goalService.getGoalsById(goalArray).subscribe(goalData => {
+    this.goalService.getGoalsById(goalArray, this.uid).subscribe(goalData => {
       console.log("goals", goalData);
       this.dataSource.data = goalData;
     });

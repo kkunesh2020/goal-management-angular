@@ -65,7 +65,6 @@ export class GoalService {
           id: doc.data().id,
           classID: doc.data().classID} as Goal;
 
-          let userRef = {} as User;
         goals.push({description: goalRef.description,
           dueDate: goalRef.dueDate,
           isCompleted: this.userHasCompleted(goalRef.hasCompleted, uid),
