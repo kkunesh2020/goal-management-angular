@@ -30,6 +30,7 @@ import { ClassListComponent } from './teacher/class-list/class-list.component';
 import { ClassComponent } from './teacher/class/class.component';
 import { CreateGoalComponent } from './dialogs/create-goal/create-goal.component';
 import { EditGoalComponent } from './dialogs/edit-goal/edit-goal.component';
+import { GoalsComponent } from './goals/goals.component';
 
 
 
@@ -45,7 +46,8 @@ import { EditGoalComponent } from './dialogs/edit-goal/edit-goal.component';
     ClassListComponent,
     ClassComponent,
     CreateGoalComponent,
-    EditGoalComponent
+    EditGoalComponent,
+    GoalsComponent
   ],
   imports: [
     BrowserModule,

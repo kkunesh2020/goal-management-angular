@@ -12,6 +12,15 @@
     </button>
   </div>
   <div *ngIf="loggedIn" [hidden]="loading">
-    <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
+    <div class="teacherSection" *ngIf="isAdmin">
+      <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
+    </div>
+
+    <div class="studentSection" *ngIf="!isAdmin">
+      <button class="class-button" [routerLink]="['/goals']">VIEW GOALS</button>
+      <p>OR</p>
+      <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
+    </div>
+
   </div>
 </div>
