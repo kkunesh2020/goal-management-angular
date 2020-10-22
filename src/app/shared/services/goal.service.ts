@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, CollectionReference, DocumentReference } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
-import { GoalStat } from 'src/app/teacher/class/class.component';
+import { GoalsTableData, GoalStat } from 'src/app/teacher/class/class.component';
 import { Goal } from '../models/goal.model';
 import GoalClass from 'src/app/shared/models/goal';
 import { Observable } from 'rxjs';
+import { of } from 'rxjs/internal/observable/of';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,14 +52,28 @@ export class GoalService {
     return promise;
   }
 
-  getGoalsById(goalIDs: DocumentReference[]): GoalStat[]{
-    let goals: GoalStat[] = [];
+  getGoalsById(goalIDs: DocumentReference[], uid: string): Observable<any>{
+    let goals: GoalsTableData[] = [];
     goalIDs.forEach(goal => {
       this.goalsCollection.doc(goal.id).get().then(doc => {
-        goals.push({description: doc.data().description, dueDate: doc.data().dueDate, assignedToID: doc.data().assignedToID, hasCompleted: doc.data().hasCompleted, id: doc.id});
+        let goalRef = {
+          description: doc.data().description,
+          dueDate: doc.data().dueDate,
+          hasCompleted: doc.data().hasCompleted,
+          createdBy: doc.data().createdBy,
+          assignedToID: doc.data().assignedToID,
+          id: doc.data().id,
+          classID: doc.data().classID} as Goal;
+
+          let userRef = {} as User;
+        goals.push({description: goalRef.description,
+          dueDate: goalRef.dueDate,
+          isCompleted: this.userHasCompleted(goalRef.hasCompleted, uid),
+          createdBy: doc.data().createdBy,
+          goalReference: goalRef});
       });
     });
-    return goals;
+    return of(goals);
   }
 
   getGoalByReference(doc: DocumentReference): Promise<any>{

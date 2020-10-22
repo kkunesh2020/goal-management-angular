@@ -6,10 +6,7 @@ import { Router } from '@angular/router';
 import { UpdateGoalComponent } from '../dialogs/update-goal/update-goal.component';
 import { AuthService } from '../shared/services/auth.service';
 import { GoalService } from '../shared/services/goal.service';
-import { GoalStat } from '../teacher/class/class.component';
-
-const STUDENT_GOALS_DATA: GoalStat[] = [
-];
+import { GoalsTableData, GoalStat } from '../teacher/class/class.component';
 
 @Component({
   selector: 'gms-goals',
@@ -19,13 +16,12 @@ const STUDENT_GOALS_DATA: GoalStat[] = [
 export class GoalsComponent implements OnInit {
   loading: boolean;
   uid: string;
-  dataSource: MatTableDataSource<GoalStat>;
+  public dataSource: MatTableDataSource<GoalsTableData[]> = new MatTableDataSource();
   goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
 
   constructor(private auth: AuthService, private goalService: GoalService, public dialog: MatDialog,
     private router: Router) {
     this.loading = true;
-    this.dataSource = new MatTableDataSource<GoalStat>();
     this.auth.user$.subscribe(async (userProfile) => {
       if(!userProfile) { return; }
       this.uid = userProfile.uid;
@@ -40,10 +36,10 @@ export class GoalsComponent implements OnInit {
   }
 
   getStudentGoals(goalArray: DocumentReference[]){
-    let goals: GoalStat[] = [];
-    goals = this.goalService.getGoalsById(goalArray);
-    console.log("goals", goals);
-    this.dataSource = new MatTableDataSource<GoalStat>(goals);
+    this.goalService.getGoalsById(goalArray).subscribe(goalData => {
+      console.log("goals", goalData);
+      this.dataSource.data = goalData;
+    });
   }
 
 
