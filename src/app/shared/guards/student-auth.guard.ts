@@ -13,7 +13,7 @@ export class StudentAuthGuard implements CanActivate{
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): void {
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       this.authService.user$.subscribe(async (userProfile) => {
         if(userProfile == null){
           this.router.navigate(['/']);
@@ -22,6 +22,7 @@ export class StudentAuthGuard implements CanActivate{
             this.router.navigate(['/']);
           }
         }
-      })
+      });
+      return true;
   }
 }

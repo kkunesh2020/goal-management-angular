@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
   isAdmin: boolean;
   uid: string;
   studentAssignments: GoalsTableData[];
-  goalsAssigned: DocumentReference[]
   goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
 
 
@@ -37,9 +36,6 @@ export class HomeComponent implements OnInit {
       this.loading = false;
       this.uid = userProfile.uid;
       this.isAdmin = userProfile.isAdmin;
-      if(!this.isAdmin){
-        this.goalsAssigned = userProfile.goalsAssigned;
-      }
     })
     this.
     loading = false;

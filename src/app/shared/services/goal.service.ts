@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import { GoalStat } from 'src/app/teacher/class/class.component';
 import { Goal } from '../models/goal.model';
 import GoalClass from 'src/app/shared/models/goal';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -45,8 +46,18 @@ export class GoalService {
   }
 
   getGoalById(goalID: string): Promise<any>{
-    let promise = this.goalsCollection.doc(goalID).get().then(doc => {return doc;}).catch(err => {console.log(err)});
+    let promise = this.goalsCollection.doc(goalID).get().then(doc => {return doc.data();}).catch(err => {console.log(err)});
     return promise;
+  }
+
+  getGoalsById(goalIDs: DocumentReference[]): GoalStat[]{
+    let goals: GoalStat[] = [];
+    goalIDs.forEach(goal => {
+      this.goalsCollection.doc(goal.id).get().then(doc => {
+        goals.push({description: doc.data().description, dueDate: doc.data().dueDate, assignedToID: doc.data().assignedToID, hasCompleted: doc.data().hasCompleted, id: doc.id});
+      });
+    });
+    return goals;
   }
 
   getGoalByReference(doc: DocumentReference): Promise<any>{
@@ -97,9 +108,19 @@ export class GoalService {
     return promise;
   }
 
+  assignToStudents(goalID: string, studentID: string[]): void{
+    let goalRef: DocumentReference = this.goalsCollection.doc(goalID);
+    studentID.forEach(id => {
+      this.usersCollection.doc(id).update({goalsAssigned: firebase.firestore.FieldValue.arrayUnion(goalRef)})
+    })
+  }
+
   createGoal(goal: GoalClass): Promise<any>{
-    console.log("creted", goal.assignedToID)
-    let promise = this.goalsCollection.add({...goal}).catch(err => console.log(err));
+    console.log("assigned to student ids", goal.assignedToID);
+    let promise = this.goalsCollection.add({...goal}).then((docRef) => {
+      this.assignToStudents(docRef.id, goal.assignedToID);
+      return;
+    }).catch(err => console.log(err));
     return promise;
   }
 

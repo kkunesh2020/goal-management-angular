@@ -64,8 +64,6 @@ export class CreateGoalComponent implements OnInit {
   }
 
   createGoal(){
-    console.log("created goal");
-    console.log(this.goal);
     this.loading = true;
     this.goalService.createGoal(this.goal).then(()=>{
       this.loading = false;

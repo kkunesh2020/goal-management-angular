@@ -1,1 +1,33 @@
-<p>goals works!</p>
+<div class="main" fxLayoutAlign="center center">
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="table" *ngIf="!loading">
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> description </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <!-- Due Date Column -->
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef> Due Date </th>
+      <td mat-cell *matCellDef="let element" >{{ element.dueDate.seconds * 1000 | date}}</td>
+    </ng-container>
+
+    <!-- isCompleted Column -->
+    <ng-container matColumnDef="isCompleted">
+      <th mat-header-cell *matHeaderCellDef> Completed? </th>
+      <td mat-cell *matCellDef="let element"> {{element.isCompleted}} </td>
+    </ng-container>
+
+    <!-- isCompleted Column -->
+    <ng-container matColumnDef="createdBy">
+      <th mat-header-cell *matHeaderCellDef> Created By </th>
+      <td mat-cell *matCellDef="let element"> {{ element.createdBy.name}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="goalsDisplayedColumns"></tr>
+    <tr mat-row (click)="openDialog(row.goalReference, uid, row.isCompleted)" *matRowDef="let row; columns: goalsDisplayedColumns;"
+    [class.green-row]="row.isCompleted"
+    [class.red-row]="!row.isCompleted"></tr>
+  </table>
+</div>
