@@ -6,3 +6,27 @@ ul {
 h3{
   margin-top: 2rem;
 }
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-title{
+  font-size: 1.4rem;
+}
+
+.deleteButton{
+  margin-bottom: 2rem;
+}
+
+.exit{
+  float: right;
+  top:-24px;
+  right:-24px;
+  border:none;
+  background: transparent;
+}
+
+.exit:hover{
+  cursor: pointer;
+}

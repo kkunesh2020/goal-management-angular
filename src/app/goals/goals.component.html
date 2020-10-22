@@ -1,6 +1,7 @@
 <h1 class="title">Current Goals</h1>
 <div class="main" fxLayoutAlign="center center">
   <mat-spinner *ngIf="loading"></mat-spinner>
+  <p *ngIf="dataSource.data.length == 0">No Goals Assigned Yet.</p>
   <table mat-table [dataSource]="dataSource" class="table" *ngIf="!loading && dataSource.data.length > 0">
     <!-- Description Column -->
     <ng-container matColumnDef="description">

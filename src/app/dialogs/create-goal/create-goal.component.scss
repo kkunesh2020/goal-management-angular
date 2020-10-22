@@ -3,8 +3,36 @@ ul {
   margin-top: 4px;
 }
 
+.student-section{
+  margin-bottom: 2rem;
+}
+
 @keyframes spinner {
   to {transform: rotate(360deg);}
+}
+
+.hiddenInput{
+  display: none;
+}
+
+mat-dialog-title{
+  font-size: 1.4rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.exit{
+  float: right;
+  top:-24px;
+  right:-24px;
+  border:none;
+  background: transparent;
+}
+
+.exit:hover{
+  cursor: pointer;
 }
 
 .spinner:before {

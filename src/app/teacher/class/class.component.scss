@@ -17,6 +17,19 @@ mat-accordion{
   }
 }
 
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .red-row {
   background-color: rgb(252, 90, 90);
 }
@@ -40,5 +53,5 @@ mat-accordion{
 
 .title{
   margin-top: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }

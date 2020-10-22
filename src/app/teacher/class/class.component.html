@@ -1,8 +1,10 @@
 <div class="teacherSection" *ngIf="class && isAdmin">
   <h1 class="title">{{class.title}}</h1>
   <div fxLayoutAlign="center center">
-    <mat-spinner *ngIf="loading"></mat-spinner>
-    <table mat-table [dataSource]="studentDataSource" class="mat-elevation-z8 table">
+    <div class="example-loading-shade" *ngIf="loading">
+      <mat-spinner *ngIf="loading"></mat-spinner>
+    </div>
+    <table mat-table [dataSource]="studentDataSource" *ngIf="studentDataSource.length > 0" class="mat-elevation-z8 table">
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>name</th>
@@ -22,14 +24,21 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [class.green-row]="row.goalsCompleted/row.goalsAssigned >= .8"
+        [class.yellow-row]="row.goalsCompleted/row.goalsAssigned >= .5"
+        [class.red-row]="row.goalsCompleted/row.goalsAssigned < .5"></tr>
     </table>
     </div>
 
 
     <button mat-raised-button color="primary" id="createGoal" (click)="createGoalDialog()"><mat-icon>edit</mat-icon> Create Goal</button>
     <div fxLayoutAlign="center center">
-      <mat-spinner *ngIf="loading"></mat-spinner>
+      <div class="example-loading-shade" *ngIf="loading">
+        <mat-spinner *ngIf="loading"></mat-spinner>
+      </div>
+
+    <p *ngIf="classGoals.length == 0">No Goals Assigned Yet.</p>
     <table mat-table [dataSource]="classGoals" class="mat-elevation-z8" class="table" *ngIf="!loading">
       <!-- Description Column -->
       <ng-container matColumnDef="description">
@@ -65,7 +74,10 @@
 </div>
 
 <div class="studentSection" *ngIf="class && !isAdmin" fxLayoutAlign="center center">
-  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div class="example-loading-shade" *ngIf="loading">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+  <p *ngIf="goalsDataSource.length == 0">No Goals Assigned Yet.</p>
   <table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8" class="table" *ngIf="!loading">
     <!-- Description Column -->
     <ng-container matColumnDef="description">

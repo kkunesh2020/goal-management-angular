@@ -1,39 +1,46 @@
-<h1 mat-dialog-title>Create a Goal</h1>
-<div mat-dialog-content>
-  <!-- Title -->
-  <p>
-    <mat-form-field>
-      <mat-label>Goal Title</mat-label>
-      <input matInput [(ngModel)]="goal.description">
-    </mat-form-field>
-  </p>
-  <!-- Due Date -->
-  <p>
-    <mat-form-field>
-      <mat-label>Due Date</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="goal.dueDate">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </p>
-  <!-- Students -->
-    <h3>Assign To</h3>
-    <section class="example-section">
-      <span class="example-list-section">
-        <mat-checkbox class="example-margin" (change)="assignToAll($event.checked)" [checked]="allAssigned">
-          All Students
-        </mat-checkbox>
-      </span>
-      <span class="example-list-section">
-        <ul>
-          <li *ngFor="let student of data.students">
-            <mat-checkbox (change)="checkSpecific(student,$event.checked)" [checked]="isAssigned(student.uid)">
-              {{student.name}}
-            </mat-checkbox>
-          </li>
-        </ul>
-      </span>
-    </section>
 
+<button mat-dialog-close class="exit">
+  <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+</button>
+  <h1 mat-dialog-title>Create a Goal</h1>
+  <div mat-dialog-content>
+    <!-- Title -->
+    <p>
+      <mat-form-field>
+        <mat-label>Goal Title</mat-label>
+        <input matInput [(ngModel)]="goal.description">
+      </mat-form-field>
+    </p>
+    <!-- Due Date -->
+    <p>
+      <mat-form-field>
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="goal.dueDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </p>
+    <!-- Students -->
+      <h3>Assign To</h3>
+      <section class="student-section">
+        <span class="example-list-section">
+          <mat-checkbox class="example-margin" (change)="assignToAll($event.checked)" [checked]="allAssigned">
+            All Students
+          </mat-checkbox>
+        </span>
+        <span class="example-list-section">
+          <ul>
+            <li *ngFor="let student of data.students">
+              <mat-checkbox (change)="checkSpecific(student,$event.checked)" [checked]="isAssigned(student.uid)">
+                {{student.name}}
+              </mat-checkbox>
+            </li>
+          </ul>
+        </span>
+      </section>
+      <input type="hidden" autofocus="true" class="hiddenInput"/>
+  </div>
+
+  <mat-dialog-actions>
     <button mat-raised-button color="primary" (click)="createGoal()" [class.spinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
-</div>
+  </mat-dialog-actions>

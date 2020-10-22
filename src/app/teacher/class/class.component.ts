@@ -82,7 +82,7 @@ export class ClassComponent implements OnInit {
         if(!this.isAdmin){
           this.getGoalsForStudent(this.classID, userProfile.uid);
         }else{
-          this.updateStudentTable();
+          this.getStudentData();
           this.getAllGoalsForTeacher(this.classID);
         }
       });
@@ -90,26 +90,11 @@ export class ClassComponent implements OnInit {
     this.loading = false;
   }
 
-
-  updateStudentTable(){
-    this.getStudentData();
-    this.studentDataSource = this.studentSource;
-  }
-
   getStudentData(){ //work on this
-    let studentData: StudentData[] = [{name: "Bob", goalsAssigned: 0, goalsCompleted: 0}];
-    this.class.students.forEach(ref => {
-      this.classService.getStudentData(ref).then((student) => {
-        let data: StudentData  = {name: student.name, goalsAssigned: this.getLengthOf(student.goalsAssigned),
-          goalsCompleted: this.getLengthOf(student.goalsCompleted)};
-        studentData.push(data);
-      });
+    this.classService.getStudentsDataByReference(this.class.students).subscribe(studentData => {
+      console.log("retrieved student data", studentData);
+      this.studentDataSource = studentData;
     });
-
-
-    this.studentSource = studentData;
-    console.log("studentDataSource", this.studentSource);
-
   }
 
   goalIsCompleted(hasCompleted: string[], userID: string){
@@ -182,7 +167,7 @@ export class ClassComponent implements OnInit {
 
   createGoalDialog(){
     let data = {createdBy: this.user, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
-    let dialogRef = this.dialog.open(CreateGoalComponent, {data});
+    let dialogRef = this.dialog.open(CreateGoalComponent, {data, width: '30rem', height: '30rem'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'success' && this.isAdmin){
@@ -196,7 +181,7 @@ export class ClassComponent implements OnInit {
     console.log("completed students", goal.hasCompleted)
     let editData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
     console.log("edit data", editData);
-    const dialogRef = this.dialog.open(EditGoalComponent, {data: editData});
+    const dialogRef = this.dialog.open(EditGoalComponent, {data: editData, height: "30rem", width: "30rem"});
 
     dialogRef.afterClosed().subscribe(result => {
     if (result === 'success' && this.isAdmin){
