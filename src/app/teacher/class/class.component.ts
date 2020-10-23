@@ -156,7 +156,7 @@ export class ClassComponent implements OnInit {
   openDialog(data: any, userID: string, isCompleted: boolean){
     data.uid = userID;
     data.isCompleted = isCompleted;
-    let dialogRef = this.dialog.open(UpdateGoalComponent, {data});
+    let dialogRef = this.dialog.open(UpdateGoalComponent, {data, height: "30rem", width: "30rem"});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'updated' && !this.isAdmin){

@@ -1,15 +1,25 @@
-<h1 mat-dialog-title>Update Goal</h1>
+<button mat-dialog-close class="exit">
+  <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+</button>
+<h1 mat-dialog-title>{{currentGoal.description}}</h1>
 <div mat-dialog-content>
-  <p>Description: {{currentGoal.description}}</p>
   <p>Due Date: {{currentGoal.dueDate.seconds * 1000 | date}}</p>
   <p>Created By: {{currentGoal.createdBy.name}}</p>
   <p>Is Completed: {{isCompleted}}</p>
+
+  <h3 class="subtitle">Your Work</h3>
+  <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton"><mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Attachment</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item><mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon> File</button>
+    <button mat-menu-item><mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon> Link</button>
+  </mat-menu>
+
   <div class="actionButton" *ngIf="!isCompleted">
-    <button *ngIf="!isLoading" mat-raised-button (click)="updateGoal(true)">Mark As Done</button>
+    <button *ngIf="!isLoading" mat-raised-button color="primary" (click)="updateGoal(true)"><mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon> Mark As Done</button>
   </div>
 
   <div class="actionButton" *ngIf="isCompleted">
-    <button *ngIf="!isLoading" mat-raised-button (click)="updateGoal(false)">UnSubmit</button>
+    <button *ngIf="!isLoading" mat-raised-button color="primary" (click)="updateGoal(false)">UnSubmit</button>
   </div>
 
 

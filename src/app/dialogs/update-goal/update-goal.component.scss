@@ -2,6 +2,15 @@
   to {transform: rotate(360deg);}
 }
 
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-title{
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
 .spinner:before {
   content: '';
   box-sizing: border-box;
@@ -16,4 +25,30 @@
   border: 2px solid #ffffff;
   border-top-color: #000000;
   animation: spinner .8s linear infinite;
+}
+
+.subtitle{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.exit{
+  float: right;
+  top:-24px;
+  right:-24px;
+  border:none;
+  background: transparent;
+}
+
+.exit:hover{
+  cursor: pointer;
+}
+
+.actionButton{
+  margin-bottom: 2rem;
+}
+
+.fileButton{
+  margin-bottom: 2rem;
+  border: 2px solid gray;
 }

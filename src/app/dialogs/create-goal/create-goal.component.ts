@@ -46,7 +46,7 @@ export class CreateGoalComponent implements OnInit {
   }
 
   formComplete():boolean{
-    return this.goal.assignedToID != [] && this.goal.description != '' && this.goal.dueDate != null;
+    return this.goal.assignedToID.length > 0 && this.goal.description != '' && this.goal.dueDate != null;
   }
 
   checkSpecific(student: any, assigned: boolean){

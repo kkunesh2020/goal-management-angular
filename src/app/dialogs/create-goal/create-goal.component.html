@@ -15,7 +15,7 @@
     <p>
       <mat-form-field>
         <mat-label>Due Date</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="goal.dueDate">
+        <input matInput [matDatepicker]="picker" disabled [(ngModel)]="goal.dueDate">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
