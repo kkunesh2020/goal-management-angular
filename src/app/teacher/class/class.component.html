@@ -72,7 +72,7 @@
           <mat-icon [matMenuTriggerFor]="actionMenu">more_vert</mat-icon>
           <mat-menu #actionMenu="matMenu">
             <button mat-menu-item (click)="editDialog(element)">Edit</button>
-            <button mat-menu-item>Delete</button>
+            <button mat-menu-item (click)="deleteDialog(element)">Delete</button>
           </mat-menu>
         </td>
       </ng-container>

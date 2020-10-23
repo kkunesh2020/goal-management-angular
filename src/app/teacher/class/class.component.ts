@@ -15,6 +15,7 @@ import UserClass from 'src/app/shared/models/user';
 import { DocumentReference } from '@angular/fire/firestore';
 import { User } from '../../shared/models/user.model';
 import GoalClass from 'src/app/shared/models/goal';
+import { DeleteGoalComponent } from 'src/app/dialogs/delete-goal/delete-goal.component';
 
 export interface StudentData {
   name: string;
@@ -192,7 +193,7 @@ export class ClassComponent implements OnInit {
 
   deleteDialog(goal: GoalStat){
     let deleteData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
-    const dialogRef = this.dialog.open(EditGoalComponent, {data: deleteData, height: "30rem", width: "30rem"});
+    const dialogRef = this.dialog.open(DeleteGoalComponent, {data: deleteData, height: "15rem", width: "20rem"});
 
     dialogRef.afterClosed().subscribe(result => {
     if (result === 'success' && this.isAdmin){

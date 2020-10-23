@@ -12,6 +12,7 @@ import {
     MatTableModule,
     MatToolbarModule,
 } from '@angular/material';
+import { DropzoneDirective } from './directives/dropzone.directive';
 
 @NgModule({
     imports: [
@@ -40,7 +41,7 @@ import {
         MatTableModule,
         MatToolbarModule,
     ],
-    declarations: []
+    declarations: [DropzoneDirective]
 })
 
 export class MaterialModule {}

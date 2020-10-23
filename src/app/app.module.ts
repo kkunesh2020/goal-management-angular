@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -32,7 +33,9 @@ import { CreateGoalComponent } from './dialogs/create-goal/create-goal.component
 import { EditGoalComponent } from './dialogs/edit-goal/edit-goal.component';
 import { GoalsComponent } from './goals/goals.component';
 import { DeleteGoalComponent } from './dialogs/delete-goal/delete-goal.component';
-
+import { UploadLinkComponent } from './dialogs/upload-link/upload-link.component';
+import { UploaderComponent } from './dialogs/upload-file/uploader/uploader.component';
+import { UploadTaskComponent } from './dialogs/upload-file/upload-task/upload-task.component';
 
 
 
@@ -49,7 +52,10 @@ import { DeleteGoalComponent } from './dialogs/delete-goal/delete-goal.component
     CreateGoalComponent,
     EditGoalComponent,
     GoalsComponent,
-    DeleteGoalComponent
+    DeleteGoalComponent,
+    UploadLinkComponent,
+    UploaderComponent,
+    UploadTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +66,7 @@ import { DeleteGoalComponent } from './dialogs/delete-goal/delete-goal.component
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireStorageModule,
     AngularFirestoreModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
@@ -72,6 +79,7 @@ import { DeleteGoalComponent } from './dialogs/delete-goal/delete-goal.component
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent]
+  entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
+    DeleteGoalComponent, UploadLinkComponent]
 })
 export class AppModule { }

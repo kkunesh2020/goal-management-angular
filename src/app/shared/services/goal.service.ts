@@ -15,10 +15,12 @@ export class GoalService {
 
   goalsCollection: CollectionReference;
   usersCollection: CollectionReference;
+  filesCollection: CollectionReference;
 
   constructor(private afs: AngularFirestore) {
     this.goalsCollection = this.afs.firestore.collection("goals");
     this.usersCollection = this.afs.firestore.collection("users");
+    this.filesCollection = this.afs.firestore.collection("files");
    }
 
 
@@ -128,6 +130,14 @@ export class GoalService {
     studentID.forEach(id => {
       this.usersCollection.doc(id).update({goalsAssigned: firebase.firestore.FieldValue.arrayUnion(goalRef)})
     })
+  }
+
+  uploadFile(goalID: string, fileData: any){
+    let goalRef = this.goalsCollection.doc(goalID);
+    this.filesCollection.add(fileData).then((docRef) => {
+      let fileRef: DocumentReference = this.filesCollection.doc(docRef.id);
+      goalRef.update({files: firebase.firestore.FieldValue.arrayUnion(fileRef)});
+    });
   }
 
   createGoal(goal: GoalClass): Promise<any>{
