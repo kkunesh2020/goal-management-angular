@@ -16,8 +16,11 @@
 
   background-image: url('../../assets/background.jpeg');
   background-color: rgba(248, 247, 216, 0.3);
-  background-size: 100%;
+  background-size: cover;
   height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
   .logo{
     margin:auto;
@@ -54,6 +57,7 @@
       color: white;
       padding: 14px 20px;
       font-size: 1rem;
+      font-style: bold;
       margin: 8px 0;
       border: none;
       width: 30%;

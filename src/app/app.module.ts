@@ -31,6 +31,7 @@ import { ClassComponent } from './teacher/class/class.component';
 import { CreateGoalComponent } from './dialogs/create-goal/create-goal.component';
 import { EditGoalComponent } from './dialogs/edit-goal/edit-goal.component';
 import { GoalsComponent } from './goals/goals.component';
+import { DeleteGoalComponent } from './dialogs/delete-goal/delete-goal.component';
 
 
 
@@ -47,7 +48,8 @@ import { GoalsComponent } from './goals/goals.component';
     ClassComponent,
     CreateGoalComponent,
     EditGoalComponent,
-    GoalsComponent
+    GoalsComponent,
+    DeleteGoalComponent
   ],
   imports: [
     BrowserModule,

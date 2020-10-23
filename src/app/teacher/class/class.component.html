@@ -1,4 +1,4 @@
-<h1 class="title">{{class.title}}</h1>
+<h1 class="title" *ngIf="class">{{class.title}}</h1>
 
 <div class="teacherSection" *ngIf="class && isAdmin">
   <div fxLayoutAlign="center center">
@@ -34,13 +34,13 @@
 
 
     <button mat-raised-button color="primary" id="createGoal" (click)="createGoalDialog()"><mat-icon>edit</mat-icon> Create Goal</button>
+    <p *ngIf="classGoals.length == 0 && isAdmin" class="subtitle">No Goals Assigned Yet.</p>
     <div fxLayoutAlign="center center">
       <div class="example-loading-shade" *ngIf="loading">
         <mat-spinner *ngIf="loading"></mat-spinner>
       </div>
 
-    <p *ngIf="classGoals.length == 0">No Goals Assigned Yet.</p>
-    <table mat-table [dataSource]="classGoals" class="mat-elevation-z8" class="table" *ngIf="!loading">
+    <table mat-table [dataSource]="classGoals" class="mat-elevation-z8" class="table" *ngIf="!loading && classGoals.length != 0">
       <!-- Description Column -->
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> description </th>
@@ -65,21 +65,33 @@
         <td mat-cell *matCellDef="let element"> {{ getLengthOf(element.hasCompleted)}} </td>
       </ng-container>
 
+       <!-- Edit Icon Column -->
+      <ng-container matColumnDef="edit" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon [matMenuTriggerFor]="actionMenu">more_vert</mat-icon>
+          <mat-menu #actionMenu="matMenu">
+            <button mat-menu-item (click)="editDialog(element)">Edit</button>
+            <button mat-menu-item>Delete</button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="classgoalsDisplayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: classgoalsDisplayedColumns;"
       [class.green-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) >= .8"
       [class.yellow-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) >= .5"
-      [class.red-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) < .5" (click)="editDialog(row)"></tr>
+      [class.red-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) < .5"></tr>
     </table>
   </div>
 </div>
 
+<p *ngIf="goalsDataSource.length == 0 && !isAdmin" class="subtitle">No Goals Assigned Yet.</p>
 <div class="studentSection" *ngIf="class && !isAdmin" fxLayoutAlign="center center">
   <div class="example-loading-shade" *ngIf="loading">
     <mat-spinner *ngIf="loading"></mat-spinner>
   </div>
-  <p *ngIf="goalsDataSource.length == 0">No Goals Assigned Yet.</p>
-  <table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8" class="table" *ngIf="!loading">
+  <table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8" class="table" *ngIf="!loading && goalsDataSource.length != 0">
     <!-- Description Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> description </th>

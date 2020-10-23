@@ -1,8 +1,8 @@
 <h1 class="title">Current Goals</h1>
+<p *ngIf="dataSource.data.length == 0" class="subtitle">No Goals Assigned Yet.</p>
 <div class="main" fxLayoutAlign="center center">
   <mat-spinner *ngIf="loading"></mat-spinner>
-  <p *ngIf="dataSource.data.length == 0">No Goals Assigned Yet.</p>
-  <table mat-table [dataSource]="dataSource" class="table" *ngIf="!loading && dataSource.data.length > 0">
+  <table mat-table [dataSource]="dataSource" class="table" *ngIf="!loading && dataSource.data.length != 0">
     <!-- Description Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> description </th>
@@ -26,6 +26,7 @@
       <th mat-header-cell *matHeaderCellDef> Created By </th>
       <td mat-cell *matCellDef="let element"> {{ element.createdBy.name}} </td>
     </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="goalsDisplayedColumns"></tr>
     <tr mat-row (click)="openDialog(row.goalReference, uid, row.isCompleted)" *matRowDef="let row; columns: goalsDisplayedColumns;"

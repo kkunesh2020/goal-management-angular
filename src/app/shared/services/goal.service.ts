@@ -25,7 +25,7 @@ export class GoalService {
 
   getGoalsForClass(classID: string): Promise<any>{
     let goals: Goal[] = [];
-    let promise = this.goalsCollection.where('classID', '==', classID).get().then(querySnapshot => {
+    let promise = this.goalsCollection.where('classID', '==', classID).orderBy('dueDate', "desc").get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         goals.push({description: doc.data().description, dueDate: doc.data().dueDate, id: doc.id, createdBy: doc.data().createdBy, hasCompleted: doc.data().hasCompleted,
           classID: doc.data().classID, assignedToID: doc.data().assignedToID});
@@ -37,7 +37,7 @@ export class GoalService {
 
   getGoalsForClassWithId(classID: string, userID: string): Promise<any>{
     let goals: Goal[] = [];
-    let promise = this.goalsCollection.where('classID', '==', classID).where('assignedToID', 'array-contains', userID).get().then(querySnapshot => {
+    let promise = this.goalsCollection.where('classID', '==', classID).where('assignedToID', 'array-contains', userID).orderBy('dueDate', "desc").get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         goals.push({description: doc.data().description, dueDate: doc.data().dueDate, id: doc.id, createdBy: doc.data().createdBy, hasCompleted: doc.data().hasCompleted,
           classID: doc.data().classID, assignedToID: doc.data().assignedToID});

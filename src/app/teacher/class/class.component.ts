@@ -57,7 +57,7 @@ const CLASS_GOALS_DATA: GoalStat[] = [
 export class ClassComponent implements OnInit {
   displayedColumns: string[] = ['name', 'goalsAssigned', 'goalsCompleted'];
   goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
-  classgoalsDisplayedColumns: string[] = ['description', 'dueDate', 'assignedTo', 'completed'];
+  classgoalsDisplayedColumns: string[] = ['description', 'dueDate', 'assignedTo', 'completed', 'edit'];
   goalsDataSource = GOALS_DATA;
   classGoals = CLASS_GOALS_DATA;
   class: Class;
@@ -187,7 +187,18 @@ export class ClassComponent implements OnInit {
     if (result === 'success' && this.isAdmin){
       this.getAllGoalsForTeacher(this.classID);
     }
-  })
+  });
+  }
+
+  deleteDialog(goal: GoalStat){
+    let deleteData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
+    const dialogRef = this.dialog.open(EditGoalComponent, {data: deleteData, height: "30rem", width: "30rem"});
+
+    dialogRef.afterClosed().subscribe(result => {
+    if (result === 'success' && this.isAdmin){
+      this.getAllGoalsForTeacher(this.classID);
+    }
+  });
   }
 
   ngOnInit() {

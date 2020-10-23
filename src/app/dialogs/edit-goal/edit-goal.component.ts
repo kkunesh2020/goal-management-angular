@@ -72,14 +72,6 @@ export class EditGoalComponent implements OnInit {
     return this.goal.assignedToID.includes(studentUID);
   }
 
-  deleteGoal(){
-    this.loading = true;
-    this.goalService.deleteGoal(this.goal).then(() => {
-      this.loading = false;
-      this.dialogRef.close('success');
-    })
-  }
-
   editGoal(){
     this.goal.dueDate = this.editDate;
     if(this.goal.hasCompleted == null){
