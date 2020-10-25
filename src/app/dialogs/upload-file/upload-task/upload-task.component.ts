@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { Observable } from 'rxjs/internal/Observable';
 import { finalize } from 'rxjs/operators';
+import { Goal } from '../../../shared/models/goal.model';
 import { GoalService } from 'src/app/shared/services/goal.service';
 
 @Component({
@@ -13,16 +16,21 @@ export class UploadTaskComponent implements OnInit {
   goalID: string;
 
   @Input() file: File;
+  @Input() goal: any;
 
   task: AngularFireUploadTask;
 
   percentage: Observable<number>;
-  snapshot: Observable<number>;
+  snapshot: Observable<number| UploadTaskSnapshot>;
   downloadURL;
 
-  constructor(private storage: AngularFireStorage, private goalService: GoalService) { }
+  constructor(private storage: AngularFireStorage, private goalService: GoalService) {
+    console.log(this.goal);
+    this.goalID = this.goal.id;
+  }
 
   ngOnInit() {
+    console.log("the goal", this.goal);
     this.startUpload();
   }
 

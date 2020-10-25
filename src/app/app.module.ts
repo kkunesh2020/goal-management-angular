@@ -80,6 +80,6 @@ import { UploadTaskComponent } from './dialogs/upload-file/upload-task/upload-ta
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
-    DeleteGoalComponent, UploadLinkComponent]
+    DeleteGoalComponent, UploadLinkComponent, UploaderComponent]
 })
 export class AppModule { }

@@ -1,8 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { Goal } from '../../shared/models/goal.model';
+import { UploaderComponent } from '../upload-file/uploader/uploader.component';
 
 @Component({
   selector: 'gms-update-goal',
@@ -17,7 +18,7 @@ export class UpdateGoalComponent{
   currentGoal: Goal;
   isCompleted: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UpdateGoalComponent>, private afs: AngularFirestore, private goalService: GoalService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UpdateGoalComponent>, private afs: AngularFirestore, private goalService: GoalService, private dialog: MatDialog) {
     this.currentGoal = {description: data.description, dueDate: data.dueDate, hasCompleted: data.hasCompleted, createdBy: data.createdBy,
       assignedToID: data.assignedToID, id: data.id, classID: data.classID};
     this.isCompleted = data.isCompleted;
@@ -43,5 +44,7 @@ export class UpdateGoalComponent{
     }
   }
 
-
+  insertFileDialog(){
+    this.dialog.open(UploaderComponent, {height: '40rem', width: '60rem', data: this.currentGoal});
+  }
 }

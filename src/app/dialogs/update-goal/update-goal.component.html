@@ -10,7 +10,7 @@
   <h3 class="subtitle">Your Work</h3>
   <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton"><mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Attachment</button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item><mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon> File</button>
+    <button mat-menu-item (click)="insertFileDialog()"><mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon> File</button>
     <button mat-menu-item><mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon> Link</button>
   </mat-menu>
 

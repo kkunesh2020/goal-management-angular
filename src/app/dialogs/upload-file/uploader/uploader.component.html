@@ -1,4 +1,7 @@
-<div class="dropzone" dropzone (hovered)="toggleHovered($event)" (dropped)="onDrop($event)" [class.hovering]="isHovering">
+<button mat-dialog-close class="exit">
+  <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+</button>
+<div class="dropzone" dropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)" [class.hovering]="isHovering">
 
   <h3>Upload a File</h3>
   <p>Drag and Drop a File</p>
@@ -12,5 +15,5 @@
 <h3>Uploads</h3>
 
 <div *ngFor="let file of files">
-  <upload-task [file]="file"></upload-task>
+  <gms-upload-task [file]="file" [goal]="data"></gms-upload-task>
 </div>
