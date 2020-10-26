@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import FileClass from 'src/app/shared/models/file';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { Goal } from '../../shared/models/goal.model';
 import { UploaderComponent } from '../upload-file/uploader/uploader.component';
@@ -54,6 +55,22 @@ export class UpdateGoalComponent{
         console.log("detected the changes");
       }
     })
+  }
+
+  findIndexOfFile(file: FileClass) {
+    for (let i = 0; i < this.currentGoal.files.length; i++) {
+      let fileData: FileClass = this.currentGoal.files[i];
+      if(fileData.downloadURL === file.downloadURL) {
+        return i;
+      }
+    }
+  }
+
+  deleteFile(file: FileClass){
+    this.goalService.deleteFileFromGoal(file, this.currentGoal.id).then(() => {
+      this.currentGoal.files.splice(this.findIndexOfFile(file), 1); //remove file from array
+      this.currentGoal.files = this.currentGoal.files;
+    });
   }
 
 }

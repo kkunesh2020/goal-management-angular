@@ -2,6 +2,7 @@ import { Goal } from './goal.model';
 import { User } from './user.model';
 import { Group } from './group.model';
 import { DocumentReference } from '@angular/fire/firestore';
+import FileClass from './file';
 
 export default class GoalClass implements Goal {
   description: string;
@@ -12,7 +13,7 @@ export default class GoalClass implements Goal {
   assignedToID: Array<string>;
   id:string;
   classID: string;
-  files: Array<File>;
+  files: Array<FileClass>;
   links: Array<string>;
 
   constructor(
@@ -23,7 +24,7 @@ export default class GoalClass implements Goal {
     id: string,
     createdBy: User,
     assignedToID: Array<string>,
-    files?: Array<File>,
+    files?: Array<FileClass>,
     links?: Array<string>
     ) {
       this.description = description;

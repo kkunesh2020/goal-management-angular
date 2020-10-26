@@ -3,9 +3,10 @@
 </button>
 <h1 mat-dialog-title>Upload Link</h1>
 <div mat-dialog-content>
-
+  <mat-label>Enter URL: </mat-label>
+  <input matInput [(ngModel)]="link">
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button cdkFocusInitial>Add Links</button>
+  <button mat-button (click)="addLink()" [disabled]="loading || link == ''">Add Link</button>
 </div>

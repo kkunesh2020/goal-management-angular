@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 import { User } from '../models/user.model';
 import FileClass from '../models/file';
+import { File } from '../models/file.model';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export class GoalService {
   usersCollection: CollectionReference;
   filesCollection: CollectionReference;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private storage: AngularFireStorage) {
     this.goalsCollection = this.afs.firestore.collection("goals");
     this.usersCollection = this.afs.firestore.collection("users");
     this.filesCollection = this.afs.firestore.collection("files");
@@ -162,10 +164,54 @@ export class GoalService {
     // remove goal from student goalsCompleted field
     goalData.hasCompleted.forEach(studentID => {
       this.usersCollection.doc(studentID).update({goalsCompleted: firebase.firestore.FieldValue.arrayRemove(goalRef)});
+    });
+
+    goalData.files.forEach(file => {
+      this.filesCollection.where('downloadURL', '==', file.downloadURL).get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          this.filesCollection.doc(doc.id).delete();
+          this.storage.ref(file.path).delete();
+        })
+      })
     })
 
     //remove doc from goal collection
     let promise = goalRef.delete().then(() => {return;}).catch(err => console.log(err));
+    return promise;
+  }
+
+  getFileID(fileDownloadURL: string): Promise<any>{
+    console.log("getting file ID");
+    let promise = this.filesCollection.where('downloadURL', '==', fileDownloadURL).get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log("got the document id: ", doc.id);
+        return doc.id;
+      })
+    })
+    return promise;
+  }
+
+  async deleteFileFromGoal(file: FileClass, goalID: string): Promise<any>{
+    let promise = await this.getFileID(file.downloadURL).then(result => {
+      let fileID = result;
+      let fileRef = this.filesCollection.doc(fileID);
+      console.log("the file ID: ", fileID);
+      // delete from goal
+      this.goalsCollection.doc(goalID).update({files: firebase.firestore.FieldValue.arrayRemove(fileRef)}).then(() => {
+      // delete from storage
+      this.storage.ref(file.path).delete();
+      // delete from collection
+      this.filesCollection.doc(fileID).delete().then(()=> {return;}).catch(err => console.log(err));
+    });
+    });
+    return promise;
+  }
+
+  addLinkToGoal(goalID: string, link:string): Promise<any>{
+    let promise = this.goalsCollection.doc(goalID).update({links: firebase.firestore.FieldValue.arrayUnion(link)}).then(() => {return;})
+    .catch((err) => {
+      console.log(err);
+    });
     return promise;
   }
 
