@@ -5,13 +5,14 @@
 <div mat-dialog-content>
   <p>Due Date: {{currentGoal.dueDate.seconds * 1000 | date}}</p>
   <p>Created By: {{currentGoal.createdBy.name}}</p>
-  <p *ngIf="isCompleted" class="complete">
+  <div *ngIf="isCompleted" class="complete">
     <mat-icon aria-hidden="false" aria-label="done icon">done</mat-icon>
-    Completed</p>
-  <p *ngIf="!isCompleted" class="uncomplete">
+    <p>Completed</p>
+  </div>
+  <div *ngIf="!isCompleted" class="uncomplete">
     <mat-icon aria-hidden="false" aria-label="done icon">clear</mat-icon>
-    Not Completed
-  </p>
+    <p>Not Completed</p>
+  </div>
 
   <h3 class="subtitle">Your Work</h3>
   <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton" *ngIf="!isCompleted"><mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Attachment</button>
@@ -32,17 +33,11 @@
   </mat-menu>
 
   <div class="actionButton" *ngIf="!isCompleted">
-    <button *ngIf="!isLoading" mat-raised-button color="primary" (click)="updateGoal(true)"><mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon> Mark As Done</button>
+    <button *ngIf="!isLoading" mat-raised-button color="primary" (click)="updateGoal(true)" [class.spinner]="isLoading" [disabled]="isLoading"><mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon> Mark As Done</button>
   </div>
 
   <div class="actionButton" *ngIf="isCompleted">
     <button *ngIf="!isLoading" mat-raised-button color="primary" (click)="updateGoal(false)">UnSubmit</button>
   </div>
 
-
-
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close [disabled]="isLoading">Cancel</button>
-  <button mat-button cdkFocusInitial [class.spinner]="isLoading" [disabled]="!madeChanges || isLoading">Save Changes</button>
 </div>

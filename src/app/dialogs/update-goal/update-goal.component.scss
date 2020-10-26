@@ -33,11 +33,21 @@ mat-dialog-title{
 }
 
 .complete{
+  display: flex;
   color: greenyellow;
+
+  p{
+    margin: 0;
+  }
 }
 
 .uncomplete{
+  display: flex;
   color: red;
+
+  p{
+    margin: 0;
+  }
 }
 
 .exit{
@@ -54,6 +64,7 @@ mat-dialog-title{
 
 .actionButton{
   margin-bottom: 2rem;
+  margin-top: 4rem;
 }
 
 .fileButton{
