@@ -60,3 +60,16 @@ mat-dialog-title{
   margin-bottom: 2rem;
   border: 2px solid gray;
 }
+
+.file{
+  display: flex;
+
+  p{
+    margin: 0;
+  }
+
+  mat-icon{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}

@@ -22,6 +22,7 @@ export class UpdateGoalComponent{
     this.currentGoal = {description: data.description, dueDate: data.dueDate, hasCompleted: data.hasCompleted, createdBy: data.createdBy,
       assignedToID: data.assignedToID, id: data.id, classID: data.classID, files: data.files, links: data.links};
     this.isCompleted = data.isCompleted;
+    console.log("files", this.currentGoal.files);
    }
 
 

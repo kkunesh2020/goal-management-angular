@@ -7,6 +7,7 @@ import GoalClass from 'src/app/shared/models/goal';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 import { User } from '../models/user.model';
+import FileClass from '../models/file';
 
 @Injectable({
   providedIn: 'root'
@@ -134,11 +135,11 @@ export class GoalService {
     })
   }
 
-  uploadFile(goalID: string, fileData: any){
+  uploadFile(goalID: string, fileData: FileClass){
     let goalRef = this.goalsCollection.doc(goalID);
-    this.filesCollection.add(fileData).then((docRef) => {
+    this.filesCollection.add({...fileData}).then((docRef) => {
       let fileRef: DocumentReference = this.filesCollection.doc(docRef.id);
-      goalRef.update({files: firebase.firestore.FieldValue.arrayUnion(fileRef)});
+      goalRef.update({files: firebase.firestore.FieldValue.arrayUnion({...fileData})});
     });
   }
 

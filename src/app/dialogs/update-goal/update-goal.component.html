@@ -22,7 +22,8 @@
     </div>
     <div class="file" *ngFor="let file of currentGoal.files">
       <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
-      {{file.name}}
+      <p>{{file.name}}</p>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
     </div>
   </div>
   <mat-menu #menu="matMenu">

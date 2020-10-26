@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { finalize } from 'rxjs/operators';
 import { Goal } from '../../../shared/models/goal.model';
 import { GoalService } from 'src/app/shared/services/goal.service';
+import FileClass from 'src/app/shared/models/file';
 
 @Component({
   selector: 'gms-upload-task',
@@ -41,8 +42,8 @@ export class UploadTaskComponent implements OnInit {
     this.snapshot = this.task.snapshotChanges().pipe(
       finalize(async() => {
         this.downloadURL = await ref.getDownloadURL().toPromise();
-
-        this.goalService.uploadFile(this.goalID, {downloadURL: this.downloadURL, path, name: this.file.name});
+        let fileData = new FileClass(this.file.name, this.downloadURL, path);
+        this.goalService.uploadFile(this.goalID, fileData);
       })
     )
   }
