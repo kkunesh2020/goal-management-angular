@@ -24,3 +24,15 @@
 progress::-webkit-progress-value {
   transition: width 0.1s ease;
 }
+
+.exit{
+  float: right;
+  top:-24px;
+  right:-24px;
+  border:none;
+  background: transparent;
+}
+
+.exit:hover{
+  cursor: pointer;
+}

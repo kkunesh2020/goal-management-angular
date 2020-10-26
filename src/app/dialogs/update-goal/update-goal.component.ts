@@ -20,7 +20,7 @@ export class UpdateGoalComponent{
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UpdateGoalComponent>, private afs: AngularFirestore, private goalService: GoalService, private dialog: MatDialog) {
     this.currentGoal = {description: data.description, dueDate: data.dueDate, hasCompleted: data.hasCompleted, createdBy: data.createdBy,
-      assignedToID: data.assignedToID, id: data.id, classID: data.classID};
+      assignedToID: data.assignedToID, id: data.id, classID: data.classID, files: data.files, links: data.links};
     this.isCompleted = data.isCompleted;
    }
 

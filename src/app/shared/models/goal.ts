@@ -1,6 +1,7 @@
 import { Goal } from './goal.model';
 import { User } from './user.model';
 import { Group } from './group.model';
+import { DocumentReference } from '@angular/fire/firestore';
 
 export default class GoalClass implements Goal {
   description: string;
@@ -11,6 +12,8 @@ export default class GoalClass implements Goal {
   assignedToID: Array<string>;
   id:string;
   classID: string;
+  files: Array<File>;
+  links: Array<string>;
 
   constructor(
     description: string,
@@ -19,7 +22,9 @@ export default class GoalClass implements Goal {
     hasCompleted: Array<string>,
     id: string,
     createdBy: User,
-    assignedToID: Array<string>
+    assignedToID: Array<string>,
+    files?: Array<File>,
+    links?: Array<string>
     ) {
       this.description = description;
       this.dueDate = dueDate;
@@ -28,5 +33,7 @@ export default class GoalClass implements Goal {
       this.assignedToID = assignedToID;
       this.id = id;
       this.classID = classID;
+      this.files = files;
+      this.links = links;
     }
 };

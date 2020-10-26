@@ -30,7 +30,7 @@ export class GoalService {
     let promise = this.goalsCollection.where('classID', '==', classID).orderBy('dueDate', "desc").get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         goals.push({description: doc.data().description, dueDate: doc.data().dueDate, id: doc.id, createdBy: doc.data().createdBy, hasCompleted: doc.data().hasCompleted,
-          classID: doc.data().classID, assignedToID: doc.data().assignedToID});
+          classID: doc.data().classID, assignedToID: doc.data().assignedToID, files: doc.data().files, links: doc.data().links});
       })
       return goals;
     })
@@ -42,7 +42,7 @@ export class GoalService {
     let promise = this.goalsCollection.where('classID', '==', classID).where('assignedToID', 'array-contains', userID).orderBy('dueDate', "desc").get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         goals.push({description: doc.data().description, dueDate: doc.data().dueDate, id: doc.id, createdBy: doc.data().createdBy, hasCompleted: doc.data().hasCompleted,
-          classID: doc.data().classID, assignedToID: doc.data().assignedToID});
+          classID: doc.data().classID, assignedToID: doc.data().assignedToID, files: doc.data().files, links: doc.data().links});
       })
       return goals;
     })
@@ -65,7 +65,9 @@ export class GoalService {
           createdBy: doc.data().createdBy,
           assignedToID: doc.data().assignedToID,
           id: doc.data().id,
-          classID: doc.data().classID} as Goal;
+          classID: doc.data().classID,
+          files: doc.data().files,
+          links: doc.data().links} as Goal;
 
         goals.push({description: goalRef.description,
           dueDate: goalRef.dueDate,

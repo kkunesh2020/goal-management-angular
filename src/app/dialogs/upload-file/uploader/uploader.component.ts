@@ -9,9 +9,10 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 export class UploaderComponent {
   isHovering :boolean;
   files: File[] = [];
+  goalData: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(data);
+    this.goalData = data;
   }
 
   toggleHover(event: boolean){

@@ -5,10 +5,26 @@
 <div mat-dialog-content>
   <p>Due Date: {{currentGoal.dueDate.seconds * 1000 | date}}</p>
   <p>Created By: {{currentGoal.createdBy.name}}</p>
-  <p>Is Completed: {{isCompleted}}</p>
+  <p *ngIf="isCompleted" class="complete">
+    <mat-icon aria-hidden="false" aria-label="done icon">done</mat-icon>
+    Completed</p>
+  <p *ngIf="!isCompleted" class="uncomplete">
+    <mat-icon aria-hidden="false" aria-label="done icon">clear</mat-icon>
+    Not Completed
+  </p>
 
   <h3 class="subtitle">Your Work</h3>
-  <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton"><mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Attachment</button>
+  <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton" *ngIf="!isCompleted"><mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Attachment</button>
+  <div class="attachments">
+    <div class="link" *ngFor="let link of currentGoal.links">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
+      {{link}}
+    </div>
+    <div class="file" *ngFor="let file of currentGoal.files">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
+      {{file.name}}
+    </div>
+  </div>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="insertFileDialog()"><mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon> File</button>
     <button mat-menu-item><mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon> Link</button>

@@ -25,12 +25,11 @@ export class UploadTaskComponent implements OnInit {
   downloadURL;
 
   constructor(private storage: AngularFireStorage, private goalService: GoalService) {
-    console.log(this.goal);
-    this.goalID = this.goal.id;
   }
 
   ngOnInit() {
     console.log("the goal", this.goal);
+    this.goalID = this.goal.id;
     this.startUpload();
   }
 
@@ -43,7 +42,7 @@ export class UploadTaskComponent implements OnInit {
       finalize(async() => {
         this.downloadURL = await ref.getDownloadURL().toPromise();
 
-        this.goalService.uploadFile(this.goalID, {downloadURL: this.downloadURL, path});
+        this.goalService.uploadFile(this.goalID, {downloadURL: this.downloadURL, path, name: this.file.name});
       })
     )
   }
