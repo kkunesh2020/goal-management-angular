@@ -17,3 +17,8 @@
 <div *ngFor="let file of files">
   <gms-upload-task [file]="file" [goal]="goalData"></gms-upload-task>
 </div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="addFiles()" [disabled]="loading || files.length == 0">Add Files</button>
+</mat-dialog-actions>

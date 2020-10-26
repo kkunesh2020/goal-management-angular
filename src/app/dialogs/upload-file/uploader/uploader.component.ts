@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'gms-uploader',
@@ -10,8 +10,9 @@ export class UploaderComponent {
   isHovering :boolean;
   files: File[] = [];
   goalData: any;
+  loading: boolean;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UploaderComponent>) {
     this.goalData = data;
   }
 
@@ -20,9 +21,15 @@ export class UploaderComponent {
   }
 
   onDrop(files: FileList){
+    this.loading = true;
     for(let i = 0; i < files.length; i++){
       this.files.push(files.item(i));
     }
+    this.loading = false;
+  }
+
+  addFiles(){
+    this.dialogRef.close(this.files);
   }
 
 }

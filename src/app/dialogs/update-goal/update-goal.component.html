@@ -16,7 +16,7 @@
 
   <h3 class="subtitle">Your Work</h3>
   <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton" *ngIf="!isCompleted"><mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Attachment</button>
-  <div class="attachments">
+  <div class="attachments" *ngIf="currentGoal.files.length > 0 || currentGoal.links.length > 0">
     <div class="link" *ngFor="let link of currentGoal.links">
       <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
       {{link}}
@@ -24,7 +24,7 @@
     <div class="file" *ngFor="let file of currentGoal.files">
       <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
       <p>{{file.name}}</p>
-      <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Example home icon" class="close">close</mat-icon>
     </div>
   </div>
   <mat-menu #menu="matMenu">

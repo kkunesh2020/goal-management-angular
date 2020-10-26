@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { GoalService } from 'src/app/shared/services/goal.service';
@@ -18,7 +18,7 @@ export class UpdateGoalComponent{
   currentGoal: Goal;
   isCompleted: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UpdateGoalComponent>, private afs: AngularFirestore, private goalService: GoalService, private dialog: MatDialog) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UploaderComponent>, private afs: AngularFirestore, private goalService: GoalService, private dialog: MatDialog) {
     this.currentGoal = {description: data.description, dueDate: data.dueDate, hasCompleted: data.hasCompleted, createdBy: data.createdBy,
       assignedToID: data.assignedToID, id: data.id, classID: data.classID, files: data.files, links: data.links};
     this.isCompleted = data.isCompleted;
@@ -46,6 +46,14 @@ export class UpdateGoalComponent{
   }
 
   insertFileDialog(){
-    this.dialog.open(UploaderComponent, {height: '40rem', width: '60rem', data: this.currentGoal});
+    let dialogRef = this.dialog.open(UploaderComponent, {height: '40rem', width: '60rem', data: this.currentGoal});
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("got the result", result);
+      if(result != null){
+        this.currentGoal.files = this.currentGoal.files.concat(result);
+        console.log("detected the changes");
+      }
+    })
   }
+
 }
