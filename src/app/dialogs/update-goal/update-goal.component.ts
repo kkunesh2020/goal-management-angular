@@ -85,4 +85,11 @@ export class UpdateGoalComponent{
     });
   }
 
+  deleteLink(link: string){
+    let newLinks = this.currentGoal.links.filter(e => e !== link);
+    this.goalService.removeLinks(newLinks, this.currentGoal.id).then(() => { //replaces old links with new links
+      this.currentGoal.links = newLinks;
+    })
+  }
+
 }

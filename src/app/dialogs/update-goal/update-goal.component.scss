@@ -76,9 +76,11 @@ mat-dialog-title{
   border: 2px solid gray;
 }
 
-.file{
+
+.file, .link{
   display: flex;
   color: rgb(31, 152, 192);
+  margin-bottom: 1rem;
 
   p{
     margin: 0;
@@ -87,6 +89,7 @@ mat-dialog-title{
 
   .close{
     color:black;
+    margin-left: 8px;
   }
 
   mat-icon{
@@ -94,3 +97,8 @@ mat-dialog-title{
     padding-right: 10px;
   }
 }
+
+.link{
+  color: rgb(60, 67, 70);
+}
+

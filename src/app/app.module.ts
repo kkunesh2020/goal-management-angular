@@ -11,6 +11,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatNativeDateModule} from '@angular/material';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -68,6 +69,7 @@ import { UploadTaskComponent } from './dialogs/upload-file/upload-task/upload-ta
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
+    MatProgressBarModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatNativeDateModule,

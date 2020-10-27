@@ -1,13 +1,3 @@
-<div *ngIf="percentage | async as pct">
-  <progress [value]="pct" max="100"></progress>
-  {{ pct | number }}%
-</div>
-
-
-
-<div *ngIf="snapshot | async as snap">
-
-  {{ snap.bytesTransferred }} of {{ snap.totalBytes }}
-
-  <button (click)="task.cancel()" [disabled]="!isActive(snap)">Cancel</button>
+<div>
+  <h3>{{file.name}}</h3>
 </div>

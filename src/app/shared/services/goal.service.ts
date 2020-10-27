@@ -112,7 +112,7 @@ export class GoalService {
       goal.hasCompleted.push(uid);
     }
 
-    let promise = this.afs.doc<Goal>(`goals/` + goal.id).set(goal).then(() => {
+    let promise = this.afs.doc<Goal>(`goals/` + goal.id).set({...goal}).then(() => {
       let ref = this.goalsCollection.doc(goal.id);
       this.afs.firestore.collection("users").doc(uid).update({goalsCompleted: firebase.firestore.FieldValue.arrayUnion(ref)});
     }).catch(err => console.log(err));
@@ -147,6 +147,10 @@ export class GoalService {
 
   createGoal(goal: GoalClass): Promise<any>{
     console.log("assigned to student ids", goal.assignedToID);
+    if(goal.links == null){ goal.links = [];}
+    if(goal.files == null){ goal.files = [];}
+    let newGoal:GoalClass = {description: goal.description, dueDate: goal.dueDate, hasCompleted: goal.hasCompleted,
+      createdBy: goal.createdBy, assignedToID: goal.assignedToID, id: goal.id, classID: goal.classID, links: goal.links, files: goal.files};
     let promise = this.goalsCollection.add({...goal}).then((docRef) => {
       this.assignToStudents(docRef.id, goal.assignedToID);
       return;
@@ -166,14 +170,16 @@ export class GoalService {
       this.usersCollection.doc(studentID).update({goalsCompleted: firebase.firestore.FieldValue.arrayRemove(goalRef)});
     });
 
-    goalData.files.forEach(file => {
-      this.filesCollection.where('downloadURL', '==', file.downloadURL).get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.filesCollection.doc(doc.id).delete();
-          this.storage.ref(file.path).delete();
-        })
-      })
-    })
+    if(goalData.files != null) {
+      goalData.files.forEach(file => {
+        this.filesCollection.where('downloadURL', '==', file.downloadURL).get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.filesCollection.doc(doc.id).delete();
+            this.storage.ref(file.path).delete();
+          });
+        });
+      });
+   }
 
     //remove doc from goal collection
     let promise = goalRef.delete().then(() => {return;}).catch(err => console.log(err));
@@ -186,23 +192,28 @@ export class GoalService {
       querySnapshot.forEach((doc) => {
         console.log("got the document id: ", doc.id);
         return doc.id;
-      })
+      });
     })
     return promise;
   }
 
+  removeLinks(newLinks: string[], goalID: string): Promise<any>{
+    let promise = this.goalsCollection.doc(goalID).update({links: newLinks}).then(() => {return;}).catch(err => {console.log(err);});
+    return promise;
+  }
+
   async deleteFileFromGoal(file: FileClass, goalID: string): Promise<any>{
-    let promise = await this.getFileID(file.downloadURL).then(result => {
-      let fileID = result;
-      let fileRef = this.filesCollection.doc(fileID);
-      console.log("the file ID: ", fileID);
+    console.log("deleting the file", file);
+
+    let fileID = await this.getFileID(file.downloadURL);
+    console.log("the file ID: ", fileID);
+    let fileRef = this.filesCollection.doc(fileID);
       // delete from goal
-      this.goalsCollection.doc(goalID).update({files: firebase.firestore.FieldValue.arrayRemove(fileRef)}).then(() => {
+    let promise = this.goalsCollection.doc(goalID).update({files: firebase.firestore.FieldValue.arrayRemove(fileRef)}).then(() => {
       // delete from storage
       this.storage.ref(file.path).delete();
       // delete from collection
       this.filesCollection.doc(fileID).delete().then(()=> {return;}).catch(err => console.log(err));
-    });
     });
     return promise;
   }
