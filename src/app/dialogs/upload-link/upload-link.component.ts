@@ -13,7 +13,9 @@ export class UploadLinkComponent  {
   goalID: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              public dialogRef: MatDialogRef<UploadLinkComponent>, private goalService: GoalService) { }
+              public dialogRef: MatDialogRef<UploadLinkComponent>, private goalService: GoalService) {
+        this.goalID = data.id;
+  }
 
   addLink() {
     this.loading = true;

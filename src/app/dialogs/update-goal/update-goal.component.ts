@@ -5,6 +5,7 @@ import FileClass from 'src/app/shared/models/file';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { Goal } from '../../shared/models/goal.model';
 import { UploaderComponent } from '../upload-file/uploader/uploader.component';
+import { UploadLinkComponent } from '../upload-link/upload-link.component';
 
 @Component({
   selector: 'gms-update-goal',
@@ -53,6 +54,17 @@ export class UpdateGoalComponent{
       if(result != null){
         this.currentGoal.files = this.currentGoal.files.concat(result);
         console.log("detected the changes");
+      }
+    })
+  }
+
+  insertLinkDialog(){
+    let dialogRef = this.dialog.open(UploadLinkComponent, {height: '30rem', width: '35rem', data: this.currentGoal});
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("got the link result", result);
+      if(result != null){
+        this.currentGoal.links != null ? this.currentGoal.links = this.currentGoal.links.concat(result) : this.currentGoal.links = result;
+        console.log("detected the link changes");
       }
     })
   }
