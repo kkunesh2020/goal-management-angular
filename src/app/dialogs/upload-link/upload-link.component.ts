@@ -25,4 +25,8 @@ export class UploadLinkComponent  {
       this.dialogRef.close(this.link);
     });
   }
+
+  formComplete() : boolean{
+    return this.link != '';
+  }
 }

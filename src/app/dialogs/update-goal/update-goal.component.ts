@@ -51,9 +51,9 @@ export class UpdateGoalComponent{
     let dialogRef = this.dialog.open(UploaderComponent, {height: '40rem', width: '60rem', data: this.currentGoal});
     dialogRef.afterClosed().subscribe((result) => {
       console.log("got the result", result);
-      if(result != null){
+      if(result != ''){
         this.currentGoal.files = this.currentGoal.files.concat(result);
-        console.log("detected the changes");
+        console.log("detected the changes", result);
       }
     })
   }
@@ -62,7 +62,7 @@ export class UpdateGoalComponent{
     let dialogRef = this.dialog.open(UploadLinkComponent, {height: '30rem', width: '35rem', data: this.currentGoal});
     dialogRef.afterClosed().subscribe((result) => {
       console.log("got the link result", result);
-      if(result != null){
+      if(result != ''){
         this.currentGoal.links != null ? this.currentGoal.links = this.currentGoal.links.concat(result) : this.currentGoal.links = result;
         console.log("detected the link changes");
       }

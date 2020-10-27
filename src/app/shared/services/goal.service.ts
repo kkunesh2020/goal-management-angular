@@ -112,6 +112,12 @@ export class GoalService {
       goal.hasCompleted.push(uid);
     }
 
+    if(goal.files == null){
+      goal.files = [];
+    }else{
+      goal.files = goal.files.map((file) => Object.assign({}, file));
+    }
+
     let promise = this.afs.doc<Goal>(`goals/` + goal.id).set({...goal}).then(() => {
       let ref = this.goalsCollection.doc(goal.id);
       this.afs.firestore.collection("users").doc(uid).update({goalsCompleted: firebase.firestore.FieldValue.arrayUnion(ref)});
@@ -188,13 +194,14 @@ export class GoalService {
 
   getFileID(fileDownloadURL: string): Promise<any>{
     console.log("getting file ID");
-    let promise = this.filesCollection.where('downloadURL', '==', fileDownloadURL).get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        console.log("got the document id: ", doc.id);
-        return doc.id;
+    return new Promise((resolve, reject) => {
+      this.filesCollection.where('downloadURL', '==', fileDownloadURL).get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log("got the document id: ", doc.id);
+          resolve(doc.id);
+        });
       });
-    })
-    return promise;
+    });
   }
 
   removeLinks(newLinks: string[], goalID: string): Promise<any>{
