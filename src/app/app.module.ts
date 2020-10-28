@@ -27,7 +27,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { StudentTableComponent } from './teacher/student-table/student-table.component';
 import { ClassListComponent } from './teacher/class-list/class-list.component';
 import { ClassComponent } from './teacher/class/class.component';
 import { CreateGoalComponent } from './dialogs/create-goal/create-goal.component';
@@ -46,7 +45,6 @@ import { ViewStudentDataComponent } from './teacher/view-student-data/view-stude
     NavbarComponent,
     SideNavbarComponent,
     HomeComponent,
-    StudentTableComponent,
     UpdateGoalComponent,
     ClassListComponent,
     ClassComponent,

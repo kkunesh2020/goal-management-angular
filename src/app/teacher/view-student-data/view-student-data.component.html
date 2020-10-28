@@ -1,1 +1,7 @@
-<p>view-student-data works!</p>
+{{classID}}
+{{studentID}}
+
+<div class="student" *ngIf="student">
+  <h1>{{student.name}}</h1>
+</div>
+

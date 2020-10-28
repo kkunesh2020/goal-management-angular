@@ -9,13 +9,14 @@ import { ClassAuthGuard } from './shared/guards/class-auth.guard';
 import { StudentAuthGuard } from './shared/guards/student-auth.guard';
 import { GoalsComponent } from './goals/goals.component';
 import { TeacherAuthGuard } from './shared/guards/teacher-auth.guard';
+import { ViewStudentDataComponent } from './teacher/view-student-data/view-student-data.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path: 'goals', component: GoalsComponent, canActivate: [StudentAuthGuard]},
   {path: 'classes', component: ClassListComponent, canActivate: [AuthGuard]},
   {path: 'classes/:classID', component: ClassComponent, canActivate:[ClassAuthGuard]},
-  {path: 'classes/:classID/:studentID', component: ClassComponent, canActivate:[ClassAuthGuard, TeacherAuthGuard]},
+  {path: 'classes/:classID/students/:studentID', component: ViewStudentDataComponent, canActivate:[ClassAuthGuard, TeacherAuthGuard]},
 ];
 
 @NgModule({

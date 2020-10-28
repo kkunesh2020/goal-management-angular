@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 import { StudentData } from 'src/app/teacher/class/class.component';
 import { Class } from '../models/class.model';
+import UserClass from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,14 @@ export class ClassService {
       }
     });
      return allowed;
+   }
+
+   getStudentDataByID(id: string): Promise<UserClass>{
+    let promise = this.afs.firestore.collection('users').doc(id).get().then((doc) => {
+      return {uid: id, goalsAssigned: doc.data().goalsAssigned, goalsCompleted: doc.data().goalsCompleted, email: doc.data().email,
+        isAdmin: doc.data().isAdmin, name: doc.data().name, classes: doc.data().classes} as UserClass;
+    });
+    return promise;
    }
 
    getStudentsData(studentRefs: DocumentReference[]) {
