@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Class } from 'src/app/shared/models/class.model';
 import { Goal } from 'src/app/shared/models/goal.model';
 import { UpdateGoalComponent } from '../../dialogs/update-goal/update-goal.component';
@@ -19,6 +19,7 @@ import { DeleteGoalComponent } from 'src/app/dialogs/delete-goal/delete-goal.com
 
 export interface StudentData {
   name: string;
+  id: string;
   goalsAssigned: number;
   goalsCompleted: number;
 }
@@ -71,7 +72,7 @@ export class ClassComponent implements OnInit {
   studentDataSource = STUDENT_DATA;
 
   constructor(private route: ActivatedRoute, private classService: ClassService, private auth: AuthService,
-              public dialog: MatDialog, private goalService: GoalService) {
+              public dialog: MatDialog, private goalService: GoalService, private router: Router) {
     this.loading = true;
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
@@ -96,6 +97,10 @@ export class ClassComponent implements OnInit {
       console.log("retrieved student data", studentData);
       this.studentDataSource = studentData;
     });
+  }
+
+  openStudentData(studentID: string){
+    this.router.navigate([`/classes/${this.classID}/students/${studentID}`]);
   }
 
   goalIsCompleted(hasCompleted: string[], userID: string){

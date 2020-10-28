@@ -80,7 +80,7 @@ export class ClassService {
     refs.forEach(studentRef => {
       this.getStudentData(studentRef).then((student) => {
         let data: StudentData = {name: student.name, goalsAssigned: this.getLengthOf(student.goalsAssigned),
-          goalsCompleted: this.getLengthOf(student.goalsCompleted)} as StudentData;
+          goalsCompleted: this.getLengthOf(student.goalsCompleted), id: studentRef.id} as StudentData;
         studentsData.push(data);
       });
     });

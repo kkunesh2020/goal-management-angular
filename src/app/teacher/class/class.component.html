@@ -28,7 +28,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"
         [class.green-row]="row.goalsCompleted/row.goalsAssigned >= .8"
         [class.yellow-row]="row.goalsCompleted/row.goalsAssigned >= .5"
-        [class.red-row]="row.goalsCompleted/row.goalsAssigned < .5"></tr>
+        [class.red-row]="row.goalsCompleted/row.goalsAssigned < .5" (click)="openStudentData(row.id)"></tr>
     </table>
     </div>
 

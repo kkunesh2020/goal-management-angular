@@ -18,6 +18,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from 'src/environments/environment';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SideNavbarComponent } from './side-navbar/side-navbar.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { HomeComponent } from './home/home.component';
 import { UpdateGoalComponent } from './dialogs/update-goal/update-goal.component';
 
@@ -68,6 +69,7 @@ import { ViewStudentDataComponent } from './teacher/view-student-data/view-stude
     AngularFireStorageModule,
     AngularFirestoreModule,
     MatProgressBarModule,
+    MatTooltipModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatNativeDateModule,
