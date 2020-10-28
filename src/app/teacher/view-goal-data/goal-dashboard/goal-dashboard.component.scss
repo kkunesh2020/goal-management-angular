@@ -1,0 +1,16 @@
+.backButton{
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.main{
+  display: flex;
+
+  gms-student-bar{
+    width: 20%;
+  }
+
+  gms-goal-details{
+    width: 80%;
+  }
+}

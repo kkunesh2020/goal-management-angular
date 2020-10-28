@@ -103,6 +103,10 @@ export class ClassComponent implements OnInit {
     this.router.navigate([`/classes/${this.classID}/students/${studentID}`]);
   }
 
+  openGoalData(goalID: string){
+    this.router.navigate([`/classes/${this.classID}/goals/${goalID}`]);
+  }
+
   goalIsCompleted(hasCompleted: string[], userID: string){
     console.log('goalIsCompleted?', this.goalService.userHasCompleted(hasCompleted, userID))
     return this.goalService.userHasCompleted(hasCompleted, userID);
