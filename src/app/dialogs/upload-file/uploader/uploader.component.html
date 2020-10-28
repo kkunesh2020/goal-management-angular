@@ -1,15 +1,31 @@
 <button mat-dialog-close class="exit">
   <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
 </button>
-<div class="dropzone" dropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)" [class.hovering]="isHovering">
 
-  <h3>Upload a File</h3>
-  <p>Drag and Drop a File</p>
-  <div class="file">
-    <label class="file-label">
-      <input type="file" class="file-input" (change)="onDrop($event.target.files)">
-    </label>
-  </div>
+
+<div class="dropzone"
+     dropzone
+     (hovered)="toggleHover($event)"
+     (dropped)="onDrop($event)"
+     [class.hovering]="isHovering">
+
+
+     <h3>Drag and Drop a File</h3>
+     <div class="file">
+        <label class="file-label">
+
+          <span class="file-cta">
+
+            <span class="file-label">
+              or choose a file…
+            </span>
+
+            <input class="file-input" style="display: none" multiple type="file" #hiddenFileInput accept="image/jpeg,image/x-png" (change)="onDrop($event.target.files)">
+            <br>
+            <button mat-raised-button id="fileButton" color="primary" (click)="hiddenFileInput.click()"><mat-icon aria-hidden="false" aria-label="Example home icon">cloud_upload</mat-icon> Select a File</button>
+          </span>
+        </label>
+      </div>
 </div>
 
 <div *ngIf="loading">

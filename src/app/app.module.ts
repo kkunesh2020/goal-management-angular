@@ -36,6 +36,7 @@ import { GoalsComponent } from './goals/goals.component';
 import { DeleteGoalComponent } from './dialogs/delete-goal/delete-goal.component';
 import { UploadLinkComponent } from './dialogs/upload-link/upload-link.component';
 import { UploaderComponent } from './dialogs/upload-file/uploader/uploader.component';
+import { ViewStudentDataComponent } from './teacher/view-student-data/view-student-data.component';
 
 
 
@@ -54,7 +55,8 @@ import { UploaderComponent } from './dialogs/upload-file/uploader/uploader.compo
     GoalsComponent,
     DeleteGoalComponent,
     UploadLinkComponent,
-    UploaderComponent
+    UploaderComponent,
+    ViewStudentDataComponent
   ],
   imports: [
     BrowserModule,

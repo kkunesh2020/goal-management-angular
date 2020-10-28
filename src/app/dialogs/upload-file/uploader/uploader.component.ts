@@ -24,6 +24,10 @@ export class UploaderComponent {
     this.isHovering = event;
   }
 
+  toggleDrag(event: boolean){
+    this.isHovering = event;
+  }
+
   async onDrop(files: FileList){
     this.loading = true;
     for(let i = 0; i < files.length; i++){

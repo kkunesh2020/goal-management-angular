@@ -234,6 +234,8 @@ export class GoalService {
   }
 
   editGoal(goal: GoalClass): Promise<any>{
+    if(goal.files == null) { goal.files = []; }
+    if(goal.links == null) { goal.links = []; }
     let promise = this.goalsCollection.doc(goal.id).set({...goal}).catch(err => console.log(err));
     return promise;
   }
