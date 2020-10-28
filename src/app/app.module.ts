@@ -37,6 +37,9 @@ import { DeleteGoalComponent } from './dialogs/delete-goal/delete-goal.component
 import { UploadLinkComponent } from './dialogs/upload-link/upload-link.component';
 import { UploaderComponent } from './dialogs/upload-file/uploader/uploader.component';
 import { ViewStudentDataComponent } from './teacher/view-student-data/view-student-data.component';
+import { GoalDashboardComponent } from './teacher/view-goal-data/goal-dashboard/goal-dashboard.component';
+import { StudentBarComponent } from './teacher/view-goal-data/student-bar/student-bar.component';
+import { GoalDetailsComponent } from './teacher/view-goal-data/goal-details/goal-details.component';
 
 
 
@@ -55,7 +58,10 @@ import { ViewStudentDataComponent } from './teacher/view-student-data/view-stude
     DeleteGoalComponent,
     UploadLinkComponent,
     UploaderComponent,
-    ViewStudentDataComponent
+    ViewStudentDataComponent,
+    GoalDashboardComponent,
+    StudentBarComponent,
+    GoalDetailsComponent
   ],
   imports: [
     BrowserModule,
