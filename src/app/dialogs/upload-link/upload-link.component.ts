@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import LinkClass from 'src/app/shared/models/link';
 import { GoalService } from 'src/app/shared/services/goal.service';
 
 @Component({
@@ -9,24 +10,28 @@ import { GoalService } from 'src/app/shared/services/goal.service';
 })
 export class UploadLinkComponent  {
   loading: boolean;
-  link: string;
+  url: string;
+  uid: string;
+  link: LinkClass;
   goalID: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<UploadLinkComponent>, private goalService: GoalService) {
-        this.goalID = data.id;
+        this.goalID = data.goal.id;
+        this.uid = data.uid;
   }
 
   addLink() {
     this.loading = true;
     //add link
-    this.goalService.addLinkToGoal(this.goalID, this.link).then(() => {
+    let newLink = {url: this.url, uid: this.uid} as LinkClass;
+    this.goalService.addLinkToGoal(this.goalID, newLink).then(() => {
       this.loading = false;
       this.dialogRef.close(this.link);
     });
   }
 
   formComplete() : boolean{
-    return this.link != '';
+    return this.url != '';
   }
 }

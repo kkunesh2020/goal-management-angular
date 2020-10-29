@@ -10,6 +10,7 @@ import { User } from '../models/user.model';
 import FileClass from '../models/file';
 import { File } from '../models/file.model';
 import { AngularFireStorage } from '@angular/fire/storage';
+import LinkClass from '../models/link';
 
 @Injectable({
   providedIn: 'root'
@@ -204,7 +205,7 @@ export class GoalService {
     });
   }
 
-  removeLinks(newLinks: string[], goalID: string): Promise<any>{
+  removeLinks(newLinks: LinkClass[], goalID: string): Promise<any>{
     let promise = this.goalsCollection.doc(goalID).update({links: newLinks}).then(() => {return;}).catch(err => {console.log(err);});
     return promise;
   }
@@ -216,7 +217,7 @@ export class GoalService {
     console.log("the file ID: ", fileID);
     let fileRef = this.filesCollection.doc(fileID);
       // delete from goal
-    let promise = this.goalsCollection.doc(goalID).update({files: firebase.firestore.FieldValue.arrayRemove(fileRef)}).then(() => {
+    let promise = this.goalsCollection.doc(goalID).update({files: firebase.firestore.FieldValue.arrayRemove({...file})}).then(() => {
       // delete from storage
       this.storage.ref(file.path).delete();
       // delete from collection
@@ -225,7 +226,7 @@ export class GoalService {
     return promise;
   }
 
-  addLinkToGoal(goalID: string, link:string): Promise<any>{
+  addLinkToGoal(goalID: string, link: LinkClass): Promise<any>{
     let promise = this.goalsCollection.doc(goalID).update({links: firebase.firestore.FieldValue.arrayUnion(link)}).then(() => {return;})
     .catch((err) => {
       console.log(err);

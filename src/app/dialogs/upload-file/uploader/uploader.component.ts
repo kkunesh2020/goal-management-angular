@@ -14,10 +14,12 @@ export class UploaderComponent {
   isHovering :boolean;
   files: FileClass[] = [];
   goalData: any;
+  uid: string;
   loading: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UploaderComponent>, public storage: AngularFireStorage, private goalService: GoalService) {
-    this.goalData = data;
+    this.goalData = data.goal;
+    this.uid = data.uid;
   }
 
   toggleHover(event: boolean){
@@ -49,7 +51,7 @@ export class UploaderComponent {
     return new Promise((resolve, reject) => {
       task.then(async() => {
         downloadURL = await ref.getDownloadURL().toPromise();
-        fileData = new FileClass(file.name, downloadURL, path);
+        fileData = new FileClass(file.name, downloadURL, path, this.uid);
         console.log("got the file data", fileData);
         await this.goalService.uploadFile(this.goalData.id, fileData);
         resolve(fileData);

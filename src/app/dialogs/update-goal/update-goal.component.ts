@@ -48,7 +48,7 @@ export class UpdateGoalComponent{
   }
 
   insertFileDialog(){
-    let dialogRef = this.dialog.open(UploaderComponent, {height: '40rem', width: '60rem', data: this.currentGoal});
+    let dialogRef = this.dialog.open(UploaderComponent, {height: '40rem', width: '60rem', data: {goal: this.currentGoal, uid: this.data.uid}});
     dialogRef.afterClosed().subscribe((result) => {
       console.log("got the result", result);
       if(result != ''){
@@ -59,7 +59,7 @@ export class UpdateGoalComponent{
   }
 
   insertLinkDialog(){
-    let dialogRef = this.dialog.open(UploadLinkComponent, {height: '30rem', width: '35rem', data: this.currentGoal});
+    let dialogRef = this.dialog.open(UploadLinkComponent, {height: '30rem', width: '35rem', data: {goal: this.currentGoal, uid: this.data.uid}});
     dialogRef.afterClosed().subscribe((result) => {
       console.log("got the link result", result);
       if(result != ''){
@@ -85,8 +85,9 @@ export class UpdateGoalComponent{
     });
   }
 
-  deleteLink(link: string){
-    let newLinks = this.currentGoal.links.filter(e => e !== link);
+  deleteLink(url: string){
+    let newLinks = this.currentGoal.links.filter(e => e.url !== url);
+    console.log("the new LInks", newLinks);
     this.goalService.removeLinks(newLinks, this.currentGoal.id).then(() => { //replaces old links with new links
       this.currentGoal.links = newLinks;
     })
