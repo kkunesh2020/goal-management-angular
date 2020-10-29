@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Class } from 'src/app/shared/models/class.model';
+import { ClassService } from 'src/app/shared/services/class.service';
+import { StudentData } from '../../class/class.component';
 
 @Component({
   selector: 'gms-student-bar',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentBarComponent implements OnInit {
 
-  constructor() { }
+  @Input() class: Class;
+  @Input() teacherUID: string;
+  students: StudentData[];
+
+  constructor(private classService: ClassService) {
+   }
 
   ngOnInit() {
+    console.log("teacherUID", this.teacherUID);
+    this.getStudentData();
   }
+
+  getStudentData(){ //work on this
+    this.classService.getStudentsDataByReference(this.class.students).subscribe(studentData => {
+      console.log("retrieved student data", studentData);
+      this.students = studentData;
+    });
+  }
+
 
 }
