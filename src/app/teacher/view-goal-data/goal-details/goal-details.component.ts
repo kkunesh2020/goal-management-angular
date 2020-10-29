@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Class } from 'src/app/shared/models/class.model';
 import { Goal } from 'src/app/shared/models/goal.model';
+import { GoalStudentDataService } from 'src/app/shared/services/goal-student-data.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
 
 @Component({
@@ -10,18 +11,15 @@ import { GoalService } from 'src/app/shared/services/goal.service';
 })
 export class GoalDetailsComponent implements OnInit {
 
-  @Input() goalID: string;
-  goal: Goal;
-  constructor(private goalService: GoalService) { }
+  @Input() goal: Goal;
+  studentData: any;
+
+  constructor(private studentGoalService: GoalStudentDataService) { }
 
   ngOnInit() {
-    this.getGoal();
+    this.studentGoalService.currentStudentGoal.subscribe(studentGoalData => this.studentData = studentGoalData);
   }
 
-  getGoal(){
-    this.goalService.getGoalById(this.goalID).then((goal) => {
-      this.goal = goal;
-    });
-  }
+
 
 }

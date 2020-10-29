@@ -3,6 +3,6 @@
 </button>
 
 <div class="main" *ngIf="teacherID != null && class != null">
-  <gms-student-bar [class]="class" [teacherUID]="teacherID"></gms-student-bar>
-  <gms-goal-details [goalID]="goalID"></gms-goal-details>
+  <gms-student-bar [class]="class" [teacherUID]="teacherID" [goal]="goal"></gms-student-bar>
+  <gms-goal-details [goal]="goal"></gms-goal-details>
 </div>

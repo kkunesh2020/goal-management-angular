@@ -2,7 +2,8 @@
   <mat-list>
     <mat-divider></mat-divider>
     <mat-list-item>Students</mat-list-item>
-    <div class="student" *ngFor="let student of students">
+    <mat-divider></mat-divider>
+    <div class="student" *ngFor="let student of students" (click)="viewStudentData(student.id)">
       <mat-list-item>{{student.name}}</mat-list-item>
       <mat-divider></mat-divider>
     </div>

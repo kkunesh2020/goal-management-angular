@@ -1,22 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Class } from 'src/app/shared/models/class.model';
+import { Goal } from 'src/app/shared/models/goal.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ClassService } from 'src/app/shared/services/class.service';
+import { GoalService } from 'src/app/shared/services/goal.service';
 
 @Component({
   selector: 'gms-goal-dashboard',
   templateUrl: './goal-dashboard.component.html',
   styleUrls: ['./goal-dashboard.component.scss']
 })
-export class GoalDashboardComponent {
+export class GoalDashboardComponent implements OnInit{
   loading: boolean;
   classID: string;
   teacherID: string;
   goalID: string;
   class: Class;
+  goal: Goal;
 
-  constructor(private route: ActivatedRoute, private auth: AuthService, private router: Router, private classService: ClassService) {
+  constructor(private route: ActivatedRoute, private auth: AuthService, private router: Router, private classService: ClassService, private goalService: GoalService) {
     this.loading = true;
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
@@ -28,6 +31,9 @@ export class GoalDashboardComponent {
     });
     this.loading = false;
   }
+  ngOnInit() {
+    this.getGoal();
+  }
 
   navigateBack(){
     this.router.navigate([`classes/${this.classID}`]);
@@ -38,6 +44,12 @@ export class GoalDashboardComponent {
       this.class = data;
     });
     return promise;
+  }
+
+  getGoal(){
+    this.goalService.getGoalById(this.goalID).then((goal) => {
+      this.goal = goal;
+    });
   }
 
 }
