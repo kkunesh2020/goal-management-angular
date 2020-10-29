@@ -1,12 +1,12 @@
 <div class="goal" *ngIf="goal">
-  <div class="goalDescription" *ngIf="!studentData">
+  <div class="goalDescription" *ngIf="studentData == null">
     <h1>{{goal.description}}</h1>
     <p>{{goal.dueDate.seconds * 1000 | date}}</p>
     <p>{{goal.assignedToID.length}} assigned</p>
     <p>{{goal.hasCompleted.length}} completed</p>
   </div>
 
-  <div class="studentGoalData" *ngIf="studentData">
+  <div class="studentGoalData" *ngIf="studentData != null">
     <h1>{{studentData.name}}</h1>
     <h1>{{studentData.id}}</h1>
     <p>{{studentData.completed}}</p>

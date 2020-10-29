@@ -22,6 +22,7 @@ export class GoalStudentDataService {
   }
 
   getStudentData(studentID: string): Promise<UserClass>{
+    console.log("getting student data", studentID);
     let promise = this.classService.getStudentDataByID(studentID).then((studentData) => {
       return studentData;
     });
@@ -30,7 +31,7 @@ export class GoalStudentDataService {
   }
 
   getStudentFiles(files: FileClass[], studentID: string){
-    let studentFiles: FileClass[];
+    let studentFiles: FileClass[] = [];
     files.forEach(file => {
       if(file.uid == studentID){
         studentFiles.push(file);

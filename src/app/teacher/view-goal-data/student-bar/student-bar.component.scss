@@ -1,3 +1,9 @@
 .student-sidebar{
   height: 100%;
 }
+
+.student :hover{
+  cursor: pointer;
+  background-color: lightgrey;
+  transition: background-color 1s;
+}

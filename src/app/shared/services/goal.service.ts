@@ -54,6 +54,7 @@ export class GoalService {
   }
 
   getGoalById(goalID: string): Promise<any>{
+    console.log("gettng goal by id", goalID)
     let promise = this.goalsCollection.doc(goalID).get().then(doc => {return doc.data();}).catch(err => {console.log(err)});
     return promise;
   }

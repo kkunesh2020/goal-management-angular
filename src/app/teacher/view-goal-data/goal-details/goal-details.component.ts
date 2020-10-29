@@ -17,7 +17,21 @@ export class GoalDetailsComponent implements OnInit {
   constructor(private studentGoalService: GoalStudentDataService) { }
 
   ngOnInit() {
-    this.studentGoalService.currentStudentGoal.subscribe(studentGoalData => this.studentData = studentGoalData);
+    console.log("received goal", this.goal);
+    this.studentGoalService.currentStudentGoal.subscribe(studentGoalData => {
+      if(Object.keys(studentGoalData).length > 0){
+        this.studentData = studentGoalData;
+
+        if(this.studentData.links == null){
+          this.studentData.links = [];
+        }
+
+        if(this.studentData.files == null){
+          this.studentData.files = [];
+        }
+      }
+
+    });
   }
 
 

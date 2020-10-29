@@ -24,15 +24,17 @@ export class GoalDashboardComponent implements OnInit{
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
       this.goalID = this.route.snapshot.paramMap.get('goalID');
+      console.log("got the goal", this.goalID);
       this.teacherID = userProfile.uid;
-      this.getClass(this.classID, this.teacherID);
-      console.log("got the teacher data", this.teacherID);
+      this.getGoal().then(() => {
+        this.getClass(this.classID, this.teacherID);
+      });
       if(!userProfile) { return; }
     });
     this.loading = false;
   }
   ngOnInit() {
-    this.getGoal();
+    // this.getGoal();
   }
 
   navigateBack(){
@@ -40,16 +42,19 @@ export class GoalDashboardComponent implements OnInit{
   }
 
   getClass(id: string, teacherUID: string): Promise<any>{
+    console.log("getting cass", id, teacherUID)
     let promise = this.classService.getClass(teacherUID, id).then((data) => {
       this.class = data;
     });
     return promise;
   }
 
-  getGoal(){
-    this.goalService.getGoalById(this.goalID).then((goal) => {
+  getGoal(): Promise<any>{
+    console.log("getting goal", this.goalID);
+    let promise = this.goalService.getGoalById(this.goalID).then((goal) => {
       this.goal = goal;
     });
+    return promise;
   }
 
 }
