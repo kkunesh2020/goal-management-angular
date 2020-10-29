@@ -1,1 +1,7 @@
-<h1>Goal Details</h1>
+<div class="goal" *ngIf="goal">
+  <h1>{{goal.description}}</h1>
+  <p>{{goal.dueDate}}</p>
+  <p>{{goal.assignedToID.length}} assigned</p>
+  <p>{{goal.hasCompleted.length}} completed</p>
+</div>
+
