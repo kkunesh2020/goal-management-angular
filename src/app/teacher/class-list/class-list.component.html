@@ -1,3 +1,6 @@
+<div class="=loading-shade" *ngIf="loading">
+  <mat-spinner *ngIf="loading"></mat-spinner>
+</div>
 <div class="classes">
   <mat-card class="block" *ngFor="let class of classes" (click)="goToCard(class.id)">
     <mat-icon>class</mat-icon>

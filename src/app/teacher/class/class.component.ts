@@ -64,7 +64,7 @@ export class ClassComponent implements OnInit {
   classGoals = CLASS_GOALS_DATA;
   class: Class;
   isAdmin: boolean;
-  loading: boolean;
+  loading: boolean = true;
   uid: string;
   user: UserClass;
   classID: string;
@@ -73,8 +73,8 @@ export class ClassComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private classService: ClassService, private auth: AuthService,
               public dialog: MatDialog, private goalService: GoalService, private router: Router) {
-    this.loading = true;
     this.auth.user$.subscribe(async (userProfile) => {
+      this.loading = true;
       this.classID = this.route.snapshot.paramMap.get('classID');
       if(!userProfile) { return; }
       this.getClass(this.classID, userProfile.uid).then(() => {
@@ -83,13 +83,14 @@ export class ClassComponent implements OnInit {
         this.uid = userProfile.uid;
         if(!this.isAdmin){
           this.getGoalsForStudent(this.classID, userProfile.uid);
+          this.loading = false;
         }else{
           this.getStudentData();
           this.getAllGoalsForTeacher(this.classID);
+          this.loading = false;
         }
       });
     })
-    this.loading = false;
   }
 
   getStudentData(){ //work on this

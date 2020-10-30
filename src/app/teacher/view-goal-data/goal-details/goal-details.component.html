@@ -10,8 +10,14 @@
     <h1>{{studentData.name}}</h1>
     <h1>{{studentData.id}}</h1>
     <p>{{studentData.completed}}</p>
-    <p>{{studentData.links.length}} links</p>
-    <p>{{studentData.files.length}} files</p>
+    <div class="link" *ngFor="let link of studentData.links">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
+      <a target="_blank" href="{{link.url}}">{{link.url}}</a>
+    </div>
+    <div class="file" *ngFor="let file of studentData.files">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
+      <a target="_blank" href="{{file.downloadURL}}">{{file.name}}</a>
+    </div>
   </div>
 
 </div>

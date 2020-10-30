@@ -1,5 +1,7 @@
 <h1 class="title" *ngIf="class">{{class.title}}</h1>
-
+<div class="example-loading-shade" *ngIf="loading">
+  <mat-spinner *ngIf="loading"></mat-spinner>
+</div>
 <div class="teacherSection" *ngIf="class && isAdmin">
   <div fxLayoutAlign="center center">
     <div class="example-loading-shade" *ngIf="loading">
@@ -34,13 +36,13 @@
 
 
     <button mat-raised-button color="primary" id="createGoal" (click)="createGoalDialog()"><mat-icon>edit</mat-icon> Create Goal</button>
-    <p *ngIf="classGoals.length == 0 && isAdmin" class="subtitle">No Goals Assigned Yet.</p>
+    <p *ngIf="classGoals.length == 0 && isAdmin && !loading" class="subtitle">No Goals Assigned Yet.</p>
     <div fxLayoutAlign="center center">
       <div class="example-loading-shade" *ngIf="loading">
         <mat-spinner *ngIf="loading"></mat-spinner>
       </div>
 
-    <table mat-table [dataSource]="classGoals" class="mat-elevation-z8" class="table" *ngIf="!loading && classGoals.length != 0">
+    <table mat-table [dataSource]="classGoals" class="mat-elevation-z8 table" *ngIf="!loading && classGoals.length != 0">
       <!-- Description Column -->
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> description </th>
@@ -86,12 +88,12 @@
   </div>
 </div>
 
-<p *ngIf="goalsDataSource.length == 0 && !isAdmin" class="subtitle">No Goals Assigned Yet.</p>
+<p *ngIf="goalsDataSource.length == 0 && !isAdmin && !loading" class="subtitle">No Goals Assigned Yet.</p>
 <div class="studentSection" *ngIf="class && !isAdmin" fxLayoutAlign="center center">
   <div class="example-loading-shade" *ngIf="loading">
     <mat-spinner *ngIf="loading"></mat-spinner>
   </div>
-  <table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8" class="table" *ngIf="!loading && goalsDataSource.length != 0">
+  <table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8 table" *ngIf="!loading && goalsDataSource.length != 0">
     <!-- Description Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> description </th>

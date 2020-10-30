@@ -12,6 +12,7 @@ import { ClassService } from '../../shared/services/class.service';
 })
 export class ClassListComponent implements OnInit {
   classes: Class[];
+  loading: boolean = true;
   constructor(private afs: AngularFirestore, private classService: ClassService, private auth: AuthService, private router: Router) {
     this.auth.user$.subscribe(async (userProfile) => {
       if(!userProfile) return;
@@ -28,6 +29,7 @@ export class ClassListComponent implements OnInit {
 
   getClasses(userId: string){
     this.classes = this.classService.getClasses(userId);
+    this.loading = false;
   }
 
 }
