@@ -1,10 +1,16 @@
 <div class="student-sidebar">
   <mat-list>
     <mat-divider></mat-divider>
-    <mat-list-item>Students</mat-list-item>
+    <mat-list-item [class.highlighed]="">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">group</mat-icon>
+      All Students
+    </mat-list-item>
     <mat-divider></mat-divider>
-    <div  *ngFor="let student of students" (click)="viewStudentData(student.id)">
-      <mat-list-item class="student">{{student.name}}</mat-list-item>
+    <div class="student" *ngFor="let student of students" (click)="viewStudentData(student.id)">
+      <mat-list-item class="student">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon>
+        {{student.name}}
+      </mat-list-item>
       <mat-divider></mat-divider>
     </div>
   </mat-list>

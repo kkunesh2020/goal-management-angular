@@ -46,25 +46,25 @@
       <!-- Description Column -->
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> description </th>
-        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        <td mat-cell *matCellDef="let element" (click)="openGoalData(element.id)"> {{element.description}} </td>
       </ng-container>
 
       <!-- Due Date Column -->
       <ng-container matColumnDef="dueDate">
         <th mat-header-cell *matHeaderCellDef> Due Date </th>
-        <td mat-cell *matCellDef="let element" >{{ element.dueDate.seconds * 1000 | date}}</td>
+        <td mat-cell *matCellDef="let element" (click)="openGoalData(element.id)">{{ element.dueDate.seconds * 1000 | date}}</td>
       </ng-container>
 
       <!-- Assigned To Column -->
       <ng-container matColumnDef="assignedTo">
         <th mat-header-cell *matHeaderCellDef> Assigned To </th>
-        <td mat-cell *matCellDef="let element"> {{getLengthOf(element.assignedToID)}} </td>
+        <td mat-cell *matCellDef="let element" (click)="openGoalData(element.id)"> {{getLengthOf(element.assignedToID)}} </td>
       </ng-container>
 
       <!-- isCompleted Column -->
       <ng-container matColumnDef="completed">
         <th mat-header-cell *matHeaderCellDef> Completed </th>
-        <td mat-cell *matCellDef="let element"> {{ getLengthOf(element.hasCompleted)}} </td>
+        <td mat-cell *matCellDef="let element" (click)="openGoalData(element.id)"> {{ getLengthOf(element.hasCompleted)}} </td>
       </ng-container>
 
        <!-- Edit Icon Column -->
@@ -83,7 +83,7 @@
       <tr mat-row *matRowDef="let row; columns: classgoalsDisplayedColumns;"
       [class.green-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) >= .8"
       [class.yellow-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) >= .5"
-      [class.red-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) < .5" (click)="openGoalData(row.id)"></tr>
+      [class.red-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) < .5"></tr>
     </table>
   </div>
 </div>
