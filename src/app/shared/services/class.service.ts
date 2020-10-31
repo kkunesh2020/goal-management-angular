@@ -1,6 +1,6 @@
 import { query } from '@angular/animations';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, CollectionReference, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 import { StudentData } from 'src/app/teacher/class/class.component';
@@ -11,17 +11,20 @@ import UserClass from '../models/user';
   providedIn: 'root'
 })
 export class ClassService {
-
+  private userCollection: CollectionReference;
+  private classCollection: CollectionReference;
   constructor(private afs: AngularFirestore) {
+    this.userCollection = afs.firestore.collection('users');
+    this.classCollection = afs.firestore.collection('classes');
    }
 
    allowedInClass(userID: string, classID: string) {
-     let allowed: boolean = false;
-     this.afs.firestore.collection('users').doc(userID).get().then(doc => {
-      if(doc.exists) {
+     let allowed = false;
+     this.userCollection.doc(userID).get().then(doc => {
+      if (doc.exists) {
         doc.data().classes.forEach(ref => {
           ref.get().then(doc => {
-            if(doc.data().classID == classID) {
+            if (doc.data().classID == classID) {
               return true;
             }
           });
@@ -32,9 +35,9 @@ export class ClassService {
    }
 
    getStudentDataByID(id: string): Promise<UserClass>{
-    let promise = this.afs.firestore.collection('users').doc(id).get().then((doc) => {
-      return {uid: id, goalsAssigned: doc.data().goalsAssigned, goalsCompleted: doc.data().goalsCompleted, email: doc.data().email,
-        isAdmin: doc.data().isAdmin, name: doc.data().name, classes: doc.data().classes} as UserClass;
+    let promise = this.userCollection.doc(id).get().then((doc) => {
+      return new UserClass(id, doc.data().name, doc.data().email,  doc.data().isAdmin,
+      doc.data().classes, doc.data().goalsAssigned, doc.data().goalsCompleted);
     });
     return promise;
    }
@@ -53,23 +56,22 @@ export class ClassService {
    getStudentsDataByID(studentUID: string[]): any[] {
     let studentData = [];
     studentUID.forEach(uid => {
-        this.afs.firestore.collection("users").doc(uid).get().then(doc => {
+      this.userCollection.doc(uid).get().then(doc => {
           studentData.push({name: doc.data().name, uid: doc.data().uid});
         });
       });
     return studentData;
    }
 
-   getStudentData(ref: DocumentReference):Promise<any> {
+   getStudentData(ref: DocumentReference): Promise<any> {
      let promise = ref.get().then(doc => {
-       console.log("got the student data", doc.data());
        return doc.data();
      });
      return promise;
    }
 
-   getLengthOf(array: any[]){
-    if(array == null){
+   getLengthOf(array: any[]) {
+    if(array == null) {
       return 0;
     }
     return array.length;
@@ -90,7 +92,7 @@ export class ClassService {
    getClasses(userID: string): Class[] {
     const classes: Class[] = [];
     console.log('getting classes for user');
-    this.afs.firestore.collection('users').doc(userID).get().then((doc) => {
+    this.userCollection.doc(userID).get().then((doc) => {
       if(doc.exists) {
         doc.data().classes.forEach(ref => {
           ref.get().then(doc => classes.push(doc.data()));
@@ -101,10 +103,10 @@ export class ClassService {
     return classes;
   }
 
-  getClass(teacherUID: string, classID:string): Promise<any> {
-    let promise = this.afs.firestore.collection('classes').doc(classID).get().then(doc => {
-      console.log("got the class", doc.exists, doc.data().teacherUID == teacherUID, teacherUID);
-      if (doc.exists && doc.data().teacherUID == teacherUID) {
+  getClass(teacherUID: string, classID: string): Promise<any> {
+    let promise = this.classCollection.doc(classID).get().then(doc => {
+      console.log("got the class", doc.exists, doc.data().teacherUID === teacherUID, teacherUID);
+      if (doc.exists && doc.data().teacherUID === teacherUID) {
         console.log("correct class", doc.data());
         return doc.data();
     } else {

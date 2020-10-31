@@ -21,7 +21,6 @@ export class HomeService {
   }
 
   getAddedGoals(): Observable<any> {
-    console.log('getting goals: ');
     this.goals.subscribe(result => console.log(result) );
     return this.goals;
   }
