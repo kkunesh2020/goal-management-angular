@@ -15,7 +15,7 @@
     </mat-expansion-panel-header>
     <mat-list *ngIf="missingGoals.length > 0">
       <mat-divider></mat-divider>
-      <div class="item" *ngFor="let goal of missingGoals">
+      <div class="item" *ngFor="let goal of missingGoals" (click)="navigateToGoal(goal.id)">
         <mat-list-item>{{goal.description}}</mat-list-item>
         <mat-divider></mat-divider>
       </div>
@@ -33,7 +33,7 @@
     </mat-expansion-panel-header>
     <mat-list *ngIf="completedGoals.length > 0">
       <mat-divider></mat-divider>
-      <div class="item" *ngFor="let goal of completedGoals">
+      <div class="item" *ngFor="let goal of completedGoals" (click)="navigateToGoal(goal.id)">
         <mat-list-item>{{goal.description}}</mat-list-item>
         <mat-divider></mat-divider>
       </div>

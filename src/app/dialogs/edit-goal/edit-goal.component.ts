@@ -13,16 +13,19 @@ import { StudentData } from 'src/app/teacher/class/class.component';
 export class EditGoalComponent implements OnInit {
   goal: GoalClass;
   loading: boolean = false;
-  allAssigned: boolean = false;
+  assignedToAll: boolean = false;
   students: any[];
   editDate: Date;
+
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
   public dialogRef: MatDialogRef<EditGoalComponent>, private classService: ClassService) {
 
     this.editDate = new Date(data.dueDate.seconds * 1000);
     console.log("edit assignedToID", data.assignedToID)
-    this.students = this.classService.getStudentsDataByID(data.assignedToID);
+    this.classService.getStudentsDataByID(data.assignedToID).then(studentsData => {
+      this.students = studentsData;
+    });
 
   //retrieve the data (class id, createdBy, assignedTo <= users)
     this.goal = new GoalClass(data.description, this.editDate, data.classID, data.hasCompleted,
@@ -31,29 +34,23 @@ export class EditGoalComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.assignedToAll = this.students.length === this.goal.assignedToID.length;
   }
 
-  assignToAll(assign: boolean) {
-    this.allAssigned = assign;
-    this.data.students.forEach(student => {
-      if(assign){
-        this.goal.assignedToID.push(student.uid);
-      }else{
-        this.goal.assignedToID = [];
-      }
-
+  assignToAll() {
+    this.assignedToAll = true;
+    this.students.forEach(student => {
+      this.goal.assignedToID.push(student.uid);
     })
   }
 
   //if the edited goal is different from what it used to
 
-  checkSpecific(student: any, assigned: boolean){
+  checkSpecific(studentID: string, assigned: boolean){
     if(assigned){
-      this.goal.assignedToID.push(student.uid);
-    }else{ //removes student entrys from assigned to arrays
-      this.allAssigned = false;
-      console.log("student uid", student.uid);
-      this.goal.assignedToID = this.goal.assignedToID.filter(uid => uid != student.uid);
+      this.goal.assignedToID.push(studentID);
+    }else{ //removes from assigned student array
+      this.goal.assignedToID = this.goal.assignedToID.filter(id => id !== studentID);
     }
   }
 
@@ -64,8 +61,21 @@ export class EditGoalComponent implements OnInit {
     return this.goal.assignedToID.includes(studentUID);
   }
 
+  assignAllStudents(){
+    this.goal.assignedToID = [];
+    this.students.forEach(student => {
+      this.goal.assignedToID.push(student.uid);
+    });
+  }
+
+  resetList(){
+    this.assignedToAll = false;
+    console.log(this.assignedToAll);
+    this.goal.assignedToID = [];
+  }
+
   formComplete():boolean{
-    return this.goal.assignedToID != [] && this.goal.description != '' && this.goal.dueDate != null;
+    return this.goal.assignedToID.length > 0 && this.goal.description != '' && this.goal.dueDate != null;
   }
 
   isAssigned(studentUID: string){
@@ -78,10 +88,10 @@ export class EditGoalComponent implements OnInit {
       this.goal.hasCompleted = [];
     }
     console.log("editing goal", this.goal);
-    this.loading = true;
-    this.goalService.editGoal(this.goal).then(() => {
-      this.loading = false;
-      this.dialogRef.close('success');
-    })
+    // this.loading = true;
+    // this.goalService.editGoal(this.goal).then(() => {
+    //   this.loading = false;
+    //   this.dialogRef.close('success');
+    // })
   }
 }

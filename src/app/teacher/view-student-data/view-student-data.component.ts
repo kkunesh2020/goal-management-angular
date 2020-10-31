@@ -65,6 +65,10 @@ export class ViewStudentDataComponent implements OnInit {
     return promise;
   }
 
+  navigateToGoal(goalID: string){
+    this.router.navigate([`/classes/${this.classID}/goals/${goalID}`]);
+  }
+
 
   isCompleted(goal: GoalStat): Promise<boolean>{
     return new Promise((resolve, reject) => {

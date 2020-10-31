@@ -53,14 +53,17 @@ export class ClassService {
     return studentData;
    }
 
-   getStudentsDataByID(studentUID: string[]): any[] {
+   getStudentsDataByID(studentUID: string[]): Promise<any[]> {
     let studentData = [];
-    studentUID.forEach(uid => {
-      this.userCollection.doc(uid).get().then(doc => {
-          studentData.push({name: doc.data().name, uid: doc.data().uid});
+    let promise = new Promise<any[]>((resolve, reject) => {
+      studentUID.forEach(uid => {
+        this.userCollection.doc(uid).get().then(doc => {
+            studentData.push({name: doc.data().name, uid: doc.data().uid});
+          });
         });
-      });
-    return studentData;
+      resolve(studentData);
+    });
+    return promise;
    }
 
    getStudentData(ref: DocumentReference): Promise<any> {

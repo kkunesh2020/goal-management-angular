@@ -8,6 +8,11 @@
   margin-left: 1rem;
 }
 
+.item :hover{
+  background-color: lightgrey;
+  transition: background-color 1s;
+}
+
 mat-expansion-panel{
   margin:auto;
   width: 80%;
