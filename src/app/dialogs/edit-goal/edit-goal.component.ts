@@ -88,10 +88,10 @@ export class EditGoalComponent implements OnInit {
       this.goal.hasCompleted = [];
     }
     console.log("editing goal", this.goal);
-    // this.loading = true;
-    // this.goalService.editGoal(this.goal).then(() => {
-    //   this.loading = false;
-    //   this.dialogRef.close('success');
-    // })
+    this.loading = true;
+    this.goalService.editGoal(this.goal).then(() => {
+      this.loading = false;
+      this.dialogRef.close('success');
+    })
   }
 }
