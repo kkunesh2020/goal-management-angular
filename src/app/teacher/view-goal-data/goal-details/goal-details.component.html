@@ -8,8 +8,14 @@
 
   <div class="studentGoalData" *ngIf="studentData != null">
     <h1>{{studentData.name}}</h1>
-    <h1>{{studentData.id}}</h1>
-    <p>{{studentData.completed}}</p>
+    <div *ngIf="studentData.completed" class="complete">
+      <mat-icon aria-hidden="false" aria-label="done icon">done</mat-icon>
+      <p>Completed</p>
+    </div>
+    <div *ngIf="!studentData.completed" class="uncomplete">
+      <mat-icon aria-hidden="false" aria-label="done icon">clear</mat-icon>
+      <p>Not Completed</p>
+    </div>
     <div class="link" *ngFor="let link of studentData.links">
       <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
       <a target="_blank" href="{{link.url}}">{{link.url}}</a>

@@ -11,6 +11,10 @@ mat-list-item{
   }
 }
 
+.highlighted{
+  background-color: lightgrey;
+}
+
 .student :hover{
   cursor: pointer;
   background-color: lightgrey;

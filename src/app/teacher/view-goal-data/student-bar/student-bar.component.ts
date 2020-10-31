@@ -16,8 +16,9 @@ export class StudentBarComponent implements OnInit {
   @Input() goal: Goal;
   @Input() teacherUID: string;
   students: StudentData[];
+  highlightedStudent: string = 'all';
 
-  constructor(private classService: ClassService, private studentDataService: GoalStudentDataService) {
+  constructor(private classService: ClassService, private studentDataService: GoalStudentDataService, private studentGoalService: GoalStudentDataService) {
    }
 
   ngOnInit() {
@@ -34,6 +35,12 @@ export class StudentBarComponent implements OnInit {
 
   viewStudentData(uid: string){
     this.studentDataService.setStudentGoalData(uid, this.goal);
+    this.highlightedStudent = uid;
+  }
+
+  viewStudentsData(){
+    this.highlightedStudent = 'all';
+    this.studentDataService.setStudentGoalData(null, null);
   }
 
 

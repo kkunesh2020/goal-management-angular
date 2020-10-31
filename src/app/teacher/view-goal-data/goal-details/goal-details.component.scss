@@ -22,3 +22,21 @@
 .goalDescription{
   margin-left: 1rem;
 }
+
+.complete{
+  display: flex;
+  color: rgb(142, 197, 59);
+
+  p{
+    margin: 4px 0px 0px 2px;
+  }
+}
+
+.uncomplete{
+  display: flex;
+  color: red;
+
+  p{
+    margin: 0;
+  }
+}

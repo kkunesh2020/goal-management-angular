@@ -51,6 +51,10 @@ export class GoalStudentDataService {
   }
 
   setStudentGoalData(studentID: string, goal: Goal){
+    if(studentID == null || goal == null){
+      this.studentDataSource.next(null);
+      return;
+    }
     let student: UserClass;
     this.getStudentData(studentID).then(data => {
       student = data;

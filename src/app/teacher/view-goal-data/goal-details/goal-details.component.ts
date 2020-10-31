@@ -19,6 +19,11 @@ export class GoalDetailsComponent implements OnInit {
   ngOnInit() {
     console.log("received goal", this.goal);
     this.studentGoalService.currentStudentGoal.subscribe(studentGoalData => {
+      if(studentGoalData == null){
+        this.studentData = null;
+        return;
+      }
+
       if(Object.keys(studentGoalData).length > 0){
         this.studentData = studentGoalData;
 
