@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ClassListComponent } from './teacher/class-list/class-list.component';
@@ -83,7 +84,8 @@ import { GoalDetailsComponent } from './teacher/view-goal-data/goal-details/goal
     MatPaginatorModule,
     FlexLayoutModule,
     MatMenuModule,
-    RouterModule
+    RouterModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent],

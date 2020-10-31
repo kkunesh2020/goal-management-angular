@@ -1,5 +1,7 @@
 <h1 class="title">Current Goals</h1>
-<p *ngIf="dataSource.data.length == 0" class="subtitle">No Goals Assigned Yet.</p>
+<div class="=loading-shade" *ngIf="loading">
+</div>
+<p *ngIf="dataSource.data.length == 0 && !loading" class="subtitle">No Goals Assigned Yet.</p>
 <div class="main" fxLayoutAlign="center center">
   <mat-spinner *ngIf="loading"></mat-spinner>
   <table mat-table [dataSource]="dataSource" class="table" *ngIf="!loading && dataSource.data.length != 0">

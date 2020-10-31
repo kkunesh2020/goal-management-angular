@@ -15,7 +15,7 @@ import { GoalsTableData, GoalStat } from '../teacher/class/class.component';
   styleUrls: ['./goals.component.scss']
 })
 export class GoalsComponent implements OnInit {
-  loading: boolean;
+  loading: boolean = true;
   uid: string;
   public dataSource: MatTableDataSource<GoalsTableData[]> = new MatTableDataSource();
   goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
@@ -30,7 +30,6 @@ export class GoalsComponent implements OnInit {
         this.getStudentGoals(userProfile.goalsAssigned);
       }
     })
-    this.loading = false;
   }
 
   ngOnInit() {
@@ -41,6 +40,7 @@ export class GoalsComponent implements OnInit {
       console.log("goals", goalData);
       this.dataSource.data = goalData;
     });
+    this.loading = false;
   }
 
 
@@ -48,7 +48,7 @@ export class GoalsComponent implements OnInit {
   openDialog(data: any, userID: string, isCompleted: boolean){
     data.uid = userID;
     data.isCompleted = isCompleted;
-    let dialogRef = this.dialog.open(UpdateGoalComponent, {data});
+    let dialogRef = this.dialog.open(UpdateGoalComponent, {data, width: "30rem", height: "30rem"});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'updated'){

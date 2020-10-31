@@ -178,7 +178,7 @@ export class ClassComponent implements OnInit {
 
   createGoalDialog(){
     let data = {createdBy: this.user, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
-    let dialogRef = this.dialog.open(CreateGoalComponent, {data, width: '30rem', height: '30rem'});
+    let dialogRef = this.dialog.open(CreateGoalComponent, {data, width: '30rem', height: '29rem'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'success' && this.isAdmin){

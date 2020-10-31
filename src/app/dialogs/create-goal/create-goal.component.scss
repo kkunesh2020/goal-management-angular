@@ -23,6 +23,10 @@ mat-form-field {
   width: 100%;
 }
 
+.mat-dialog-content{
+  height: 75% !important;
+}
+
 .exit{
   float: right;
   top:-24px;
@@ -33,6 +37,10 @@ mat-form-field {
 
 .exit:hover{
   cursor: pointer;
+}
+
+mat-radio-button{
+  margin-right: 1rem;
 }
 
 .spinner:before {

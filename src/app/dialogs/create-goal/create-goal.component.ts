@@ -12,8 +12,9 @@ import GoalClass from '../../shared/models/goal';
 
 export class CreateGoalComponent implements OnInit {
   goal : GoalClass;
-  allAssigned: boolean = false;
   loading: boolean = false;
+  assignedStudentID: string[] = [];
+  assignedToAll: boolean;
 
 
   //data needed: createdBy classID
@@ -21,50 +22,45 @@ export class CreateGoalComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
               public dialogRef: MatDialogRef<CreateGoalComponent>) {
     this.goal = new GoalClass('', null, data.classID, [], '', data.createdBy, []);
+
    }
 
   ngOnInit() {
+  //initially assign to all students
+    this.assignedStudentID = this.data.students;
   }
 
-  assignToAll(assign: boolean) {
-    this.allAssigned = assign;
+  assignAllStudents(){
+    this.assignedStudentID = [];
     this.data.students.forEach(student => {
-      if(assign){
-        this.goal.assignedToID.push(student.uid);
-      }else{
-        this.goal.assignedToID = [];
-      }
-
-    })
+      this.assignedStudentID.push(student.uid);
+    });
   }
 
-  checkAssignedTo(studentUID: string){
-    if(this.goal.assignedToID == []){
-      return false;
-    }
-    return this.goal.assignedToID.includes(studentUID);
-  }
 
   formComplete():boolean{
-    return this.goal.assignedToID.length > 0 && this.goal.description != '' && this.goal.dueDate != null;
+    return this.assignedStudentID.length > 0 && this.goal.description != '' && this.goal.dueDate != null;
   }
 
-  checkSpecific(student: any, assigned: boolean){
+  checkSpecific(studentID: string, assigned: boolean){
     if(assigned){
-      this.goal.assignedToID.push(student.uid);
-    }else{ //removes student entrys from assigned to arrays
-      this.allAssigned = false;
-      console.log("student uid", student.uid);
-      this.goal.assignedToID = this.goal.assignedToID.filter(uid => uid != student.uid);
+      this.assignedStudentID.push(studentID);
+    }else{ //removes from assigned student array
+      this.assignedStudentID = this.assignedStudentID.filter(id => id !== studentID);
     }
   }
 
-  isAssigned(studentUID: string){
-    return this.goal.assignedToID.includes(studentUID);
+  resetList(){
+    this.assignedToAll = false;
+    console.log(this.assignedToAll);
+    this.assignedStudentID = [];
   }
+
 
   createGoal(){
     this.loading = true;
+    this.goal.assignedToID = this.assignedStudentID;
+    console.log(this.goal.assignedToID);
     this.goalService.createGoal(this.goal).then(()=>{
       this.loading = false;
       this.dialogRef.close('success');
