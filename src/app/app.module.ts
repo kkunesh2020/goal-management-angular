@@ -41,6 +41,7 @@ import { ViewStudentDataComponent } from './teacher/view-student-data/view-stude
 import { GoalDashboardComponent } from './teacher/view-goal-data/goal-dashboard/goal-dashboard.component';
 import { StudentBarComponent } from './teacher/view-goal-data/student-bar/student-bar.component';
 import { GoalDetailsComponent } from './teacher/view-goal-data/goal-details/goal-details.component';
+import { ChangeStatusComponent } from './dialogs/change-status/change-status.component';
 
 
 
@@ -62,7 +63,8 @@ import { GoalDetailsComponent } from './teacher/view-goal-data/goal-details/goal
     ViewStudentDataComponent,
     GoalDashboardComponent,
     StudentBarComponent,
-    GoalDetailsComponent
+    GoalDetailsComponent,
+    ChangeStatusComponent
   ],
   imports: [
     BrowserModule,

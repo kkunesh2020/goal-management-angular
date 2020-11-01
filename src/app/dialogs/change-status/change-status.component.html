@@ -1,0 +1,16 @@
+<button mat-dialog-close class="exit">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+  </button>
+  
+  <h1 mat-dialog-title>Accept Goal Request?</h1>
+  <div mat-dialog-content>
+      <p>{{teacherName}} assigned you a goal.</p>
+      <p>Title: {{goalTitle}}</p>
+      <p>Due Date: {{dueDate}}</p>
+      <div class="reject-reason">
+          <p>Please provide a reason for declining this goal.</p>
+      </div>
+      <button mat-raised-button color="primary" [class.spinner]="loading">Accept</button>
+      <button mat-raised-button color="warn"  [class.spinner]="loading">Reject</button>
+  </div>
+  

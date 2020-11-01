@@ -52,6 +52,7 @@ export class ViewStudentDataComponent implements OnInit {
       data.forEach(element => {
         let newGoal: GoalStat  = {
           description: element.description,
+          status: element.status,
           dueDate: element.dueDate,
           hasCompleted: element.hasCompleted,
           assignedToID: element.assignedToID,
