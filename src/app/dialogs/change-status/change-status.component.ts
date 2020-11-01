@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { GoalService } from 'src/app/shared/services/goal.service';
 
 @Component({
   selector: 'gms-change-status',
@@ -14,7 +15,7 @@ export class ChangeStatusComponent implements OnInit {
   rejected: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-  public dialogRef: MatDialogRef<ChangeStatusComponent>) { 
+  public dialogRef: MatDialogRef<ChangeStatusComponent>, private goalService: GoalService) { 
     this.loading = true;
     this.teacherName = data.createdBy.name;
     this.goalTitle = data.description;
@@ -25,13 +26,15 @@ export class ChangeStatusComponent implements OnInit {
   ngOnInit() {
   }
 
-
-  acceptGoal(){
-
-  }
-
   rejectGoal(status: boolean){
     this.rejected = status;
+  }
+
+  updateStatus(status: string){
+    this.loading = true;
+    this.goalService.updateGoalStatus(this.data.id, status).then(() => {
+      this.dialogRef.close('updated');
+    });
   }
 
 }

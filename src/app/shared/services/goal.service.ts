@@ -145,6 +145,12 @@ export class GoalService {
     });
   }
 
+  updateGoalStatus(goalID: string, status: string): Promise<any>{
+    let goalRef = this.goalsCollection.doc(goalID);
+    let promise = goalRef.update({"status": status});
+    return promise;
+  }
+
   createGoal(goal: GoalClass): Promise<any> {
     console.log('assigned to student ids', goal.assignedToID);
     if (goal.links == null) { goal.links = []; }

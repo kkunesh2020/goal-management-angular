@@ -15,13 +15,13 @@
           </mat-form-field>
       </div>
       <div class="actions" *ngIf="!rejected">
-        <button mat-raised-button color="primary" (click)="acceptGoal()" [class.spinner]="loading">Accept</button>
+        <button mat-raised-button color="primary" (click)="updateStatus('accepted')" [class.spinner]="loading">Accept</button>
         <button mat-raised-button color="warn"  (click)="rejectGoal(true)" [class.spinner]="loading">Reject</button>
       </div>
 
       <div class="actions" *ngIf="rejected">
         <button mat-raised-button (click)="rejectGoal(false)">Cancel</button>
-        <button mat-raised-button color="warn"  (click)="submit()" [class.spinner]="loading">Reject</button>
+        <button mat-raised-button color="warn"  (click)="updateStatus('rejected')" [class.spinner]="loading">Reject</button>
       </div>
   </div>
   
