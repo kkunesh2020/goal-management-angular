@@ -14,11 +14,17 @@ export class GoalStudentDataService {
   currentStudentGoal = this.studentDataSource.asObservable();
   constructor(private classService: ClassService) { }
 
-  isCompleted(hasCompleted: string[], studentID: string) : boolean{
-    hasCompleted.forEach((id) => {
-      if (id == studentID) {return true; }
+  isCompleted(hasCompleted: string[], studentID: string) : Promise<boolean> {
+    console.log("is completed", hasCompleted, studentID)
+    let promise = new Promise<boolean>( (resolve, reject) => {
+      hasCompleted.forEach((id) => {
+      console.log(id);
+      console.log(id == studentID);
+      if (id == studentID) {return resolve(true); }
+      })
+      resolve(false);
     });
-    return false;
+    return promise;
   }
 
   getStudentData(studentID: string): Promise<UserClass>{
@@ -58,11 +64,14 @@ export class GoalStudentDataService {
     let student: UserClass;
     this.getStudentData(studentID).then(data => {
       student = data;
-      let isCompleted: boolean = this.isCompleted(goal.hasCompleted, studentID);
-      let studentFiles: FileClass[] = this.getStudentFiles(goal.files ? goal.files : [], studentID);
-      let studentLinks: LinkClass[] = this.getStudentLinks(goal.links ? goal.links : [], studentID);
-      let studentData = {id: studentID, completed: isCompleted, name: student.name, files: studentFiles, links: studentLinks};
-      this.studentDataSource.next(studentData);
+      let isCompleted: boolean; 
+      this.isCompleted(goal.hasCompleted, studentID).then((result) => {
+        isCompleted = result;
+        let studentFiles: FileClass[] = this.getStudentFiles(goal.files ? goal.files : [], studentID);
+        let studentLinks: LinkClass[] = this.getStudentLinks(goal.links ? goal.links : [], studentID);
+        let studentData = {id: studentID, completed: isCompleted, name: student.name, files: studentFiles, links: studentLinks};
+        this.studentDataSource.next(studentData);
+      });
     });
   }
 }
