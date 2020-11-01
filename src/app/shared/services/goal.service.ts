@@ -33,7 +33,7 @@ export class GoalService {
     let goals: Goal[] = [];
     let promise = this.goalsCollection.where('classID', '==', classID).orderBy('dueDate', 'desc').get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        goals.push(new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.id,
+        goals.push(new GoalClass(doc.data().description, doc.data().status, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.id,
         doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links));
       });
       return goals;
@@ -46,7 +46,7 @@ export class GoalService {
     let promise = this.goalsCollection.where('classID', '==', classID).where('assignedToID', 'array-contains', userID)
     .orderBy('dueDate', 'desc').get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        goals.push(new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.id,
+        goals.push(new GoalClass(doc.data().description, doc.data().status, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.id,
         doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links));
       });
       return goals;
@@ -64,14 +64,14 @@ export class GoalService {
     let goals: GoalsTableData[] = [];
     goalIDs.forEach(goal => {
       this.goalsCollection.doc(goal.id).get().then(doc => {
-        let goalRef = new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.id,
+        let goalRef = new GoalClass(doc.data().description, doc.data().status, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.id,
         doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links);
 
         goals.push({description: goalRef.description,
           dueDate: goalRef.dueDate,
           isCompleted: this.userHasCompleted(goalRef.hasCompleted, uid),
           createdBy: doc.data().createdBy,
-          goalReference: goalRef});
+          goalReference: goalRef, status: doc.data().status});
       });
     });
     return of(goals);

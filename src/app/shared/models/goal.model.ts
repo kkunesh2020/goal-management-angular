@@ -12,6 +12,7 @@ export interface Goal {
   assignedToID: Array<string>;
   id: string;
   classID: string;
+  status:string;
   files?: Array<FileClass>;
   links?: Array<LinkClass>;
 }

@@ -29,12 +29,14 @@ export interface GoalsTableData {
   dueDate: Date;
   isCompleted: boolean;
   createdBy: string;
-  goalReference: Goal
+  goalReference: Goal,
+  status: string
 }
 
 
 export interface GoalStat{
   description: string;
+  status: string;
   dueDate: Date;
   assignedToID: Array<string>;
   hasCompleted: Array<string>;
@@ -126,6 +128,7 @@ export class ClassComponent implements OnInit {
       data.forEach(element => {
         let newGoal: GoalStat  = {
           description: element.description,
+          status: element.status,
           dueDate: element.dueDate,
           hasCompleted: element.hasCompleted,
           assignedToID: element.assignedToID,
@@ -155,7 +158,8 @@ export class ClassComponent implements OnInit {
           dueDate: element.dueDate,
           isCompleted: this.goalIsCompleted(element.hasCompleted, studentID),
           createdBy: element.createdBy,
-          goalReference: element
+          goalReference: element,
+          status: element.status
         }
         goals.push(newGoal);
       });
@@ -190,7 +194,7 @@ export class ClassComponent implements OnInit {
   //class id, createdBy, assignedTo
   editDialog(goal: GoalStat) {
     console.log("completed students", goal.hasCompleted)
-    let editData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
+    let editData = new GoalClass(goal.description, goal.status, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
     console.log("edit data", editData);
     const dialogRef = this.dialog.open(EditGoalComponent, {data: editData, height: "30rem", width: "30rem"});
 
@@ -202,7 +206,7 @@ export class ClassComponent implements OnInit {
   }
 
   deleteDialog(goal: GoalStat){
-    let deleteData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
+    let deleteData = new GoalClass(goal.description,goal.status, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
     const dialogRef = this.dialog.open(DeleteGoalComponent, {data: deleteData, height: "15rem", width: "20rem"});
 
     dialogRef.afterClosed().subscribe(result => {

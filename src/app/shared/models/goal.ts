@@ -16,9 +16,11 @@ export default class GoalClass implements Goal {
   classID: string;
   files: Array<FileClass>;
   links: Array<LinkClass>;
+  status: string;
 
   constructor(
     description: string,
+    status: string,
     dueDate: Date,
     classID: string,
     hasCompleted: Array<string>,
@@ -37,5 +39,6 @@ export default class GoalClass implements Goal {
       this.classID = classID;
       this.files = files;
       this.links = links;
+      this.status = status;
     }
 };
