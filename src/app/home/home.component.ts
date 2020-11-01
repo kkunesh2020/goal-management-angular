@@ -33,12 +33,14 @@ export class HomeComponent implements OnInit {
   constructor(private homeService: HomeService, public dialog: MatDialog, public auth: AuthService, private goalService: GoalService) {
     this.auth.user$.subscribe(async (userProfile) => {
       userProfile == null ? this.loggedIn = false : this.loggedIn = true;
+      this.loading = true;
+      if (userProfile) {
+        this.uid = userProfile.uid;
+        this.isAdmin = userProfile.isAdmin;
+      }
       this.loading = false;
-      this.uid = userProfile.uid;
-      this.isAdmin = userProfile.isAdmin;
-    })
-    this.
-    loading = false;
+    });
+    this.loading = false;
    }
 
    goalIsCompleted(hasCompleted: string[], userID: string){
