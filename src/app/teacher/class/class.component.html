@@ -123,7 +123,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="goalsDisplayedColumns"></tr>
-    <tr mat-row (click)="openDialog(row.goalReference, uid, row.isCompleted)" *matRowDef="let row; columns: goalsDisplayedColumns;"
+    <tr mat-row (click)="openDialog(row.goalReference, uid, row.isCompleted, row.status)" *matRowDef="let row; columns: goalsDisplayedColumns;"
     [class.green-row]="row.isCompleted"
     [class.red-row]="!row.isCompleted && row.status != 'pending'"
     [class.yellow-row]="row.status == 'pending'"></tr>

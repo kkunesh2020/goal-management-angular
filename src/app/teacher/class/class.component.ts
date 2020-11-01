@@ -16,6 +16,7 @@ import { DocumentReference } from '@angular/fire/firestore';
 import { User } from '../../shared/models/user.model';
 import GoalClass from 'src/app/shared/models/goal';
 import { DeleteGoalComponent } from 'src/app/dialogs/delete-goal/delete-goal.component';
+import { ChangeStatusComponent } from 'src/app/dialogs/change-status/change-status.component';
 
 export interface StudentData {
   name: string;
@@ -168,10 +169,15 @@ export class ClassComponent implements OnInit {
     })
   }
 
-  openDialog(data: any, userID: string, isCompleted: boolean){
+  openDialog(data: any, userID: string, isCompleted: boolean, status: string){
     data.uid = userID;
     data.isCompleted = isCompleted;
-    let dialogRef = this.dialog.open(UpdateGoalComponent, {data, height: "30rem", width: "30rem"});
+    let dialogRef;
+    if(status == 'pending'){
+      dialogRef = this.dialog.open(ChangeStatusComponent, {data, height: "30rem", width: "30rem"});
+    }else{
+      dialogRef = this.dialog.open(UpdateGoalComponent, {data, height: "30rem", width: "30rem"});
+    }
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'updated' && !this.isAdmin){

@@ -92,6 +92,6 @@ import { ChangeStatusComponent } from './dialogs/change-status/change-status.com
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
-    DeleteGoalComponent, UploadLinkComponent, UploaderComponent]
+    DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent]
 })
 export class AppModule { }

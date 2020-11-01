@@ -5,12 +5,23 @@
   <h1 mat-dialog-title>Accept Goal Request?</h1>
   <div mat-dialog-content>
       <p>{{teacherName}} assigned you a goal.</p>
-      <p>Title: {{goalTitle}}</p>
-      <p>Due Date: {{dueDate}}</p>
-      <div class="reject-reason">
+      <p class="description"><mat-icon aria-hidden="false">assignment</mat-icon> {{goalTitle}}</p>
+      <p class="description"><mat-icon aria-hidden="false">event</mat-icon> {{dueDate * 1000 | date}}</p>
+      <div class="reject-reason" *ngIf="rejected">
           <p>Please provide a reason for declining this goal.</p>
+          <mat-form-field class="example-full-width">
+            <mat-label>Leave a comment</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
       </div>
-      <button mat-raised-button color="primary" [class.spinner]="loading">Accept</button>
-      <button mat-raised-button color="warn"  [class.spinner]="loading">Reject</button>
+      <div class="actions" *ngIf="!rejected">
+        <button mat-raised-button color="primary" (click)="acceptGoal()" [class.spinner]="loading">Accept</button>
+        <button mat-raised-button color="warn"  (click)="rejectGoal(true)" [class.spinner]="loading">Reject</button>
+      </div>
+
+      <div class="actions" *ngIf="rejected">
+        <button mat-raised-button (click)="rejectGoal(false)">Cancel</button>
+        <button mat-raised-button color="warn"  (click)="submit()" [class.spinner]="loading">Reject</button>
+      </div>
   </div>
   

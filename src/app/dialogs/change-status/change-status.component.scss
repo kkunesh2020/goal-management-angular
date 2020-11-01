@@ -14,3 +14,20 @@
     margin-top: 2rem;
   }
   
+  .description{
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+
+    mat-icon{
+      margin-right: 4px;
+    }
+  }
+
+  .actions{
+    margin-top: 2rem;
+
+    button{
+      margin-right: 1rem;
+    }
+  }
