@@ -8,11 +8,12 @@ export interface Goal {
   description: string;
   dueDate: Date;
   hasCompleted: Array<string>;
+  pending: Array<string>,
+  declined: Array<string>,
   createdBy: User;
   assignedToID: Array<string>;
   id: string;
   classID: string;
-  status:string;
   files?: Array<FileClass>;
   links?: Array<LinkClass>;
 }

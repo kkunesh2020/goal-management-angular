@@ -37,10 +37,11 @@ export interface GoalsTableData {
 
 export interface GoalStat{
   description: string;
-  status: string;
   dueDate: Date;
   assignedToID: Array<string>;
   hasCompleted: Array<string>;
+  pending: Array<string>;
+  declined: Array<string>;
   id: string;
 }
 
@@ -129,8 +130,9 @@ export class ClassComponent implements OnInit {
       data.forEach(element => {
         let newGoal: GoalStat  = {
           description: element.description,
-          status: element.status,
           dueDate: element.dueDate,
+          pending: element.pending,
+          declined: element.declined,
           hasCompleted: element.hasCompleted,
           assignedToID: element.assignedToID,
           id: element.id
@@ -200,7 +202,7 @@ export class ClassComponent implements OnInit {
   //class id, createdBy, assignedTo
   editDialog(goal: GoalStat) {
     console.log("completed students", goal.hasCompleted)
-    let editData = new GoalClass(goal.description, goal.status, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
+    let editData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.pending, goal.declined, goal.id, this.user, goal.assignedToID);
     console.log("edit data", editData);
     const dialogRef = this.dialog.open(EditGoalComponent, {data: editData, height: "30rem", width: "30rem"});
 
@@ -212,7 +214,7 @@ export class ClassComponent implements OnInit {
   }
 
   deleteDialog(goal: GoalStat){
-    let deleteData = new GoalClass(goal.description,goal.status, goal.dueDate, this.classID, goal.hasCompleted, goal.id, this.user, goal.assignedToID);
+    let deleteData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.pending, goal.declined, goal.id, this.user, goal.assignedToID);
     const dialogRef = this.dialog.open(DeleteGoalComponent, {data: deleteData, height: "15rem", width: "20rem"});
 
     dialogRef.afterClosed().subscribe(result => {

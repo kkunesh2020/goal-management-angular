@@ -33,7 +33,7 @@ export class GoalService {
     let goals: Goal[] = [];
     let promise = this.goalsCollection.where('classID', '==', classID).orderBy('dueDate', 'desc').get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        goals.push(new GoalClass(doc.data().description, doc.data().status, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.id,
+        goals.push(new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
         doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links));
       });
       return goals;
@@ -46,7 +46,7 @@ export class GoalService {
     let promise = this.goalsCollection.where('classID', '==', classID).where('assignedToID', 'array-contains', userID)
     .orderBy('dueDate', 'desc').get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        goals.push(new GoalClass(doc.data().description, doc.data().status, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.id,
+        goals.push(new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
         doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links));
       });
       return goals;
@@ -64,7 +64,7 @@ export class GoalService {
     let goals: GoalsTableData[] = [];
     goalIDs.forEach(goal => {
       this.goalsCollection.doc(goal.id).get().then(doc => {
-        let goalRef = new GoalClass(doc.data().description, doc.data().status, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.id,
+        let goalRef = new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
         doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links);
 
         goals.push({description: goalRef.description,
@@ -80,6 +80,22 @@ export class GoalService {
   getGoalByReference(doc: DocumentReference): Promise<any> {
     let promise = doc.get().then(doc => {return doc; });
     return promise;
+  }
+
+  getUserStatus(completedUsersID: string[], pendingUsersID: string[], declinedUsersID: string[], userID: string){
+    if(completedUsersID.includes(userID)){
+      return "completed";
+    }
+
+    if(declinedUsersID.includes(userID)){
+      return "declined";
+    }
+
+    if(pendingUsersID.includes(userID)){
+      return "pending";
+    }
+
+    return "incomplete";
   }
 
   userHasCompleted(completedUsersID: string[], userID: string) {
@@ -154,7 +170,21 @@ export class GoalService {
 
   updateGoalStatus(goalID: string, status: string): Promise<any>{
     let goalRef = this.goalsCollection.doc(goalID);
-    let promise = goalRef.update({"status": status});
+    let promise: Promise<any>;
+    if(status == "incomplete"){
+      promise = goalRef.update({pending: firebase.firestore.FieldValue.arrayRemove(goalID)});
+    }
+
+    if(status == "declined"){
+      promise = goalRef.update({declined: firebase.firestore.FieldValue.arrayUnion(goalID)}).then(() => {
+        goalRef.update({pending: firebase.firestore.FieldValue.arrayRemove(goalID)})
+      });
+    }
+
+    if(status == "completed"){
+      promise = goalRef.update({hasCompleted: firebase.firestore.FieldValue.arrayUnion(goalID)});
+    }
+
     return promise;
   }
 
