@@ -52,9 +52,10 @@ export class ViewStudentDataComponent implements OnInit {
       data.forEach(element => {
         let newGoal: GoalStat  = {
           description: element.description,
-          status: element.status,
           dueDate: element.dueDate,
           hasCompleted: element.hasCompleted,
+          pending: element.pending,
+          declined: element.declined,
           assignedToID: element.assignedToID,
           id: element.id
         };

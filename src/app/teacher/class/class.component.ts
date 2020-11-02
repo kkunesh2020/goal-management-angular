@@ -156,13 +156,15 @@ export class ClassComponent implements OnInit {
     let goals: GoalsTableData[] = [];
     this.goalService.getGoalsForClassWithId(classID, studentID).then((data) => {
       data.forEach(element => {
+        let status = this.goalService.getUserStatus(element.hasCompleted, element.pending, element.declined, studentID);
+        console.log("goal status", status);
         let newGoal: GoalsTableData  = {
           description: element.description,
           dueDate: element.dueDate,
           isCompleted: this.goalIsCompleted(element.hasCompleted, studentID),
           createdBy: element.createdBy,
           goalReference: element,
-          status: element.status
+          status: status
         }
         goals.push(newGoal);
       });

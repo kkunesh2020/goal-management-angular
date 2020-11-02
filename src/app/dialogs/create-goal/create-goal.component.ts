@@ -60,6 +60,7 @@ export class CreateGoalComponent implements OnInit {
   createGoal(){
     this.loading = true;
     this.goal.assignedToID = this.assignedStudentID;
+    this.goal.pending = this.assignedStudentID;
     console.log(this.goal.assignedToID);
     this.goalService.createGoal(this.goal).then(()=>{
       this.loading = false;

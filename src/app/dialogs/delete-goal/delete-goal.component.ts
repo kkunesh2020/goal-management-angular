@@ -18,7 +18,7 @@ export class DeleteGoalComponent {
 
     this.editDate = new Date(data.dueDate.seconds * 1000);
 
-    this.goal = new GoalClass(data.description, data.status, this.editDate, data.classID, data.hasCompleted,
+    this.goal = new GoalClass(data.description, this.editDate, data.classID, data.hasCompleted, data.pending, data.declined,
       data.id, data.createdBy, data.assignedToID);
   }
 

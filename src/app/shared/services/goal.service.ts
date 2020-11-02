@@ -83,18 +83,25 @@ export class GoalService {
   }
 
   getUserStatus(completedUsersID: string[], pendingUsersID: string[], declinedUsersID: string[], userID: string){
-    if(completedUsersID.includes(userID)){
-      return "completed";
-    }
 
-    if(declinedUsersID.includes(userID)){
-      return "declined";
+    if(completedUsersID != null){
+      if(completedUsersID.includes(userID)){
+        return "completed";
+      }
     }
-
-    if(pendingUsersID.includes(userID)){
-      return "pending";
+    
+    if(declinedUsersID != null){
+      if(declinedUsersID.includes(userID)){
+        return "declined";
+      }
     }
-
+    
+    if(pendingUsersID != null){
+      if(pendingUsersID.includes(userID)){
+        return "pending";
+      }
+    }
+  
     return "incomplete";
   }
 
@@ -117,6 +124,7 @@ export class GoalService {
   }
 
   completeGoal(goal: Goal, uid: string): Promise<any> {
+    goal = this.validateGoal(goal);
     if (goal.hasCompleted == null) {
       goal.hasCompleted = [uid];
     } else {
@@ -137,7 +145,7 @@ export class GoalService {
     return promise;
   }
 
-  unsubmitGoal(goal: Goal, uid: string): Promise<any> {
+  validateGoal(goal: Goal){
     if(goal.files == null){
       goal.files = [];
     }
@@ -145,6 +153,28 @@ export class GoalService {
     if(goal.links == null){
       goal.links = [];
     }
+
+    if(goal.assignedToID == null){
+      goal.assignedToID = [];
+    }
+
+    if(goal.hasCompleted == null){
+      goal.hasCompleted = [];
+    }
+
+    if(goal.declined == null){
+      goal.declined = [];
+    }
+
+    if(goal.pending == null){
+      goal.pending = [];
+    }
+
+    return goal;
+  }
+
+  unsubmitGoal(goal: Goal, uid: string): Promise<any> {
+    goal = this.validateGoal(goal);
     goal.hasCompleted = goal.hasCompleted.filter(item => item !== uid);
     let promise = this.afs.doc<Goal>(`goals/` + goal.id).set(goal).then(() => {
       let ref = this.goalsCollection.doc(goal.id);
@@ -168,21 +198,25 @@ export class GoalService {
     });
   }
 
-  updateGoalStatus(goalID: string, status: string): Promise<any>{
+  updateGoalStatus(goalID: string, status: string, uid: string): Promise<any>{
     let goalRef = this.goalsCollection.doc(goalID);
     let promise: Promise<any>;
+    console.log("updating goal status")
     if(status == "incomplete"){
-      promise = goalRef.update({pending: firebase.firestore.FieldValue.arrayRemove(goalID)});
+      console.log("incomplete")
+      promise = goalRef.update({pending: firebase.firestore.FieldValue.arrayRemove(uid)});
     }
 
     if(status == "declined"){
-      promise = goalRef.update({declined: firebase.firestore.FieldValue.arrayUnion(goalID)}).then(() => {
-        goalRef.update({pending: firebase.firestore.FieldValue.arrayRemove(goalID)})
+      console.log("declined")
+      promise = goalRef.update({declined: firebase.firestore.FieldValue.arrayUnion(uid)}).then(() => {
+        goalRef.update({pending: firebase.firestore.FieldValue.arrayRemove(uid)})
       });
     }
 
     if(status == "completed"){
-      promise = goalRef.update({hasCompleted: firebase.firestore.FieldValue.arrayUnion(goalID)});
+      console.log("completed")
+      promise = goalRef.update({hasCompleted: firebase.firestore.FieldValue.arrayUnion(uid)});
     }
 
     return promise;

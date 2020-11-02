@@ -21,7 +21,7 @@ export class UpdateGoalComponent{
   isCompleted: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UploaderComponent>, private afs: AngularFirestore, private goalService: GoalService, private dialog: MatDialog) {
-    this.currentGoal = {description: data.description, status: data.status,  dueDate: data.dueDate, hasCompleted: data.hasCompleted, createdBy: data.createdBy,
+    this.currentGoal = {description: data.description,  dueDate: data.dueDate, hasCompleted: data.hasCompleted, pending: data.pending, declined: data.declined,createdBy: data.createdBy,
       assignedToID: data.assignedToID, id: data.id, classID: data.classID, files: data.files, links: data.links};
     this.isCompleted = data.isCompleted;
     console.log("files", this.currentGoal.files);

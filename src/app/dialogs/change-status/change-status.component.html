@@ -15,7 +15,7 @@
           </mat-form-field>
       </div>
       <div class="actions" *ngIf="!rejected">
-        <button mat-raised-button color="primary" (click)="updateStatus('accepted')" [class.spinner]="loading">Accept</button>
+        <button mat-raised-button color="primary" (click)="updateStatus('incomplete')" [class.spinner]="loading">Accept</button>
         <button mat-raised-button color="warn"  (click)="rejectGoal(true)" [class.spinner]="loading">Reject</button>
       </div>
 

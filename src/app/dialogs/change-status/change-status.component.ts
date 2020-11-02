@@ -32,7 +32,7 @@ export class ChangeStatusComponent implements OnInit {
 
   updateStatus(status: string){
     this.loading = true;
-    this.goalService.updateGoalStatus(this.data.id, status).then(() => {
+    this.goalService.updateGoalStatus(this.data.id, status, this.data.uid).then(() => {
       this.dialogRef.close('updated');
     });
   }

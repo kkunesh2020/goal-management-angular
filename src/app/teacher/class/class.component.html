@@ -124,8 +124,8 @@
 
     <tr mat-header-row *matHeaderRowDef="goalsDisplayedColumns"></tr>
     <tr mat-row (click)="openDialog(row.goalReference, uid, row.isCompleted, row.status)" *matRowDef="let row; columns: goalsDisplayedColumns;"
-    [class.green-row]="row.isCompleted"
-    [class.red-row]="!row.isCompleted && row.status != 'pending'"
+    [class.green-row]="row.status == 'completed'"
+    [class.red-row]="row.status == 'incomplete'"
     [class.yellow-row]="row.status == 'pending'"></tr>
   </table>
 </div>
