@@ -122,6 +122,13 @@ export class GoalService {
   }
 
   unsubmitGoal(goal: Goal, uid: string): Promise<any> {
+    if(goal.files == null){
+      goal.files = [];
+    }
+
+    if(goal.links == null){
+      goal.links = [];
+    }
     goal.hasCompleted = goal.hasCompleted.filter(item => item !== uid);
     let promise = this.afs.doc<Goal>(`goals/` + goal.id).set(goal).then(() => {
       let ref = this.goalsCollection.doc(goal.id);
