@@ -17,7 +17,7 @@ import { GoalsTableData, GoalStat } from '../teacher/class/class.component';
 export class GoalsComponent implements OnInit {
   loading: boolean = true;
   uid: string;
-  dataSource = [];
+  dataSource = new MatTableDataSource([]);
   goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
 
   constructor(private auth: AuthService, private goalService: GoalService, public dialog: MatDialog,
@@ -38,8 +38,9 @@ export class GoalsComponent implements OnInit {
   getStudentGoals(goalArray: DocumentReference[]){
     this.goalService.getGoalsById(goalArray, this.uid).subscribe(goalData => {
       console.log("goals", goalData);
-      this.dataSource = goalData;
+      this.dataSource.data = goalData;
     });
+    
     this.loading = false;
   }
 

@@ -67,11 +67,12 @@ export class GoalService {
         let goalRef = new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
         doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links);
 
+        let status = this.getUserStatus(goalRef.hasCompleted, goalRef.pending, goalRef.declined, uid);
         goals.push({description: goalRef.description,
           dueDate: goalRef.dueDate,
           isCompleted: this.userHasCompleted(goalRef.hasCompleted, uid),
-          createdBy: doc.data().createdBy,
-          goalReference: goalRef, status: doc.data().status});
+          createdBy: goalRef.createdBy.name,
+          goalReference: goalRef, status: status});
       });
     });
     return of(goals);
