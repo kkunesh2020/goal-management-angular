@@ -25,6 +25,7 @@ export class GoalDetailsComponent implements OnInit {
       }
 
       if(Object.keys(studentGoalData).length > 0){
+
         this.studentData = studentGoalData;
 
         if(this.studentData.links == null){
@@ -34,6 +35,20 @@ export class GoalDetailsComponent implements OnInit {
         if(this.studentData.files == null){
           this.studentData.files = [];
         }
+
+        if(this.goal.hasCompleted.includes(this.studentData.uid)){
+          this.studentData.status = 'completed';
+        }
+
+        if(this.goal.declined.includes(this.studentData.uid)){
+          this.studentData.status = 'declined';
+        }
+
+        if(this.goal.pending.includes(this.studentData.uid)){
+          this.studentData.status = 'pending';
+        }
+
+        console.log(this.studentData.status);
       }
 
     });

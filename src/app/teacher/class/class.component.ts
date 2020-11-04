@@ -166,7 +166,10 @@ export class ClassComponent implements OnInit {
           goalReference: element,
           status: status
         }
-        goals.push(newGoal);
+        if(newGoal.status != 'declined'){
+          goals.push(newGoal);
+        }
+  
       });
       this.goalsDataSource = goals;
       console.log(this.goalsDataSource);

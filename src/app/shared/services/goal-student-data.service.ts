@@ -5,6 +5,8 @@ import { Goal } from '../models/goal.model';
 import LinkClass from '../models/link';
 import UserClass from '../models/user';
 import { ClassService } from './class.service';
+import { GoalService } from './goal.service';
+import NoteClass from '../models/note';
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +14,23 @@ import { ClassService } from './class.service';
 export class GoalStudentDataService {
   private studentDataSource = new BehaviorSubject({});
   currentStudentGoal = this.studentDataSource.asObservable();
-  constructor(private classService: ClassService) { }
+  constructor(private classService: ClassService, private goalService: GoalService) { }
 
-  isCompleted(hasCompleted: string[], studentID: string) : Promise<boolean> {
-    console.log("is completed", hasCompleted, studentID)
-    let promise = new Promise<boolean>( (resolve, reject) => {
-      hasCompleted.forEach((id) => {
-      console.log(id);
-      console.log(id == studentID);
-      if (id == studentID) {return resolve(true); }
-      })
-      resolve(false);
-    });
-    return promise;
+  getStudentStatus(hasCompleted: string[], pending: string[], declined: string[], studentID: string){
+    let status = 'incompleted';
+    if(hasCompleted.includes(studentID)){
+      status = 'completed';
+    }
+
+    if(pending.includes(studentID)){
+      status = 'pending';
+    }
+
+    if(declined.includes(studentID)){
+      status = 'declined';
+    }
+
+    return status;
   }
 
   getStudentData(studentID: string): Promise<UserClass>{
@@ -56,6 +62,16 @@ export class GoalStudentDataService {
     return studentLinks;
   }
 
+  getStudentDeclinedNote(declinedNotes: NoteClass[], studentID: string): NoteClass{
+    let noteData = null;
+    declinedNotes.forEach(note => {
+      if(note.uid == studentID){
+        noteData = note;
+      }
+    })
+    return noteData;
+  }
+
   setStudentGoalData(studentID: string, goal: Goal){
     if(studentID == null || goal == null){
       this.studentDataSource.next(null);
@@ -65,13 +81,15 @@ export class GoalStudentDataService {
     this.getStudentData(studentID).then(data => {
       student = data;
       let isCompleted: boolean; 
-      this.isCompleted(goal.hasCompleted, studentID).then((result) => {
-        isCompleted = result;
-        let studentFiles: FileClass[] = this.getStudentFiles(goal.files ? goal.files : [], studentID);
-        let studentLinks: LinkClass[] = this.getStudentLinks(goal.links ? goal.links : [], studentID);
-        let studentData = {id: studentID, completed: isCompleted, name: student.name, files: studentFiles, links: studentLinks};
-        this.studentDataSource.next(studentData);
-      });
+      let status: string = this.getStudentStatus(goal.hasCompleted, goal.pending, goal.declined, studentID);
+      isCompleted = status == 'completed';
+      let studentFiles: FileClass[] = this.getStudentFiles(goal.files ? goal.files : [], studentID);
+      let studentLinks: LinkClass[] = this.getStudentLinks(goal.links ? goal.links : [], studentID);
+      let studentData = {id: studentID, completed: isCompleted, name: student.name, files: studentFiles, links: studentLinks, status: status, declinedNote: ''};
+      if(status == 'declined'){
+        studentData.declinedNote = this.getStudentDeclinedNote(goal.declinedMessages, studentID).note;
+      }
+      this.studentDataSource.next(studentData);
     });
   }
 }

@@ -4,17 +4,27 @@
     <p>{{goal.dueDate.seconds * 1000 | date}}</p>
     <p>{{goal.assignedToID.length}} assigned</p>
     <p>{{goal.hasCompleted.length}} completed</p>
+    <p>{{goal.pending.length}} pending</p>
+    <p>{{goal.declined.length}} declined</p>
   </div>
 
   <div class="studentGoalData" *ngIf="studentData != null">
     <h1>{{studentData.name}}</h1>
-    <div *ngIf="studentData.completed" class="complete">
+    <div *ngIf="studentData.status == 'completed'" class="complete">
       <mat-icon aria-hidden="false" aria-label="done icon">done</mat-icon>
       <p>Completed</p>
     </div>
-    <div *ngIf="!studentData.completed" class="uncomplete">
+    <div *ngIf="studentData.status == 'incompleted'" class="uncomplete">
       <mat-icon aria-hidden="false" aria-label="done icon">clear</mat-icon>
       <p>Not Completed</p>
+    </div>
+    <div *ngIf="studentData.status == 'pending'" class="complete">
+      <mat-icon aria-hidden="false" aria-label="done icon">done</mat-icon>
+      <p>Pending</p>
+    </div>
+    <div *ngIf="studentData.status == 'declined'" class="uncomplete">
+      <mat-icon aria-hidden="false" aria-label="done icon">clear</mat-icon>
+      <p>Rejected</p>
     </div>
     <div class="link" *ngFor="let link of studentData.links">
       <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
@@ -23,6 +33,9 @@
     <div class="file" *ngFor="let file of studentData.files">
       <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
       <a target="_blank" href="{{file.downloadURL}}">{{file.name}}</a>
+    </div>
+    <div class="declinedInfo" *ngIf="studentData.status == 'declined'">
+      <p>{{studentData.declinedNote}}</p>
     </div>
   </div>
 
