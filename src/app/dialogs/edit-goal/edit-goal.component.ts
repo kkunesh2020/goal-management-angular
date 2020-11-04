@@ -15,6 +15,7 @@ export class EditGoalComponent implements OnInit {
   loading: boolean = false;
   assignedToAll: boolean = false;
   students: any[];
+  original: any;
   editDate: Date;
 
 
@@ -22,6 +23,7 @@ export class EditGoalComponent implements OnInit {
   public dialogRef: MatDialogRef<EditGoalComponent>, private classService: ClassService) {
 
     this.editDate = new Date(data.dueDate.seconds * 1000);
+    this.original = data;
     console.log("edit assignedToID", data.assignedToID)
     this.classService.getStudentsDataByID(data.assignedToID).then(studentsData => {
       this.students = studentsData;

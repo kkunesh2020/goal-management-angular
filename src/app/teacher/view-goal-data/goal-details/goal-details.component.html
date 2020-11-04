@@ -2,10 +2,12 @@
   <div class="goalDescription" *ngIf="studentData == null">
     <h1>{{goal.description}}</h1>
     <p>{{goal.dueDate.seconds * 1000 | date}}</p>
-    <p>{{goal.assignedToID.length}} assigned</p>
-    <p>{{goal.hasCompleted.length}} completed</p>
-    <p>{{goal.pending.length}} pending</p>
-    <p>{{goal.declined.length}} declined</p>
+    <div class="stats">
+      <div class="stat"><h2>{{goal.assignedToID.length}}</h2> <h3>assigned</h3></div>
+      <div class="stat"><h2>{{goal.hasCompleted.length}}</h2> <h3>completed</h3></div>
+      <div class="stat"><h2>{{goal.pending.length}}</h2> <h3>pending</h3></div>
+      <div class="stat"><h2>{{goal.declined.length}}</h2> <h3>declined</h3></div>
+    </div>   
   </div>
 
   <div class="studentGoalData" *ngIf="studentData != null">
