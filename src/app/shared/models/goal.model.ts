@@ -3,6 +3,7 @@ import { Group } from './group.model';
 import { DocumentReference } from '@angular/fire/firestore';
 import FileClass from './file';
 import LinkClass from './link';
+import NoteClass from './note';
 
 export interface Goal {
   description: string;
@@ -14,6 +15,7 @@ export interface Goal {
   assignedToID: Array<string>;
   id: string;
   classID: string;
+  declinedMessages?: Array<NoteClass>;
   files?: Array<FileClass>;
   links?: Array<LinkClass>;
 }

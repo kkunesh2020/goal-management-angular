@@ -13,6 +13,7 @@ export class ChangeStatusComponent implements OnInit {
   goalTitle: string;
   dueDate: Date;
   rejected: boolean;
+  rejectionNote: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<ChangeStatusComponent>, private goalService: GoalService) { 
@@ -21,6 +22,7 @@ export class ChangeStatusComponent implements OnInit {
     this.goalTitle = data.description;
     this.dueDate = new Date(data.dueDate.seconds * 1000);
     this.loading = false;
+    this.rejectionNote = "";
   }
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class ChangeStatusComponent implements OnInit {
 
   updateStatus(status: string){
     this.loading = true;
-    this.goalService.updateGoalStatus(this.data.id, status, this.data.uid).then(() => {
+    this.goalService.updateGoalStatus(this.data.id, status, this.data.uid, this.rejectionNote).then(() => {
       this.dialogRef.close('updated');
     });
   }

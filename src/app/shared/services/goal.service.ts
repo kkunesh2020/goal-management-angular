@@ -11,6 +11,7 @@ import FileClass from '../models/file';
 import { File } from '../models/file.model';
 import { AngularFireStorage } from '@angular/fire/storage';
 import LinkClass from '../models/link';
+import NoteClass from '../models/note';
 
 @Injectable({
   providedIn: 'root'
@@ -167,6 +168,10 @@ export class GoalService {
       goal.declined = [];
     }
 
+    if(goal.declinedMessages == null){
+      goal.declinedMessages = [];
+    }
+
     if(goal.pending == null){
       goal.pending = [];
     }
@@ -199,8 +204,9 @@ export class GoalService {
     });
   }
 
-  updateGoalStatus(goalID: string, status: string, uid: string): Promise<any>{
+  updateGoalStatus(goalID: string, status: string, uid: string, rejectionNote?: string): Promise<any>{
     let goalRef = this.goalsCollection.doc(goalID);
+    console.log("current status", status);
     let promise: Promise<any>;
     console.log("updating goal status")
     if(status == "incomplete"){
@@ -212,6 +218,9 @@ export class GoalService {
       console.log("declined")
       promise = goalRef.update({declined: firebase.firestore.FieldValue.arrayUnion(uid)}).then(() => {
         goalRef.update({pending: firebase.firestore.FieldValue.arrayRemove(uid)})
+        let rejectNote: NoteClass = {uid: uid, note: rejectionNote};
+        console.log("reject note", rejectNote);
+        this.goalsCollection.doc(goalID).update({declinedMessages: firebase.firestore.FieldValue.arrayUnion({...rejectNote})})
       });
     }
 
@@ -225,9 +234,8 @@ export class GoalService {
 
   createGoal(goal: GoalClass): Promise<any> {
     console.log('assigned to student ids', goal.assignedToID);
-    if (goal.links == null) { goal.links = []; }
-    if (goal.files == null) { goal.files = []; }
-    let promise = this.goalsCollection.add({...goal}).then((docRef) => {
+    let goalData = this.validateGoal(goal);
+    let promise = this.goalsCollection.add({...goalData}).then((docRef) => {
       this.assignToStudents(docRef.id, goal.assignedToID);
       return;
     }).catch(err => console.log(err));

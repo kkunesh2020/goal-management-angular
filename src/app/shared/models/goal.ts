@@ -4,6 +4,7 @@ import { Group } from './group.model';
 import { DocumentReference } from '@angular/fire/firestore';
 import FileClass from './file';
 import LinkClass from './link';
+import NoteClass from './note';
 
 export default class GoalClass implements Goal {
   description: string;
@@ -18,6 +19,7 @@ export default class GoalClass implements Goal {
   links: Array<LinkClass>;
   pending: Array<string>;
   declined: Array<string>;
+  declinedMessages: Array<NoteClass>;
 
   constructor(
     description: string,
@@ -29,6 +31,7 @@ export default class GoalClass implements Goal {
     id: string,
     createdBy: User,
     assignedToID: Array<string>,
+    declinedMessages?: Array<NoteClass>,
     files?: Array<FileClass>,
     links?: Array<LinkClass>
     ) {
@@ -36,6 +39,7 @@ export default class GoalClass implements Goal {
       this.dueDate = dueDate;
       this.hasCompleted = hasCompleted;
       this.createdBy = createdBy;
+      this.declinedMessages = declinedMessages;
       this.assignedToID = assignedToID;
       this.id = id;
       this.classID = classID;
