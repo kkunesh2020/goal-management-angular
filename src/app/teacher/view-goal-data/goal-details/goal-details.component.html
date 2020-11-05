@@ -37,6 +37,7 @@
       <a target="_blank" href="{{file.downloadURL}}">{{file.name}}</a>
     </div>
     <div class="declinedInfo" *ngIf="studentData.status == 'declined'">
+      <h1 class="reason">Reason: </h1>
       <p>{{studentData.declinedNote}}</p>
     </div>
   </div>

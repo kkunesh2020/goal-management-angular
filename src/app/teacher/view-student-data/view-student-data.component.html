@@ -3,7 +3,7 @@
 </button>
 
 <div class="student" *ngIf="student">
-  <h1>{{student.name}}</h1>
+  <h1 class="name">{{student.name}}</h1>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -16,7 +16,9 @@
     <mat-list *ngIf="missingGoals.length > 0">
       <mat-divider></mat-divider>
       <div class="item" *ngFor="let goal of missingGoals" (click)="navigateToGoal(goal.id)">
-        <mat-list-item>{{goal.description}}</mat-list-item>
+        <mat-list-item>
+          <p>{{goal.description}}</p>
+        </mat-list-item>
         <mat-divider></mat-divider>
       </div>
     </mat-list>

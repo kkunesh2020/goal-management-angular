@@ -10,6 +10,7 @@
 
 .item :hover{
   background-color: lightgrey;
+  cursor: pointer;
   transition: background-color 1s;
 }
 
@@ -17,4 +18,16 @@ mat-expansion-panel{
   margin:auto;
   width: 80%;
   margin-top: 2rem;
+}
+
+.name{
+  margin-bottom: 4rem;
+}
+
+.mat-list-item{
+  
+}
+
+.icon{
+  float: right;
 }

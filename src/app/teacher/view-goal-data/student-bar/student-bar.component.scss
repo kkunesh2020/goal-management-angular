@@ -1,5 +1,9 @@
 .student-sidebar{
   height: 100%;
+
+  ::ng-deep .mat-expansion-panel-body{
+    padding: 0;
+  }
 }
 
 mat-list-item{
@@ -20,3 +24,14 @@ mat-list-item{
   background-color: lightgrey;
   transition: background-color 1s;
 }
+
+mat-panel-title{
+  display: flex;
+
+  mat-icon{
+    padding: .6rem;
+    padding-left: 0;
+  }
+}
+
+
