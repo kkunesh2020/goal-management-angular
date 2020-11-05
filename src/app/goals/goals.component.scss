@@ -1,6 +1,15 @@
 .table {
   width: 70%;
-  margin-bottom: 2rem;
+  margin: auto;
+}
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
 }
 
 .red-row {
@@ -39,6 +48,7 @@
 
 .main{
   margin-top: 2rem;
+  margin:auto;
 }
 
 .title{

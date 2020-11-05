@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { DocumentReference } from '@angular/fire/firestore';
 import { MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,16 +8,22 @@ import { Goal } from '../shared/models/goal.model';
 import { AuthService } from '../shared/services/auth.service';
 import { GoalService } from '../shared/services/goal.service';
 import { GoalsTableData, GoalStat } from '../teacher/class/class.component';
+import GoalClass from '../shared/models/goal';
 
 @Component({
   selector: 'gms-goals',
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.scss']
 })
-export class GoalsComponent implements OnInit {
+
+
+export class GoalsComponent {
   loading: boolean = true;
   uid: string;
+  goals: any[];
   dataSource = new MatTableDataSource([]);
+  
+  
   goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
 
   constructor(private auth: AuthService, private goalService: GoalService, public dialog: MatDialog,
@@ -32,15 +38,13 @@ export class GoalsComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-  }
 
   getStudentGoals(goalArray: DocumentReference[]){
     this.goalService.getGoalsById(goalArray, this.uid).subscribe(goalData => {
-      console.log("goals", goalData);
-      this.dataSource.data = goalData;
+        console.log("goals", goalData);
+        this.goals = goalData;
+        this.dataSource.data = goalData;
     });
-    
     this.loading = false;
   }
 

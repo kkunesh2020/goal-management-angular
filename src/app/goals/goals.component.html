@@ -2,9 +2,11 @@
 <div class="=loading-shade" *ngIf="loading">
 </div>
 <p *ngIf="dataSource.data.length == 0 && !loading" class="subtitle">No Goals Assigned Yet.</p>
-<div class="main" fxLayoutAlign="center center">
+
+
+<div class="main">
   <mat-spinner *ngIf="loading"></mat-spinner>
-  <table mat-table [dataSource]="dataSource.data" class="table" *ngIf="dataSource.data.length > 0">
+  <table mat-table [dataSource]="dataSource" class="table" *ngIf="dataSource.data.length > 0">
     <!-- Description Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> description </th>

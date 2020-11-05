@@ -61,7 +61,7 @@ export class GoalService {
     return promise;
   }
 
-  getGoalsById(goalIDs: DocumentReference[], uid: string): Observable<any> {
+    getGoalsById(goalIDs: DocumentReference[], uid: string): Observable<any> {
     let goals: GoalsTableData[] = [];
     goalIDs.forEach(goal => {
       this.goalsCollection.doc(goal.id).get().then(doc => {
@@ -76,6 +76,7 @@ export class GoalService {
           goalReference: goalRef, status: status});
       });
     });
+    console.log("done with goals", goals);
     return of(goals);
   }
 
@@ -311,9 +312,8 @@ export class GoalService {
   }
 
   editGoal(goal: GoalClass): Promise<any> {
-    if (goal.files == null) { goal.files = []; }
-    if (goal.links == null) { goal.links = []; }
-    let promise = this.goalsCollection.doc(goal.id).set({...goal}).catch(err => console.log(err));
+    let goalData = this.validateGoal(goal);
+    let promise = this.goalsCollection.doc(goal.id).set({...goalData}).catch(err => console.log(err));
     return promise;
   }
 
