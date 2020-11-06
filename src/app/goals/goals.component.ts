@@ -20,7 +20,7 @@ import GoalClass from '../shared/models/goal';
 export class GoalsComponent {
   loading: boolean = true;
   uid: string;
-  goals: any[];
+  // goals: any[];
   dataSource = new MatTableDataSource([]);
   
   
@@ -40,16 +40,13 @@ export class GoalsComponent {
 
 
   getStudentGoals(goalArray: DocumentReference[]){
-    this.goalService.getGoalsById(goalArray, this.uid).subscribe(goalData => {
+    this.goalService.getGoalsById(goalArray, this.uid).then(goalData => {
         console.log("goals", goalData);
-        this.goals = goalData;
-        this.dataSource.data = goalData;
+        // this.goals = goalData;
+        this.dataSource.data = [...goalData];
     });
     this.loading = false;
   }
-
-
-
   openDialog(data: any, userID: string, isCompleted: boolean){
     data.uid = userID;
     data.isCompleted = isCompleted;

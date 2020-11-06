@@ -61,10 +61,10 @@ export class GoalService {
     return promise;
   }
 
-    getGoalsById(goalIDs: DocumentReference[], uid: string): Observable<any> {
+    async getGoalsById(goalIDs: DocumentReference[], uid: string): Promise<any> {
     let goals: GoalsTableData[] = [];
-    goalIDs.forEach(goal => {
-      this.goalsCollection.doc(goal.id).get().then(doc => {
+    for(let goal of goalIDs){
+      let doc = await this.goalsCollection.doc(goal.id).get();
         let goalRef = new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
         doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links);
 
@@ -74,10 +74,10 @@ export class GoalService {
           isCompleted: this.userHasCompleted(goalRef.hasCompleted, uid),
           createdBy: goalRef.createdBy.name,
           goalReference: goalRef, status: status});
-      });
-    });
+    }
+
     console.log("done with goals", goals);
-    return of(goals);
+    return goals;
   }
 
   getGoalByReference(doc: DocumentReference): Promise<any> {
