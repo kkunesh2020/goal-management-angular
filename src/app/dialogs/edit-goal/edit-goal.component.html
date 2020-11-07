@@ -38,7 +38,7 @@
     </section>
 </div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
   <div class="spacer"></div>
+  <button mat-button mat-dialog-close>Cancel</button>
   <button mat-button [class.spinner]="loading" [disabled]="loading || !formComplete()" (click)="editGoal()" color="primary"><mat-icon aria-hidden="false" aria-label="Example home icon">save</mat-icon>  Save Changes</button>
 </div>

@@ -126,6 +126,7 @@ export class ClassComponent implements OnInit {
   }
 
   getAllGoalsForTeacher(classID:string){
+    this.loading = true;
     let goals: GoalStat[] = [];
     this.goalService.getGoalsForClass(classID).then((data) => {
       data.forEach(element => {
@@ -142,7 +143,8 @@ export class ClassComponent implements OnInit {
       });
       this.classGoals = goals;
       console.log('class goals', this.classGoals);
-    })
+    });
+    this.loading = false;
   }
 
   getLengthOf(array: any[]){
@@ -154,6 +156,7 @@ export class ClassComponent implements OnInit {
 
 
   getGoalsForStudent(classID: string, studentID: string){
+    this.loading = true;
     let goals: GoalsTableData[] = [];
     this.goalService.getGoalsForClassWithId(classID, studentID).then((data) => {
       data.forEach(element => {
@@ -174,7 +177,8 @@ export class ClassComponent implements OnInit {
       });
       this.goalsDataSource = goals;
       console.log(this.goalsDataSource);
-    })
+    });
+    this.loading = false;
   }
 
   openDialog(data: any, userID: string, isCompleted: boolean, status: string){
@@ -197,7 +201,7 @@ export class ClassComponent implements OnInit {
 
   createGoalDialog(){
     let data = {createdBy: this.user, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
-    let dialogRef = this.dialog.open(CreateGoalComponent, {data, width: '30rem', height: '29rem'});
+    let dialogRef = this.dialog.open(CreateGoalComponent, {data, width: '27rem', height: '30rem', panelClass: 'custom-modalbox'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'success'){
@@ -208,7 +212,7 @@ export class ClassComponent implements OnInit {
 
   createStudentGoalDialog(){
     let data = {createdBy: this.user, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
-    let dialogRef = this.dialog.open(CreateStudentGoalComponent, {data, width: '30rem', height: '29rem'});
+    let dialogRef = this.dialog.open(CreateStudentGoalComponent, {data, width: '27rem', height: '23rem'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'success'){

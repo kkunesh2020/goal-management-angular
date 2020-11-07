@@ -20,7 +20,7 @@ mat-dialog-title{
 }
 
 mat-form-field {
-  width: 100%;
+  width: 80%;
 }
 
 .mat-dialog-content{
@@ -57,4 +57,12 @@ mat-radio-button{
   border: 2px solid #ffffff;
   border-top-color: #000000;
   animation: spinner .8s linear infinite;
+}
+
+.mat-dialog-title{
+  font-size: 1.8rem;
+}
+
+.spacer{
+  width: 43%;
 }

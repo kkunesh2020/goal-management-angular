@@ -8,7 +8,7 @@ mat-form-field {
 
 mat-dialog-title{
   font-size: 1.2rem;
-  margin-bottom: 0;
+  margin-bottom: 1.5rem;
 }
 
 .spinner:before {
@@ -39,15 +39,22 @@ mat-dialog-title{
 .complete{
   display: flex;
   color: rgb(142, 197, 59);
+  margin-bottom: 1rem;
 
   p{
     margin: 4px 0px 0px 2px;
   }
 }
 
+.actionIcon{
+  margin-top: 2px;
+  padding-left: 4px;
+}
+
 .uncomplete{
   display: flex;
   color: red;
+  margin-bottom: 1rem;
 
   p{
     margin: 0;
@@ -69,6 +76,14 @@ mat-dialog-title{
 .actionButton{
   margin-bottom: 2rem;
   margin-top: 4rem;
+
+  mat-icon{
+    margin-right: 1rem;
+  }
+}
+
+.markButton{
+  text-align: left;
 }
 
 .fileButton{
@@ -102,3 +117,20 @@ mat-dialog-title{
   color: rgb(60, 67, 70);
 }
 
+.mat-dialog-title{
+  font-size: 1.8rem;
+}
+
+.acButton{
+  width: 12rem;
+}
+
+.date{
+  display: flex;
+
+  p{
+    margin-top: 4px;
+    margin-left: 8px;
+    margin-bottom: 0;
+  }
+}

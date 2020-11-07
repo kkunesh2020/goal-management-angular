@@ -89,7 +89,7 @@
 </div>
 
 
-<button mat-button color="primary" id="createGoal" (click)="createStudentGoalDialog()"><mat-icon>add</mat-icon> Create Goal</button>
+<button mat-button color="primary" id="createGoal" (click)="createStudentGoalDialog()" *ngIf="!isAdmin && !loading"><mat-icon>add</mat-icon> Create Goal</button>
 <p *ngIf="goalsDataSource.length == 0 && !isAdmin && !loading" class="subtitle">No Goals Assigned Yet.</p>
 <div class="studentSection" *ngIf="class && !isAdmin" fxLayoutAlign="center center">
   <div class="example-loading-shade" *ngIf="loading">
