@@ -178,6 +178,7 @@ export class ClassComponent implements OnInit {
 
   openDialog(data: any, userID: string, isCompleted: boolean, status: string){
     data.uid = userID;
+    console.log("opening data", data);
     data.isCompleted = isCompleted;
     let dialogRef;
     if(status == 'pending'){

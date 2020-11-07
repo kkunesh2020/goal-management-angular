@@ -35,8 +35,9 @@ export class GoalService {
     let promise = this.goalsCollection.where('classID', '==', classID).orderBy('dueDate', 'desc').get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         goals.push(new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
-        doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links));
+        doc.data().createdBy, doc.data().assignedToID, doc.data().declinedMessages, doc.data().files, doc.data().links));
       });
+      console.log("goal service: got class goals", goals);
       return goals;
     });
     return promise;
@@ -47,9 +48,12 @@ export class GoalService {
     let promise = this.goalsCollection.where('classID', '==', classID).where('assignedToID', 'array-contains', userID)
     .orderBy('dueDate', 'desc').get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        goals.push(new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
-        doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links));
+        let newGoal = new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
+        doc.data().createdBy, doc.data().assignedToID, doc.data().declinedMessages, doc.data().files, doc.data().links);
+        console.log("new goal: ", newGoal);
+        goals.push(newGoal);
       });
+      console.log("getGoalsForClassWithId", goals);
       return goals;
     });
     return promise;
@@ -66,7 +70,7 @@ export class GoalService {
     for(let goal of goalIDs){
       let doc = await this.goalsCollection.doc(goal.id).get();
         let goalRef = new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
-        doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links);
+        doc.data().createdBy, doc.data().assignedToID, doc.data().declinedMessages, doc.data().files, doc.data().links);
 
         let status = this.getUserStatus(goalRef.hasCompleted, goalRef.pending, goalRef.declined, uid);
         if(status != 'declined'){
