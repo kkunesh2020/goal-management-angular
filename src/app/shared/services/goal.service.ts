@@ -69,11 +69,13 @@ export class GoalService {
         doc.data().createdBy, doc.data().assignedToID, doc.data().files, doc.data().links);
 
         let status = this.getUserStatus(goalRef.hasCompleted, goalRef.pending, goalRef.declined, uid);
-        goals.push({description: goalRef.description,
-          dueDate: goalRef.dueDate,
-          isCompleted: this.userHasCompleted(goalRef.hasCompleted, uid),
-          createdBy: goalRef.createdBy.name,
-          goalReference: goalRef, status: status});
+        if(status != 'declined'){
+          goals.push({description: goalRef.description,
+            dueDate: goalRef.dueDate,
+            isCompleted: this.userHasCompleted(goalRef.hasCompleted, uid),
+            createdBy: goalRef.createdBy.name,
+            goalReference: goalRef, status: status});
+        }
     }
 
     console.log("done with goals", goals);

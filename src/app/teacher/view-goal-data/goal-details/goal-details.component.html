@@ -28,14 +28,18 @@
       <mat-icon aria-hidden="false" aria-label="done icon">report_problem</mat-icon>
       <p>Declined</p>
     </div>
-    <div class="link" *ngFor="let link of studentData.links">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
-      <a target="_blank" href="{{link.url}}">{{link.url}}</a>
+    <div class="completedSection" *ngIf="studentData.status == 'completed'">
+      <h1 class="reason">Attached Work: </h1>
+      <div class="link" *ngFor="let link of studentData.links">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
+        <a (click)="goToLink(link.url)">{{link.url}}</a>
+      </div>
+      <div class="file" *ngFor="let file of studentData.files">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
+        <a target="_blank" href="{{file.downloadURL}}">{{file.name}}</a>
+      </div>
     </div>
-    <div class="file" *ngFor="let file of studentData.files">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
-      <a target="_blank" href="{{file.downloadURL}}">{{file.name}}</a>
-    </div>
+    
     <div class="declinedInfo" *ngIf="studentData.status == 'declined'">
       <h1 class="reason">Reason: </h1>
       <p>{{studentData.declinedNote}}</p>

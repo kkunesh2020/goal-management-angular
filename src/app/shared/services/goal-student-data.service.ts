@@ -53,7 +53,7 @@ export class GoalStudentDataService {
   }
 
   getStudentLinks(links: LinkClass[], studentID: string){
-    let studentLinks: LinkClass[];
+    let studentLinks: LinkClass[] = [];
     links.forEach((link) => {
       if(link.uid == studentID){
         studentLinks.push(link);

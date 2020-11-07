@@ -25,7 +25,8 @@
       <th mat-header-cell *matHeaderCellDef> Completed? </th>
       <td mat-cell *matCellDef="let element">
         <mat-icon aria-hidden="false" aria-label="Example done icon" *ngIf="element.isCompleted">done</mat-icon>
-        <mat-icon aria-hidden="false" aria-label="Example close icon" *ngIf="!element.isCompleted">close</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Example close icon" *ngIf="!element.isCompleted && element.status != 'pending'">close</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Example close icon" *ngIf="element.status == 'pending'">schedule</mat-icon>
       </td>
     </ng-container>
 
@@ -37,7 +38,7 @@
 
 
     <tr mat-header-row *matHeaderRowDef="goalsDisplayedColumns"></tr>
-    <tr mat-row (click)="openDialog(row.goalReference, uid, row.isCompleted)" *matRowDef="let row; columns: goalsDisplayedColumns;"
+    <tr mat-row (click)="openDialog(row.goalReference, uid, row.isCompleted, row.status)" *matRowDef="let row; columns: goalsDisplayedColumns;"
     [class.green-row]="row.status == 'completed'"
     [class.yellow-row]="row.status == 'pending'"
     [class.red-row]="row.status == 'incomplete'"></tr>

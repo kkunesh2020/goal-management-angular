@@ -10,5 +10,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="addLink()" [disabled]="loading || !formComplete()">Add Link</button>
+  <button mat-button (click)="addLink()" [disabled]="loading || url == ''">Add Link</button>
 </div>

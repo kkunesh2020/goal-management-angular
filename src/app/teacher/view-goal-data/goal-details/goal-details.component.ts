@@ -54,6 +54,14 @@ export class GoalDetailsComponent implements OnInit {
     });
   }
 
+  goToLink(urlToOpen: string){
+    let url: string = '';
+    if (!/^http[s]?:\/\//.test(urlToOpen)) {
+        url += 'http://';
+    }
 
+    url += urlToOpen;
+    window.open(url, "_blank");
+  }
 
 }

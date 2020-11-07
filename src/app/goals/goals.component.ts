@@ -9,6 +9,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { GoalService } from '../shared/services/goal.service';
 import { GoalsTableData, GoalStat } from '../teacher/class/class.component';
 import GoalClass from '../shared/models/goal';
+import { ChangeStatusComponent } from '../dialogs/change-status/change-status.component';
 
 @Component({
   selector: 'gms-goals',
@@ -20,7 +21,6 @@ import GoalClass from '../shared/models/goal';
 export class GoalsComponent {
   loading: boolean = true;
   uid: string;
-  // goals: any[];
   dataSource = new MatTableDataSource([]);
   
   
@@ -34,24 +34,31 @@ export class GoalsComponent {
       this.uid = userProfile.uid;
       if(userProfile.goalsAssigned.length > 0){
         this.getStudentGoals(userProfile.goalsAssigned);
+      }else{
+        this.loading = false;
       }
+      
     });
-    this.loading = false;
   }
 
 
   getStudentGoals(goalArray: DocumentReference[]){
+    this.loading = true;
     this.goalService.getGoalsById(goalArray, this.uid).then(goalData => {
         console.log("goals", goalData);
-        // this.goals = goalData;
         this.dataSource.data = [...goalData];
+        this.loading = false;
     });
-    this.loading = false;
   }
-  openDialog(data: any, userID: string, isCompleted: boolean){
+  openDialog(data: any, userID: string, isCompleted: boolean, status: string){
     data.uid = userID;
     data.isCompleted = isCompleted;
-    let dialogRef = this.dialog.open(UpdateGoalComponent, {data, width: "30rem", height: "30rem"});
+    let dialogRef;
+      if(status == 'pending'){
+        dialogRef = this.dialog.open(ChangeStatusComponent, {data, height: "20rem", width: "30rem"});
+      }else{
+        dialogRef = this.dialog.open(UpdateGoalComponent, {data, height: "30rem", width: "30rem"});
+      }
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'updated'){

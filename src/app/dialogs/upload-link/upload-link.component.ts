@@ -10,7 +10,7 @@ import { GoalService } from 'src/app/shared/services/goal.service';
 })
 export class UploadLinkComponent  {
   loading: boolean;
-  url: string;
+  url: string = '';
   uid: string;
   link: LinkClass;
   goalID: string;
@@ -25,13 +25,10 @@ export class UploadLinkComponent  {
     this.loading = true;
     //add link
     let newLink = {url: this.url, uid: this.uid} as LinkClass;
+    console.log("new link", newLink)
     this.goalService.addLinkToGoal(this.goalID, newLink).then(() => {
       this.loading = false;
-      this.dialogRef.close(this.link);
+      this.dialogRef.close(newLink);
     });
-  }
-
-  formComplete() : boolean{
-    return this.url != '';
   }
 }

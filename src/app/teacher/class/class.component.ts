@@ -181,7 +181,7 @@ export class ClassComponent implements OnInit {
     data.isCompleted = isCompleted;
     let dialogRef;
     if(status == 'pending'){
-      dialogRef = this.dialog.open(ChangeStatusComponent, {data, height: "30rem", width: "30rem"});
+      dialogRef = this.dialog.open(ChangeStatusComponent, {data, height: "20rem", width: "30rem"});
     }else{
       dialogRef = this.dialog.open(UpdateGoalComponent, {data, height: "30rem", width: "30rem"});
     }
