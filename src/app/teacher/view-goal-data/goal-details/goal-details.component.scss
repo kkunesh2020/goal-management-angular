@@ -27,23 +27,30 @@
   margin-left: 1rem;
 }
 
-.complete{
+.complete, .uncomplete, .declined, .pending{
   display: flex;
-  color: rgb(142, 197, 59);
-
-  p{
-    margin: 4px 0px 0px 2px;
-  }
-}
-
-.uncomplete{
-  display: flex;
-  color: red;
 
   p{
     margin: 0;
   }
+
+  mat-icon{
+    padding-right: .5rem;
+  }
 }
+
+.uncomplete, .declined{
+  color: red;
+}
+
+.complete{
+  color: rgb(149, 221, 132);
+}
+
+.pending{
+  color: rgb(221, 205, 132);
+}
+
 
 .reason{
   font-size: 1.5rem;

@@ -35,7 +35,8 @@ export class GoalsComponent {
       if(userProfile.goalsAssigned.length > 0){
         this.getStudentGoals(userProfile.goalsAssigned);
       }
-    })
+    });
+    this.loading = false;
   }
 
 

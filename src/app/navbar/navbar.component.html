@@ -24,16 +24,9 @@
       </li>
       <div *ngIf="auth.user$ | async as user">
         <li>
-          <a [routerLink]="'/classes'">
-            <div *ngIf="user.isAdmin; then admin; else studentBlock"></div>
-            <ng-template #admin>
-              <mat-icon class="icon">dashboard</mat-icon>
-              <span class="label">CLASSES</span>
-            </ng-template>
-            <ng-template #studentBlock>
-              <mat-icon class="icon">dashboard</mat-icon>
-              <span class="label">GOALS</span>
-            </ng-template>
+          <a [routerLink]="'/help'">
+            <mat-icon class="icon">info</mat-icon>
+            <span class="label">HELP</span>
           </a>
         </li>
       </div>

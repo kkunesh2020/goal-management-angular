@@ -11,10 +11,12 @@ import { GoalsComponent } from './goals/goals.component';
 import { TeacherAuthGuard } from './shared/guards/teacher-auth.guard';
 import { ViewStudentDataComponent } from './teacher/view-student-data/view-student-data.component';
 import { GoalDashboardComponent } from './teacher/view-goal-data/goal-dashboard/goal-dashboard.component';
+import { HelpComponent } from './help/help.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path: 'goals', component: GoalsComponent, canActivate: [StudentAuthGuard]},
+  {path: 'help', component: HelpComponent},
   {path: 'classes', component: ClassListComponent, canActivate: [AuthGuard]},
   {path: 'classes/:classID', component: ClassComponent, canActivate:[ClassAuthGuard]},
   {path: 'classes/:classID/students/:studentID', component: ViewStudentDataComponent, canActivate:[ClassAuthGuard, TeacherAuthGuard]},

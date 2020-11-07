@@ -20,13 +20,13 @@
       <mat-icon aria-hidden="false" aria-label="done icon">clear</mat-icon>
       <p>Not Completed</p>
     </div>
-    <div *ngIf="studentData.status == 'pending'" class="complete">
-      <mat-icon aria-hidden="false" aria-label="done icon">done</mat-icon>
+    <div *ngIf="studentData.status == 'pending'" class="pending">
+      <mat-icon aria-hidden="false" aria-label="done icon">schedule</mat-icon>
       <p>Pending</p>
     </div>
-    <div *ngIf="studentData.status == 'declined'" class="uncomplete">
-      <mat-icon aria-hidden="false" aria-label="done icon">clear</mat-icon>
-      <p>Rejected</p>
+    <div *ngIf="studentData.status == 'declined'" class="declined">
+      <mat-icon aria-hidden="false" aria-label="done icon">report_problem</mat-icon>
+      <p>Declined</p>
     </div>
     <div class="link" *ngFor="let link of studentData.links">
       <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>

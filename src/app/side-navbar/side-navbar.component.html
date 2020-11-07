@@ -5,17 +5,8 @@
     <span class="label">Home</span>
   </a>
   <a mat-list-item>
-    <div *ngIf="auth.user$ | async as user">
-      <div *ngIf="user.isAdmin; then admin else studentBlock"></div>
-      <ng-template #admin>
-          <mat-icon id="sidenav-dash-icon" class="icon">dashboard</mat-icon>
-          <span class="label" [routerLink]="['/classes']">View Classes</span>
-      </ng-template>
-      <ng-template #studentBlock>
-        <mat-icon id="dash-icon" class="icon">dashboard</mat-icon>
-        <span class="label">Goal History</span>
-      </ng-template>
-    </div>
+    <mat-icon id="sidenav-dash-icon" class="icon">info</mat-icon>
+    <span class="label" [routerLink]="['/help']">Help</span>
   </a>
   <a mat-list-item>
     <mat-icon class="icon">input</mat-icon>
