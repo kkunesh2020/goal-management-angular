@@ -19,12 +19,12 @@
   <div class="attachments" *ngIf="currentGoal.files.length > 0 || currentGoal.links.length > 0">
     <div class="link" *ngFor="let link of currentGoal.links">
       <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
-      <a target="_blank" href="{{link.url}}">{{link.url}}</a>
+      <a (click)="goToLink(link.url)">{{link.url}}</a>
       <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteLink(link.url)">close</mat-icon>
     </div>
     <div class="file" *ngFor="let file of currentGoal.files">
       <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
-      <a target="_blank" href="{{file.downloadURL}}">{{file.name}}</a>
+      <a (click)="goToLink(file.downloadURL)">{{file.name}}</a>
       <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteFile(file)">close</mat-icon>
     </div>
   </div>

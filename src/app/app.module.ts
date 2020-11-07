@@ -43,6 +43,7 @@ import { StudentBarComponent } from './teacher/view-goal-data/student-bar/studen
 import { GoalDetailsComponent } from './teacher/view-goal-data/goal-details/goal-details.component';
 import { ChangeStatusComponent } from './dialogs/change-status/change-status.component';
 import { HelpComponent } from './help/help.component';
+import { CreateStudentGoalComponent } from './dialogs/create-student-goal/create-student-goal.component';
 
 
 
@@ -66,7 +67,8 @@ import { HelpComponent } from './help/help.component';
     StudentBarComponent,
     GoalDetailsComponent,
     ChangeStatusComponent,
-    HelpComponent
+    HelpComponent,
+    CreateStudentGoalComponent
   ],
   imports: [
     BrowserModule,

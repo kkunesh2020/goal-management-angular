@@ -96,4 +96,5 @@ export class EditGoalComponent implements OnInit {
       this.dialogRef.close('success');
     })
   }
+
 }
