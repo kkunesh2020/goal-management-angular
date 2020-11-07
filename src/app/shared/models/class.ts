@@ -1,6 +1,5 @@
 import { Class } from './class.model';
 import { User } from './user.model';
-import { Group } from './group.model';
 import { DocumentReference } from '@angular/fire/firestore';
 
 export default class ClassClass implements Class {

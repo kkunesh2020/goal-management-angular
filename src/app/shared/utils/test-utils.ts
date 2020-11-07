@@ -1,6 +1,4 @@
-import { Group } from '../models/group.model';
 import UserClass from '../models/user';
-import GroupClass from '../models/group';
 import { User } from '../models/user.model';
 import { ComponentRef } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
@@ -8,16 +6,16 @@ import GoalClass from '../models/goal';
 import { DocumentReference } from '@angular/fire/firestore';
 
 export class TestUtils {
-  static getTestGroup(name: string, users?: Array<User>): Group {
-    if (!users) {
-      users = [
-        new UserClass('1', 'Katie', 'kkunesh@gmail.com', false, [], [], []),
-        new UserClass('2', 'Jacob', 'jdulai@gmail.com', false, [], [], []),
-        new UserClass('3', 'Noah', 'nrizika@gmail.com', false, [], [], [])
-      ];
-    }
-    return new GroupClass('1', name, users);
-  }
+  // static getTestGroup(name: string, users?: Array<User>): Group {
+  //   if (!users) {
+  //     users = [
+  //       new UserClass('1', 'Katie', 'kkunesh@gmail.com', false, [], [], []),
+  //       new UserClass('2', 'Jacob', 'jdulai@gmail.com', false, [], [], []),
+  //       new UserClass('3', 'Noah', 'nrizika@gmail.com', false, [], [], [])
+  //     ];
+  //   }
+  //   return new GroupClass('1', name, users);
+  // }
 
   static getRandomUID(): string {
     return (
