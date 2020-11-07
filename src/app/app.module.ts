@@ -96,6 +96,6 @@ import { CreateStudentGoalComponent } from './dialogs/create-student-goal/create
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
-    DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent]
+    DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent, CreateStudentGoalComponent]
 })
 export class AppModule { }

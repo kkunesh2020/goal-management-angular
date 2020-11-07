@@ -14,7 +14,7 @@ export class CreateStudentGoalComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
   public dialogRef: MatDialogRef<CreateStudentGoalComponent>) { 
-    this.goal = new GoalClass('', null, data.classID, [], [], [], '', data.createdBy, [data.uid]);
+    this.goal = new GoalClass('', null, data.classID, [], [], [], '', data.createdBy, [data.createdBy.uid]);
   }
 
 

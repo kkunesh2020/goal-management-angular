@@ -17,6 +17,7 @@ import { User } from '../../shared/models/user.model';
 import GoalClass from 'src/app/shared/models/goal';
 import { DeleteGoalComponent } from 'src/app/dialogs/delete-goal/delete-goal.component';
 import { ChangeStatusComponent } from 'src/app/dialogs/change-status/change-status.component';
+import { CreateStudentGoalComponent } from 'src/app/dialogs/create-student-goal/create-student-goal.component';
 
 export interface StudentData {
   name: string;
@@ -197,6 +198,17 @@ export class ClassComponent implements OnInit {
   createGoalDialog(){
     let data = {createdBy: this.user, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
     let dialogRef = this.dialog.open(CreateGoalComponent, {data, width: '30rem', height: '29rem'});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'success'){
+        this.getAllGoalsForTeacher(this.classID);
+      }
+    });
+  }
+
+  createStudentGoalDialog(){
+    let data = {createdBy: this.user, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
+    let dialogRef = this.dialog.open(CreateStudentGoalComponent, {data, width: '30rem', height: '29rem'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'success'){
