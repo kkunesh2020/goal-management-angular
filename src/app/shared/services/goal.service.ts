@@ -317,7 +317,7 @@ export class GoalService {
     return promise;
   }
 
-  editGoal(goal: GoalClass): Promise<any> {
+  editGoal(goal: GoalClass, prevGoal: GoalClass): Promise<any> {
     let goalData = this.validateGoal(goal);
     let promise = this.goalsCollection.doc(goal.id).set({...goalData}).catch(err => console.log(err));
     return promise;

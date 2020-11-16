@@ -19,23 +19,6 @@
   <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </p>
-  <!-- Students -->
-    <h3>Assign To</h3>
-    <mat-radio-group aria-label="Select an option">
-      <mat-radio-button [checked]="assignedToAll" value="true" [(ngModel)]="assignedToAll" ngDefaultControl (click)="assignAllStudents()">Everyone</mat-radio-button>
-      <mat-radio-button [checked]="!assignedToAll" value="false" [(ngModel)]="assignedToAll" ngDefaultControl (click)="resetList()">Specific</mat-radio-button>
-    </mat-radio-group>
-    <section class="student-section" [hidden]="assignedToAll">
-      <span class="example-list-section">
-        <ul *ngIf="students.length > 0">
-          <li *ngFor="let student of students">
-            <mat-checkbox [checked]="checkAssignedTo(student.uid)" (change)="checkSpecific(student.uid ,$event.checked)">
-              {{student.name}}
-            </mat-checkbox>
-          </li>
-        </ul>
-      </span>
-    </section>
 </div>
 <div mat-dialog-actions>
   <div class="spacer"></div>

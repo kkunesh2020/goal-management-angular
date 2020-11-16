@@ -226,7 +226,7 @@ export class ClassComponent implements OnInit {
     console.log("completed students", goal.hasCompleted)
     let editData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.pending, goal.declined, goal.id, this.user, goal.assignedToID);
     console.log("edit data", editData);
-    const dialogRef = this.dialog.open(EditGoalComponent, {data: editData, height: "30rem", width: "30rem"});
+    const dialogRef = this.dialog.open(EditGoalComponent, {data: editData, height: "23rem", width: "30rem"});
 
     dialogRef.afterClosed().subscribe(result => {
     if (result === 'success' && this.isAdmin){

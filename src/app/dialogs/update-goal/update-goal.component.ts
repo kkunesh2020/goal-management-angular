@@ -81,18 +81,16 @@ export class UpdateGoalComponent{
   }
 
   deleteFile(file: FileClass){
-    this.goalService.deleteFileFromGoal(file, this.currentGoal.id).then(() => {
-      this.currentGoal.files.splice(this.findIndexOfFile(file), 1); //remove file from array
-      this.currentGoal.files = this.currentGoal.files;
-    });
+    this.currentGoal.files.splice(this.findIndexOfFile(file), 1); //remove file from array
+    this.currentGoal.files = this.currentGoal.files;
+    this.goalService.deleteFileFromGoal(file, this.currentGoal.id);
   }
 
   deleteLink(url: string){
     let newLinks = this.currentGoal.links.filter(e => e.url !== url);
+    this.currentGoal.links = newLinks;
     console.log("the new LInks", newLinks);
-    this.goalService.removeLinks(newLinks, this.currentGoal.id).then(() => { //replaces old links with new links
-      this.currentGoal.links = newLinks;
-    })
+    this.goalService.removeLinks(newLinks, this.currentGoal.id);
   }
 
   goToLink(urlToOpen: string){

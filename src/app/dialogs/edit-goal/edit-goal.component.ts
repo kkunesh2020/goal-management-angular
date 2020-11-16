@@ -12,6 +12,7 @@ import { StudentData } from 'src/app/teacher/class/class.component';
 })
 export class EditGoalComponent implements OnInit {
   goal: GoalClass;
+  prevGoal: GoalClass;
   loading: boolean = false;
   assignedToAll: boolean = false;
   students: any[];
@@ -32,6 +33,7 @@ export class EditGoalComponent implements OnInit {
   //retrieve the data (class id, createdBy, assignedTo <= users)
     this.goal = new GoalClass(data.description, this.editDate, data.classID, data.hasCompleted, data.pending, data.declined,
       data.id, data.createdBy, data.assignedToID);
+    this.prevGoal = this.goal;
 
    }
 
@@ -39,49 +41,8 @@ export class EditGoalComponent implements OnInit {
     this.assignedToAll = this.students.length === this.goal.assignedToID.length;
   }
 
-  assignToAll() {
-    this.assignedToAll = true;
-    this.students.forEach(student => {
-      this.goal.assignedToID.push(student.uid);
-    })
-  }
-
-  //if the edited goal is different from what it used to
-
-  checkSpecific(studentID: string, assigned: boolean){
-    if(assigned){
-      this.goal.assignedToID.push(studentID);
-    }else{ //removes from assigned student array
-      this.goal.assignedToID = this.goal.assignedToID.filter(id => id !== studentID);
-    }
-  }
-
-  checkAssignedTo(studentUID: string){
-    if(this.goal.assignedToID == []){
-      return false;
-    }
-    return this.goal.assignedToID.includes(studentUID);
-  }
-
-  assignAllStudents(){
-    this.goal.assignedToID = [];
-    this.students.forEach(student => {
-      this.goal.assignedToID.push(student.uid);
-    });
-  }
-
-  resetList(){
-    this.assignedToAll = false;
-    console.log(this.assignedToAll);
-    this.goal.assignedToID = [];
-  }
-
   formComplete():boolean{
     return this.goal.assignedToID.length > 0 && this.goal.description != '' && this.goal.dueDate != null;
-  }
-
-  isAssigned(studentUID: string){
-    return this.goal.assignedToID.includes(studentUID);
   }
 
   editGoal(){
@@ -91,7 +52,7 @@ export class EditGoalComponent implements OnInit {
     }
     console.log("editing goal", this.goal);
     this.loading = true;
-    this.goalService.editGoal(this.goal).then(() => {
+    this.goalService.editGoal(this.goal, this.prevGoal).then(() => {
       this.loading = false;
       this.dialogRef.close('success');
     })
