@@ -13,6 +13,7 @@ export class GoalDetailsComponent implements OnInit {
 
   @Input() goal: Goal;
   studentData: any;
+  loading: boolean;
 
   constructor(private studentGoalService: GoalStudentDataService) { }
 
@@ -24,7 +25,9 @@ export class GoalDetailsComponent implements OnInit {
         return;
       }
 
-      if(Object.keys(studentGoalData).length > 0){
+      studentGoalData == "loading" ? this.loading = true : this.loading = false;
+
+      if(Object.keys(studentGoalData).length > 0 && studentGoalData != "loading"){
 
         this.studentData = studentGoalData;
 

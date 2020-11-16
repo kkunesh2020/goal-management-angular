@@ -27,7 +27,7 @@ export class StudentBarComponent implements OnInit {
   }
 
   getStudentData(){ //work on this
-    this.classService.getStudentsDataByReference(this.class.students).subscribe(studentData => {
+    this.classService.getStudentsDataByID(this.goal.assignedToID).then(studentData => {
       console.log("retrieved student data", studentData);
       this.students = studentData;
     });

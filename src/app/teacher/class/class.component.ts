@@ -99,7 +99,7 @@ export class ClassComponent implements OnInit {
   }
 
   getStudentData(){ //work on this
-    this.classService.getStudentsDataByReference(this.class.students).subscribe(studentData => {
+    this.classService.getStudentsDataByReference(this.class.students).then(studentData => {
       console.log("retrieved student data", studentData);
       this.studentDataSource = studentData;
     });

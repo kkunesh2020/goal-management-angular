@@ -15,8 +15,8 @@
       </mat-list-item>
     </div>
     <mat-divider></mat-divider>
-    <div class="student" *ngFor="let student of students" (click)="viewStudentData(student.id)">
-      <mat-list-item class="student" [class.highlighted]="highlightedStudent == student.id">
+    <div class="student" *ngFor="let student of students" (click)="viewStudentData(student.uid)">
+      <mat-list-item class="student" [class.highlighted]="highlightedStudent == student.uid">
         <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon>
         {{student.name}}
       </mat-list-item>

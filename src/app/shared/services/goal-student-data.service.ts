@@ -78,6 +78,7 @@ export class GoalStudentDataService {
       return;
     }
     let student: UserClass;
+    this.studentDataSource.next("loading");
     this.getStudentData(studentID).then(data => {
       student = data;
       let isCompleted: boolean; 

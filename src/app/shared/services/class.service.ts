@@ -53,17 +53,13 @@ export class ClassService {
     return studentData;
    }
 
-   getStudentsDataByID(studentUID: string[]): Promise<any[]> {
+   async getStudentsDataByID(studentUID: string[]): Promise<any[]> {
     let studentData = [];
-    let promise = new Promise<any[]>((resolve, reject) => {
-      studentUID.forEach(uid => {
-        this.userCollection.doc(uid).get().then(doc => {
-            studentData.push({name: doc.data().name, uid: doc.data().uid});
-          });
-        });
-      resolve(studentData);
-    });
-    return promise;
+    for(let uid of studentUID){
+      let doc =  await this.userCollection.doc(uid).get();
+      studentData.push({name: doc.data().name, uid: doc.data().uid});
+    } 
+    return studentData;
    }
 
    getStudentData(ref: DocumentReference): Promise<any> {
@@ -80,16 +76,16 @@ export class ClassService {
     return array.length;
   }
 
-   getStudentsDataByReference(refs: DocumentReference[]): Observable<any> {
+   async getStudentsDataByReference(refs: DocumentReference[]): Promise<any> {
     let studentsData: StudentData[] = [];
-    refs.forEach(studentRef => {
-      this.getStudentData(studentRef).then((student) => {
+    console.log("")
+    for(let studentRef of refs){
+      let student = await this.getStudentData(studentRef);
         let data: StudentData = {name: student.name, goalsAssigned: this.getLengthOf(student.goalsAssigned),
           goalsCompleted: this.getLengthOf(student.goalsCompleted), id: studentRef.id} as StudentData;
         studentsData.push(data);
-      });
-    });
-    return of(studentsData);
+    }
+    return studentsData;
    }
 
    getClasses(userID: string): Class[] {
@@ -109,7 +105,7 @@ export class ClassService {
   getClass(teacherUID: string, classID: string): Promise<any> {
     let promise = this.classCollection.doc(classID).get().then(doc => {
       console.log("got the class", doc.exists, doc.data().teacherUID === teacherUID, teacherUID);
-      if (doc.exists && doc.data().teacherUID === teacherUID) {
+      if (doc.exists) {
         console.log("correct class", doc.data());
         return doc.data();
     } else {
