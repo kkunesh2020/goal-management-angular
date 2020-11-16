@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { ClassService } from 'src/app/shared/services/class.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { GoalStat } from '../class/class.component';
+import { GoalStudentDataService } from 'src/app/shared/services/goal-student-data.service';
 
 @Component({
   selector: 'gms-view-student-data',
@@ -23,7 +24,7 @@ export class ViewStudentDataComponent implements OnInit {
   completedGoals: GoalStat[] = [];
   missingGoals: GoalStat[] = [];
 
-  constructor(private route: ActivatedRoute, private auth: AuthService, private goalService: GoalService, private classService: ClassService, private router: Router) {
+  constructor(private route: ActivatedRoute, private auth: AuthService, private goalService: GoalService, private classService: ClassService, private router: Router, private studentsGoalService: GoalStudentDataService) {
     this.loading = true;
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
@@ -68,6 +69,7 @@ export class ViewStudentDataComponent implements OnInit {
   }
 
   navigateToGoal(goalID: string){
+    this.studentsGoalService.setStudentGoalData(null, null);
     this.router.navigate([`/classes/${this.classID}/goals/${goalID}`]);
   }
 

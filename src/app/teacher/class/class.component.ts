@@ -18,6 +18,7 @@ import GoalClass from 'src/app/shared/models/goal';
 import { DeleteGoalComponent } from 'src/app/dialogs/delete-goal/delete-goal.component';
 import { ChangeStatusComponent } from 'src/app/dialogs/change-status/change-status.component';
 import { CreateStudentGoalComponent } from 'src/app/dialogs/create-student-goal/create-student-goal.component';
+import { GoalStudentDataService } from 'src/app/shared/services/goal-student-data.service';
 
 export interface StudentData {
   name: string;
@@ -77,7 +78,7 @@ export class ClassComponent implements OnInit {
   studentDataSource = STUDENT_DATA;
 
   constructor(private route: ActivatedRoute, private classService: ClassService, private auth: AuthService,
-              public dialog: MatDialog, private goalService: GoalService, private router: Router) {
+              public dialog: MatDialog, private goalService: GoalService, private router: Router, private studentsGoalService: GoalStudentDataService) {
     this.auth.user$.subscribe(async (userProfile) => {
       this.loading = true;
       this.classID = this.route.snapshot.paramMap.get('classID');
@@ -110,6 +111,7 @@ export class ClassComponent implements OnInit {
   }
 
   openGoalData(goalID: string){
+    this.studentsGoalService.setStudentGoalData(null, null);
     this.router.navigate([`/classes/${this.classID}/goals/${goalID}`]);
   }
 
