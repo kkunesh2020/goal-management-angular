@@ -16,9 +16,6 @@ export class CreateGoalComponent implements OnInit {
   assignedStudentID: string[] = [];
   assignedToAll: boolean;
 
-
-  //data needed: createdBy classID
-
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
               public dialogRef: MatDialogRef<CreateGoalComponent>) {
     this.goal = new GoalClass('', null, data.classID, [], [], [], '', data.createdBy, []);

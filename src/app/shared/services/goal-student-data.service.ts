@@ -14,23 +14,22 @@ import NoteClass from '../models/note';
 export class GoalStudentDataService {
   private studentDataSource = new BehaviorSubject({});
   currentStudentGoal = this.studentDataSource.asObservable();
-  constructor(private classService: ClassService, private goalService: GoalService) { }
+  constructor(private classService: ClassService) { }
 
   getStudentStatus(hasCompleted: string[], pending: string[], declined: string[], studentID: string){
-    let status = 'incompleted';
     if(hasCompleted.includes(studentID)){
-      status = 'completed';
+      return 'completed';
     }
 
     if(pending.includes(studentID)){
-      status = 'pending';
+      return 'pending';
     }
 
     if(declined.includes(studentID)){
-      status = 'declined';
+      return 'declined';
     }
 
-    return status;
+    return 'incompleted';
   }
 
   getStudentData(studentID: string): Promise<UserClass>{

@@ -31,7 +31,6 @@ export class UpdateGoalComponent{
 
 
   updateGoal(isDone){
-    console.log(this.currentGoal, "current goal");
     this.madeChanges = true;
     this.isLoading = true;
     if(isDone){ // mark as done
@@ -52,7 +51,6 @@ export class UpdateGoalComponent{
   insertFileDialog(){
     let dialogRef = this.dialog.open(UploaderComponent, {height: '40rem', width: '60rem', data: {goal: this.currentGoal, uid: this.data.uid}});
     dialogRef.afterClosed().subscribe((result) => {
-      console.log("got the result", result);
       if(result != ''){
         this.currentGoal.files = this.currentGoal.files.concat(result);
         console.log("detected the changes", result);
@@ -63,10 +61,8 @@ export class UpdateGoalComponent{
   insertLinkDialog(){
     let dialogRef = this.dialog.open(UploadLinkComponent, {height: '14rem', width: '25rem', data: {goal: this.currentGoal, uid: this.data.uid}});
     dialogRef.afterClosed().subscribe((result) => {
-      console.log("got the link result", result);
       if(result != ''){
         this.currentGoal.links != null ? this.currentGoal.links = this.currentGoal.links.concat(result) : this.currentGoal.links = result;
-        console.log("detected the link changes");
       }
     })
   }
@@ -89,7 +85,6 @@ export class UpdateGoalComponent{
   deleteLink(url: string){
     let newLinks = this.currentGoal.links.filter(e => e.url !== url);
     this.currentGoal.links = newLinks;
-    console.log("the new LInks", newLinks);
     this.goalService.removeLinks(newLinks, this.currentGoal.id);
   }
 

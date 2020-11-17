@@ -25,7 +25,6 @@ export class EditGoalComponent implements OnInit {
 
     this.editDate = new Date(data.dueDate.seconds * 1000);
     this.original = data;
-    console.log("edit assignedToID", data.assignedToID)
     this.classService.getStudentsDataByID(data.assignedToID).then(studentsData => {
       this.students = studentsData;
     });
@@ -50,7 +49,6 @@ export class EditGoalComponent implements OnInit {
     if(this.goal.hasCompleted == null){
       this.goal.hasCompleted = [];
     }
-    console.log("editing goal", this.goal);
     this.loading = true;
     this.goalService.editGoal(this.goal, this.prevGoal).then(() => {
       this.loading = false;

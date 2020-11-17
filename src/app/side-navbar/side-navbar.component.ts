@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
@@ -7,12 +6,9 @@ import { AuthService } from '../shared/services/auth.service';
   templateUrl: './side-navbar.component.html',
   styleUrls: ['./side-navbar.component.scss']
 })
-export class SideNavbarComponent implements OnInit {
+export class SideNavbarComponent {
 
-  constructor(public auth: AuthService, private route: Router) { }
-
-  ngOnInit() {
-  }
+  constructor(public auth: AuthService) { }
 
 
 }

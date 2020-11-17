@@ -1,8 +1,5 @@
-import { query } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, CollectionReference, DocumentReference } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs/internal/observable/of';
 import { StudentData } from 'src/app/teacher/class/class.component';
 import { Class } from '../models/class.model';
 import UserClass from '../models/user';
@@ -78,7 +75,6 @@ export class ClassService {
 
    async getStudentsDataByReference(refs: DocumentReference[]): Promise<any> {
     let studentsData: StudentData[] = [];
-    console.log("")
     for(let studentRef of refs){
       let student = await this.getStudentData(studentRef);
         let data: StudentData = {name: student.name, goalsAssigned: this.getLengthOf(student.goalsAssigned),
@@ -104,9 +100,7 @@ export class ClassService {
 
   getClass(teacherUID: string, classID: string): Promise<any> {
     let promise = this.classCollection.doc(classID).get().then(doc => {
-      console.log("got the class", doc.exists, doc.data().teacherUID === teacherUID, teacherUID);
       if (doc.exists) {
-        console.log("correct class", doc.data());
         return doc.data();
     } else {
         console.log("No such document or inavlid teacher uid!");

@@ -35,7 +35,11 @@
 <h3>Uploads</h3>
 
 <div *ngFor="let file of files">
-    <h3>{{file.name}}</h3>
+    <div class="file">
+      <mat-icon>description</mat-icon>
+      <h3>{{file.name}}</h3>
+    </div>
+   
 </div>
 
 <mat-dialog-actions align="end">

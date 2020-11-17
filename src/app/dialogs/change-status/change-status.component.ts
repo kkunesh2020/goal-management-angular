@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { GoalService } from 'src/app/shared/services/goal.service';
 
@@ -7,7 +7,7 @@ import { GoalService } from 'src/app/shared/services/goal.service';
   templateUrl: './change-status.component.html',
   styleUrls: ['./change-status.component.scss']
 })
-export class ChangeStatusComponent implements OnInit {
+export class ChangeStatusComponent {
   loading: boolean;
   teacherName: string;
   goalTitle: string;
@@ -23,9 +23,6 @@ export class ChangeStatusComponent implements OnInit {
     this.dueDate = new Date(data.dueDate.seconds * 1000);
     this.loading = false;
     this.rejectionNote = "";
-  }
-
-  ngOnInit() {
   }
 
   rejectGoal(status: boolean){

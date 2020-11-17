@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog, MatPaginator } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Class } from 'src/app/shared/models/class.model';
@@ -6,14 +6,10 @@ import { Goal } from 'src/app/shared/models/goal.model';
 import { UpdateGoalComponent } from '../../dialogs/update-goal/update-goal.component';
 import { EditGoalComponent } from '../../dialogs/edit-goal/edit-goal.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ClassService } from 'src/app/shared/services/class.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
-import { BehaviorSubject } from 'rxjs';
 import { CreateGoalComponent } from 'src/app/dialogs/create-goal/create-goal.component';
 import UserClass from 'src/app/shared/models/user';
-import { DocumentReference } from '@angular/fire/firestore';
-import { User } from '../../shared/models/user.model';
 import GoalClass from 'src/app/shared/models/goal';
 import { DeleteGoalComponent } from 'src/app/dialogs/delete-goal/delete-goal.component';
 import { ChangeStatusComponent } from 'src/app/dialogs/change-status/change-status.component';
@@ -48,26 +44,17 @@ export interface GoalStat{
 }
 
 
-const STUDENT_DATA: StudentData[] = [
-];
-
-const GOALS_DATA: GoalsTableData[] = [
-];
-
-const CLASS_GOALS_DATA: GoalStat[] = [
-];
-
 @Component({
   selector: 'gms-class',
   templateUrl: './class.component.html',
   styleUrls: ['./class.component.scss']
 })
-export class ClassComponent implements OnInit {
+export class ClassComponent {
   displayedColumns: string[] = ['name', 'goalsAssigned', 'goalsCompleted'];
   goalsDisplayedColumns: string[] = ['description', 'dueDate', 'isCompleted', 'createdBy'];
   classgoalsDisplayedColumns: string[] = ['description', 'dueDate', 'assignedTo', 'completed', 'edit'];
-  goalsDataSource = GOALS_DATA;
-  classGoals = CLASS_GOALS_DATA;
+  goalsDataSource: GoalsTableData[] = [];
+  classGoals: GoalStat[] = [];
   class: Class;
   isAdmin: boolean;
   loading: boolean = true;
@@ -75,7 +62,7 @@ export class ClassComponent implements OnInit {
   user: UserClass;
   classID: string;
   studentSource: StudentData[];
-  studentDataSource = STUDENT_DATA;
+  studentDataSource: StudentData[] = [];
 
   constructor(private route: ActivatedRoute, private classService: ClassService, private auth: AuthService,
               public dialog: MatDialog, private goalService: GoalService, private router: Router, private studentsGoalService: GoalStudentDataService) {
@@ -185,7 +172,6 @@ export class ClassComponent implements OnInit {
 
   openDialog(data: any, userID: string, isCompleted: boolean, status: string){
     data.uid = userID;
-    console.log("opening data", data);
     data.isCompleted = isCompleted;
     let dialogRef;
     if(status == 'pending'){
@@ -225,7 +211,6 @@ export class ClassComponent implements OnInit {
 
   //class id, createdBy, assignedTo
   editDialog(goal: GoalStat) {
-    console.log("completed students", goal.hasCompleted)
     let editData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.pending, goal.declined, goal.id, this.user, goal.assignedToID);
     console.log("edit data", editData);
     const dialogRef = this.dialog.open(EditGoalComponent, {data: editData, height: "23rem", width: "30rem"});
@@ -246,9 +231,6 @@ export class ClassComponent implements OnInit {
       this.getAllGoalsForTeacher(this.classID);
     }
   });
-  }
-
-  ngOnInit() {
   }
 
 }
