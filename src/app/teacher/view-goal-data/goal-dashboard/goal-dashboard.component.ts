@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Class } from 'src/app/shared/models/class.model';
 import { Goal } from 'src/app/shared/models/goal.model';
@@ -11,7 +11,7 @@ import { GoalService } from 'src/app/shared/services/goal.service';
   templateUrl: './goal-dashboard.component.html',
   styleUrls: ['./goal-dashboard.component.scss']
 })
-export class GoalDashboardComponent implements OnInit{
+export class GoalDashboardComponent{
   loading: boolean;
   classID: string;
   teacherID: string;
@@ -24,7 +24,6 @@ export class GoalDashboardComponent implements OnInit{
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
       this.goalID = this.route.snapshot.paramMap.get('goalID');
-      console.log("got the goal", this.goalID);
       this.teacherID = userProfile.uid;
       this.getGoal().then(() => {
         this.getClass(this.classID, this.teacherID);
@@ -33,10 +32,6 @@ export class GoalDashboardComponent implements OnInit{
     });
     this.loading = false;
   }
-  ngOnInit() {
-    // this.getGoal();
-  }
-
   navigateBack(){
     this.router.navigate([`classes/${this.classID}`]);
   }

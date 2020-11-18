@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Class } from 'src/app/shared/models/class.model';
@@ -10,7 +10,7 @@ import { ClassService } from '../../shared/services/class.service';
   templateUrl: './class-list.component.html',
   styleUrls: ['./class-list.component.scss']
 })
-export class ClassListComponent implements OnInit {
+export class ClassListComponent  {
   classes: Class[];
   loading: boolean = true;
   constructor(private afs: AngularFirestore, private classService: ClassService, private auth: AuthService, private router: Router) {
@@ -20,8 +20,7 @@ export class ClassListComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-  }
+
 
   goToCard(classID: string){
     this.router.navigate([`/classes/${classID}`]);
