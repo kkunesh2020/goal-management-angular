@@ -17,7 +17,7 @@ import { UploadLinkComponent } from '../upload-link/upload-link.component';
 export class UpdateGoalComponent{
   madeChanges:boolean = false;
   isLoading:boolean = false;
-  currentGoal: Goal;
+  currentGoal: any;
   isCompleted: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UploaderComponent>, private afs: AngularFirestore, private goalService: GoalService, private dialog: MatDialog) {
