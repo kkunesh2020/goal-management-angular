@@ -27,6 +27,7 @@ export class GoalDetailsComponent implements OnInit {
 
       studentGoalData == "loading" ? this.loading = true : this.loading = false;
 
+      //if the student goal is retreived and valid run the below code
       if(Object.keys(studentGoalData).length > 0 && studentGoalData != "loading"){
 
         this.studentData = studentGoalData;
@@ -57,6 +58,7 @@ export class GoalDetailsComponent implements OnInit {
     });
   }
 
+  //opens up link in another tab
   goToLink(urlToOpen: string){
     let url: string = '';
     if (!/^http[s]?:\/\//.test(urlToOpen)) {
