@@ -30,6 +30,7 @@ export class UploaderComponent {
     this.isHovering = event;
   }
 
+  //upload file to FB storage
   async onDrop(files: FileList){
     this.loading = true;
     for(let i = 0; i < files.length; i++){
@@ -41,6 +42,7 @@ export class UploaderComponent {
     this.loading = false;
   }
 
+ //upload file data to firebase storage and database field
  async uploadFile(file: File): Promise<FileClass>{
     let fileData;
     let downloadURL;
@@ -60,6 +62,7 @@ export class UploaderComponent {
     });
   }
 
+  //pass back files data to dialog
   addFiles(){
     this.dialogRef.close(this.files);
   }
