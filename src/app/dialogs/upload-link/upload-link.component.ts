@@ -21,6 +21,7 @@ export class UploadLinkComponent  {
         this.uid = data.uid;
   }
 
+  //add link to goal object
   addLink() {
     this.loading = true;
     //add link
