@@ -29,6 +29,7 @@ export class GoalsComponent {
   constructor(private auth: AuthService, private goalService: GoalService, public dialog: MatDialog,
     private router: Router) {
     this.loading = true;
+    //get userProfile data for user
     this.auth.user$.subscribe(async (userProfile) => {
       if(userProfile == null) { return; }
       this.uid = userProfile.uid;
@@ -41,19 +42,22 @@ export class GoalsComponent {
     });
   }
 
-
+  //get goals for student given a goal array containing goal document refs 
   getStudentGoals(goalArray: DocumentReference[]){
     this.loading = true;
     this.goalService.getGoalsById(goalArray, this.uid).then(goalData => {
         console.log("goals", goalData);
+        // spread out each goal object into dataSource using spread operator
         this.dataSource.data = [...goalData];
         this.loading = false;
     });
   }
+  
   openDialog(data: any, userID: string, isCompleted: boolean, status: string){
     data.uid = userID;
     data.isCompleted = isCompleted;
     let dialogRef;
+      // if goal status is pending open Change Status dialog otherwise open Update Goal dialog
       if(status == 'pending'){
         dialogRef = this.dialog.open(ChangeStatusComponent, {data, height: "20rem", width: "30rem"});
       }else{
@@ -61,7 +65,7 @@ export class GoalsComponent {
       }
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == 'updated'){
+      if(result == 'updated'){ //if goal is successfully updated reload data on page
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate(['/goals']);
       });
