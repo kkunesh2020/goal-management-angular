@@ -22,6 +22,7 @@ export class GoalService {
   usersCollection: CollectionReference;
   filesCollection: CollectionReference;
 
+  //initializing collections
   constructor(private afs: AngularFirestore, private storage: AngularFireStorage) {
     this.goalsCollection = this.afs.firestore.collection('goals');
     this.usersCollection = this.afs.firestore.collection('users');
@@ -30,6 +31,8 @@ export class GoalService {
 
 
 
+  //get goals for class supplied with classID
+  //@params classID: string
   getGoalsForClass(classID: string): Promise<any> {
     let goals: Goal[] = [];
     let promise = this.goalsCollection.where('classID', '==', classID).orderBy('dueDate', 'desc').get().then(querySnapshot => {
@@ -42,6 +45,8 @@ export class GoalService {
     return promise;
   }
 
+  //get individual goals for class supplied with classID and userID
+  //@params classID: string, userID: string
   getGoalsForClassWithId(classID: string, userID: string): Promise<any> {
     let goals: Goal[] = [];
     let promise = this.goalsCollection.where('classID', '==', classID).where('assignedToID', 'array-contains', userID)
@@ -56,12 +61,18 @@ export class GoalService {
     return promise;
   }
 
+  
+  //get individual goal supplied with goalID
+  //@params goalID: string
   getGoalById(goalID: string): Promise<any> {
     console.log('gettng goal by id', goalID);
     let promise = this.goalsCollection.doc(goalID).get().then(doc => {return doc.data(); }).catch(err => {console.log(err);});
     return promise;
   }
 
+  
+  //get goal by an array of goalIDs and the user's id
+  //@params goalIDs: DocumentReference[], uid: string
     async getGoalsById(goalIDs: DocumentReference[], uid: string): Promise<any> {
     let goals: GoalsTableData[] = [];
     for(let goal of goalIDs){
@@ -83,15 +94,19 @@ export class GoalService {
     return goals;
   }
 
+  //get goal by document reference
+  //@params doc: DocumentReference
   getGoalByReference(doc: DocumentReference): Promise<any> {
     let promise = doc.get().then(doc => {return doc; });
     return promise;
   }
 
+  //get a user's status of a goal
+  //@params completedUsersID: string[], pendingUsersID: string[], declinedUsersID: string[], userID: string
   getUserStatus(completedUsersID: string[], pendingUsersID: string[], declinedUsersID: string[], userID: string){
 
     if(completedUsersID != null){
-      if(completedUsersID.includes(userID)){
+      if(completedUsersID.includes(userID)){ 
         return "completed";
       }
     }
@@ -111,6 +126,8 @@ export class GoalService {
     return "incomplete";
   }
 
+  //check if the user has completed a goal
+  //@params completedUsersID: string[], userID: string
   userHasCompleted(completedUsersID: string[], userID: string) {
     console.log('completedUsersID', completedUsersID);
     console.log('userID', userID);
@@ -122,6 +139,8 @@ export class GoalService {
     }
   }
 
+  //assign a goal to one student
+  //@params goal: Goal, uid: string
   assignGoal(goal: Goal, uid: string): Promise<any> {
     let promise = this.afs.doc<Goal>(`goals/` + goal.id).set(goal).then(() => {
       this.afs.firestore.collection('users').doc(uid).update({goalsAssigned: firebase.firestore.FieldValue.arrayUnion(goal)});
@@ -129,6 +148,8 @@ export class GoalService {
     return promise;
   }
 
+  //mark goal as complet
+  //@params goal: Goal, uid: string
   completeGoal(goal: Goal, uid: string): Promise<any> {
     goal = this.validateGoal(goal);
     if (goal.hasCompleted == null) {
@@ -151,6 +172,8 @@ export class GoalService {
     return promise;
   }
 
+  //validate goal by checking its fields
+  //@params goal: Goal
   validateGoal(goal: Goal){
     if(goal.files == null){
       goal.files = [];
@@ -183,8 +206,11 @@ export class GoalService {
     return goal;
   }
 
+  //unsubmit a goal
+  //@params goal: Goal, uid: string
   unsubmitGoal(goal: Goal, uid: string): Promise<any> {
     goal = this.validateGoal(goal);
+    //filters out the inputted goal from the hasCompleted field therefore unsubmitting it
     goal.hasCompleted = goal.hasCompleted.filter(item => item !== uid);
     let promise = this.afs.doc<Goal>(`goals/` + goal.id).set(goal).then(() => {
       let ref = this.goalsCollection.doc(goal.id);
@@ -194,6 +220,8 @@ export class GoalService {
     return promise;
   }
 
+  //assign goal to multiple students
+  //@params goalID: string, studentID: string[]
   assignToStudents(goalID: string, studentID: string[]): void {
     let goalRef: DocumentReference = this.goalsCollection.doc(goalID);
     studentID.forEach(id => {
@@ -201,6 +229,8 @@ export class GoalService {
     });
   }
 
+  //upload file to goal and Firebase
+  //@params goalID: string, fileData: FileClass
   uploadFile(goalID: string, fileData: FileClass) {
     let goalRef = this.goalsCollection.doc(goalID);
     this.filesCollection.add({...fileData}).then((docRef) => {
@@ -208,16 +238,20 @@ export class GoalService {
     });
   }
 
+  //update status of goal (missing, complete, uncompleted, declined)
+  //@params goalID: string, status: string, uid: string, rejectionNote?: string
   updateGoalStatus(goalID: string, status: string, uid: string, rejectionNote?: string): Promise<any>{
     let goalRef = this.goalsCollection.doc(goalID);
     let promise: Promise<any>;
     console.log("updating goal status")
     if(status == "incomplete"){
       console.log("incomplete")
+      //if status is incomplete the user has accepted the goal
       promise = goalRef.update({pending: firebase.firestore.FieldValue.arrayRemove(uid)});
     }
 
     if(status == "declined"){
+      //adds user to declined field of goal if the goal is marked as declined
       promise = goalRef.update({declined: firebase.firestore.FieldValue.arrayUnion(uid)}).then(() => {
         goalRef.update({pending: firebase.firestore.FieldValue.arrayRemove(uid)})
         let rejectNote: NoteClass = {uid: uid, note: rejectionNote};
@@ -233,6 +267,8 @@ export class GoalService {
     return promise;
   }
 
+  //create a goal
+  //@params goal: GoalClass
   createGoal(goal: GoalClass): Promise<any> {
     let goalData = this.validateGoal(goal);
     let promise = this.goalsCollection.add({...goalData}).then((docRef) => {
@@ -242,6 +278,8 @@ export class GoalService {
     return promise;
   }
 
+  //delete specific goal 
+  //@params goalData: GoalClass
   deleteGoal(goalData: GoalClass): Promise<any> {
     // remove goal from student assignedGoals field
     const goalRef = this.goalsCollection.doc(goalData.id);
@@ -252,7 +290,8 @@ export class GoalService {
     goalData.hasCompleted.forEach(studentID => {
       this.usersCollection.doc(studentID).update({goalsCompleted: firebase.firestore.FieldValue.arrayRemove(goalRef)});
     });
-
+ 
+    //if goal has files then delete them from the database one at a time
     if (goalData.files != null) {
       goalData.files.forEach(file => {
         this.filesCollection.where('downloadURL', '==', file.downloadURL).get().then((querySnapshot) => {
@@ -269,6 +308,8 @@ export class GoalService {
     return promise;
   }
 
+  //get file from database
+  //@params fileDownloadURL: string
   getFileID(fileDownloadURL: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.filesCollection.where('downloadURL', '==', fileDownloadURL).get().then((querySnapshot) => {
@@ -280,11 +321,15 @@ export class GoalService {
     });
   }
 
+  //delete link from goal
+  //@params newLinks: LinkClass[], goalID: string
   removeLinks(newLinks: LinkClass[], goalID: string): Promise<any> {
     let promise = this.goalsCollection.doc(goalID).update({links: newLinks}).then(() => {return; }).catch(err => {console.log(err); });
     return promise;
   }
 
+  //delete file from goal 
+  //@params file: FileClass, goalID: string
   async deleteFileFromGoal(file: FileClass, goalID: string): Promise<any> {
 
     let fileID = await this.getFileID(file.downloadURL);
@@ -298,6 +343,8 @@ export class GoalService {
     return promise;
   }
 
+  //add a link to goal given goalID and link
+  //@params goalID: string, link: LinkClass
   addLinkToGoal(goalID: string, link: LinkClass): Promise<any> {
     let promise = this.goalsCollection.doc(goalID).update({links: firebase.firestore.FieldValue.arrayUnion(link)}).then(() => {return; })
     .catch((err) => {
@@ -306,6 +353,8 @@ export class GoalService {
     return promise;
   }
 
+  //update goal given new goal object and original goal
+  //@params goal: GoalClass, prevGoal: GoalClass
   editGoal(goal: GoalClass, prevGoal: GoalClass): Promise<any> {
     let goalData = this.validateGoal(goal);
     let promise = this.goalsCollection.doc(goal.id).set({...goalData}).catch(err => console.log(err));
