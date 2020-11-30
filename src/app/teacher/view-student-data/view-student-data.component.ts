@@ -47,9 +47,11 @@ export class ViewStudentDataComponent implements OnInit {
     })
   }
 
+  //get goals for the student
   getStudentGoals(): Promise<any>{
     let goals: GoalStat[] = [];
     let promise = this.goalService.getGoalsForClassWithId(this.classID, this.studentID).then((data) => {
+      //loop through each goal
       data.forEach(element => {
         let newGoal: GoalStat  = {
           description: element.description,
@@ -69,16 +71,16 @@ export class ViewStudentDataComponent implements OnInit {
   }
 
   navigateToGoal(goalID: string){
+    //view goal data 
     this.studentsGoalService.setStudentGoalData(null, null);
     this.router.navigate([`/classes/${this.classID}/goals/${goalID}`]);
   }
 
 
+  //check if a goal is completed
   isCompleted(goal: GoalStat): Promise<boolean>{
     return new Promise((resolve, reject) => {
       this.student.goalsCompleted.forEach(goalRef => {
-        console.log("goalRef", goalRef.id);
-        console.log("equals?", goalRef.id == goal.id);
         if(goalRef.id == goal.id){
           resolve(true); //true because it is inside completed array
         }
