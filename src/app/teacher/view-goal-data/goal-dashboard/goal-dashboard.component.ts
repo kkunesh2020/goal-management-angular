@@ -25,6 +25,7 @@ export class GoalDashboardComponent{
       this.classID = this.route.snapshot.paramMap.get('classID');
       this.goalID = this.route.snapshot.paramMap.get('goalID');
       this.teacherID = userProfile.uid;
+      //get the goal and then get the class data
       this.getGoal().then(() => {
         this.getClass(this.classID, this.teacherID);
       });
@@ -37,7 +38,6 @@ export class GoalDashboardComponent{
   }
 
   getClass(id: string, teacherUID: string): Promise<any>{
-    console.log("getting cass", id, teacherUID)
     let promise = this.classService.getClass(teacherUID, id).then((data) => {
       this.class = data;
     });
