@@ -67,6 +67,7 @@ export class AuthService {
       classes: []
     };
 
+     //If user doesn't exist yet, set the user as a new document
     userRef.get().then((doc) => {
       if(!doc.exists){
         userRef.set(data, {merge: true});
@@ -74,7 +75,7 @@ export class AuthService {
     })
 
   }
-
+  //Sign Out Code
   async signOut() {
     await this.afAuth.auth.signOut();
     this.route.navigate(['/']);
