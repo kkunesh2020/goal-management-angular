@@ -13,6 +13,8 @@ export class ClassAuthGuard implements CanActivate {
 
   }
 
+  
+  //check if a user is allowed inside the class
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
