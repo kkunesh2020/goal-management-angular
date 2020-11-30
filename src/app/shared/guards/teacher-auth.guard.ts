@@ -11,6 +11,8 @@ export class TeacherAuthGuard implements CanActivate{
 
   constructor(private authService: AuthService, private router: Router){}
 
+  
+  //check if user is a teacher
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
