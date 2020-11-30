@@ -147,11 +147,12 @@ export class ClassComponent {
   getGoalsForStudent(classID: string, studentID: string){
     this.loading = true;
     let goals: GoalsTableData[] = [];
+    //get goals for class and loop through each
     this.goalService.getGoalsForClassWithId(classID, studentID).then((data) => {
       data.forEach(element => {
         let status = this.goalService.getUserStatus(element.hasCompleted, element.pending, element.declined, studentID);
         console.log("goal status", status);
-        let newGoal: GoalsTableData  = {
+        let newGoal: GoalsTableData  = { //intializes goal object to display on table
           description: element.description,
           dueDate: element.dueDate,
           isCompleted: this.goalIsCompleted(element.hasCompleted, studentID),
@@ -159,7 +160,7 @@ export class ClassComponent {
           goalReference: element,
           status: status
         }
-        if(newGoal.status != 'declined'){
+        if(newGoal.status != 'declined'){ //doesn't show declined goals
           goals.push(newGoal);
         }
   
@@ -174,13 +175,14 @@ export class ClassComponent {
     data.uid = userID;
     data.isCompleted = isCompleted;
     let dialogRef;
-    if(status == 'pending'){
+    if(status == 'pending'){ //if the goal status is pending display the change status dialog
       dialogRef = this.dialog.open(ChangeStatusComponent, {data, height: "20rem", width: "30rem"});
-    }else{
+    }else{ //otherwise display the update goal component
       dialogRef = this.dialog.open(UpdateGoalComponent, {data, height: "30rem", width: "30rem"});
     }
 
     dialogRef.afterClosed().subscribe(result => {
+      //reshow goals when dialog is closed
       if(result == 'updated' && !this.isAdmin){
         this.getGoalsForStudent(this.classID, this.uid);
       }
@@ -188,11 +190,13 @@ export class ClassComponent {
   }
 
   createGoalDialog(){
+    //opens up the create goal dialog to create a new goal
     let data = {createdBy: this.user, classID: this.classID, students: this.classService.getStudentsData(this.class.students)};
+    //passes in class data into the dialog
     let dialogRef = this.dialog.open(CreateGoalComponent, {data, width: '27rem', height: '30rem', panelClass: 'custom-modalbox'});
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == 'success'){
+      if(result == 'success'){ //if a goal is created reshow goals
         this.getAllGoalsForTeacher(this.classID);
       }
     });
@@ -209,25 +213,29 @@ export class ClassComponent {
     });
   }
 
-  //class id, createdBy, assignedTo
+  //shows dialog for editing a goal
   editDialog(goal: GoalStat) {
     let editData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.pending, goal.declined, goal.id, this.user, goal.assignedToID);
     console.log("edit data", editData);
+    //inputs class data into dialog
     const dialogRef = this.dialog.open(EditGoalComponent, {data: editData, height: "23rem", width: "30rem"});
 
     dialogRef.afterClosed().subscribe(result => {
     if (result === 'success' && this.isAdmin){
+      //if the goal is successfully edited, reshow goals
       this.getAllGoalsForTeacher(this.classID);
     }
   });
   }
 
+  //opens up dialog to delete a goal
   deleteDialog(goal: GoalStat){
     let deleteData = new GoalClass(goal.description, goal.dueDate, this.classID, goal.hasCompleted, goal.pending, goal.declined, goal.id, this.user, goal.assignedToID);
     const dialogRef = this.dialog.open(DeleteGoalComponent, {data: deleteData, height: "15rem", width: "20rem"});
 
     dialogRef.afterClosed().subscribe(result => {
     if (result === 'success' && this.isAdmin){
+      //if the goal is successfully deleted, reshow goals
       this.getAllGoalsForTeacher(this.classID);
     }
   });
