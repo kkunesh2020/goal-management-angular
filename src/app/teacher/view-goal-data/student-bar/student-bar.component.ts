@@ -16,6 +16,8 @@ export class StudentBarComponent implements OnInit {
   @Input() goal: Goal;
   @Input() teacherUID: string;
   students: StudentData[];
+  //when highlightedStudent == 'all' show goal stats
+  //when highlightedStudent == some student id: show goal stats for a particular student
   highlightedStudent: string = 'all';
 
   constructor(private classService: ClassService, private studentDataService: GoalStudentDataService, private studentGoalService: GoalStudentDataService) {
@@ -26,19 +28,19 @@ export class StudentBarComponent implements OnInit {
     this.getStudentData();
   }
 
-  getStudentData(){ //work on this
+  getStudentData(){ //get students assigned this goal
     this.classService.getStudentsDataByID(this.goal.assignedToID).then(studentData => {
       console.log("retrieved student data", studentData);
       this.students = studentData;
     });
   }
 
-  viewStudentData(uid: string){
+  viewStudentData(uid: string){ //method for viewing students stats on goal
     this.studentDataService.setStudentGoalData(uid, this.goal);
     this.highlightedStudent = uid;
   }
 
-  viewStudentsData(){
+  viewStudentsData(){ //method for viewing all goal stats
     this.highlightedStudent = 'all';
     this.studentDataService.setStudentGoalData(null, null);
   }
