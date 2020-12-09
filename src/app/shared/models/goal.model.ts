@@ -7,10 +7,14 @@ import NoteClass from './note';
 export interface Goal {
   description: string;
   dueDate: Date;
+  //array of student ids who have completed the goal
   hasCompleted: Array<string>;
-  pending: Array<string>,
-  declined: Array<string>,
+  //array of student ids who have pending status
+  pending: Array<string>;
+  //array of student ids who have declined status
+  declined: Array<string>;
   createdBy: User;
+  //array of student ids who have been assigned this goal
   assignedToID: Array<string>;
   id: string;
   classID: string;
