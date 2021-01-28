@@ -52,16 +52,11 @@ export class AuthService {
 
   async githubSignin(){
     const provider = new auth.GithubAuthProvider();
-    firebase.auth()
-    .signInWithPopup(provider)
-    .then((result: any) => {
-      var credential = result.credential;
-      var token = credential.accessToken;
-      var user = result.user;
-      this.updateUserData(user);
-      this.route.navigate(['/classes']);
-      return;
-    });
+    const credential: any = await this.afAuth.auth.signInWithPopup(provider);
+    this.updateUserData(credential.user);
+    console.log(credential.credential.accessToken);
+    this.route.navigate(['/classes']);
+    return;
   }
 
   /**
