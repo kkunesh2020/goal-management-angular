@@ -13,14 +13,18 @@ import { switchMap } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 import { auth } from 'firebase';
+import { GithubService } from './github.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user$: Observable<User>;
+  userGithubID: string;
+  githubUsername: string = "";
+  githubProfile: any;
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private route: Router) {
+  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private route: Router, private githubService: GithubService) {
     // Get the auth state, then fetch the Firestore user document or return null
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -54,9 +58,18 @@ export class AuthService {
     const provider = new auth.GithubAuthProvider();
     const credential: any = await this.afAuth.auth.signInWithPopup(provider);
     this.updateUserData(credential.user);
-    console.log(credential.credential.accessToken);
+    this.userGithubID = credential.credential.accessToken;
+    this.githubUsername = credential.additionalUserInfo.username;
+    this.githubProfile = credential.additionalUserInfo.profile;
+    this.setGithubInfo(this.githubUsername, this.githubProfile, this.userGithubID);
     this.route.navigate(['/classes']);
     return;
+  }
+
+  setGithubInfo(username, profile, id){
+    this.githubService.githubProfile = profile;
+    this.githubService.githubUsername = username;
+    this.githubService.userGithubToken = id;
   }
 
   /**
