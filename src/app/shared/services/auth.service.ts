@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import {
@@ -47,6 +48,20 @@ export class AuthService {
     this.updateUserData(credential.user);
     this.route.navigate(['/classes']);
     return;
+  }
+
+  async githubSignin(){
+    const provider = new auth.GithubAuthProvider();
+    firebase.auth()
+    .signInWithPopup(provider)
+    .then((result: any) => {
+      var credential = result.credential;
+      var token = credential.accessToken;
+      var user = result.user;
+      this.updateUserData(user);
+      this.route.navigate(['/classes']);
+      return;
+    });
   }
 
   /**
