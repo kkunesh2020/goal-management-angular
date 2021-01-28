@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -90,6 +91,7 @@ import { CreateStudentGoalComponent } from './dialogs/create-student-goal/create
     MatPaginatorModule,
     FlexLayoutModule,
     MatMenuModule,
+    HttpClientModule,
     RouterModule,
     MatRadioModule
   ],

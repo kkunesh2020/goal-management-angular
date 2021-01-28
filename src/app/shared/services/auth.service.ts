@@ -62,6 +62,7 @@ export class AuthService {
     this.githubUsername = credential.additionalUserInfo.username;
     this.githubProfile = credential.additionalUserInfo.profile;
     this.setGithubInfo(this.githubUsername, this.githubProfile, this.userGithubID);
+    console.log("user repos", this.githubService.viewUserRepos());
     this.route.navigate(['/classes']);
     return;
   }
