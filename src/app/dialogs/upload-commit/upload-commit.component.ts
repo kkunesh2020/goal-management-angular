@@ -10,6 +10,7 @@ import { GithubService } from 'src/app/shared/services/github.service';
 export class UploadCommitComponent implements OnInit {
 
   userRepos: any;
+  userCommits: any;
   
   constructor(private githubService: GithubService) { }
 
@@ -19,6 +20,12 @@ export class UploadCommitComponent implements OnInit {
       console.log("got the user repos");
       console.log(this.userRepos)
     });
+  }
+
+  selectedRepo(commitLink: string){
+    this.githubService.viewRepoCommits(commitLink).then((data) => {
+      this.userCommits = data;
+    })
   }
 
 }

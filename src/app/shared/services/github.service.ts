@@ -23,12 +23,12 @@ export class GithubService {
     return this.http.get(`${this.githubProfile.repos_url}`, {headers:header}).pipe(take(1)).toPromise();
   }
 
-  viewRepoCommits(repoName){
+  viewRepoCommits(commitLink){
     let header = new HttpHeaders().set(
       "Authorization",
        this.userGithubToken
     );
 
-    return this.http.get(`https://api.github.com/repos/${this.githubUsername}/${repoName}/commits`, {headers:header});
+    return this.http.get(`${commitLink}`, {headers:header}).pipe(take(1)).toPromise();
   }
 }

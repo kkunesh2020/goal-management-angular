@@ -67,7 +67,7 @@ export class UpdateGoalComponent{
      this.authService.githubSignin();
     }else{
       // this.$userRepos = this.githubService.viewUserRepos();
-      let dialogRef = this.dialog.open(UploadCommitComponent, {height: '14rem', width: '25rem'});
+      let dialogRef = this.dialog.open(UploadCommitComponent, {height: '25rem', width: '25rem'});
       dialogRef.afterClosed().subscribe((result) => {
         if(result != ''){
           
