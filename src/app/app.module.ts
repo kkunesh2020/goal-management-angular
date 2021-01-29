@@ -100,6 +100,6 @@ import { UploadCommitComponent } from './dialogs/upload-commit/upload-commit.com
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
-    DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent, CreateStudentGoalComponent]
+    DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent, CreateStudentGoalComponent, UploadCommitComponent]
 })
 export class AppModule { }
