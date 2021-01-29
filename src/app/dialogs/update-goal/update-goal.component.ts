@@ -67,10 +67,10 @@ export class UpdateGoalComponent{
      this.authService.githubSignin();
     }else{
       // this.$userRepos = this.githubService.viewUserRepos();
-      let dialogRef = this.dialog.open(UploadCommitComponent, {height: '25rem', width: '25rem'});
+      let dialogRef = this.dialog.open(UploadCommitComponent, {height: '30rem', width: '25rem', data: {goal: this.currentGoal, uid: this.data.uid}});
       dialogRef.afterClosed().subscribe((result) => {
         if(result != ''){
-          
+          this.currentGoal.commits != null ? this.currentGoal.commits = this.currentGoal.commits.concat(result) : this.currentGoal.commits = result;
         }
       })
       console.log(this.githubService.githubProfile)
