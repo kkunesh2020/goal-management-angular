@@ -21,7 +21,6 @@ import { UploadLinkComponent } from '../upload-link/upload-link.component';
 export class UpdateGoalComponent{
   madeChanges:boolean = false;
   isLoading:boolean = false;
-  $userRepos: Observable<any>;
   currentGoal: any;
   isCompleted: boolean = false;
 
