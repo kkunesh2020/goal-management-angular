@@ -23,8 +23,10 @@ export class UploadCommitComponent implements OnInit {
   }
 
   selectedRepo(commitLink: string){
-    this.githubService.viewRepoCommits(commitLink).then((data) => {
+    let altLink = commitLink.split("{")[0]; //getting only commit link (removes unessary error)
+    this.githubService.viewRepoCommits(altLink).then((data) => {
       this.userCommits = data;
+      console.log("da commits", this.userCommits)
     })
   }
 

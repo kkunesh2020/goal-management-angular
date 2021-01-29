@@ -7,7 +7,7 @@
     <mat-form-field appearance="fill">
     <mat-label>Choose Repository</mat-label>
     <mat-select>
-        <mat-option *ngFor="let repo of userRepos" [value]="repo.name" (click)="selectedRepo(repo.git_commits_url)">
+        <mat-option *ngFor="let repo of userRepos" [value]="repo.name" (click)="selectedRepo(repo.commits_url)">
         {{repo.name}}
         </mat-option>
     </mat-select>
@@ -17,8 +17,8 @@
     <mat-form-field appearance="fill">
     <mat-label>Choose Commit</mat-label>
     <mat-select [disabled]="userRepos == null && userCommits == null">
-        <mat-option *ngFor="let commit of userCommits">
-        {{commit.name}}
+        <mat-option *ngFor="let commit of userCommits" [value]="commit.commit.message">
+        {{commit.commit.message}}
         </mat-option>
     </mat-select>
     </mat-form-field>
