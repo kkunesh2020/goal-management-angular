@@ -1,7 +1,9 @@
 import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import FileClass from 'src/app/shared/models/file';
+import { GithubService } from 'src/app/shared/services/github.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { Goal } from '../../shared/models/goal.model';
 import { UploaderComponent } from '../upload-file/uploader/uploader.component';
@@ -17,10 +19,11 @@ import { UploadLinkComponent } from '../upload-link/upload-link.component';
 export class UpdateGoalComponent{
   madeChanges:boolean = false;
   isLoading:boolean = false;
+  $userRepos: Observable<any>;
   currentGoal: any;
   isCompleted: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UploaderComponent>, private afs: AngularFirestore, private goalService: GoalService, private dialog: MatDialog) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<UploaderComponent>, private afs: AngularFirestore, private goalService: GoalService, private dialog: MatDialog, private githubService: GithubService) {
     console.log("data", this.data);
     this.currentGoal = {description: data.description,  dueDate: data.dueDate, hasCompleted: data.hasCompleted, pending: data.pending, declined: data.declined,createdBy: data.createdBy,
       assignedToID: data.assignedToID, id: data.id, classID: data.classID, files: data.files, links: data.links};
@@ -56,6 +59,17 @@ export class UpdateGoalComponent{
         console.log("detected the changes", result);
       }
     })
+  }
+
+  viewGithubCommit(){
+    if(this.githubService.githubProfile == null){
+      //auth for github
+      alert("Please login with Github account")
+    }else{
+      // this.$userRepos = this.githubService.viewUserRepos();
+      
+      console.log(this.githubService.githubProfile)
+    }
   }
 
   insertLinkDialog(){

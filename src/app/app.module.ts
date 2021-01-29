@@ -45,6 +45,7 @@ import { GoalDetailsComponent } from './teacher/view-goal-data/goal-details/goal
 import { ChangeStatusComponent } from './dialogs/change-status/change-status.component';
 import { HelpComponent } from './help/help.component';
 import { CreateStudentGoalComponent } from './dialogs/create-student-goal/create-student-goal.component';
+import { UploadCommitComponent } from './dialogs/upload-commit/upload-commit.component';
 
 
 
@@ -69,7 +70,8 @@ import { CreateStudentGoalComponent } from './dialogs/create-student-goal/create
     GoalDetailsComponent,
     ChangeStatusComponent,
     HelpComponent,
-    CreateStudentGoalComponent
+    CreateStudentGoalComponent,
+    UploadCommitComponent
   ],
   imports: [
     BrowserModule,

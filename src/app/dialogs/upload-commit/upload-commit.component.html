@@ -1,0 +1,31 @@
+<button mat-dialog-close class="exit">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+  </button>
+  <h1 mat-dialog-title>Upload GitHub Commit</h1>
+  <div mat-dialog-content>
+    <h4>Choose Repository</h4>
+    <mat-form-field appearance="fill">
+    <mat-label>Choose Repository</mat-label>
+    <mat-select>
+        <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+        </mat-option> -->
+    </mat-select>
+    </mat-form-field>
+
+    <h4>Choose Commit</h4>
+    <mat-form-field appearance="fill">
+    <mat-label>Choose Commit</mat-label>
+    <mat-select>
+        <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+        </mat-option> -->
+    </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button (click)="addLink()" [disabled]="loading || commit == null">Add Commit</button>
+  </div>
+  
