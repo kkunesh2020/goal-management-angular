@@ -14,10 +14,13 @@ export class UploadCommitComponent implements OnInit {
   userRepos: any;
   loading: boolean = false;
   userCommits: any;
+  goalID: string;
   selectedCommitLink: string = "";
   selectRepo: string = "";
   
-  constructor(private githubService: GithubService, public dialogRef: MatDialogRef<UploadCommitComponent>, private goalService: GoalService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private githubService: GithubService, public dialogRef: MatDialogRef<UploadCommitComponent>, private goalService: GoalService) { 
+    this.goalID = data.goal.id;
+  }
 
   ngOnInit() {
     this.githubService.viewUserRepos().then((data) => {
@@ -43,7 +46,7 @@ export class UploadCommitComponent implements OnInit {
   addCommit(){
     this.loading = true;
     console.log("new commit", this.selectedCommitLink)
-    this.goalService.addLinkToGoal(this.goalID, this.selectedCommitLink).then(() => {
+    this.goalService.addCommitToGoal(this.goalID, this.selectedCommitLink).then(() => {
       this.loading = false;
       this.dialogRef.close(this.selectedCommitLink);
     });
