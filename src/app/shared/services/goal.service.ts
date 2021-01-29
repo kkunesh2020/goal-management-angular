@@ -353,6 +353,16 @@ export class GoalService {
     return promise;
   }
 
+  //add a link to goal given goalID and link
+  //@params goalID: string, github commit link: string
+  addCommitToGoal(goalID: string, commitLink: string): Promise<any> {
+    let promise = this.goalsCollection.doc(goalID).update({commits: firebase.firestore.FieldValue.arrayUnion(commitLink)}).then(() => {return; })
+    .catch((err) => {
+      console.log(err);
+    });
+    return promise;
+  }
+
   //update goal given new goal object and original goal
   //@params goal: GoalClass, prevGoal: GoalClass
   editGoal(goal: GoalClass, prevGoal: GoalClass): Promise<any> {
