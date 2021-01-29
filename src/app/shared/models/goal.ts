@@ -14,6 +14,7 @@ export default class GoalClass implements Goal {
   assignedToID: Array<string>;
   id:string;
   classID: string;
+  commits: Array<string>;
   files: Array<FileClass>;
   links: Array<LinkClass>;
   pending: Array<string>;
@@ -32,7 +33,8 @@ export default class GoalClass implements Goal {
     assignedToID: Array<string>,
     declinedMessages?: Array<NoteClass>,
     files?: Array<FileClass>,
-    links?: Array<LinkClass>
+    links?: Array<LinkClass>,
+    commits?: Array<string>,
     ) {
       this.description = description;
       this.dueDate = dueDate;
@@ -42,6 +44,7 @@ export default class GoalClass implements Goal {
       this.assignedToID = assignedToID;
       this.id = id;
       this.classID = classID;
+      this.commits = commits;
       this.files = files;
       this.links = links;
       this.pending = pending;
