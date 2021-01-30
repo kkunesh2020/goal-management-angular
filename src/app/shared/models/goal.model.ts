@@ -3,6 +3,7 @@ import { DocumentReference } from '@angular/fire/firestore';
 import FileClass from './file';
 import LinkClass from './link';
 import NoteClass from './note';
+import CommitClass from './commit';
 
 export interface Goal {
   description: string;
@@ -20,6 +21,6 @@ export interface Goal {
   classID: string;
   declinedMessages?: Array<NoteClass>;
   files?: Array<FileClass>;
-  commits?:Array<string>;
+  commits?:Array<CommitClass>;
   links?: Array<LinkClass>;
 }

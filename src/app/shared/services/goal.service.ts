@@ -12,6 +12,7 @@ import { File } from '../models/file.model';
 import { AngularFireStorage } from '@angular/fire/storage';
 import LinkClass from '../models/link';
 import NoteClass from '../models/note';
+import { Commit } from '../models/commit.model';
 
 @Injectable({
   providedIn: 'root'
@@ -355,8 +356,8 @@ export class GoalService {
 
   //add a link to goal given goalID and link
   //@params goalID: string, github commit link: string
-  addCommitToGoal(goalID: string, commitLink: string): Promise<any> {
-    let promise = this.goalsCollection.doc(goalID).update({commits: firebase.firestore.FieldValue.arrayUnion(commitLink)}).then(() => {return; })
+  addCommitToGoal(goalID: string, commit: Commit): Promise<any> {
+    let promise = this.goalsCollection.doc(goalID).update({commits: firebase.firestore.FieldValue.arrayUnion(commit)}).then(() => {return; })
     .catch((err) => {
       console.log(err);
     });

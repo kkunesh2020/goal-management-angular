@@ -4,6 +4,7 @@ import { DocumentReference } from '@angular/fire/firestore';
 import FileClass from './file';
 import LinkClass from './link';
 import NoteClass from './note';
+import { Commit } from './commit.model';
 
 export default class GoalClass implements Goal {
   description: string;
@@ -14,7 +15,7 @@ export default class GoalClass implements Goal {
   assignedToID: Array<string>;
   id:string;
   classID: string;
-  commits: Array<string>;
+  commits: Array<Commit>;
   files: Array<FileClass>;
   links: Array<LinkClass>;
   pending: Array<string>;
@@ -34,7 +35,7 @@ export default class GoalClass implements Goal {
     declinedMessages?: Array<NoteClass>,
     files?: Array<FileClass>,
     links?: Array<LinkClass>,
-    commits?: Array<string>,
+    commits?: Array<Commit>,
     ) {
       this.description = description;
       this.dueDate = dueDate;

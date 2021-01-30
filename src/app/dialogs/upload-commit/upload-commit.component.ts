@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs/internal/Observable';
+import CommitClass from 'src/app/shared/models/commit';
+import { Commit } from 'src/app/shared/models/commit.model';
 import { GithubService } from 'src/app/shared/services/github.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
 
@@ -15,11 +17,13 @@ export class UploadCommitComponent implements OnInit {
   loading: boolean = false;
   userCommits: any;
   goalID: string;
-  selectedCommitLink: string = "";
+  uid: string;
+  selectedCommitObj: Commit;
   selectRepo: string = "";
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private githubService: GithubService, public dialogRef: MatDialogRef<UploadCommitComponent>, private goalService: GoalService) { 
     this.goalID = data.goal.id;
+    this.uid = data.uid;
   }
 
   ngOnInit() {
@@ -40,15 +44,15 @@ export class UploadCommitComponent implements OnInit {
   }
 
   selectedCommit(commitLink){
-    this.selectedCommitLink = commitLink;
+    this.selectedCommitObj = new CommitClass(commitLink, this.uid);
   }
 
   addCommit(){
     this.loading = true;
-    console.log("new commit", this.selectedCommitLink)
-    this.goalService.addCommitToGoal(this.goalID, this.selectedCommitLink).then(() => {
+    console.log("new commit", this.selectedCommitObj)
+    this.goalService.addCommitToGoal(this.goalID, this.selectedCommitObj).then(() => {
       this.loading = false;
-      this.dialogRef.close(this.selectedCommitLink);
+      this.dialogRef.close(this.selectedCommitObj);
     });
   }
 
