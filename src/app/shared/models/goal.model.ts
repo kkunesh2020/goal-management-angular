@@ -20,5 +20,6 @@ export interface Goal {
   classID: string;
   declinedMessages?: Array<NoteClass>;
   files?: Array<FileClass>;
+  commits?:Array<string>;
   links?: Array<LinkClass>;
 }

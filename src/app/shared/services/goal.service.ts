@@ -78,7 +78,7 @@ export class GoalService {
     for(let goal of goalIDs){
       let doc = await this.goalsCollection.doc(goal.id).get();
         let goalRef = new GoalClass(doc.data().description, doc.data().dueDate, doc.data().classID, doc.data().hasCompleted, doc.data().pending, doc.data().declined, doc.id,
-        doc.data().createdBy, doc.data().assignedToID, doc.data().declinedMessages, doc.data().files, doc.data().links);
+        doc.data().createdBy, doc.data().assignedToID, doc.data().declinedMessages, doc.data().files, doc.data().links, doc.data().commits);
 
         let status = this.getUserStatus(goalRef.hasCompleted, goalRef.pending, goalRef.declined, uid);
         if(status != 'declined'){
