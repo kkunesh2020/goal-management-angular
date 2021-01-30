@@ -17,7 +17,7 @@
     <mat-form-field appearance="fill">
     <mat-label>Choose Commit</mat-label>
     <mat-select [disabled]="userRepos == null && userCommits == null">
-        <mat-option *ngFor="let commit of userCommits" [value]="commit.commit.message" (click)="selectedCommit(commit.url)">
+        <mat-option *ngFor="let commit of userCommits" [value]="commit.commit.message" (click)="selectedCommit(commit.html_url)">
         {{commit.commit.message}}
         </mat-option>
     </mat-select>

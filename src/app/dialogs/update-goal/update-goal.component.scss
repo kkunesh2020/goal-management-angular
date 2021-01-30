@@ -95,7 +95,7 @@ mat-dialog-title{
 }
 
 
-.file, .link{
+.file, .link, .commit{
   display: flex;
   color: rgb(31, 152, 192);
   margin-bottom: 1rem;
@@ -114,6 +114,10 @@ mat-dialog-title{
     padding-left: 5px;
     padding-right: 10px;
   }
+}
+
+.commit:hover, .link:hover{
+  cursor: pointer;
 }
 
 .link{
