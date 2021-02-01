@@ -35,6 +35,10 @@
         <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
         <a (click)="goToLink(link.url)">{{link.url}}</a>
       </div>
+      <div class="link" *ngFor="let commit of studentData.commits">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
+        <a (click)="goToLink(commit.url)">{{commit.url}}</a>
+      </div>
       <div class="file" *ngFor="let file of studentData.files">
         <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
         <a target="_blank" href="{{file.downloadURL}}">{{file.name}}</a>

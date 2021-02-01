@@ -7,6 +7,7 @@ import UserClass from '../models/user';
 import { ClassService } from './class.service';
 import { GoalService } from './goal.service';
 import NoteClass from '../models/note';
+import CommitClass from '../models/commit';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,18 @@ export class GoalStudentDataService {
   }
   
 
+  //get a student's github commits with an array of links their id
+  //@param commits: CommitClass[], studentID: string
+  getStudentCommits(commits: CommitClass[], studentID: string){
+    let studentCommits: CommitClass[] = [];
+    commits.forEach((commit) => {
+      if(commit.uid == studentID){ //filters links to find links corresponding to the student's uid
+      studentCommits.push(commit);
+      }
+    });
+    return studentCommits;
+  }
+
   //get a student's declined note with an array of declined notes and their id
   //@param declinedNotes: NoteClass[], studentID: string
   getStudentDeclinedNote(declinedNotes: NoteClass[], studentID: string): NoteClass{
@@ -100,7 +113,8 @@ export class GoalStudentDataService {
       isCompleted = status == 'completed';
       let studentFiles: FileClass[] = this.getStudentFiles(goal.files ? goal.files : [], studentID);
       let studentLinks: LinkClass[] = this.getStudentLinks(goal.links ? goal.links : [], studentID);
-      let studentData = {id: studentID, completed: isCompleted, name: student.name, files: studentFiles, links: studentLinks, status: status, declinedNote: ''};
+      let studentCommits: CommitClass[] = this.getStudentCommits(goal.commits ? goal.commits : [], studentID);
+      let studentData = {id: studentID, completed: isCompleted, name: student.name, files: studentFiles, links: studentLinks, status: status, declinedNote: '', commits: studentCommits};
       if(status == 'declined'){ //if the status is declined the student has a declined note
         studentData.declinedNote = this.getStudentDeclinedNote(goal.declinedMessages, studentID).note;
       }

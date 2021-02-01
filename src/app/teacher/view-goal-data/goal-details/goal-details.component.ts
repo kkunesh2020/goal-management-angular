@@ -10,7 +10,6 @@ import { GoalService } from 'src/app/shared/services/goal.service';
   styleUrls: ['./goal-details.component.scss']
 })
 export class GoalDetailsComponent implements OnInit {
-
   @Input() goal: Goal;
   studentData: any;
   loading: boolean;
@@ -38,6 +37,10 @@ export class GoalDetailsComponent implements OnInit {
 
         if(this.studentData.files == null){
           this.studentData.files = [];
+        }
+
+        if(this.studentData.commits == null){
+          this.studentData.commits = [];
         }
 
         if(this.goal.hasCompleted.includes(this.studentData.uid)){
