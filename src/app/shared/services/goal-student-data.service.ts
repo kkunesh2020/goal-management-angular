@@ -69,6 +69,7 @@ export class GoalStudentDataService {
     });
     return studentLinks;
   }
+  
 
   //get a student's declined note with an array of declined notes and their id
   //@param declinedNotes: NoteClass[], studentID: string

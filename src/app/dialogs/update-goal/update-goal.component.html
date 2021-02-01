@@ -27,7 +27,7 @@
     </div>
     <div class="commit" *ngFor="let commit of currentGoal.commits">
       <mat-icon aria-hidden="false" aria-label="Example home icon">share</mat-icon>
-      <a (click)="goToLink(commit)">Attached Commit</a>
+      <a (click)="goToLink(commit.url)">Attached Commit</a>
       <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteLink(link.url)">close</mat-icon> -->
     </div>
     <div class="file" *ngFor="let file of currentGoal.files">
