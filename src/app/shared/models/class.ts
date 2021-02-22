@@ -25,4 +25,4 @@ export default class ClassClass implements Class {
       this.id = id;
       this.goals = goals;
     }
-};
+}

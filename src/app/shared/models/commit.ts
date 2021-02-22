@@ -11,4 +11,4 @@ export default class CommitClass implements Commit {
       this.url = url;
       this.uid = uid;
     }
-};
+}

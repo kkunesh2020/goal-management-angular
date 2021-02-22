@@ -13,8 +13,8 @@ export class HomeService {
   goals: Observable<any[]>;
   private usersCollection: AngularFirestoreCollection<any>;
   users: Observable<any[]>;
-  
-  //init collections
+
+  // init collections
   constructor(private readonly afs: AngularFirestore) {
     this.goalsCollection = afs.collection<any>('goals');
     this.goals = this.goalsCollection.valueChanges();
@@ -22,14 +22,14 @@ export class HomeService {
     this.users = this.usersCollection.valueChanges();
   }
 
-  //get goals from goalsCollection over time
+  // get goals from goalsCollection over time
   getAddedGoals(): Observable<any> {
     this.goals.subscribe(result => console.log(result) );
     return this.goals;
   }
 
-  //get user by uid
-  //@params userId: string
+  // get user by uid
+  // @params userId: string
   getUser(userId: string): Observable<any> {
     return this.afs.doc<User>(`users/` + userId).valueChanges();
   }

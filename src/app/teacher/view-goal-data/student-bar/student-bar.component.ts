@@ -16,31 +16,34 @@ export class StudentBarComponent implements OnInit {
   @Input() goal: Goal;
   @Input() teacherUID: string;
   students: StudentData[];
-  //when highlightedStudent == 'all' show goal stats
-  //when highlightedStudent == some student id: show goal stats for a particular student
-  highlightedStudent: string = 'all';
+  // when highlightedStudent == 'all' show goal stats
+  // when highlightedStudent == some student id: show goal stats for a particular student
+  highlightedStudent = 'all';
 
-  constructor(private classService: ClassService, private studentDataService: GoalStudentDataService, private studentGoalService: GoalStudentDataService) {
+  constructor(
+    private classService: ClassService,
+    private studentDataService: GoalStudentDataService,
+    private studentGoalService: GoalStudentDataService) {
    }
 
   ngOnInit() {
-    console.log("teacherUID", this.teacherUID);
+    console.log('teacherUID', this.teacherUID);
     this.getStudentData();
   }
 
-  getStudentData(){ //get students assigned this goal
+  getStudentData() { // get students assigned this goal
     this.classService.getStudentsDataByID(this.goal.assignedToID).then(studentData => {
-      console.log("retrieved student data", studentData);
+      console.log('retrieved student data', studentData);
       this.students = studentData;
     });
   }
 
-  viewStudentData(uid: string){ //method for viewing students stats on goal
+  viewStudentData(uid: string) { // method for viewing students stats on goal
     this.studentDataService.setStudentGoalData(uid, this.goal);
     this.highlightedStudent = uid;
   }
 
-  viewStudentsData(){ //method for viewing all goal stats
+  viewStudentsData() { // method for viewing all goal stats
     this.highlightedStudent = 'all';
     this.studentDataService.setStudentGoalData(null, null);
   }

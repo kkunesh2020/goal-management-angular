@@ -11,8 +11,8 @@ import GoalClass from '../../shared/models/goal';
 })
 
 export class CreateGoalComponent implements OnInit {
-  goal : GoalClass;
-  loading: boolean = false;
+  goal: GoalClass;
+  loading = false;
   assignedStudentID: string[] = [];
   assignedToAll: boolean;
 
@@ -23,11 +23,11 @@ export class CreateGoalComponent implements OnInit {
    }
 
   ngOnInit() {
-  //initially assign to all students
+  // initially assign to all students
     this.assignAllStudents();
   }
 
-  assignAllStudents(){
+  assignAllStudents() {
     this.assignedStudentID = [];
     this.data.students.forEach(student => {
       this.assignedStudentID.push(student.uid);
@@ -35,31 +35,31 @@ export class CreateGoalComponent implements OnInit {
   }
 
 
-  formComplete():boolean{
-    return this.assignedStudentID.length > 0 && this.goal.description != '' && this.goal.dueDate != null;
+  formComplete(): boolean {
+    return this.assignedStudentID.length > 0 && this.goal.description !== '' && this.goal.dueDate != null;
   }
 
-  checkSpecific(studentID: string, assigned: boolean){
-    if(assigned){
+  checkSpecific(studentID: string, assigned: boolean) {
+    if (assigned) {
       this.assignedStudentID.push(studentID);
-    }else{ //removes from assigned student array
+    } else { // removes from assigned student array
       this.assignedStudentID = this.assignedStudentID.filter(id => id !== studentID);
     }
   }
 
-  resetList(){
+  resetList() {
     this.assignedToAll = false;
     console.log(this.assignedToAll);
     this.assignedStudentID = [];
   }
 
 
-  createGoal(){
+  createGoal() {
     this.loading = true;
     this.goal.assignedToID = this.assignedStudentID;
     this.goal.pending = this.assignedStudentID;
     console.log(this.goal.assignedToID);
-    this.goalService.createGoal(this.goal).then(()=>{
+    this.goalService.createGoal(this.goal).then(() => {
       this.loading = false;
       this.dialogRef.close('success');
     });

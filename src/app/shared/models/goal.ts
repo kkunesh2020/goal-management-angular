@@ -13,7 +13,7 @@ export default class GoalClass implements Goal {
   createdBy: User;
   assignedTo?: Array<any>;
   assignedToID: Array<string>;
-  id:string;
+  id: string;
   classID: string;
   commits: Array<Commit>;
   files: Array<FileClass>;
@@ -51,4 +51,4 @@ export default class GoalClass implements Goal {
       this.pending = pending;
       this.declined = declined;
     }
-};
+}

@@ -7,66 +7,67 @@ import { GoalService } from 'src/app/shared/services/goal.service';
 @Component({
   selector: 'gms-goal-details',
   templateUrl: './goal-details.component.html',
-  styleUrls: ['./goal-details.component.scss']
+  styleUrls: ['./goal-details.component.scss'],
 })
 export class GoalDetailsComponent implements OnInit {
-
   @Input() goal: Goal;
   studentData: any;
   loading: boolean;
 
-  constructor(private studentGoalService: GoalStudentDataService) { }
+  constructor(private studentGoalService: GoalStudentDataService) {}
 
   ngOnInit() {
-    console.log("received goal", this.goal);
-    this.studentGoalService.currentStudentGoal.subscribe(studentGoalData => {
-      if(studentGoalData == null){
+    console.log('received goal', this.goal);
+    this.studentGoalService.currentStudentGoal.subscribe((studentGoalData) => {
+      if (studentGoalData == null) {
         this.studentData = null;
         return;
       }
 
-      studentGoalData == "loading" ? this.loading = true : this.loading = false;
+      studentGoalData === 'loading;'
+        ? (this.loading = true)
+        : (this.loading = false);
 
-      //if the student goal is retreived and valid run the below code
-      if(Object.keys(studentGoalData).length > 0 && studentGoalData != "loading"){
-
+      // if the student goal is retreived and valid run the below code
+      if (
+        Object.keys(studentGoalData).length > 0 &&
+        studentGoalData !== 'loading'
+      ) {
         this.studentData = studentGoalData;
 
-        if(this.studentData.links == null){
+        if (this.studentData.links == null) {
           this.studentData.links = [];
         }
 
-        if(this.studentData.files == null){
+        if (this.studentData.files == null) {
           this.studentData.files = [];
         }
 
-        if(this.goal.hasCompleted.includes(this.studentData.uid)){
+        if (this.goal.hasCompleted.includes(this.studentData.uid)) {
           this.studentData.status = 'completed';
         }
 
-        if(this.goal.declined.includes(this.studentData.uid)){
+        if (this.goal.declined.includes(this.studentData.uid)) {
           this.studentData.status = 'declined';
         }
 
-        if(this.goal.pending.includes(this.studentData.uid)){
+        if (this.goal.pending.includes(this.studentData.uid)) {
           this.studentData.status = 'pending';
         }
 
         console.log(this.studentData.status);
       }
-
     });
   }
 
-  //opens up link in another tab
-  goToLink(urlToOpen: string){
-    let url: string = '';
+  // opens up link in another tab
+  goToLink(urlToOpen: string) {
+    let url = '';
     if (!/^http[s]?:\/\//.test(urlToOpen)) {
-        url += 'http://';
+      url += 'http://';
     }
 
     url += urlToOpen;
-    window.open(url, "_blank");
+    window.open(url, '_blank');
   }
-
 }

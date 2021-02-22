@@ -1,9 +1,8 @@
 import GoalClass from './goal';
-import { TestUtils } from '../utils/test-utils';
 import UserClass from './user';
 
 describe('goalClassTests', () => {
-  let goal: GoalClass = null;
+  const goal: GoalClass = null;
 
   // beforeEach(() => {
   //   goal = TestUtils.getTestGoal();

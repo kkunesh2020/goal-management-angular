@@ -8,19 +8,19 @@ import CommitClass from './commit';
 export interface Goal {
   description: string;
   dueDate: Date;
-  //array of student ids who have completed the goal
+  // array of student ids who have completed the goal
   hasCompleted: Array<string>;
-  //array of student ids who have pending status
+  // array of student ids who have pending status
   pending: Array<string>;
-  //array of student ids who have declined status
+  // array of student ids who have declined status
   declined: Array<string>;
   createdBy: User;
-  //array of student ids who have been assigned this goal
+  // array of student ids who have been assigned this goal
   assignedToID: Array<string>;
   id: string;
   classID: string;
   declinedMessages?: Array<NoteClass>;
   files?: Array<FileClass>;
-  commits?:Array<CommitClass>;
+  commits?: Array<CommitClass>;
   links?: Array<LinkClass>;
 }

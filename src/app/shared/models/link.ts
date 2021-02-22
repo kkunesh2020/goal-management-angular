@@ -11,4 +11,4 @@ export default class LinkClass implements Link {
       this.url = url;
       this.uid = uid;
     }
-};
+}

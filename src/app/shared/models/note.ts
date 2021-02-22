@@ -11,4 +11,4 @@ export default class NoteClass implements Note {
       this.uid = uid;
       this.note = note;
     }
-};
+}

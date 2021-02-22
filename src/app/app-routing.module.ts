@@ -14,13 +14,13 @@ import { GoalDashboardComponent } from './teacher/view-goal-data/goal-dashboard/
 import { HelpComponent } from './help/help.component';
 
 const routes: Routes = [
-  {path:'', component: HomeComponent},
+  {path: '', component: HomeComponent},
   {path: 'goals', component: GoalsComponent, canActivate: [StudentAuthGuard]},
   {path: 'help', component: HelpComponent},
   {path: 'classes', component: ClassListComponent, canActivate: [AuthGuard]},
-  {path: 'classes/:classID', component: ClassComponent, canActivate:[ClassAuthGuard]},
-  {path: 'classes/:classID/students/:studentID', component: ViewStudentDataComponent, canActivate:[ClassAuthGuard, TeacherAuthGuard]},
-  {path: 'classes/:classID/goals/:goalID', component: GoalDashboardComponent, canActivate:[ClassAuthGuard, TeacherAuthGuard]}
+  {path: 'classes/:classID', component: ClassComponent, canActivate: [ClassAuthGuard]},
+  {path: 'classes/:classID/students/:studentID', component: ViewStudentDataComponent, canActivate: [ClassAuthGuard, TeacherAuthGuard]},
+  {path: 'classes/:classID/goals/:goalID', component: GoalDashboardComponent, canActivate: [ClassAuthGuard, TeacherAuthGuard]}
 ];
 
 @NgModule({

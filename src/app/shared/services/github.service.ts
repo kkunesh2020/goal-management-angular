@@ -5,30 +5,29 @@ import { Observable } from 'rxjs/internal/Observable';
 import { take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GithubService {
-  userGithubToken: string = "";
-  githubUsername: string = "";
+  userGithubToken = '';
+  githubUsername = '';
   githubProfile: any;
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {}
+
+  viewUserRepos(): Promise<any> {
+    const header = new HttpHeaders().set('Authorization', this.userGithubToken);
+
+    return this.http
+      .get(`${this.githubProfile.repos_url}`, { headers: header })
+      .pipe(take(1))
+      .toPromise();
   }
 
-  viewUserRepos(): Promise<any>{
-    let header = new HttpHeaders().set(
-      "Authorization",
-       this.userGithubToken
-    );
+  viewRepoCommits(commitLink) {
+    const header = new HttpHeaders().set('Authorization', this.userGithubToken);
 
-    return this.http.get(`${this.githubProfile.repos_url}`, {headers:header}).pipe(take(1)).toPromise();
-  }
-
-  viewRepoCommits(commitLink){
-    let header = new HttpHeaders().set(
-      "Authorization",
-       this.userGithubToken
-    );
-
-    return this.http.get(`${commitLink}`, {headers:header}).pipe(take(1)).toPromise();
+    return this.http
+      .get(`${commitLink}`, { headers: header })
+      .pipe(take(1))
+      .toPromise();
   }
 }

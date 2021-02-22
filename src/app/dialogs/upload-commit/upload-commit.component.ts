@@ -9,19 +9,23 @@ import { GoalService } from 'src/app/shared/services/goal.service';
 @Component({
   selector: 'gms-upload-commit',
   templateUrl: './upload-commit.component.html',
-  styleUrls: ['./upload-commit.component.scss']
+  styleUrls: ['./upload-commit.component.scss'],
 })
 export class UploadCommitComponent implements OnInit {
-
   userRepos: any;
-  loading: boolean = false;
+  loading = false;
   userCommits: any;
   goalID: string;
   uid: string;
   selectedCommitObj: Commit;
-  selectRepo: string = "";
-  
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private githubService: GithubService, public dialogRef: MatDialogRef<UploadCommitComponent>, private goalService: GoalService) { 
+  selectRepo = '';
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private githubService: GithubService,
+    public dialogRef: MatDialogRef<UploadCommitComponent>,
+    private goalService: GoalService
+  ) {
     this.goalID = data.goal.id;
     this.uid = data.uid;
   }
@@ -29,31 +33,32 @@ export class UploadCommitComponent implements OnInit {
   ngOnInit() {
     this.githubService.viewUserRepos().then((data) => {
       this.userRepos = data;
-      console.log("got the user repos");
-      console.log(this.userRepos)
+      console.log('got the user repos');
+      console.log(this.userRepos);
     });
   }
 
-  selectedRepo(commitLink: string, repoName: string){
+  selectedRepo(commitLink: string, repoName: string) {
     this.selectRepo = repoName;
-    let altLink = commitLink.split("{")[0]; //getting only commit link (removes unessary error)
+    const altLink = commitLink.split('{')[0]; // getting only commit link (removes unessary error)
     this.githubService.viewRepoCommits(altLink).then((data) => {
       this.userCommits = data;
-      console.log("da commits", this.userCommits)
-    })
+      console.log('da commits', this.userCommits);
+    });
   }
 
-  selectedCommit(commitLink){
+  selectedCommit(commitLink) {
     this.selectedCommitObj = new CommitClass(commitLink, this.uid);
   }
 
-  addCommit(){
+  addCommit() {
     this.loading = true;
-    console.log("new commit", this.selectedCommitObj)
-    this.goalService.addCommitToGoal(this.goalID, this.selectedCommitObj).then(() => {
-      this.loading = false;
-      this.dialogRef.close(this.selectedCommitObj);
-    });
+    console.log('new commit', this.selectedCommitObj);
+    this.goalService
+      .addCommitToGoal(this.goalID, this.selectedCommitObj)
+      .then(() => {
+        this.loading = false;
+        this.dialogRef.close(this.selectedCommitObj);
+      });
   }
-
 }

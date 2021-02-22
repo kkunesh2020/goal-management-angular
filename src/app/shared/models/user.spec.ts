@@ -1,5 +1,4 @@
 import UserClass from './user';
-import { TestUtils } from '../utils/test-utils';
 
 describe('UserClass tests', () => {
     let user: UserClass = null;
@@ -44,7 +43,7 @@ describe('UserClass tests', () => {
 
 
     it('should set id correctly through constructor', () => {
-      //user = new UserClass('1', 'joe', 'joe@joe.com', true, undefined);
+      // user = new UserClass('1', 'joe', 'joe@joe.com', true, undefined);
       expect(user.uid).toEqual('1');
     });
 

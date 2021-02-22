@@ -12,10 +12,9 @@ import { GoalStudentDataService } from 'src/app/shared/services/goal-student-dat
 @Component({
   selector: 'gms-view-student-data',
   templateUrl: './view-student-data.component.html',
-  styleUrls: ['./view-student-data.component.scss']
+  styleUrls: ['./view-student-data.component.scss'],
 })
 export class ViewStudentDataComponent implements OnInit {
-
   loading: boolean;
   classID: string;
   studentID: string;
@@ -24,12 +23,21 @@ export class ViewStudentDataComponent implements OnInit {
   completedGoals: GoalStat[] = [];
   missingGoals: GoalStat[] = [];
 
-  constructor(private route: ActivatedRoute, private auth: AuthService, private goalService: GoalService, private classService: ClassService, private router: Router, private studentsGoalService: GoalStudentDataService) {
+  constructor(
+    private route: ActivatedRoute,
+    private auth: AuthService,
+    private goalService: GoalService,
+    private classService: ClassService,
+    private router: Router,
+    private studentsGoalService: GoalStudentDataService
+  ) {
     this.loading = true;
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
       this.studentID = this.route.snapshot.paramMap.get('studentID');
-      if(!userProfile) { return; }
+      if (!userProfile) {
+        return;
+      }
       this.getStudentData();
       this.getStudentGoals().then(() => {
         this.sortGoals();
@@ -38,77 +46,75 @@ export class ViewStudentDataComponent implements OnInit {
     this.loading = false;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  getStudentData(){
-    this.classService.getStudentDataByID(this.studentID).then(studentData => {
+  getStudentData() {
+    this.classService.getStudentDataByID(this.studentID).then((studentData) => {
       this.student = studentData;
-    })
+    });
   }
 
-  //get goals for the student
-  getStudentGoals(): Promise<any>{
-    let goals: GoalStat[] = [];
-    let promise = this.goalService.getGoalsForClassWithId(this.classID, this.studentID).then((data) => {
-      //loop through each goal
-      data.forEach(element => {
-        let newGoal: GoalStat  = {
-          description: element.description,
-          dueDate: element.dueDate,
-          hasCompleted: element.hasCompleted,
-          pending: element.pending,
-          declined: element.declined,
-          assignedToID: element.assignedToID,
-          id: element.id
-        };
-        goals.push(newGoal);
+  // get goals for the student
+  getStudentGoals(): Promise<any> {
+    const goals: GoalStat[] = [];
+    const promise = this.goalService
+      .getGoalsForClassWithId(this.classID, this.studentID)
+      .then((data) => {
+        // loop through each goal
+        data.forEach((element) => {
+          const newGoal: GoalStat = {
+            description: element.description,
+            dueDate: element.dueDate,
+            hasCompleted: element.hasCompleted,
+            pending: element.pending,
+            declined: element.declined,
+            assignedToID: element.assignedToID,
+            id: element.id,
+          };
+          goals.push(newGoal);
+        });
+        this.studentGoals = goals;
+        console.log('student class goals', this.studentGoals);
       });
-      this.studentGoals = goals;
-      console.log('student class goals', this.studentGoals);
-    });
     return promise;
   }
 
-  navigateToGoal(goalID: string){
-    //view goal data 
+  navigateToGoal(goalID: string) {
+    // view goal data
     this.studentsGoalService.setStudentGoalData(null, null);
     this.router.navigate([`/classes/${this.classID}/goals/${goalID}`]);
   }
 
-
-  //check if a goal is completed
-  isCompleted(goal: GoalStat): Promise<boolean>{
+  // check if a goal is completed
+  isCompleted(goal: GoalStat): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.student.goalsCompleted.forEach(goalRef => {
-        if(goalRef.id == goal.id){
-          resolve(true); //true because it is inside completed array
+      this.student.goalsCompleted.forEach((goalRef) => {
+        if (goalRef.id === goal.id) {
+          resolve(true); // true because it is inside completed array
         }
-      })
+      });
       return resolve(false);
     });
   }
 
-
-  sortGoals(){
-    console.log("sorting goals");
-    this.studentGoals.forEach(goal => {
-      console.log("testing", this.isCompleted(goal));
+  sortGoals() {
+    console.log('sorting goals');
+    this.studentGoals.forEach((goal) => {
+      console.log('testing', this.isCompleted(goal));
       this.isCompleted(goal).then((result) => {
-          if (result) {
-            console.log("is completed!")
-            this.completedGoals.push(goal);
-          } else {
-            console.log("missing!")
-            this.missingGoals.push(goal);
-          }
-        });
+        if (result) {
+          console.log('is completed!');
+          this.completedGoals.push(goal);
+        } else {
+          console.log('missing!');
+          this.missingGoals.push(goal);
+        }
       });
-      console.log("completed", this.missingGoals, this.completedGoals);
+    });
+    console.log('completed', this.missingGoals, this.completedGoals);
   }
 
-  navigateBack(){
+  navigateBack() {
     this.router.navigate([`classes/${this.classID}`]);
   }
-
 }

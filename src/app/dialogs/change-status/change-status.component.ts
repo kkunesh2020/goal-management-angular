@@ -15,21 +15,25 @@ export class ChangeStatusComponent {
   rejected: boolean;
   rejectionNote: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-  public dialogRef: MatDialogRef<ChangeStatusComponent>, private goalService: GoalService) { 
+  constructor(
+    @Inject(MAT_DIALOG_DATA)
+    public data: any,
+    public dialogRef: MatDialogRef<ChangeStatusComponent>,
+    private goalService: GoalService) {
+
     this.loading = true;
     this.teacherName = data.createdBy.name;
     this.goalTitle = data.description;
     this.dueDate = new Date(data.dueDate.seconds * 1000);
     this.loading = false;
-    this.rejectionNote = "";
+    this.rejectionNote = '';
   }
 
-  rejectGoal(status: boolean){
+  rejectGoal(status: boolean) {
     this.rejected = status;
   }
 
-  updateStatus(status: string){
+  updateStatus(status: string) {
     this.loading = true;
     this.goalService.updateGoalStatus(this.data.id, status, this.data.uid, this.rejectionNote).then(() => {
       this.dialogRef.close('updated');

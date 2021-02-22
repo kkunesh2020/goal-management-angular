@@ -7,20 +7,20 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class StudentAuthGuard implements CanActivate{
+export class StudentAuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router){}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  
-  //check if user is a student
+
+  // check if user is a student
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       this.authService.user$.subscribe(async (userProfile) => {
-        if(userProfile == null){
+        if (userProfile == null) {
           this.router.navigate(['/']);
-        }else{
-          if(userProfile.isAdmin){
+        } else {
+          if (userProfile.isAdmin) {
             this.router.navigate(['/']);
           }
         }

@@ -17,4 +17,4 @@ export default class FileClass implements File {
       this.path = path;
       this.uid = uid;
     }
-};
+}

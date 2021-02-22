@@ -21,7 +21,7 @@ import { GithubService } from './github.service';
 export class AuthService {
   user$: Observable<User>;
   userGithubID: string;
-  githubUsername: string = "";
+  githubUsername = '';
   githubProfile: any;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private route: Router, private githubService: GithubService) {
@@ -30,10 +30,10 @@ export class AuthService {
       switchMap(user => {
         // Logged in
         if (user) {
-          console.log("logged in");
+          console.log('logged in');
           console.log(this.afAuth.user.subscribe(userdata => {
             console.log(userdata);
-          }))
+          }));
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
@@ -54,7 +54,7 @@ export class AuthService {
     return;
   }
 
-  async githubSignin(){
+  async githubSignin() {
     const provider = new auth.GithubAuthProvider();
     const credential: any = await this.afAuth.auth.signInWithPopup(provider);
     this.updateUserData(credential.user);
@@ -62,11 +62,11 @@ export class AuthService {
     this.githubUsername = credential.additionalUserInfo.username;
     this.githubProfile = credential.additionalUserInfo.profile;
     this.setGithubInfo(this.githubUsername, this.githubProfile, this.userGithubID);
-    console.log("user repos", this.githubService.viewUserRepos());
+    console.log('user repos', this.githubService.viewUserRepos());
     return;
   }
 
-  setGithubInfo(username, profile, id){
+  setGithubInfo(username, profile, id) {
     this.githubService.githubProfile = profile;
     this.githubService.githubUsername = username;
     this.githubService.userGithubToken = id;
@@ -90,15 +90,15 @@ export class AuthService {
       classes: []
     };
 
-     //If user doesn't exist yet, set the user as a new document
+     // If user doesn't exist yet, set the user as a new document
     userRef.get().then((doc) => {
-      if(!doc.exists){
+      if (!doc.exists) {
         userRef.set(data, {merge: true});
       }
-    })
+    });
 
   }
-  //Sign Out Code
+  // Sign Out Code
   async signOut() {
     await this.afAuth.auth.signOut();
     this.route.navigate(['/']);
