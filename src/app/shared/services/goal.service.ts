@@ -288,6 +288,10 @@ export class GoalService {
       goal.declined = [];
     }
 
+    if (goal.commits == null) {
+      goal.commits = [];
+    }
+
     if (goal.declinedMessages == null) {
       goal.declinedMessages = [];
     }

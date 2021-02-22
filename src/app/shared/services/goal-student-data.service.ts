@@ -7,6 +7,7 @@ import UserClass from '../models/user';
 import { ClassService } from './class.service';
 import { GoalService } from './goal.service';
 import NoteClass from '../models/note';
+import CommitClass from '../models/commit';
 
 @Injectable({
   providedIn: 'root',
@@ -78,6 +79,19 @@ export class GoalStudentDataService {
     });
     return studentLinks;
   }
+  
+
+  //get a student's github commits with an array of links their id
+  //@param commits: CommitClass[], studentID: string
+  getStudentCommits(commits: CommitClass[], studentID: string){
+    let studentCommits: CommitClass[] = [];
+    commits.forEach((commit) => {
+      if(commit.uid == studentID){ //filters links to find links corresponding to the student's uid
+      studentCommits.push(commit);
+      }
+    });
+    return studentCommits;
+  }
 
   // get a student's declined note with an array of declined notes and their id
   // @param declinedNotes: NoteClass[], studentID: string
@@ -108,6 +122,7 @@ export class GoalStudentDataService {
     this.studentDataSource.next('loading');
     this.getStudentData(studentID).then((data) => {
       student = data;
+<<<<<<< HEAD
       let isCompleted: boolean;
       const status: string = this.getStudentStatus(
         goal.hasCompleted,
@@ -139,6 +154,17 @@ export class GoalStudentDataService {
           goal.declinedMessages,
           studentID
         ).note;
+=======
+      let isCompleted: boolean; 
+      let status: string = this.getStudentStatus(goal.hasCompleted, goal.pending, goal.declined, studentID);
+      isCompleted = status == 'completed';
+      let studentFiles: FileClass[] = this.getStudentFiles(goal.files ? goal.files : [], studentID);
+      let studentLinks: LinkClass[] = this.getStudentLinks(goal.links ? goal.links : [], studentID);
+      let studentCommits: CommitClass[] = this.getStudentCommits(goal.commits ? goal.commits : [], studentID);
+      let studentData = {id: studentID, completed: isCompleted, name: student.name, files: studentFiles, links: studentLinks, status: status, declinedNote: '', commits: studentCommits};
+      if(status == 'declined'){ //if the status is declined the student has a declined note
+        studentData.declinedNote = this.getStudentDeclinedNote(goal.declinedMessages, studentID).note;
+>>>>>>> f06d4b83dbcd5300f6bfb584d424bb2e031b6d57
       }
       this.studentDataSource.next(studentData); // input student data in the studentDataSource
     });

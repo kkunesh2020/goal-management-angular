@@ -140,7 +140,7 @@ export class ClassService {
     return classes;
   }
 
-  // get a teacher;s class with their uid and the class id
+  // get a teachers class with their uid and the class id
   // @param teacherUID: string, classID: string
   getClass(teacherUID: string, classID: string): Promise<any> {
     const promise = this.classCollection

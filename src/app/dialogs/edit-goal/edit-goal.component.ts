@@ -33,6 +33,7 @@ export class EditGoalComponent implements OnInit {
         this.students = studentsData;
       });
 
+<<<<<<< HEAD
     // retrieve the data (class id, createdBy, assignedTo <= users)
     this.goal = new GoalClass(
       data.description,
@@ -48,6 +49,11 @@ export class EditGoalComponent implements OnInit {
       data.files,
       data.links
     );
+=======
+  //retrieve the data (class id, createdBy, assignedTo <= users)
+    this.goal = new GoalClass(data.description, this.editDate, data.classID, data.hasCompleted, data.pending, data.declined,
+      data.id, data.createdBy, data.assignedToID, data.declinedMessages, data.files, data.links, data.commits);
+>>>>>>> f06d4b83dbcd5300f6bfb584d424bb2e031b6d57
     this.prevGoal = this.goal;
   }
 

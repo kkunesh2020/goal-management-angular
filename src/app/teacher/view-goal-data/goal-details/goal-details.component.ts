@@ -43,7 +43,11 @@ export class GoalDetailsComponent implements OnInit {
           this.studentData.files = [];
         }
 
-        if (this.goal.hasCompleted.includes(this.studentData.uid)) {
+        if(this.studentData.commits == null) {
+          this.studentData.commits = [];
+        }
+
+        if(this.goal.hasCompleted.includes(this.studentData.uid)) {
           this.studentData.status = 'completed';
         }
 
