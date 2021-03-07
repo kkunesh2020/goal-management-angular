@@ -29,7 +29,7 @@ export class TeacherAuthGuard implements CanActivate {
       if (userProfile == null) {
         this.router.navigate(['/']);
       } else {
-        if (!userProfile.isAdmin) {
+        if (userProfile.accountType === 'teacher') {
           this.router.navigate(['/']);
         }
       }
