@@ -6,7 +6,7 @@ export default class UserClass implements User {
   uid: string;
   name: string;
   email: string;
-  isAdmin: boolean;
+  accountType: string;
   classes: Array<DocumentReference>;
   goalsAssigned: Array<DocumentReference>;
   goalsCompleted: Array<DocumentReference>;
@@ -15,7 +15,7 @@ export default class UserClass implements User {
     uid: string,
     name: string,
     email: string,
-    isAdmin: boolean,
+    accountType: string,
     classes: Array<DocumentReference>,
     goalsAssigned: Array<DocumentReference>,
     goalsCompleted: Array<DocumentReference>
@@ -23,7 +23,7 @@ export default class UserClass implements User {
     this.uid = uid;
     this.name = name;
     this.email = email;
-    this.isAdmin = isAdmin;
+    this.accountType = accountType;
     this.classes = classes;
     this.goalsAssigned = goalsAssigned;
     this.goalsCompleted = goalsCompleted;
