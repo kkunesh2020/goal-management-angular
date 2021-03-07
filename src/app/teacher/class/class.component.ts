@@ -65,7 +65,7 @@ export class ClassComponent {
   goalsDataSource: GoalsTableData[] = [];
   classGoals: GoalStat[] = [];
   class: Class;
-  isAdmin: boolean;
+  accountType: string;
   loading = true;
   uid: string;
   user: UserClass;
@@ -90,12 +90,12 @@ export class ClassComponent {
       }
       this.getClass(this.classID, userProfile.uid).then(() => {
         this.user = userProfile;
-        this.isAdmin = userProfile.isAdmin;
+        this.accountType = userProfile.accountType;
         this.uid = userProfile.uid;
-        if (!this.isAdmin) {
+        if (this.accountType === 'student') {
           this.getGoalsForStudent(this.classID, userProfile.uid);
           this.loading = false;
-        } else {
+        } else if (this.accountType === 'teacher') {
           this.getStudentData();
           this.getAllGoalsForTeacher(this.classID);
           this.loading = false;
@@ -222,7 +222,7 @@ export class ClassComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       // reshow goals when dialog is closed
-      if (result === 'updated' && !this.isAdmin) {
+      if (result === 'updated' && this.accountType === 'student') {
         this.getGoalsForStudent(this.classID, this.uid);
       }
     });
@@ -292,7 +292,7 @@ export class ClassComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'success' && this.isAdmin) {
+      if (result === 'success' && this.accountType === 'teacher') {
         // if the goal is successfully edited, reshow goals
         this.getAllGoalsForTeacher(this.classID);
       }
@@ -319,7 +319,7 @@ export class ClassComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'success' && this.isAdmin) {
+      if (result === 'success' && this.accountType === 'teacher') {
         // if the goal is successfully deleted, reshow goals
         this.getAllGoalsForTeacher(this.classID);
       }
