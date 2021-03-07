@@ -12,15 +12,21 @@
     </button>
   </div>
   <div *ngIf="loggedIn" [hidden]="loading">
-    <div class="teacherSection" *ngIf="isAdmin">
+    <div class="teacherSection" *ngIf="accountType=='teacher'">
       <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
     </div>
 
-    <div class="studentSection" *ngIf="!isAdmin">
+    <div class="studentSection" *ngIf="accountType=='student'">
       <button class="class-button" [routerLink]="['/goals']">VIEW GOALS</button>
       <p class="or">OR</p>
       <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
     </div>
 
+    <!-- update for the director's router links -->
+    <div class="studentSection" *ngIf="accountType=='director'">
+      <button class="class-button" [routerLink]="['/goals']">VIEW GOALS</button>
+      <p class="or">OR</p>
+      <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
+    </div>  
   </div>
 </div>
