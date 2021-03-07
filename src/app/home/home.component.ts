@@ -23,7 +23,7 @@ export interface GoalsTableData {
 export class HomeComponent implements OnInit {
   loggedIn = false;
   loading = true;
-  isAdmin: boolean;
+  accountType: string;
   uid: string;
   studentAssignments: GoalsTableData[];
   goalsDisplayedColumns: string[] = [
@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
       if (userProfile) {
         // when userProfile is not null set the variables below
         this.uid = userProfile.uid;
-        this.isAdmin = userProfile.isAdmin;
+        this.accountType = userProfile.accountType;
       }
       this.loading = false;
     });
