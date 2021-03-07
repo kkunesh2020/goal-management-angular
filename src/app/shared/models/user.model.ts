@@ -5,7 +5,7 @@ export interface User {
     uid: string;
     name: string;
     email: string;
-    isAdmin: boolean;
+    accountType: string;
     classes: Array<DocumentReference>;
     goalsAssigned: Array<DocumentReference>;
     goalsCompleted: Array<DocumentReference>;
