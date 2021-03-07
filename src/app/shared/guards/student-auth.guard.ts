@@ -20,7 +20,7 @@ export class StudentAuthGuard implements CanActivate {
         if (userProfile == null) {
           this.router.navigate(['/']);
         } else {
-          if (userProfile.isAdmin) {
+          if (userProfile.accountType === 'student') {
             this.router.navigate(['/']);
           }
         }
