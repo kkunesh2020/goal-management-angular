@@ -26,12 +26,8 @@ export class TeacherAuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     this.authService.user$.subscribe(async (userProfile) => {
-      if (userProfile == null) {
+      if (userProfile == null || userProfile.accountType !== 'teacher') {
         this.router.navigate(['/']);
-      } else {
-        if (userProfile.accountType === 'teacher') {
-          this.router.navigate(['/']);
-        }
       }
     });
     return true;
