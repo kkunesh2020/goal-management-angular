@@ -56,33 +56,45 @@ Shows a teacher's assigned goals and student data on a table
 ### View Goal Data Components
 
 #### Goal Dashboard
+Displays information about a specific goal
 
 #### Goal Details
+Shows goal information along with student goal status
 
 #### Student Bar
+Shows all the students assigned to a specific goal
 
 ### View Student Data 
-
+View student information and progess on goals within a specific class
 
 ## Dialog Components
 
 ### Change Status
+Dialog that pops up when student wants to accept or decline a goal
 
 ### Create Goal
+Allows a teacher to create a goal for a specific class
 
 ### Create Student Goal
+Allows a student to create a individual goal for a specific class
 
 ### Delete Goal
+Popup that confirms whether or not a user wants to delete their goal
 
 ### Edit Goal
+Allows a teacher to edit a goal
 
 ### Update Goal
+Allows a student to edit a goal (mark as complete, upload work, etc)
 
 ### Uploader
+A popup that allows a user to upload a file via button or drag and drop
 
 ### Upload Commit
+Allows a student to upload a github commit
 
 ### Upload Link
+A popup that allows a student to upload a link to their work
 
 ## Services
 
@@ -103,6 +115,8 @@ Shows a teacher's assigned goals and student data on a table
 ### Add a Director role for maintaining/assigning classes and student information
 
 ### Improve data display
+
+### Show private GitHub commits 
 
 ### Redesign Submit Work Dialog Popup
 
