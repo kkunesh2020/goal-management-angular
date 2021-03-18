@@ -156,4 +156,18 @@ export class ClassService {
       });
     return promise;
   }
+
+   // get all classes from the collection
+  getAllClasses(): Promise<Class[]> {
+    const promise = this.classCollection
+      .get()
+      .then((collection) => {
+        const data = [];
+        for (let i = 0; i < collection.docs.length; i++) {
+          data.push(collection.docs[i].data());
+        }
+        return data;
+      });
+    return promise;
+  }
 }
