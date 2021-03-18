@@ -156,29 +156,140 @@ sortGoals()
 ### Change Status
 Dialog that pops up when student wants to accept or decline a goal
 
+Methods:
+```ts
+// marks goal as rejected
+  rejectGoal(status: boolean)
+  
+// updates status of goal
+  updateStatus(status: string)
+```
+
 ### Create Goal
 Allows a teacher to create a goal for a specific class
+
+Methods:
+```ts
+// assign all students in a class to a goal
+  assignAllStudents()
+  
+// return if the form is completed or not
+  formComplete(): boolean
+
+// assign specific student to a goal
+  checkSpecific(studentID: string, assigned: boolean)
+
+// reset assign students array
+  resetList()
+  
+// create the goal 
+  createGoal()
+```
 
 ### Create Student Goal
 Allows a student to create a individual goal for a specific class
 
+Methods:
+```ts
+// return if the form is completed or not
+  formComplete(): boolean
+  
+// create the goal 
+  createGoal()
+```
+
 ### Delete Goal
 Popup that confirms whether or not a user wants to delete their goal
+
+Methods:
+```ts
+// deletes a goal
+  deleteGoal()
+```
 
 ### Edit Goal
 Allows a teacher to edit a goal
 
+Methods:
+```ts
+// return if the form is completed or not
+  formComplete(): boolean
+  
+// edit the goal 
+  editGoal()
+```
+
 ### Update Goal
 Allows a student to edit a goal (mark as complete, upload work, etc)
+
+Methods:
+```ts
+// updates a goal
+  updateGoal(isDone: boolean)
+  
+// opens insert file dialog
+  insertFileDialog()
+  
+// authorizes user's GitHub account with the Gihub API and allows user to select their GitHub commit
+  viewGithubCommit()
+  
+// opens the insert link dialog
+  insertLinkDialog()
+
+// find position of file in the file array
+  findIndexOfFile(file: FileClass)
+  
+// deletes a specific file from the goal 
+  deleteFile(file: FileClass)
+  
+// deletes a specific link from the goal 
+  deleteLink(url: string)
+  
+// open up link in another tab
+  goToLink(urlToOpen: string)
+```
 
 ### Uploader
 A popup that allows a user to upload a file via button or drag and drop
 
+Methods:
+```ts
+// toggles hover effect
+  toggleHover(event: boolean)
+  
+// toggles drag effect
+  toggleDrag(event: boolean)
+  
+// upload file to FB storage
+  async onDrop(files: FileList)
+  
+// upload file data to firebase storage and database field
+  async uploadFile(file: File): Promise<FileClass>
+  
+// pass back files data to dialog
+  addFiles()
+```
+
 ### Upload Commit
 Allows a student to upload a github commit
 
+Methods:
+```ts
+// sets commit data array of a selected Github repository
+  selectedRepo(commitLink: string, repoName: string)
+  
+// attaches selected commit to goal
+  addCommit() 
+```
+
 ### Upload Link
 A popup that allows a student to upload a link to their work
+
+Methods:
+```ts
+// add link to goal object
+  addLink()
+```
 
 ## Services
 
