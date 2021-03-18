@@ -99,31 +99,43 @@ A popup that allows a student to upload a link to their work
 ## Services
 
 ### Auth
+Provides current user data and methods for google auth, github signin, and update user
 
 ### Class
+Provides methods for getting class information and updating class status
 
 ### GitHub
+Provides methods for viewing a users GitHub repositories and specific commits of a repository
 
 ### Goal Student Data
+Methods for getting information of a specific student 
 
 ### Goal 
+Methods for getting information about goals and modifying a specific goal
 
 ### Home
+Provides methods used in the home componenet (getting user data and goals)
 
 ## Ideas for New Features
 
 ### Add a Director role for maintaining/assigning classes and student information
+As of now, there is no convenient method for creating classes and assigning students + teachers to those classes. A director role could be used to manually create classes and assign users to them, and avoid the hassle of manually assigning users to classes within the database
 
 ### Improve data display
+The project uses data tables to display goal information + class data. Could we find a better way to show the data?
 
 ### Show private GitHub commits 
+Currently, the GitHub submit feature only allows users to select from public repositories and commits. This feature should be expanded to include private Github repositories as well
 
 ### Redesign Submit Work Dialog Popup
+Right now the submit work dialog shown to a student when they click on a specific goal has a unclear and unaesthetic design that makes it difficult for a user that wants to upload their work and mark their goal as complete. This should be redesigned to be more clear and attractive
 
 ## Next Steps For Goal Management
 
 ### Improve Design
+As of now, Goal Management has a rudimentary design containing default Angular Material designs. In the near future, it would be ideal to redesign the entire site
 
 ### Get a single class to test the app
+Goal Management is currently in the development / prototyping phase. It would be ideal in the upcoming months to get a small class to test the app and provide feedback
 
 
