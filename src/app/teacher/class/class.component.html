@@ -2,7 +2,8 @@
 <div class="example-loading-shade" *ngIf="loading">
   <mat-spinner *ngIf="loading"></mat-spinner>
 </div>
-<div class="teacherSection" *ngIf="class && isAdmin">
+
+<div class="teacherSection" *ngIf="class && accountType=='teacher'">
   <div fxLayoutAlign="center center">
     <div class="example-loading-shade" *ngIf="loading">
       <mat-spinner *ngIf="loading"></mat-spinner>
@@ -36,7 +37,7 @@
 
 
     <button mat-button color="primary" id="createGoal" (click)="createGoalDialog()"><mat-icon>add</mat-icon> Create Goal</button>
-    <p *ngIf="classGoals.length == 0 && isAdmin && !loading" class="subtitle">No Goals Assigned Yet.</p>
+    <p *ngIf="classGoals.length == 0 && accountType=='teacher' && !loading" class="subtitle">No Goals Assigned Yet.</p>
     <div fxLayoutAlign="center center">
       <div class="example-loading-shade" *ngIf="loading">
         <mat-spinner *ngIf="loading"></mat-spinner>
@@ -89,9 +90,9 @@
 </div>
 
 
-<button mat-button color="primary" id="createGoal" (click)="createStudentGoalDialog()" *ngIf="!isAdmin && !loading"><mat-icon>add</mat-icon> Create Goal</button>
-<p *ngIf="goalsDataSource.length == 0 && !isAdmin && !loading" class="subtitle">No Goals Assigned Yet.</p>
-<div class="studentSection" *ngIf="class && !isAdmin" fxLayoutAlign="center center">
+<button mat-button color="primary" id="createGoal" (click)="createStudentGoalDialog()" *ngIf="accountType=='student' && !loading"><mat-icon>add</mat-icon> Create Goal</button>
+<p *ngIf="goalsDataSource.length == 0 && accountType=='student' && !loading" class="subtitle">No Goals Assigned Yet.</p>
+<div class="studentSection" *ngIf="class && accountType=='student'" fxLayoutAlign="center center">
   <div class="example-loading-shade" *ngIf="loading">
     <mat-spinner *ngIf="loading"></mat-spinner>
   </div>
