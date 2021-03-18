@@ -296,20 +296,198 @@ Methods:
 ### Auth
 Provides current user data and methods for google auth, github signin, and update user
 
+Methods:
+```ts
+  // Opens popup, signs user into google account, and adds user data to firebase
+  async googleSignin()
+  
+  // authenticates user with Github
+  async githubSignin()
+  
+  // sets user Github user information
+  setGithubInfo(username, profile, id)
+  
+  // adds user data to firebase after login
+  private updateUserData(user)
+  
+  // signs out user
+  async signOut()
+```
+
 ### Class
 Provides methods for getting class information and updating class status
+
+Methods:
+```ts
+  // checks if a student is allowed inside a class using the student's userID and classID
+  allowedInClass(userID: string, classID: string)
+  
+  // get a student's data with their userID
+  getStudentDataByID(id: string): Promise<UserClass>
+  
+  // get multiple students data given an array of student document references
+  getStudentsData(studentRefs: DocumentReference[])
+  
+  // get multiple students data with an array of student UIDs
+  async getStudentsDataByID(studentUID: string[]): Promise<any[]>
+  
+  // get an individual student's data with a documentReference
+  getStudentData(ref: DocumentReference): Promise<any>
+  
+  // helper method for getting length of array
+  getLengthOf(array: any[])
+  
+  // given an array of student document references get the student data for each ref.
+  async getStudentsDataByReference(refs: DocumentReference[]): Promise<any> 
+  
+  // get a user's class using their uid
+  getClasses(userID: string): Class[]
+  
+  // get a teachers class with their uid and the class id
+  getClass(teacherUID: string, classID: string): Promise<any>
+```
 
 ### GitHub
 Provides methods for viewing a users GitHub repositories and specific commits of a repository
 
+Methods:
+```ts
+// view the user's Github repositories
+  viewUserRepos(): Promise<any>
+  
+// view the user commits for a selected repository
+  viewRepoCommits(commitLink)
+```
+
 ### Goal Student Data
 Methods for getting information of a specific student 
+
+Methods:
+```ts
+// get status of a single student given the array of all students who have completed, panding, and declined status
+  getStudentStatus(
+    hasCompleted: string[],
+    pending: string[],
+    declined: string[],
+    studentID: string
+  )
+  
+// get a student's data with their id
+getStudentData(studentID: string): Promise<UserClass>
+
+// get a student's files with an array of files their id
+// files contains all the submitted files for the assignment (this contains files for all students in the class)
+getStudentFiles(files: FileClass[], studentID: string)
+
+// get a student's links with an array of links their id
+getStudentLinks(links: LinkClass[], studentID: string)
+
+//get a student's github commits with an array of links their id
+getStudentCommits(commits: CommitClass[], studentID: string)
+
+// get a student's declined note with an array of declined notes and their id
+getStudentDeclinedNote(
+  declinedNotes: NoteClass[],
+  studentID: string
+): NoteClass
+
+// get a student's goal data with their uid and a goal object
+setStudentGoalData(studentID: string, goal: Goal)
+```
 
 ### Goal 
 Methods for getting information about goals and modifying a specific goal
 
+Methods:
+```ts
+// get goals for class supplied with classID
+  getGoalsForClass(classID: string): Promise<any>
+  
+// get individual goals for class supplied with classID and userID
+  getGoalsForClassWithId(classID: string, userID: string): Promise<any>
+  
+// get individual goal supplied with goalID
+  getGoalById(goalID: string): Promise<any>
+  
+// get goal by an array of goalIDs and the user's id
+  async getGoalsById(goalIDs: DocumentReference[], uid: string): Promise<any>
+  
+// get goal by document reference
+  getGoalByReference(doc: DocumentReference): Promise<any> 
+  
+// get a user's status of a goal
+  getUserStatus(
+    completedUsersID: string[],
+    pendingUsersID: string[],
+    declinedUsersID: string[],
+    userID: string
+  )
+  
+// check if the user has completed a goal
+  userHasCompleted(completedUsersID: string[], userID: string)
+  
+// assign a goal to one student
+  assignGoal(goal: Goal, uid: string): Promise<any>
+  
+// mark goal as complete
+  completeGoal(goal: Goal, uid: string): Promise<any>
+  
+// validate goal by checking its fields
+  validateGoal(goal: Goal)
+  
+// unsubmit a goal
+  unsubmitGoal(goal: Goal, uid: string): Promise<any>
+  
+// assign goal to multiple students
+  assignToStudents(goalID: string, studentID: string[]): void
+  
+// upload file to goal and Firebase
+  uploadFile(goalID: string, fileData: FileClass)
+  
+// update status of goal (missing, complete, uncompleted, declined)
+  updateGoalStatus(
+    goalID: string,
+    status: string,
+    uid: string,
+    rejectionNote?: string
+  ): Promise<any>
+  
+// create a goal
+  createGoal(goal: GoalClass): Promise<any>
+  
+// delete specific goal
+  deleteGoal(goalData: GoalClass): Promise<any>
+  
+// get file from database
+  getFileID(fileDownloadURL: string): Promise<any>
+  
+// delete link from goal
+  removeLinks(newLinks: LinkClass[], goalID: string): Promise<any>
+  
+// delete file from goal
+  async deleteFileFromGoal(file: FileClass, goalID: string): Promise<any>
+  
+// add a link to goal given goalID and link
+  addLinkToGoal(goalID: string, link: LinkClass): Promise<any>
+  
+// add a link to goal given goalID and link
+  addCommitToGoal(goalID: string, commit: Commit): Promise<any>
+  
+// update goal given new goal object and original goal
+  editGoal(goal: GoalClass, prevGoal: GoalClass): Promise<any>
+```
+
 ### Home
 Provides methods used in the home componenet (getting user data and goals)
+
+Methods:
+```ts
+// get goals from goalsCollection over time
+  getAddedGoals(): Observable<any>
+  
+// get user by uid
+  getUser(userId: string): Observable<any>
+```
 
 ## Ideas for New Features
 
