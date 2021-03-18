@@ -33,11 +33,26 @@ This project was generated with Angular CLI version 8.0.3.
 ### Goals
 Shows goals assigned to student in a table
 
+Methods:
+```ts
+// get goals for student given a goal array containing goal document refs
+  getStudentGoals(goalArray: DocumentReference[])
+  
+// opens a change-status or update-goal dialog
+  openDialog(data: any, userID: string, isCompleted: boolean, status: string)
+```
+
 ### Help
 A page that displays FAQ and contact information
 
 ### Home
 Home page of app. Allows for google sign in and sign up
+
+Methods:
+```ts
+// returns whether a specific goal is completed by the user
+  goalIsCompleted(hasCompleted: string[], userID: string)
+```
 
 ### Navbar
 Navbar containing Home button, Help button, and Log out button
@@ -50,22 +65,91 @@ Navbar displayed for users using a mobile device. Contains same buttons listed a
 ### Class List
 Shows a teacher's classes
 
+Methods:
+```ts
+// opens a specific class
+  goToCard(classID: string)
+  
+// gets classes for specific user
+  getClasses(userId: string)
+```
+
 ### Class
 Shows a teacher's assigned goals and student data on a table
+
+Methods:
+```ts
+// get all student data for a specific class
+  getStudentData()
+  
+// opens a page containing data about a specific student
+  openStudentData(studentID: string)
+```
 
 ### View Goal Data Components
 
 #### Goal Dashboard
 Displays information about a specific goal
 
+Methods:
+```ts
+// go back to clas page
+  navigateBack()
+  
+// get a specific class for teacher
+  getClass(id: string, teacherUID: string): Promise<any>
+  
+// get the goal 
+  getGoal(): Promise<any>
+```
+
 #### Goal Details
 Shows goal information along with student goal status
+
+Methods:
+```ts
+// opens up link in another tab
+  goToLink(urlToOpen: string)
+```
 
 #### Student Bar
 Shows all the students assigned to a specific goal
 
+Methods:
+```ts
+// get students assigned this goal
+   getStudentData() 
+   
+// method for viewing students stats on goal  
+   viewStudentData(uid: string)
+   
+// method for viewing all goal stats
+viewStudentsData()
+```
+
 ### View Student Data 
 View student information and progess on goals within a specific class
+
+Methods:
+```ts
+// go back to clas page
+  navigateBack()
+  
+// get data for a specific student
+  getStudentData()
+  
+// get goals for the student
+  getStudentGoals(): Promise<any>
+  
+// navigate to a specific goal page
+  navigateToGoal(goalID: string)
+  
+// check if a goal is completed
+  isCompleted(goal: GoalStat): Promise<boolean>
+
+// sorts goals by whether they are missing or completed
+sortGoals()
+```
 
 ## Dialog Components
 
