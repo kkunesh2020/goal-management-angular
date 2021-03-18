@@ -47,6 +47,7 @@ import { HelpComponent } from './help/help.component';
 import { CreateStudentGoalComponent } from './dialogs/create-student-goal/create-student-goal.component';
 import { UploadCommitComponent } from './dialogs/upload-commit/upload-commit.component';
 import { DirectorComponent } from './director/director.component';
+import { CreateClassComponent } from './create-class/create-class.component';
 
 
 
@@ -73,7 +74,8 @@ import { DirectorComponent } from './director/director.component';
     HelpComponent,
     CreateStudentGoalComponent,
     UploadCommitComponent,
-    DirectorComponent
+    DirectorComponent,
+    CreateClassComponent
   ],
   imports: [
     BrowserModule,
