@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
+import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -16,13 +17,9 @@ export class StudentAuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      this.authService.user$.subscribe(async (userProfile) => {
-        if (userProfile == null) {
+      this.authService.user$.subscribe((userProfile: User) => {
+        if (userProfile == null || userProfile.accountType !== 'student') {
           this.router.navigate(['/']);
-        } else {
-          if (userProfile.accountType === 'student') {
-            this.router.navigate(['/']);
-          }
         }
       });
       return true;
