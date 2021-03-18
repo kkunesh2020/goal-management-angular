@@ -28,23 +28,43 @@ This project was generated with Angular CLI version 8.0.3.
 1. Run ``ng build``
 2. Run ``firebase deploy``
 
-## Components
+## General Components
 
 ### Goals
+Shows goals assigned to student in a table
 
 ### Help
+A page that displays FAQ and contact information
 
 ### Home
+Home page of app. Allows for google sign in and sign up
 
 ### Navbar
-
-### Shared
+Navbar containing Home button, Help button, and Log out button
 
 ### Side Navbar
+Navbar displayed for users using a mobile device. Contains same buttons listed above
 
-### Teacher
+## Teacher Components
 
-## Dialogs
+### Class List
+Shows a teacher's classes
+
+### Class
+Shows a teacher's assigned goals and student data on a table
+
+### View Goal Data Components
+
+#### Goal Dashboard
+
+#### Goal Details
+
+#### Student Bar
+
+### View Student Data 
+
+
+## Dialog Components
 
 ### Change Status
 
