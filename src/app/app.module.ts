@@ -47,7 +47,7 @@ import { HelpComponent } from './help/help.component';
 import { CreateStudentGoalComponent } from './dialogs/create-student-goal/create-student-goal.component';
 import { UploadCommitComponent } from './dialogs/upload-commit/upload-commit.component';
 import { DirectorComponent } from './director/director.component';
-import { CreateClassComponent } from './create-class/create-class.component';
+import { CreateClassComponent } from './dialogs/create-class/create-class.component';
 
 
 
@@ -104,6 +104,7 @@ import { CreateClassComponent } from './create-class/create-class.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
-    DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent, CreateStudentGoalComponent, UploadCommitComponent]
+    DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent,
+     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent]
 })
 export class AppModule { }
