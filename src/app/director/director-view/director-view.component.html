@@ -1,1 +1,12 @@
-<p>director-view works!</p>
+<div class="=loading-shade" *ngIf="loading">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+  <div class="classes">
+    <mat-card class="block" *ngFor="let class of classes" (click)="goToCard(class.id)">
+      <mat-icon>class</mat-icon>
+      <h2>{{class.title}}</h2>
+      <p>{{class.students.length}} students</p>
+    </mat-card>
+  </div>
+  
+  

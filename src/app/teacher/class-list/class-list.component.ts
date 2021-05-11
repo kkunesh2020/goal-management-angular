@@ -14,7 +14,6 @@ export class ClassListComponent {
   classes: Class[];
   loading = true;
   constructor(
-    private afs: AngularFirestore,
     private classService: ClassService,
     private auth: AuthService,
     private router: Router
