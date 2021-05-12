@@ -1,1 +1,42 @@
-<p>create-class works!</p>
+
+<button mat-dialog-close class="exit">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+  </button>
+    <h1 mat-dialog-title>Create a Class</h1>
+    <div mat-dialog-content>
+
+        <!-- title, students, icon -->
+      <!-- Title -->
+      <p>
+        <mat-form-field>
+          <mat-label>Class Name</mat-label>
+          <input matInput [(ngModel)]="goal.description">
+        </mat-form-field>
+      </p>
+
+      <!-- Students -->
+        <h3>Students</h3>
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button [checked]="assignedToAll" value="true" [(ngModel)]="assignedToAll" ngDefaultControl (click)="assignAllStudents()">Everyone</mat-radio-button>
+          <mat-radio-button [checked]="!assignedToAll" value="false" [(ngModel)]="assignedToAll" ngDefaultControl (click)="resetList()">Specific</mat-radio-button>
+        </mat-radio-group>
+        <section class="student-section" [hidden]="assignedToAll">
+          <span class="example-list-section">
+            <ul *ngIf="data.students.length > 0">
+              <li *ngFor="let student of data.students">
+                <mat-checkbox (change)="checkSpecific(student.uid ,$event.checked)">
+                  {{student.name}}
+                </mat-checkbox>
+              </li>
+            </ul>
+          </span>
+        </section>
+        <input type="hidden" autofocus="true" class="hiddenInput"/>
+    </div>
+  
+    <mat-dialog-actions>
+      <div class="spacer"></div>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" (click)="createClass()" [class.spinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
+    </mat-dialog-actions>
+  
