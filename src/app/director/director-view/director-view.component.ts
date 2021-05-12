@@ -36,4 +36,28 @@ export class DirectorViewComponent implements OnInit {
     this.loading = false;
   }
 
+
+  createClassDialog() {
+    // opens up the create goal dialog to create a new goal
+    // const data = {
+    //   createdBy: this.user,
+    //   classID: this.classID,
+    //   students: this.classService.getStudentsData(this.class.students),
+    // };
+    // // passes in class data into the dialog
+    // const dialogRef = this.dialog.open(CreateGoalComponent, {
+    //   data,
+    //   width: '27rem',
+    //   height: '30rem',
+    //   panelClass: 'custom-modalbox',
+    // });
+
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result === 'success') {
+    //     // if a goal is created reshow goals
+    //     this.getAllGoalsForTeacher(this.classID);
+    //   }
+    // });
+  }
+
 }
