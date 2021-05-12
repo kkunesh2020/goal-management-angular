@@ -6,6 +6,7 @@ import {
   DocumentReference,
 } from '@angular/fire/firestore';
 import { StudentData } from 'src/app/teacher/class/class.component';
+import ClassClass from '../models/class';
 import { Class } from '../models/class.model';
 import UserClass from '../models/user';
 
@@ -76,6 +77,7 @@ export class ClassService {
     return studentData;
   }
 
+
   // get multiple students data with an array of student UIDs
   // @param studentUID: string[]
   async getStudentsDataByID(studentUID: string[]): Promise<any[]> {
@@ -124,8 +126,7 @@ export class ClassService {
   // get a user's class using their uid
   // @param userID: string
   getClasses(userID: string): Class[] {
-    const classes: Class[] = [];
-    console.log('getting classes for user');
+    let classes: Class[] = [];
     this.userCollection
       .doc(userID)
       .get()
@@ -163,9 +164,10 @@ export class ClassService {
       .get()
       .then((collection) => {
         const data = [];
-        for (let i = 0; i < collection.docs.length; i++) {
-          data.push(collection.docs[i].data());
-        }
+        collection.forEach((doc) => {
+          let classData: Class = {members: doc.data().students,  teacherUID: doc.data().teacherUID, goals: };
+          // data.push(new ClassClass(id: doc.id, ...doc.data()))
+        })
         return data;
       });
     return promise;

@@ -15,23 +15,16 @@ export class DirectorViewComponent {
   loading = true;
   constructor(
     private classService: ClassService,
-    private auth: AuthService,
     private router: Router
   ) {
-    this.auth.user$.subscribe(async (userProfile) => {
-      if (!userProfile) {
-        return;
-      }
-      this.getClasses(userProfile.uid);
-    });
   }
 
   goToCard(classID: string) {
     this.router.navigate([`/classes/${classID}`]);
   }
 
-  getClasses(userId: string) {
-    this.classes = this.classService.getClasses(userId);
+  getClasses() {
+    this.classes = this.classService.getAllClasses();
     this.loading = false;
   }
 
