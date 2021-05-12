@@ -13,15 +13,13 @@ import { ViewStudentDataComponent } from './teacher/view-student-data/view-stude
 import { GoalDashboardComponent } from './teacher/view-goal-data/goal-dashboard/goal-dashboard.component';
 import { HelpComponent } from './help/help.component';
 import { CreateClassComponent } from './dialogs/create-class/create-class.component';
-import { DirectorCreateComponent } from './director/director-create/director-create.component';
 import { DirectorViewComponent } from './director/director-view/director-view.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'goals', component: GoalsComponent, canActivate: [StudentAuthGuard]},
   {path: 'help', component: HelpComponent},
-  {path: 'director', component: DirectorCreateComponent},
-  {path: 'director-view', component: DirectorViewComponent},
+  {path: 'director', component: DirectorViewComponent, canActivate: [AuthGuard]},
   {path: 'classes', component: ClassListComponent, canActivate: [AuthGuard]},
   {path: 'classes/:classID', component: ClassComponent, canActivate: [ClassAuthGuard]},
   {path: 'classes/:classID/students/:studentID', component: ViewStudentDataComponent, canActivate: [ClassAuthGuard, TeacherAuthGuard]},
