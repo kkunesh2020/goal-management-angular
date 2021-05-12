@@ -11,6 +11,7 @@ import {
     MatSelectModule,
     MatTableModule,
     MatToolbarModule,
+    MatButtonToggleModule
 } from '@angular/material';
 import { DropzoneDirective } from './directives/dropzone.directive';
 
@@ -27,6 +28,7 @@ import { DropzoneDirective } from './directives/dropzone.directive';
         MatSelectModule,
         MatTableModule,
         MatToolbarModule,
+        MatButtonToggleModule
     ],
     exports: [
         MatButtonModule,
@@ -40,6 +42,7 @@ import { DropzoneDirective } from './directives/dropzone.directive';
         MatSelectModule,
         MatTableModule,
         MatToolbarModule,
+        MatButtonToggleModule
     ],
     declarations: [DropzoneDirective]
 })

@@ -42,16 +42,10 @@ export class DirectorViewComponent implements OnInit {
   }
 
 
-  createClassDialog() {
+  createClassDialog(classData: DirectorClass) {
     // opens up the create goal dialog to create a new goal
-    // const data = {
-    //   createdBy: this.user,
-    //   classID: this.classID,
-    //   students: this.classService.getStudentsData(this.class.students),
-    // };
     // passes in class data into the dialog
     const dialogRef = this.dialog.open(CreateClassComponent, {
-      // data,
       width: '27rem',
       height: '30rem',
       panelClass: 'custom-modalbox',

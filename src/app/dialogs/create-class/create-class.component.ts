@@ -17,6 +17,7 @@ export class CreateClassComponent implements OnInit {
   loading = false;
   assignedStudentID: string[] = [];
   assignedToAll: boolean;
+  icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'build', 'code', 'book_fill', 'biotech']
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
               public dialogRef: MatDialogRef<CreateGoalComponent>) {
@@ -30,10 +31,10 @@ export class CreateClassComponent implements OnInit {
   }
 
   assignAllStudents() {
-    this.assignedStudentID = [];
-    this.data.students.forEach(student => {
-      this.assignedStudentID.push(student.uid);
-    });
+    // this.assignedStudentID = [];
+    // this.data.students.forEach(student => {
+    //   this.assignedStudentID.push(student.uid);
+    // });
   }
 
 
