@@ -8,6 +8,8 @@ import {
 import { StudentData } from 'src/app/teacher/class/class.component';
 import ClassClass from '../models/class';
 import { Class } from '../models/class.model';
+import DirectorClassClass from '../models/directorClass';
+import { DirectorClass } from '../models/directorClass.model';
 import UserClass from '../models/user';
 
 @Injectable({
@@ -165,8 +167,8 @@ export class ClassService {
       .then((collection) => {
         const data = [];
         collection.forEach((doc) => {
-          let classData: Class = {members: doc.data().students,  teacherUID: doc.data().teacherUID, goals: };
-          // data.push(new ClassClass(id: doc.id, ...doc.data()))
+          let classData: DirectorClass = new DirectorClassClass(doc.data().members, doc.data().title, doc.data().teacherUID, doc.data().students, doc.id);
+          data.push(classData);
         })
         return data;
       });
