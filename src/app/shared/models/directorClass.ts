@@ -7,18 +7,21 @@ export default class DirectorClassClass implements DirectorClass {
     teacherUID: string;
     students: DocumentReference[];
     id: string;
+    studentEmails: string[];
 
   constructor(
     members: number,
     title: string,
     teacherUID: string, 
     students: DocumentReference[],
-    id: string
+    id: string,
+    studentEmails: string[]
     ) {
       this.members = members;
       this.title = title;
       this.teacherUID = teacherUID;
       this.students = students;
       this.id = id;
+      this.studentEmails = studentEmails;
     }
 }

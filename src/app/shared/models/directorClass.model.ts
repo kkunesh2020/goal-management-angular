@@ -5,5 +5,6 @@ export interface DirectorClass {
     title: string;
     teacherUID: string;
     students: DocumentReference[];
+    studentEmails: string[];
     id: string;
   }

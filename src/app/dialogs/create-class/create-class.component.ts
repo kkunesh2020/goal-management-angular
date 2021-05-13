@@ -26,7 +26,7 @@ export class CreateClassComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
               public dialogRef: MatDialogRef<CreateGoalComponent>) {
-    this.class = new DirectorClassClass(0, '', '', [], '');
+    this.class = new DirectorClassClass(0, '', '', [], '', []);
 
    }
 
@@ -62,9 +62,9 @@ export class CreateClassComponent implements OnInit {
     this.assignedStudentID = [];
   }
 
+
   enterStudent(){
     if(!this.validateEmail(this.studentEmailInput)){
-      alert("error")
       this.studentEmailError = "Invalid email! Please try again.";
       return;
     }
@@ -85,6 +85,7 @@ export class CreateClassComponent implements OnInit {
 
   createClass() {
     this.loading = true;
+    this.class.studentEmails = this.studentEmails;
     // this.goalService.createGoal(this.goal).then(() => {
     //   this.loading = false;
     //   this.dialogRef.close('success');

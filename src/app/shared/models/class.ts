@@ -8,6 +8,7 @@ export default class ClassClass implements Class {
   teacherUID: string;
   students: DocumentReference[];
   id: string;
+  studentEmails: string[];
   goals: DocumentReference[];
 
   constructor(
@@ -16,13 +17,15 @@ export default class ClassClass implements Class {
     teacherUID: string,
     students: DocumentReference[],
     id: string,
-    goals: DocumentReference[]
+    goals: DocumentReference[],
+    studentEmails: string[]
     ) {
       this.title = title;
       this.members = members;
       this.teacherUID = teacherUID;
       this.students = students;
       this.id = id;
+      this.studentEmails = studentEmails;
       this.goals = goals;
     }
 }
