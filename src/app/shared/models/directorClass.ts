@@ -8,6 +8,7 @@ export default class DirectorClassClass implements DirectorClass {
     students: DocumentReference[];
     id: string;
     studentEmails: string[];
+    classIcon: string;
 
   constructor(
     members: number,
@@ -15,7 +16,8 @@ export default class DirectorClassClass implements DirectorClass {
     teacherUID: string, 
     students: DocumentReference[],
     id: string,
-    studentEmails: string[]
+    studentEmails: string[],
+    classIcon: string
     ) {
       this.members = members;
       this.title = title;
@@ -23,5 +25,6 @@ export default class DirectorClassClass implements DirectorClass {
       this.students = students;
       this.id = id;
       this.studentEmails = studentEmails;
+      this.classIcon = classIcon;
     }
 }

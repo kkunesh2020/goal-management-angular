@@ -160,8 +160,9 @@ export class ClassService {
     return promise;
   }
 
-  async createClassFromDirectorModel(classData: DirectorClass){
-    this.classCollection.add({members: classData.members, title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: []});
+  createClassFromDirectorModel(classData: DirectorClass): Promise<any>{
+     const promise = this.classCollection.add({members: classData.members, title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: []});
+     return promise;
   }
 
    // get all classes from the collection
@@ -171,7 +172,7 @@ export class ClassService {
       .then((collection) => {
         const data = [];
         collection.forEach((doc) => {
-          let classData: DirectorClass = new DirectorClassClass(doc.data().members, doc.data().title, doc.data().teacherUID, doc.data().students, doc.id, doc.data().studentEmails);
+          let classData: DirectorClass = new DirectorClassClass(doc.data().members, doc.data().title, doc.data().teacherUID, doc.data().students, doc.id, doc.data().studentEmails, doc.data().classIcon);
           data.push(classData);
         })
         return data;

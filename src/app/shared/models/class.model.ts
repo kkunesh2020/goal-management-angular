@@ -8,5 +8,6 @@ export interface Class {
   students: DocumentReference[];
   goals: DocumentReference[];
   id: string;
+  classIcon: string;
   studentEmails: string[];
 }

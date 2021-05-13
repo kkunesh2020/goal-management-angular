@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import DirectorClassClass from 'src/app/shared/models/directorClass';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
+import { ClassService } from 'src/app/shared/services/class.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { CreateGoalComponent } from '../create-goal/create-goal.component';
 
@@ -25,26 +26,18 @@ export class CreateClassComponent implements OnInit {
   icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'build', 'code', 'book_fill', 'biotech']
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
-              public dialogRef: MatDialogRef<CreateGoalComponent>) {
-    this.class = new DirectorClassClass(0, '', '', [], '', []);
+              public dialogRef: MatDialogRef<CreateGoalComponent>, private classService: ClassService) {
+    this.class = new DirectorClassClass(0, '', '', [], '', [], 'book');
 
    }
 
   ngOnInit() {
   // initially assign to all students
-    this.assignAllStudents();
-  }
-
-  assignAllStudents() {
-    // this.assignedStudentID = [];
-    // this.data.students.forEach(student => {
-    //   this.assignedStudentID.push(student.uid);
-    // });
   }
 
 
   formComplete(): boolean {
-    return this.class.title != "" && this.class.students.length > 0;
+    return this.class.title != "" && this.studentEmails.length > 0;
   }
 
   checkSpecific(studentID: string, assigned: boolean) {
@@ -86,10 +79,10 @@ export class CreateClassComponent implements OnInit {
   createClass() {
     this.loading = true;
     this.class.studentEmails = this.studentEmails;
-    // this.goalService.createGoal(this.goal).then(() => {
-    //   this.loading = false;
-    //   this.dialogRef.close('success');
-    // });
+    this.class.members = this.studentEmails.length;
+    this.classService.createClassFromDirectorModel(this.class).then(() => {
+      // close dialog and update class list
+    })
   }
 
 }
