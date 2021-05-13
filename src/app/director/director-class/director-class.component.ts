@@ -14,9 +14,9 @@ export class DirectorClassComponent implements OnInit {
   loading: boolean = false;
   classID: string = "";
   classData: DirectorClass;
-  displayedColumns: string[] = ['name', 'email', 'edit'];
+  displayedColumns: string[] = ['name', 'email'];
   studentDataSource = [];
-  
+
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
@@ -32,13 +32,18 @@ export class DirectorClassComponent implements OnInit {
 
       this.classService.getClassDataForDirector(this.classID).then((classData) => {
         this.classData = classData;
-        this.loading = false;
+
+        this.classService.getStudentsByEmails(this.classData.studentEmails).then((studentData) => {
+          if (studentData) {
+            this.studentDataSource = studentData;
+            this.loading = false;
+          }
+        })
+
       })
 
-      this.classService.getStudentsByEmails(this.classData.studentEmails).then((studentData) => {
-        this.studentDataSource = studentData;
-      })
-      
+
+
     });
   }
 
