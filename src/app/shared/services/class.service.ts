@@ -172,7 +172,7 @@ export class ClassService {
   }
 
   createClassFromDirectorModel(classData: DirectorClass): Promise<any>{
-     const promise = this.classCollection.add({members: classData.members, title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: []});
+     const promise = this.classCollection.add({members: classData.members, title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: [], classIcon: classData.classIcon});
      return promise;
   }
 
