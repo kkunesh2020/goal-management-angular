@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import DirectorClassClass from 'src/app/shared/models/directorClass';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
+import { User } from 'src/app/shared/models/user.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { ClassService } from 'src/app/shared/services/class.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { CreateGoalComponent } from '../create-goal/create-goal.component';
@@ -17,15 +19,16 @@ export class CreateClassComponent implements OnInit {
 
   class: DirectorClass;
   loading = false;
+  teachers: User[] = [];
   studentEmailInput: string;
   assignedStudentID: string[] = [];
   studentEmails: string[] = [];
   studentEmailError: string = "";
   selectedIcon: string = "science";
   assignedToAll: boolean;
-  icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'build', 'code', 'book_fill', 'biotech']
+  icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'computer', 'code', 'book_fill', 'biotech']
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService, 
               public dialogRef: MatDialogRef<CreateGoalComponent>, private classService: ClassService) {
     this.class = new DirectorClassClass(0, '', '', [], '', [], 'book');
 
@@ -33,6 +36,7 @@ export class CreateClassComponent implements OnInit {
 
   ngOnInit() {
   // initially assign to all students
+    this.getTeacherData();
   }
 
 
@@ -53,6 +57,12 @@ export class CreateClassComponent implements OnInit {
     this.assignedToAll = false;
     console.log(this.assignedToAll);
     this.assignedStudentID = [];
+  }
+
+  getTeacherData(){
+    this.classService.getAllTeachers().then((teacher) => {
+      this.teachers = teacher;
+    })
   }
 
 
@@ -80,8 +90,10 @@ export class CreateClassComponent implements OnInit {
     this.loading = true;
     this.class.studentEmails = this.studentEmails;
     this.class.members = this.studentEmails.length;
+    this.class.classIcon = this.selectedIcon;
     this.classService.createClassFromDirectorModel(this.class).then(() => {
       // close dialog and update class list
+      this.loading = false;
     })
   }
 

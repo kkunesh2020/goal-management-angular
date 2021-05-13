@@ -24,6 +24,17 @@
 
       <br />
 
+      <p>Select Teacher:</p>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Class Teacher</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let teacher of teachers" [value]="teacher.uid">
+            {{teacher.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
         <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:(icons.length / 2):icons.length">
             <mat-icon>{{icon}}</mat-icon>

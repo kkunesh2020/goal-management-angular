@@ -11,6 +11,7 @@ import { Class } from '../models/class.model';
 import DirectorClassClass from '../models/directorClass';
 import { DirectorClass } from '../models/directorClass.model';
 import UserClass from '../models/user';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -163,6 +164,17 @@ export class ClassService {
   createClassFromDirectorModel(classData: DirectorClass): Promise<any>{
      const promise = this.classCollection.add({members: classData.members, title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: []});
      return promise;
+  }
+
+  getAllTeachers(): Promise<User[]>{
+    let teachers : User[] = [];
+    const promise = this.userCollection.where("isAdmin", "==", "true").get().then((snapshot) => {
+      snapshot.forEach((doc) => {
+        teachers.push(doc.data() as User);
+      })
+      return teachers;
+    })
+    return promise;
   }
 
    // get all classes from the collection
