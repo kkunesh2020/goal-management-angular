@@ -144,6 +144,16 @@ export class ClassService {
     return classes;
   }
 
+  getClassesByEmail(email: string): Class[]{
+    let classes: Class[] = [];
+    this.classCollection.where("studentEmails", "array-contains", email).get().then((snapshot) => {
+      snapshot.forEach((doc) => {
+        classes.push({...doc.data(), id: doc.id} as Class);
+      })
+    })
+    return classes;
+  }
+
   // get a teachers class with their uid and the class id
   // @param teacherUID: string, classID: string
   getClass(teacherUID: string, classID: string): Promise<any> {

@@ -22,7 +22,7 @@ export class ClassListComponent {
       if (!userProfile) {
         return;
       }
-      this.getClasses(userProfile.uid);
+      this.getClasses(userProfile.email);
     });
   }
 
@@ -30,8 +30,8 @@ export class ClassListComponent {
     this.router.navigate([`/classes/${classID}`]);
   }
 
-  getClasses(userId: string) {
-    this.classes = this.classService.getClasses(userId);
+  getClasses(email: string) {
+    this.classes = this.classService.getClassesByEmail(email);
     this.loading = false;
   }
 }
