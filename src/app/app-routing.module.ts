@@ -14,12 +14,14 @@ import { GoalDashboardComponent } from './teacher/view-goal-data/goal-dashboard/
 import { HelpComponent } from './help/help.component';
 import { CreateClassComponent } from './dialogs/create-class/create-class.component';
 import { DirectorViewComponent } from './director/director-view/director-view.component';
+import { DirectorClassComponent } from './director/director-class/director-class.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'goals', component: GoalsComponent, canActivate: [StudentAuthGuard]},
   {path: 'help', component: HelpComponent},
   {path: 'director', component: DirectorViewComponent, canActivate: [AuthGuard]},
+  {path: 'director/:classID', component: DirectorClassComponent, canActivate: [AuthGuard]},
   {path: 'classes', component: ClassListComponent, canActivate: [AuthGuard]},
   {path: 'classes/:classID', component: ClassComponent, canActivate: [ClassAuthGuard]},
   {path: 'classes/:classID/students/:studentID', component: ViewStudentDataComponent, canActivate: [ClassAuthGuard, TeacherAuthGuard]},
