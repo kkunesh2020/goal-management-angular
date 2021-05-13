@@ -42,7 +42,7 @@ export class DirectorViewComponent implements OnInit {
   }
 
 
-  createClassDialog(classData: DirectorClass) {
+  createClassDialog() {
     // opens up the create goal dialog to create a new goal
     // passes in class data into the dialog
     const dialogRef = this.dialog.open(CreateClassComponent, {
@@ -51,12 +51,12 @@ export class DirectorViewComponent implements OnInit {
       panelClass: 'custom-modalbox',
     });
 
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result === 'success') {
-    //     // if a goal is created reshow goals
-    //     this.getAllGoalsForTeacher(this.classID);
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.result === 'success') {
+        // if a goal is created reshow goals
+        this.classes.push(result.data);
+      }
+    });
   }
 
 }

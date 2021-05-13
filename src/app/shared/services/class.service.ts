@@ -168,8 +168,9 @@ export class ClassService {
 
   getAllTeachers(): Promise<User[]>{
     let teachers : User[] = [];
-    const promise = this.userCollection.where("isAdmin", "==", "true").get().then((snapshot) => {
+    const promise = this.userCollection.where("isAdmin", "==", true).get().then((snapshot) => {
       snapshot.forEach((doc) => {
+        console.log("teacher", doc.data());
         teachers.push(doc.data() as User);
       })
       return teachers;

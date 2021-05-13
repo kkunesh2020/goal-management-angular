@@ -94,6 +94,7 @@ export class CreateClassComponent implements OnInit {
     this.classService.createClassFromDirectorModel(this.class).then(() => {
       // close dialog and update class list
       this.loading = false;
+      this.dialogRef.close({result: 'success', data: this.class});
     })
   }
 
