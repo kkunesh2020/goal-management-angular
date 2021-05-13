@@ -47,7 +47,7 @@ export class DirectorViewComponent implements OnInit {
     // passes in class data into the dialog
     const dialogRef = this.dialog.open(CreateClassComponent, {
       width: '27rem',
-      height: '30rem',
+      height: '40rem',
       panelClass: 'custom-modalbox',
     });
 

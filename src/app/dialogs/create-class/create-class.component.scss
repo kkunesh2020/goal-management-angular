@@ -22,9 +22,31 @@ ul {
   mat-form-field {
     width: 80%;
   }
+
+  .student-email-input-error{
+    color: red;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .person-email{
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+
+      p{
+        margin-top: 3px;
+        margin-bottom: 3px;
+        margin-left: 5px;
+      }
+  }
   
   .mat-dialog-content{
     height: 75% !important;
+  }
+
+  .students-section{
+      margin-top: 1.5rem;
   }
   
   .exit{
