@@ -30,7 +30,7 @@ export class DirectorViewComponent implements OnInit {
   }
 
   goToCard(classID: string) {
-    this.router.navigate([`/classes/${classID}`]);
+    this.router.navigate([`/director/${classID}`]);
   }
 
   getClasses() {

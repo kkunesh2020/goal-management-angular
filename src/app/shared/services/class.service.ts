@@ -144,6 +144,15 @@ export class ClassService {
     return classes;
   }
 
+  getClassDataForDirector(id: string): Promise<DirectorClass>{
+    let returnData = null;
+    let promise = this.classCollection.doc(id).get().then((data) => {
+      returnData = {...data.data(), id: data.id} as DirectorClass;
+      return returnData;
+    })
+    return promise;
+  }
+
   getClassesByEmail(email: string): Class[]{
     let classes: Class[] = [];
     this.classCollection.where("studentEmails", "array-contains", email).get().then((snapshot) => {

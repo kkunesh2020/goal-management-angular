@@ -1,1 +1,5 @@
-<p>director-class works!</p>
+<div class="example-loading-shade" *ngIf="loading">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+</div>
+
+<h1 *ngIf="!loading">{{classData.title}} testing</h1>
