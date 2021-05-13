@@ -14,8 +14,6 @@ import { ClassService } from 'src/app/shared/services/class.service';
   styleUrls: ['./director-view.component.scss']
 })
 export class DirectorViewComponent implements OnInit {
-  // TODO: get stream of class data
-
   classes: DirectorClass[];
   loading = true;
   constructor(

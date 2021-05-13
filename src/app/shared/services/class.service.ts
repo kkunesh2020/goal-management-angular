@@ -101,6 +101,22 @@ export class ClassService {
     return promise;
   }
 
+  getStudentsByEmails(emails: string[]): Promise<any>{
+    let studentDataArray = [];
+    let promise = new Promise((resolve, reject) => {
+      emails.forEach((email) => {
+      this.userCollection.where("email", "==", email).get().then((studentData) => {
+        if(studentData){
+          studentDataArray.push(studentData);
+        }
+      }).catch((err) => reject(err));
+      resolve(studentDataArray);
+    })
+  })
+  
+    return promise;
+  }
+
   //  helper method for getting length of array
   getLengthOf(array: any[]) {
     if (array == null) {
