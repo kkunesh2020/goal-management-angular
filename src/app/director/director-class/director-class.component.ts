@@ -39,11 +39,7 @@ export class DirectorClassComponent implements OnInit {
             this.loading = false;
           }
         })
-
       })
-
-
-
     });
   }
 

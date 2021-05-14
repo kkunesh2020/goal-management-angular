@@ -88,8 +88,8 @@ export class CreateClassComponent implements OnInit {
 
   createClass() {
     this.loading = true;
-    this.class.studentEmails = this.studentEmails;
-    this.class.members = this.studentEmails.length;
+    this.class.studentEmails = [];
+    this.class.members = 0;
     this.class.classIcon = this.selectedIcon;
     this.classService.createClassFromDirectorModel(this.class).then(() => {
       // close dialog and update class list
