@@ -33,12 +33,17 @@ export class DirectorClassComponent implements OnInit {
       this.classService.getClassDataForDirector(this.classID).then((classData) => {
         this.classData = classData;
 
-        this.classService.getStudentsByEmails(this.classData.studentEmails).then((studentData) => {
-          if (studentData) {
-            this.studentDataSource = studentData;
-            this.loading = false;
-          }
-        })
+        if(this.classData.studentEmails.length != 0){
+          this.classService.getStudentsByEmails(this.classData.studentEmails).then((studentData) => {
+            if (studentData) {
+              this.studentDataSource = studentData;
+              this.loading = false;
+            }
+          })
+        }else{
+          this.loading = false;
+        }
+       
       })
     });
   }

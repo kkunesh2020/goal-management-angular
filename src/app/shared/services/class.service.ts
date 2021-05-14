@@ -196,8 +196,11 @@ export class ClassService {
     return promise;
   }
 
-  createClassFromDirectorModel(classData: DirectorClass): Promise<any>{
-     const promise = this.classCollection.add({members: classData.members, title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: [], classIcon: classData.classIcon});
+  async createClassFromDirectorModel(classData: DirectorClass): Promise<string>{
+     const promise = this.classCollection.add({members: classData.members, title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: [], classIcon: classData.classIcon})
+     .then((doc) => {
+      return doc.id;
+     });
      return promise;
   }
 

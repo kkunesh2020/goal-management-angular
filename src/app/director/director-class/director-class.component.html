@@ -2,7 +2,7 @@
     <mat-spinner *ngIf="loading"></mat-spinner>
 </div>
 
-<div *ngIf="classData">
+<div *ngIf="classData" class="classData">
     <h1 *ngIf="!loading">{{classData.title}}</h1>
     <h3 *ngIf="classData.studentEmails">{{classData.studentEmails.length}} students</h3>
     <h3>teacher name</h3>
@@ -30,8 +30,13 @@
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
           </table>
     </div>
+
+    <h3 *ngIf="classData.studentEmails.length == 0" class="warning">
+        There are no students added to this class yet.
+    </h3>
 </div>
 
 

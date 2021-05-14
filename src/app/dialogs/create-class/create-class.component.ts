@@ -41,7 +41,7 @@ export class CreateClassComponent implements OnInit {
 
 
   formComplete(): boolean {
-    return this.class.title != "" && this.studentEmails.length > 0;
+    return this.class.title != "";
   }
 
   checkSpecific(studentID: string, assigned: boolean) {
@@ -91,10 +91,10 @@ export class CreateClassComponent implements OnInit {
     this.class.studentEmails = [];
     this.class.members = 0;
     this.class.classIcon = this.selectedIcon;
-    this.classService.createClassFromDirectorModel(this.class).then(() => {
+    this.classService.createClassFromDirectorModel(this.class).then((id) => {
       // close dialog and update class list
       this.loading = false;
-      this.dialogRef.close({result: 'success', data: this.class});
+      this.dialogRef.close({result: 'success', data: {...this.class, id: id}});
     })
   }
 
