@@ -49,6 +49,7 @@ import { UploadCommitComponent } from './dialogs/upload-commit/upload-commit.com
 import { CreateClassComponent } from './dialogs/create-class/create-class.component';
 import { DirectorViewComponent } from './director/director-view/director-view.component';
 import { DirectorClassComponent } from './director/director-class/director-class.component';
+import { CreateStudentComponent } from './dialogs/create-student/create-student.component';
 
 
 
@@ -77,7 +78,8 @@ import { DirectorClassComponent } from './director/director-class/director-class
     UploadCommitComponent,
     CreateClassComponent,
     DirectorViewComponent,
-    DirectorClassComponent
+    DirectorClassComponent,
+    CreateStudentComponent
   ],
   imports: [
     BrowserModule,

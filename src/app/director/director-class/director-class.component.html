@@ -6,8 +6,7 @@
     <h1 *ngIf="!loading">{{classData.title}}</h1>
     <h3 *ngIf="classData.studentEmails">{{classData.studentEmails.length}} students</h3>
     <h3>teacher name</h3>
-    <p>Student Data</p>
-    
+    <button mat-button color="primary" id="createClassButton" ><mat-icon>add</mat-icon> Create Student</button>
     <div *ngIf="studentDataSource">
         <table mat-table [dataSource]="studentDataSource" class="table">
             <!-- Name Column -->
