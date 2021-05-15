@@ -19,6 +19,8 @@ button{
   .block{
     margin-top: 5%;
     width: 13rem;
+    flex: 1 0 18%;
+    flex-grow: 0;
     height: 13rem;
     margin-right: 30px;
     margin-left: 30px;
