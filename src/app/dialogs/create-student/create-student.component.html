@@ -2,47 +2,28 @@
 <button mat-dialog-close class="exit">
     <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
   </button>
-    <h1 mat-dialog-title>Create a Goal</h1>
+    <h1 mat-dialog-title>Add a Student</h1>
     <div mat-dialog-content>
-      <!-- Title -->
+      <!-- Name -->
       <p>
         <mat-form-field>
-          <mat-label>Goal Title</mat-label>
-          <input matInput [(ngModel)]="goal.description">
+          <mat-label>Student Name</mat-label>
+          <input matInput [(ngModel)]="studentData.name" type="text" placeholder="John Doe">
         </mat-form-field>
       </p>
-      <!-- Due Date -->
+      <!-- Email -->
       <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Due Date</mat-label>
-          <input matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)]="goal.dueDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+        <mat-form-field>
+          <mat-label>Student Email</mat-label>
+          <input matInput [(ngModel)]="studentData.email" type="email" placeholder="Eg. johndoe2024@chadwickschool.org">
         </mat-form-field>
       </p>
-      <!-- Students -->
-        <h3>Assign To</h3>
-        <mat-radio-group aria-label="Select an option">
-          <mat-radio-button [checked]="assignedToAll" value="true" [(ngModel)]="assignedToAll" ngDefaultControl (click)="assignAllStudents()">Everyone</mat-radio-button>
-          <mat-radio-button [checked]="!assignedToAll" value="false" [(ngModel)]="assignedToAll" ngDefaultControl (click)="resetList()">Specific</mat-radio-button>
-        </mat-radio-group>
-        <section class="student-section" [hidden]="assignedToAll">
-          <span class="example-list-section">
-            <ul *ngIf="data.students.length > 0">
-              <li *ngFor="let student of data.students">
-                <mat-checkbox (change)="checkSpecific(student.uid ,$event.checked)">
-                  {{student.name}}
-                </mat-checkbox>
-              </li>
-            </ul>
-          </span>
-        </section>
         <input type="hidden" autofocus="true" class="hiddenInput"/>
     </div>
   
     <mat-dialog-actions>
       <div class="spacer"></div>
       <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-raised-button color="primary" (click)="createGoal()" [class.spinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
+      <button mat-raised-button color="primary" (click)="createStudent()" [class.spinner]="loading" [disabled]="!formComplete() || loading">Add Student</button>
     </mat-dialog-actions>
   

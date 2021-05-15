@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { CreateStudentComponent } from 'src/app/dialogs/create-student/create-student.component';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ClassService } from 'src/app/shared/services/class.service';
@@ -49,6 +50,14 @@ export class DirectorClassComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  openStudentCreateModal(){
+    this.dialog.open(CreateStudentComponent, {
+      width: '27rem',
+      height: '27rem',
+      panelClass: 'custom-modalbox'
+    })
   }
 
 }

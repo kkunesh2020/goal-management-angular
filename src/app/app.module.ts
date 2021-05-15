@@ -109,6 +109,6 @@ import { CreateStudentComponent } from './dialogs/create-student/create-student.
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
     DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent,
-     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent]
+     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent, CreateStudentComponent]
 })
 export class AppModule { }
