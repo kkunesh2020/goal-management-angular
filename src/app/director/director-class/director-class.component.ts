@@ -53,11 +53,17 @@ export class DirectorClassComponent implements OnInit {
   }
 
   openStudentCreateModal(){
-    this.dialog.open(CreateStudentComponent, {
+    let ref = this.dialog.open(CreateStudentComponent, {
       width: '27rem',
       height: '27rem',
       panelClass: 'custom-modalbox',
       data: this.classData
+    })
+    ref.afterClosed().subscribe((data) => {
+      console.log("got the data", data);
+      if(data.id){
+        this.studentDataSource.push(data);
+      }
     })
   }
 

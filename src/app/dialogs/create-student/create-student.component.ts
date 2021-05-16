@@ -46,8 +46,9 @@ export class CreateStudentComponent implements OnInit {
   createStudent(){
     if(this.checkValidEmail(this.studentData.email) && this.checkChadwickEmail(this.studentData.email)){
       this.loading = true;
-      this.director.createStudentForClass(this.data.id, this.studentData).then(() => {
+      this.director.createStudentForClass(this.data.id, this.studentData).then((result) => {
         // close dialog
+        this.dialogRef.close(result);
       }).catch((err) => {
         alert("Something went wrong. Please try again");
       })
