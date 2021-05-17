@@ -3,8 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CreateStudentComponent } from 'src/app/dialogs/create-student/create-student.component';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
+import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ClassService } from 'src/app/shared/services/class.service';
+import { HomeService } from 'src/app/shared/services/home.service';
 
 @Component({
   selector: 'gms-director-class',
@@ -14,6 +16,7 @@ import { ClassService } from 'src/app/shared/services/class.service';
 export class DirectorClassComponent implements OnInit {
   loading: boolean = false;
   classID: string = "";
+  teacherData: User;
   classData: DirectorClass;
   displayedColumns: string[] = ['name', 'email'];
   students = [];
@@ -32,20 +35,17 @@ export class DirectorClassComponent implements OnInit {
         return;
       }
 
-      this.classService.getClassDataForDirector(this.classID).then((classData) => {
+      this.classService.getClassDataForDirector(this.classID).then(async (classData) => {
         this.classData = classData;
+        if(classData){
+          console.log("data2", classData);
+          this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
+        }
+        
 
         if(this.classData.studentEmails.length != 0){
            this.classService.getStudentsByEmails(this.classData.studentEmails).then((studentData) => {
-            // if (studentData) {
-            //   console.log("student data", studentData);
-            //   this.students.push(studentResult);
-            // }
-
-            console.log(studentData);
-            
             if(studentData.length > 0){
-              console.log("return data", studentData)
               this.studentDataSource = studentData;
             }
             this.loading = false;

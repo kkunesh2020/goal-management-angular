@@ -181,6 +181,14 @@ export class ClassService {
     return classes;
   }
 
+  getTeacherData(teacherUID: string): Promise<any>{
+    const promise = this.userCollection.doc(teacherUID).get().then((teacherDoc) => {
+      let teacherUser = {id: teacherDoc.id, ...teacherDoc.data()};
+      return teacherUser;
+    })
+    return promise;
+  }
+
   // get a teachers class with their uid and the class id
   // @param teacherUID: string, classID: string
   getClass(teacherUID: string, classID: string): Promise<any> {
