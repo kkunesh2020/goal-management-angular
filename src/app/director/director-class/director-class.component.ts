@@ -18,7 +18,7 @@ export class DirectorClassComponent implements OnInit {
   classID: string = "";
   teacherData: User;
   classData: DirectorClass;
-  displayedColumns: string[] = ['name', 'email'];
+  displayedColumns: string[] = ['name', 'email', 'edit'];
   students = [];
   studentDataSource = [];
 
@@ -37,13 +37,10 @@ export class DirectorClassComponent implements OnInit {
 
       this.classService.getClassDataForDirector(this.classID).then(async (classData) => {
         this.classData = classData;
-        console.log("gottem", classData);
         if(classData){
-          console.log("data2", classData);
           this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
         }
         
-
         if(this.classData.studentEmails.length != 0){
            this.classService.getStudentsByEmails(this.classData.studentEmails).then((studentData) => {
             if(studentData.length > 0){
@@ -60,6 +57,14 @@ export class DirectorClassComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  editDialog(data: any){
+
+  }
+
+  deleteDialog(data: any){
+
   }
 
   openStudentCreateModal(){
