@@ -28,10 +28,13 @@ export class CreateClassComponent implements OnInit {
   assignedToAll: boolean;
   icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'computer', 'code', 'book_fill', 'biotech']
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService, 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService, private authService: AuthService, 
               public dialogRef: MatDialogRef<CreateGoalComponent>, private classService: ClassService) {
     this.class = new DirectorClassClass(0, '', '', [], '', [], 'book');
-
+    this.authService.user$.subscribe(async (userProfile) => {
+      this.class.teacherUID = userProfile.uid;
+    });
+    
    }
 
   ngOnInit() {

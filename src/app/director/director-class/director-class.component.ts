@@ -37,6 +37,7 @@ export class DirectorClassComponent implements OnInit {
 
       this.classService.getClassDataForDirector(this.classID).then(async (classData) => {
         this.classData = classData;
+        console.log("gottem", classData);
         if(classData){
           console.log("data2", classData);
           this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
