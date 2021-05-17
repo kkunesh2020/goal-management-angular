@@ -76,10 +76,11 @@ export class DirectorClassComponent implements OnInit {
   }
 
   deleteDialog(data: any){
+    console.log("deleting", data);
     const dialogRef = this.dialog.open(DeleteStudentComponent, {
       data: data,
-      height: '23rem',
-      width: '30rem',
+      height: '16rem',
+      width: '25rem',
     });
 
    dialogRef.afterClosed().subscribe((returnData) => {

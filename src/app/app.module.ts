@@ -113,6 +113,6 @@ import { DeleteStudentComponent } from './dialogs/delete-student/delete-student.
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
     DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent,
-     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent, CreateStudentComponent]
+     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent, CreateStudentComponent, DeleteStudentComponent]
 })
 export class AppModule { }
