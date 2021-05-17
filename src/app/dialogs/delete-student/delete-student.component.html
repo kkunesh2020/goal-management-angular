@@ -1,1 +1,10 @@
-<p>delete-student works!</p>
+<button mat-dialog-close class="exit">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+  </button>
+  
+  <h1 mat-dialog-title>Delete student, <b>{{studentData.name}}?</b></h1>
+  <div mat-dialog-content>
+      <p>Be careful! This will permanently the student from this class.</p>
+      <button mat-raised-button color="warn" class="deleteButton" (click)="deleteStudent()" [class.spinner]="loading">Delete Student</button>
+  </div>
+  
