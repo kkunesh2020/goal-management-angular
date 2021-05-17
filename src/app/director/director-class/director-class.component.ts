@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CreateStudentComponent } from 'src/app/dialogs/create-student/create-student.component';
+import { DeleteStudentComponent } from 'src/app/dialogs/delete-student/delete-student.component';
+import { UpdateStudentComponent } from 'src/app/dialogs/update-student/update-student.component';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
 import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -60,11 +62,31 @@ export class DirectorClassComponent implements OnInit {
   }
 
   editDialog(data: any){
+    const dialogRef = this.dialog.open(UpdateStudentComponent, {
+      data: data,
+      height: '23rem',
+      width: '30rem',
+    });
 
+   dialogRef.afterClosed().subscribe((returnData) => {
+     if(returnData){
+       // update data manaully here
+     }
+   })
   }
 
   deleteDialog(data: any){
+    const dialogRef = this.dialog.open(DeleteStudentComponent, {
+      data: data,
+      height: '23rem',
+      width: '30rem',
+    });
 
+   dialogRef.afterClosed().subscribe((returnData) => {
+     if(returnData){
+       // delete data manaully here
+     }
+   })
   }
 
   openStudentCreateModal(){
