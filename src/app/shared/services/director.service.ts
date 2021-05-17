@@ -73,4 +73,21 @@ export class DirectorService {
     
     return promise;
   }
+
+   deleteStudentFromClass(classData: DirectorClass, studentData: any): Promise<any>{
+    const promise = new Promise(async(resolve, reject) => {
+      await this.classCollection.doc(classData.id).update({
+        students: firebase.firestore.FieldValue.arrayRemove(this.userCollection.doc(studentData.uid))
+      })
+
+      await this.userCollection.doc(studentData.uid).update({
+        classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classData.id))
+      })
+      
+      resolve(studentData);
+    })
+    return promise;
+  }
+
+  
 }
