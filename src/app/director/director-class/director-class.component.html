@@ -7,7 +7,7 @@
     <h3 *ngIf="classData.studentEmails">{{classData.studentEmails.length}} students</h3>
     <h3>teacher name</h3>
     <button mat-button color="primary" id="createClassButton" (click)="openStudentCreateModal()"><mat-icon>add</mat-icon> Create Student</button>
-    <div *ngIf="studentDataSource">
+    <div *ngIf="studentDataSource && studentDataSource.length > 0">
         <table mat-table [dataSource]="studentDataSource" class="table">
             <!-- Name Column -->
             <ng-container matColumnDef="name">

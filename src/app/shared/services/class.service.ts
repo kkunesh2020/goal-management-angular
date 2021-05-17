@@ -107,10 +107,12 @@ export class ClassService {
       emails.forEach((email) => {
       this.userCollection.where("email", "==", email).get().then((studentData) => {
         if(studentData){
-          studentDataArray.push(studentData);
+         studentData.forEach((studentDoc) => {
+          studentDataArray.push({...studentDoc.data()});
+         })
         }
+        resolve(studentDataArray);
       }).catch((err) => reject(err));
-      resolve(studentDataArray);
     })
   })
   

@@ -16,6 +16,7 @@ export class DirectorClassComponent implements OnInit {
   classID: string = "";
   classData: DirectorClass;
   displayedColumns: string[] = ['name', 'email'];
+  students = [];
   studentDataSource = [];
 
   constructor(
@@ -35,11 +36,19 @@ export class DirectorClassComponent implements OnInit {
         this.classData = classData;
 
         if(this.classData.studentEmails.length != 0){
-          this.classService.getStudentsByEmails(this.classData.studentEmails).then((studentData) => {
-            if (studentData) {
+           this.classService.getStudentsByEmails(this.classData.studentEmails).then((studentData) => {
+            // if (studentData) {
+            //   console.log("student data", studentData);
+            //   this.students.push(studentResult);
+            // }
+
+            console.log(studentData);
+            
+            if(studentData.length > 0){
+              console.log("return data", studentData)
               this.studentDataSource = studentData;
-              this.loading = false;
             }
+            this.loading = false;
           })
         }else{
           this.loading = false;
