@@ -5,6 +5,7 @@ import {
   CollectionReference,
   DocumentReference,
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { StudentData } from 'src/app/teacher/class/class.component';
 import ClassClass from '../models/class';
 import { Class } from '../models/class.model';
@@ -99,6 +100,11 @@ export class ClassService {
       return doc.data();
     });
     return promise;
+  }
+
+  getDataForClass(classID: string) : Observable<DirectorClass | undefined>{
+    let doc = this.afs.collection("classes").doc<DirectorClass>(classID).valueChanges();
+    return doc;
   }
 
   getStudentsByEmails(emails: string[]): Promise<any>{

@@ -37,23 +37,19 @@ export class DirectorClassComponent implements OnInit {
         return;
       }
 
-      this.classService.getClassDataForDirector(this.classID).then(async (classData) => {
-        this.classData = classData;
-        if(classData){
-          this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
-        }
-        
-        if(this.classData.studentEmails.length != 0){
-           this.classService.getStudentsByEmails(this.classData.studentEmails).then((studentData) => {
-            if(studentData.length > 0){
-              this.studentDataSource = studentData;
-            }
-            this.loading = false;
-          })
-        }else{
-          this.loading = false;
-        }
-       
+      this.classService.getDataForClass(this.classID).subscribe(async(classData) => {
+        this.loading = true;
+        console.log("classss", classData);
+          this.classData = classData;
+          if(classData){
+            this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
+          }
+          this.classService.getStudentsByEmails(classData.studentEmails).then((studentData) => {
+          if(studentData.length > 0){
+            this.studentDataSource = studentData;
+          }
+        });
+        this.loading = false;
       })
     });
   }
@@ -99,7 +95,7 @@ export class DirectorClassComponent implements OnInit {
     })
     ref.afterClosed().subscribe((data) => {
       console.log("got the data", data);
-      if(data.id){
+      if(data.uid){
         this.studentDataSource.push(data);
       }
     })

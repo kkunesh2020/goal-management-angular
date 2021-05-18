@@ -66,26 +66,22 @@ export class DirectorService {
     let promise = new Promise(async(resolve, reject) => {
       let studentResult = await this.getStudentDataByEmail(studentData.email);
       let result = await this.assignStudentToClass(classId, studentResult).catch((err) => {
-        console.log("nope", err);
         reject(err);
       });
       if(!result){
-        console.log("student 1", studentData);
-        console.log("resulttt", studentResult);
         this.classCollection.doc(classId).update({
           students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentResult.uid))
         }).catch((err) => {
-          console.log("errrr", err);
+          console.log("ERROR", err);
         }).then(() => {
-          console.log("yayyyy");
-          resolve(studentData);
+          resolve(studentResult);
         })
       }else{
         this.classCollection.doc(classId).update({
           students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(result))
         })
         studentData.id = result;
-        resolve(studentData);
+        resolve(studentResult);
       }
 
     });
