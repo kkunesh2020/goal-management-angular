@@ -12,6 +12,26 @@
     height: 100%;
   }
 
+  .topData{
+    position: relative;
+    .edit-icon{
+      position: absolute;
+      top: -4px;
+      right: 37%;
+    }
+  }
+
+  
+
+  mat-spinner{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+  }
+  
 
 .warning{
     font-weight: normal;
