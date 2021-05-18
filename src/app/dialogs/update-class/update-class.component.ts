@@ -9,6 +9,7 @@ import { ClassService } from 'src/app/shared/services/class.service';
 })
 export class UpdateClassComponent implements OnInit {
   class: any;
+  initialClass: any;
   errorMessage: string = "";
   loading: boolean = false;
   selectedIcon: string = "";
@@ -21,14 +22,16 @@ export class UpdateClassComponent implements OnInit {
 
   ngOnInit() {
     console.log("opened", this.data);
-    this.class = this.data;
+    this.class = {...this.data};
+    this.initialClass = {...this.data};
+    this.selectedIcon = this.data.classIcon;
     //this.getTeacherData();
   }
 
   
   
     formComplete(): boolean {
-      return this.class.title != "";
+      return  (this.class.title != this.initialClass.title) || (this.selectedIcon != this.initialClass.classIcon);
     }
   
     checkSpecific(studentID: string, assigned: boolean) {
@@ -70,6 +73,11 @@ export class UpdateClassComponent implements OnInit {
   
     setSelectedIcon(icon: string){
       this.selectedIcon = icon;
+    }
+
+    createClass(){
+      console.log(this.initialClass);
+      console.log(this.class)
     }
   
   

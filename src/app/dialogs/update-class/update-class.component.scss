@@ -120,6 +120,13 @@
     cursor: pointer;
   }
   
+  .spacer{
+    width: 43%;
+  }
+
+  mat-dialog-actions{
+      margin-top: 2rem;
+  }
   .link{
     color: rgb(60, 67, 70);
   }
