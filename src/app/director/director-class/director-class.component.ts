@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CreateStudentComponent } from 'src/app/dialogs/create-student/create-student.component';
 import { DeleteStudentComponent } from 'src/app/dialogs/delete-student/delete-student.component';
+import { UpdateClassComponent } from 'src/app/dialogs/update-class/update-class.component';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
 import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -55,6 +56,23 @@ export class DirectorClassComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+  editDialog(){
+    const dialogRef = this.dialog.open(UpdateClassComponent, {
+      data: this.classData,
+      height: '16rem',
+      width: '25rem',
+    });
+
+   dialogRef.afterClosed().subscribe((returnData) => {
+     if(returnData){ 
+       this.classData.title = returnData.title;
+       this.classData.classIcon = returnData.classIcon;
+       this.classData.teacherUID = returnData.teacherUID;
+     }
+   })
   }
 
 
