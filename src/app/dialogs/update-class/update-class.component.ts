@@ -24,7 +24,6 @@ export class UpdateClassComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private classService: ClassService, public dialogRef: MatDialogRef<UpdateClassComponent>) { }
 
   ngOnInit() {
-    console.log("opened", this.data);
     this.class = {...this.data};
     this.initialClass = {...this.data};
     this.selectedIcon = this.data.classIcon;
@@ -33,6 +32,9 @@ export class UpdateClassComponent implements OnInit {
 
 
     formComplete(): boolean {
+      if(this.teacherData){
+        if(this.teacherData.uid != this.initialClass.teacherUID) return true;
+      }
       return  (this.class.title != this.initialClass.title) || (this.selectedIcon != this.initialClass.classIcon);
     }
   
@@ -65,17 +67,7 @@ export class UpdateClassComponent implements OnInit {
         })
       })
     }
-  
-  
-    // enterStudent(){
-    //   if(!this.validateEmail(this.studentEmailInput)){
-    //     this.studentEmailError = "Invalid email! Please try again.";
-    //     return;
-    //   }
-    //   this.studentEmails.push(this.studentEmailInput);
-    //   this.studentEmailInput = "";
-    //   this.studentEmailError = "";
-    // }
+
   
     validateEmail(email) {
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
