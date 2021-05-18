@@ -13,10 +13,10 @@
 
       <p>Select Teacher:</p>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" *ngIf="teacherData">
         <mat-label>Class Teacher</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let teacher of teachers" [value]="teacher.uid">
+        <mat-select [(ngModel)]="teacherData" [compareWith]="compareObjects">
+          <mat-option *ngFor="let teacher of teachers" [value]="teacher">
             {{teacher.name}}
           </mat-option>
         </mat-select>

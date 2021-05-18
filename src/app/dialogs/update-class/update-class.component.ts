@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
+import { User } from 'src/app/shared/models/user.model';
 import { ClassService } from 'src/app/shared/services/class.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { ClassService } from 'src/app/shared/services/class.service';
 export class UpdateClassComponent implements OnInit {
   class: DirectorClass;
   initialClass: any;
+  teacherData: User;
   errorMessage: string = "";
   loading: boolean = false;
   selectedIcon: string = "";
@@ -26,7 +28,7 @@ export class UpdateClassComponent implements OnInit {
     this.class = {...this.data};
     this.initialClass = {...this.data};
     this.selectedIcon = this.data.classIcon;
-    //this.getTeacherData();
+    this.getTeacherData(this.class.teacherUID);
   }
 
 
@@ -42,16 +44,25 @@ export class UpdateClassComponent implements OnInit {
       }
     }
   
-  
     resetList() {
       this.assignedToAll = false;
       console.log(this.assignedToAll);
       this.assignedStudentID = [];
     }
+
+    compareObjects(o1: any, o2: any): boolean {
+      return o1.name === o2.name && o1.uid === o2.uid;
+    }
   
-    getTeacherData(){
+    getTeacherData(teacherUID: string){
       this.classService.getAllTeachers().then((teacher) => {
+        console.log("setting", teacher);
         this.teachers = teacher;
+        this.teachers.forEach((teacher) => {
+          if(teacher.uid == teacherUID){
+            this.teacherData = teacher;
+          }
+        })
       })
     }
   
@@ -78,6 +89,7 @@ export class UpdateClassComponent implements OnInit {
     updateClass() {
       this.loading = true;
       this.class.classIcon = this.selectedIcon;
+      this.class.teacherUID = this.teacherData.uid;
       this.classService.updateClassForDirector(this.class).then((id) => {
         // close dialog and update class list
         this.loading = false;
