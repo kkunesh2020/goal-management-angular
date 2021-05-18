@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DirectorClass } from 'src/app/shared/models/directorClass.model';
 import { ClassService } from 'src/app/shared/services/class.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ClassService } from 'src/app/shared/services/class.service';
   styleUrls: ['./update-class.component.scss']
 })
 export class UpdateClassComponent implements OnInit {
-  class: any;
+  class: DirectorClass;
   initialClass: any;
   errorMessage: string = "";
   loading: boolean = false;
@@ -18,7 +19,7 @@ export class UpdateClassComponent implements OnInit {
   icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'computer', 'code', 'book_fill', 'biotech'];
   teachers = [];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private classService: ClassService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private classService: ClassService, public dialogRef: MatDialogRef<UpdateClassComponent>) { }
 
   ngOnInit() {
     console.log("opened", this.data);
@@ -28,8 +29,7 @@ export class UpdateClassComponent implements OnInit {
     //this.getTeacherData();
   }
 
-  
-  
+
     formComplete(): boolean {
       return  (this.class.title != this.initialClass.title) || (this.selectedIcon != this.initialClass.classIcon);
     }
@@ -75,22 +75,14 @@ export class UpdateClassComponent implements OnInit {
       this.selectedIcon = icon;
     }
 
-    createClass(){
-      console.log(this.initialClass);
-      console.log(this.class)
+    updateClass() {
+      this.loading = true;
+      this.class.classIcon = this.selectedIcon;
+      this.classService.updateClassForDirector(this.class).then((id) => {
+        // close dialog and update class list
+        this.loading = false;
+        this.dialogRef.close({result: 'success', data: {...this.class, id: id}});
+      })
     }
-  
-  
-    // createClass() {
-    //   this.loading = true;
-    //   this.class.studentEmails = [];
-    //   this.class.members = 0;
-    //   this.class.classIcon = this.selectedIcon;
-    //   this.classService.createClassFromDirectorModel(this.class).then((id) => {
-    //     // close dialog and update class list
-    //     this.loading = false;
-    //     this.dialogRef.close({result: 'success', data: {...this.class, id: id}});
-    //   })
-    // }
   
 }

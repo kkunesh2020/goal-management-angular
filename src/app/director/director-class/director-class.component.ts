@@ -68,9 +68,9 @@ export class DirectorClassComponent implements OnInit {
 
    dialogRef.afterClosed().subscribe((returnData) => {
      if(returnData){ 
-       this.classData.title = returnData.title;
-       this.classData.classIcon = returnData.classIcon;
-       this.classData.teacherUID = returnData.teacherUID;
+       this.classData.title = returnData.data.title;
+       this.classData.classIcon = returnData.data.classIcon;
+       this.classData.teacherUID = returnData.data.teacherUID;
      }
    })
   }
