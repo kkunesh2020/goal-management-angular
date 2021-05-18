@@ -144,6 +144,7 @@ export class ClassService {
         goalsAssigned: this.getLengthOf(student.goalsAssigned),
         goalsCompleted: this.getLengthOf(student.goalsCompleted),
         id: studentRef.id,
+        email: student.email
       } as StudentData;
       studentsData.push(data);
     }

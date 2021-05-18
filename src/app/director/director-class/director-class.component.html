@@ -4,7 +4,7 @@
 
 <div *ngIf="classData" class="classData">
   <h1 *ngIf="!loading">{{classData.title}}</h1>
-  <h3 *ngIf="classData.studentEmails">{{classData.studentEmails.length}} students</h3>
+  <h3 *ngIf="classData.studentEmails">{{studentDataSource.length}} students</h3>
   <h3 *ngIf="teacherData">{{teacherData.name}}</h3>
   <button mat-button color="primary" id="createClassButton" (click)="openStudentCreateModal()">
     <mat-icon>add</mat-icon> Create Student
