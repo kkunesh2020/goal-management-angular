@@ -75,7 +75,7 @@ export class DirectorClassComponent implements OnInit {
   deleteDialog(data: any){
     console.log("deleting", data);
     const dialogRef = this.dialog.open(DeleteStudentComponent, {
-      data: data,
+      data: {student: data, class: this.classData},
       height: '16rem',
       width: '25rem',
     });
