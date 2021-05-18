@@ -1,12 +1,49 @@
-<button mat-dialog-close class="exit">
-    <mat-icon class="exitIcon">clear</mat-icon>
-  </button>
-  <div mat-dialog-content>
-  
 
-    <div class="actionButton" *ngIf="isCompleted">
-      <button mat-raised-button color="primary" class="acButton" *ngIf="!isLoading" (click)="updateGoal(false)">Unsubmit</button>
+<button mat-dialog-close class="exit">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+  </button>
+    <div mat-dialog-content>
+      <!-- Title -->
+      <p>
+        <mat-form-field>
+          <mat-label>Class Name</mat-label>
+          <input matInput [(ngModel)]="class.title">
+        </mat-form-field>
+      </p>
+
+      <p>Select Teacher:</p>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Class Teacher</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let teacher of teachers" [value]="teacher.uid">
+            {{teacher.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <p>Select Class Icon: </p>
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:0:(icons.length / 2)">
+            <mat-icon>{{icon}}</mat-icon>
+        </mat-button-toggle>        
+      </mat-button-toggle-group>
+
+      <br />
+
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:(icons.length / 2):icons.length">
+            <mat-icon>{{icon}}</mat-icon>
+        </mat-button-toggle>       
+      </mat-button-toggle-group>
+
+
     </div>
   
-  </div>
+    <mat-dialog-actions>
+      <div class="spacer"></div>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" (click)="createClass()" [class.spinner]="loading" [disabled]="!formComplete() || loading">Create Class</button>
+    </mat-dialog-actions>
   
