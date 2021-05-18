@@ -42,7 +42,7 @@ export class DirectorService {
         return dataToAdd.uid;
       }else{
         // update student data
-        this.userCollection.doc(studentData.id).update({
+        this.userCollection.doc(studentData.uid).update({
           classes: firebase.firestore.FieldValue.arrayUnion(this.classCollection.doc(classID))
         })
         return null;
@@ -50,17 +50,36 @@ export class DirectorService {
     });
     return promise;
   }
+
+  async getStudentDataByEmail(email: string): Promise<any>{
+    let promise = this.userCollection.where("email", "==", email).get().then((data) => {
+      return data.docs[0].data();
+    }).catch((err) => {
+      console.log("ERROR", err);
+    })
+    return promise;
+  }
   
   async createStudentForClass(classId: string, studentData: any): Promise<any>{
     // create student data if necessary
     // add student uid to class 
     let promise = new Promise(async(resolve, reject) => {
-      let result = await this.assignStudentToClass(classId, studentData).catch((err) => reject(err));
+      let studentResult = await this.getStudentDataByEmail(studentData.email);
+      let result = await this.assignStudentToClass(classId, studentResult).catch((err) => {
+        console.log("nope", err);
+        reject(err);
+      });
       if(!result){
+        console.log("student 1", studentData);
+        console.log("resulttt", studentResult);
         this.classCollection.doc(classId).update({
-          students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentData.id))
+          students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentResult.uid))
+        }).catch((err) => {
+          console.log("errrr", err);
+        }).then(() => {
+          console.log("yayyyy");
+          resolve(studentData);
         })
-        resolve(studentData);
       }else{
         this.classCollection.doc(classId).update({
           students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(result))
@@ -89,5 +108,5 @@ export class DirectorService {
     return promise;
   }
 
-  
+
 }

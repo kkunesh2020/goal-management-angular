@@ -84,8 +84,8 @@ export class DirectorClassComponent implements OnInit {
     });
 
    dialogRef.afterClosed().subscribe((returnData) => {
-     if(returnData){
-       // delete data manaully here
+     if(returnData){ 
+       this.studentDataSource = this.studentDataSource.filter(student => student.id != returnData.uid);
      }
    })
   }
