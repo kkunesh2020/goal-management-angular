@@ -47,7 +47,8 @@ export class DirectorClassComponent implements OnInit {
             this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
           }
           // replace with email code
-          this.classService.getStudentsDataByReference(classData.students).then((studentData) => {
+          this.classService.getStudentsByEmails(classData.students).then((studentData) => {
+          console.log("got student data by emails", studentData)
           if(studentData.length > 0){
             this.studentDataSource = studentData;
           }

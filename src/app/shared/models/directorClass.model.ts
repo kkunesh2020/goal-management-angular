@@ -4,7 +4,7 @@ export interface DirectorClass {
     members: number;
     title: string;
     teacherUID: string;
-    students: DocumentReference[];
+    students: any[];
     studentEmails: string[];
     id: string;
     classIcon: string;

@@ -107,9 +107,9 @@ export class ClassService {
     return doc;
   }
 
-  getStudentsByEmails(emails: string[]): Promise<any>{
+   getStudentsByEmails(emails: string[]): Promise<any>{
     let studentDataArray = [];
-    let promise = new Promise((resolve, reject) => {
+    let promise = new Promise(async(resolve, reject) => {
       emails.forEach((email) => {
       this.userCollection.where("email", "==", email).get().then((studentData) => {
         if(studentData){
@@ -117,8 +117,8 @@ export class ClassService {
           studentDataArray.push({...studentDoc.data()});
          })
         }
-        resolve(studentDataArray);
       }).catch((err) => reject(err));
+      resolve(studentDataArray);
     })
   })
   
