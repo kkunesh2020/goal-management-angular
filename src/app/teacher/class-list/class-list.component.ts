@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Class } from 'src/app/shared/models/class.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -22,7 +22,12 @@ export class ClassListComponent {
       if (!userProfile) {
         return;
       }
-      this.getClasses(userProfile.email);
+      if(userProfile.accountType == "teacher"){
+        this.getTeacherClasses(userProfile.email);
+      }else{
+        this.getStudentClasses(userProfile.uid);
+      }
+      
     });
   }
 
@@ -30,8 +35,13 @@ export class ClassListComponent {
     this.router.navigate([`/classes/${classID}`]);
   }
 
-  getClasses(email: string) {
+  getTeacherClasses(email: string) {
     this.classes = this.classService.getClassesByEmail(email);
+    this.loading = false;
+  }
+
+  getStudentClasses(uid: string){
+    this.classes = this.classService.getClasses(uid);
     this.loading = false;
   }
 }

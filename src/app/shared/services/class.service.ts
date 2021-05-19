@@ -162,7 +162,7 @@ export class ClassService {
       .then((doc) => {
         if (doc.exists) {
           doc.data().classes.forEach((ref) => {
-            ref.get().then((paper) => classes.push(paper.data()));
+            ref.get().then((paper) => classes.push({id: paper.id, ...paper.data()}));
           });
         }
       })
