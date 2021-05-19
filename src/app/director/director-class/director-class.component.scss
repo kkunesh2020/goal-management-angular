@@ -12,17 +12,11 @@
     height: 100%;
   }
 
-  .topData{
-    position: relative;
-    .edit-icon{
-      position: absolute;
-      top: -4px;
-      right: 37%;
-    }
+  .edit-icon{
+    right: 6%;
+    position: absolute;
+    top: 10%;
   }
-
-  
-
   mat-spinner{
     position: absolute;
     top: 30%;

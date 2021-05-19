@@ -52,6 +52,7 @@ import { DirectorClassComponent } from './director/director-class/director-class
 import { CreateStudentComponent } from './dialogs/create-student/create-student.component';
 import { DeleteStudentComponent } from './dialogs/delete-student/delete-student.component';
 import { UpdateClassComponent } from './dialogs/update-class/update-class.component';
+import { DeleteClassComponent } from './dialogs/delete-class/delete-class.component';
 
 
 
@@ -83,7 +84,8 @@ import { UpdateClassComponent } from './dialogs/update-class/update-class.compon
     DirectorClassComponent,
     CreateStudentComponent,
     DeleteStudentComponent,
-    UpdateClassComponent
+    UpdateClassComponent,
+    DeleteClassComponent
   ],
   imports: [
     BrowserModule,

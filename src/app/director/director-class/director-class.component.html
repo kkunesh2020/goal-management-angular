@@ -2,21 +2,24 @@
   <mat-spinner *ngIf="loading"></mat-spinner>
 </div>
 
+<button mat-icon-button color="primary" [matMenuTriggerFor]="menu" class="edit-icon">
+  <mat-icon>settings</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="editDialog()" >Edit</button>
+  <button mat-menu-item (click)="deleteClassDialog()">Delete</button>
+</mat-menu>
+
 <div *ngIf="classData" class="classData">
   <div class="topData">
     <h1 *ngIf="!loading">
       {{classData.title}}
     </h1>
-    <span class="edit-icon">
-      <button mat-icon-button color="primary" (click)="editDialog()">
-      <mat-icon>edit</mat-icon>
-      </button>
-    </span>
   </div>
-  
  
   <h3 *ngIf="!studentDataSource">0 students</h3>
-  <h3 *ngIf="studentDataSource">{{studentDataSource.length}} students</h3>
+  <h3 *ngIf="studentDataSource">{{classData.students.length}} students</h3>
   <h3 *ngIf="teacherData">{{teacherData.name}}</h3>
   <button mat-button color="primary" id="createClassButton" (click)="openStudentCreateModal()">
     <mat-icon>add</mat-icon> Create Student

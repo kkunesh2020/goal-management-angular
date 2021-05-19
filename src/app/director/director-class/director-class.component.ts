@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreateStudentComponent } from 'src/app/dialogs/create-student/create-student.component';
+import { DeleteClassComponent } from 'src/app/dialogs/delete-class/delete-class.component';
 import { DeleteStudentComponent } from 'src/app/dialogs/delete-student/delete-student.component';
 import { UpdateClassComponent } from 'src/app/dialogs/update-class/update-class.component';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
@@ -28,7 +29,8 @@ export class DirectorClassComponent implements OnInit {
     private route: ActivatedRoute,
     private auth: AuthService,
     public dialog: MatDialog,
-    private classService: ClassService
+    private classService: ClassService,
+    private router: Router
   ) {
     this.auth.user$.subscribe(async (userProfile) => {
       this.loading = true;
@@ -56,6 +58,19 @@ export class DirectorClassComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+  deleteClassDialog(){
+    const dialogRef = this.dialog.open(DeleteClassComponent, {
+      data: this.classData,
+      height: '31rem',
+      width: '25rem',
+    });
+
+   dialogRef.afterClosed().subscribe((returnData) => {
+     this.router.navigate(['/director']);
+   })
   }
 
 
