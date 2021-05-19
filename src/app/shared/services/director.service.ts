@@ -36,7 +36,7 @@ export class DirectorService {
           goalsAssigned: [],
           goalsCompleted: [],
           classes: [classID],
-          isAdmin: false
+          accountType: "student"
         }
         this.userCollection.add(dataToAdd);
         return dataToAdd.uid;

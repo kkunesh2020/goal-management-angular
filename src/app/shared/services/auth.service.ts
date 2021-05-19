@@ -84,7 +84,7 @@ export class AuthService {
       uid: user.uid,
       name: user.displayName,
       email: user.email,
-      isAdmin: false,
+      accountType: "student",
       goalsAssigned: [],
       goalsCompleted: [],
       classes: []
