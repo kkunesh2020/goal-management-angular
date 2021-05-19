@@ -221,7 +221,7 @@ export class ClassService {
   }
 
   async deleteClassForDirector(classID: string): Promise<any>{
-    const promise = this.classCollection.doc(classID);
+    const promise = this.classCollection.doc(classID).delete();
     return promise;
   }
 

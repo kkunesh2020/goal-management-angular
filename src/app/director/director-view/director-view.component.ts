@@ -25,6 +25,11 @@ export class DirectorViewComponent implements OnInit {
 
   ngOnInit(){
     this.getClasses();
+    // let actionData = this.router.getCurrentNavigation().extras.state.action;
+    // if(actionData && actionData == "delete"){
+    //   this.classes = this.classes.filter(c => c.id != this.router.getCurrentNavigation().extras.state.id);
+    // }
+    
   }
 
   goToCard(classID: string) {

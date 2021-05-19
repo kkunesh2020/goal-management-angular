@@ -17,6 +17,7 @@ export class DeleteClassComponent implements OnInit {
 
   ngOnInit() {
     this.classData = this.dialogData;
+    console.log("opten", this.classData.id);
   }
 
   deleteClass(){
