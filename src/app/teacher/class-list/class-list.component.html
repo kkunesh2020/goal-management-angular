@@ -3,7 +3,7 @@
 </div>
 <div class="classes">
   <mat-card class="block" *ngFor="let class of classes" (click)="goToCard(class.id)">
-    <mat-icon>class</mat-icon>
+    <mat-icon>{{class.classIcon ? class.classIcon : 'class'}}</mat-icon>
     <h2>{{class.title}}</h2>
     <p>{{class.studentEmails.length}} students</p>
   </mat-card>

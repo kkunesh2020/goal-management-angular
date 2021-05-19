@@ -27,6 +27,7 @@ export class DirectorService {
   }
 
   async assignStudentToClass(classID: string, studentData: any): Promise<any>{
+    console.log("assignStudentToClass", studentData);
     let promise = this.userCollection.where("email", "==", studentData.email).get().then((docSnapshot) => {
       if(docSnapshot.empty){
         // create student data
@@ -38,7 +39,7 @@ export class DirectorService {
           classes: [classID],
           accountType: "student"
         }
-        this.userCollection.add(dataToAdd);
+        this.userCollection.doc(dataToAdd.uid).set(dataToAdd);
         return dataToAdd.uid;
       }else{
         // update student data
@@ -53,6 +54,9 @@ export class DirectorService {
 
   async getStudentDataByEmail(email: string): Promise<any>{
     let promise = this.userCollection.where("email", "==", email).get().then((data) => {
+      if(data.empty){
+        return null;
+      }
       return data.docs[0].data();
     }).catch((err) => {
       console.log("ERROR", err);
@@ -63,12 +67,14 @@ export class DirectorService {
   async createStudentForClass(classId: string, studentData: any): Promise<any>{
     // create student data if necessary
     // add student uid to class 
+    console.log("student data", studentData);
     let promise = new Promise(async(resolve, reject) => {
       let studentResult = await this.getStudentDataByEmail(studentData.email);
-      let result = await this.assignStudentToClass(classId, studentResult).catch((err) => {
+      let result = await this.assignStudentToClass(classId, studentResult ? studentResult : studentData).catch((err) => {
         reject(err);
       });
       if(!result){
+        console.log("adding student", studentResult);
         this.classCollection.doc(classId).update({
           students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentResult.uid))
         }).catch((err) => {
