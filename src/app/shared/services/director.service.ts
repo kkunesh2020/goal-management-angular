@@ -36,7 +36,7 @@ export class DirectorService {
           uid: this.userCollection.doc().id,
           goalsAssigned: [],
           goalsCompleted: [],
-          classes: [classID],
+          classes: [this.classCollection.doc(classID)],
           accountType: "student"
         }
         this.userCollection.doc(dataToAdd.uid).set(dataToAdd);
@@ -79,17 +79,14 @@ export class DirectorService {
           students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentResult.uid))
         }).catch((err) => {
           console.log("ERROR", err);
-        }).then(() => {
-          resolve(studentResult);
         })
       }else{
         this.classCollection.doc(classId).update({
           students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(result))
         })
         studentData.id = result;
-        resolve(studentResult);
       }
-
+      resolve(studentResult);
     });
     
     return promise;

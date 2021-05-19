@@ -117,7 +117,7 @@ export class DirectorClassComponent implements OnInit {
     })
     ref.afterClosed().subscribe((data) => {
       console.log("got the data", data);
-      if(data.uid){
+      if(data && data.uid){
         this.studentDataSource.push(data);
       }
     })
