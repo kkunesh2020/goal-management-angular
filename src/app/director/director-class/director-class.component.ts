@@ -64,12 +64,14 @@ export class DirectorClassComponent implements OnInit {
   deleteClassDialog(){
     const dialogRef = this.dialog.open(DeleteClassComponent, {
       data: this.classData,
-      height: '31rem',
+      height: '15rem',
       width: '25rem',
     });
 
    dialogRef.afterClosed().subscribe((returnData) => {
-     this.router.navigate(['/director']);
+     if(returnData){
+      this.router.navigate(['/director'], {state: {action: "delete", id: returnData}});
+     }
    })
   }
 

@@ -115,6 +115,6 @@ import { DeleteClassComponent } from './dialogs/delete-class/delete-class.compon
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
     DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent,
-     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent, CreateStudentComponent, DeleteStudentComponent, UpdateClassComponent]
+     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent, CreateStudentComponent, DeleteStudentComponent, UpdateClassComponent, DeleteClassComponent]
 })
 export class AppModule { }

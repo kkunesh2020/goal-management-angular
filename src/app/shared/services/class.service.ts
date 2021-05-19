@@ -220,6 +220,11 @@ export class ClassService {
      return promise;
   }
 
+  async deleteClassForDirector(classID: string): Promise<any>{
+    const promise = this.classCollection.doc(classID);
+    return promise;
+  }
+
   async createClassFromDirectorModel(classData: DirectorClass): Promise<string>{
      const promise = this.classCollection.add({members: classData.members, title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: [], classIcon: classData.classIcon})
      .then((doc) => {

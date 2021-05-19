@@ -1,10 +1,10 @@
 <button mat-dialog-close class="exit">
-    <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+    <mat-icon class="exitIcon">clear</mat-icon>
   </button>
   
   <h1 mat-dialog-title>Delete Class</h1>
   <div mat-dialog-content>
-      <p>Be careful! This will permanently delete your goal.</p>
-      <button mat-raised-button color="warn" class="deleteButton" (click)="deleteGoal()" [class.spinner]="loading">Delete Class</button>
+      <p>Be careful! This will permanently delete your class.</p>
+      <button mat-raised-button color="warn" class="deleteButton" (click)="deleteClass()" [class.spinner]="loading">Delete Class</button>
   </div>
   
