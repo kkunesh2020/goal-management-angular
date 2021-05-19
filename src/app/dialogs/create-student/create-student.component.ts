@@ -35,11 +35,11 @@ export class CreateStudentComponent implements OnInit {
   }
 
   checkChadwickEmail(email: string){
-    if(!/@chadwickschool\.org$/.test(email)){
-      this.errorMessage = "Email must be a valid Chadwick email";
-      return false;
-    }
-    this.errorMessage = "";
+    // if(!/@chadwickschool\.org$/.test(email)){
+    //   this.errorMessage = "Email must be a valid Chadwick email";
+    //   return false;
+    // }
+    // this.errorMessage = "";
     return true;
   }
 

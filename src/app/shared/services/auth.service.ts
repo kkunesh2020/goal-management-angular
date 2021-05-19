@@ -22,6 +22,7 @@ export class AuthService {
   user$: Observable<User>;
   userGithubID: string;
   githubUsername = '';
+  customUID: string = '';
   githubProfile: any;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private route: Router, private githubService: GithubService) {
@@ -31,9 +32,7 @@ export class AuthService {
         // Logged in
         if (user) {
           console.log('logged in');
-          console.log(this.afAuth.user.subscribe(userdata => {
-            console.log(userdata);
-          }));
+          console.log("the user is", user);
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
@@ -43,21 +42,35 @@ export class AuthService {
     );
   }
 
+
   /**
    * Opens popup, signs user into google account, and adds user data to firebase
    */
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
-    this.updateUserData(credential.user);
+    const credential = await this.afAuth.auth.signInWithPopup(provider).catch((err) => {
+      console.log("err", err);
+      return null;
+    });
+    await this.updateUserData(credential.user);
     this.route.navigate(['/classes']);
     return;
+  }
+
+  async getUserByEmail(email: string): Promise<any>{
+    let promise = this.afs.firestore.collection("users").where("email", "==", email).get().then((docSnapshot) => {
+      if(docSnapshot.empty){
+        return null;
+      }
+      return {id: docSnapshot.docs[0].id, ...docSnapshot.docs[0].data()};
+    })
+    return promise;
   }
 
   async githubSignin() {
     const provider = new auth.GithubAuthProvider();
     const credential: any = await this.afAuth.auth.signInWithPopup(provider);
-    this.updateUserData(credential.user);
+    await this.updateUserData(credential.user);
     this.userGithubID = credential.credential.accessToken;
     this.githubUsername = credential.additionalUserInfo.username;
     this.githubProfile = credential.additionalUserInfo.profile;
@@ -76,8 +89,9 @@ export class AuthService {
    * adds user data to firebase after login
    * @param user -
    */
-  private updateUserData(user) {
+  private async updateUserData(user) {
     // Sets user data to firestore on login
+    const previousUserData = await this.getUserByEmail(user.email);
     const userRef = this.afs.firestore.doc(`users/${user.uid}`);
 
     const data = {
@@ -91,9 +105,16 @@ export class AuthService {
     };
 
      // If user doesn't exist yet, set the user as a new document
-    userRef.get().then((doc) => {
-      if (!doc.exists) {
+    userRef.get().then(async(doc) => {
+      if (!doc.exists && !previousUserData) {
         userRef.set(data, {merge: true});
+      }
+
+      if(previousUserData){
+        // just sign in via google func instead of auth 
+        await this.afs.firestore.doc(`users/${previousUserData.id}`).update({name: user.displayName });
+        this.customUID = previousUserData.id;
+        console.log("new custom", this.customUID)
       }
     });
 

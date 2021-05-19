@@ -41,12 +41,12 @@ export class DirectorClassComponent implements OnInit {
 
       this.classService.getDataForClass(this.classID).subscribe(async(classData) => {
         this.loading = true;
-        console.log("classss", classData);
           this.classData = classData;
           this.classData.id = this.classID;
           if(classData){
             this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
           }
+          // replace with email code
           this.classService.getStudentsDataByReference(classData.students).then((studentData) => {
           if(studentData.length > 0){
             this.studentDataSource = studentData;

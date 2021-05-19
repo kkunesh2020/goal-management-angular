@@ -76,13 +76,13 @@ export class DirectorService {
       if(!result){
         console.log("adding student", studentResult);
         this.classCollection.doc(classId).update({
-          students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentResult.uid))
+          students: firebase.firestore.FieldValue.arrayUnion(studentData.email)
         }).catch((err) => {
           console.log("ERROR", err);
         })
       }else{
         this.classCollection.doc(classId).update({
-          students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(result))
+          students: firebase.firestore.FieldValue.arrayUnion(studentData.email)
         })
         studentData.id = result;
       }
