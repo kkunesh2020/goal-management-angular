@@ -19,15 +19,13 @@ export class DeleteStudentComponent implements OnInit {
     this.classData = this.dialogData.class;
   }
 
-  deleteStudent(){
+  async deleteStudent(){
     this.loading = true;
-    // delete student from students field (class)
-    // delete class from class field (student)
-    this.directorService.deleteStudentFromClass(this.classData, this.studentData).then((returnData) => {
-      if(returnData){
-        this.dialogRef.close(this.studentData);
-      }
-    })
+    console.log("deleting...");
+    let returnData = await this.directorService.deleteStudentFromClass(this.classData, this.studentData);
+    if(returnData){
+      this.dialogRef.close(this.studentData);
+    }  
   }
 
 }

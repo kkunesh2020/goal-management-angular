@@ -108,7 +108,8 @@ export class DirectorClassComponent implements OnInit {
 
    dialogRef.afterClosed().subscribe((returnData) => {
      if(returnData){ 
-       this.studentDataSource = this.studentDataSource.filter(student => student.id != returnData.uid);
+       console.log("yay", returnData);
+       this.studentDataSource = this.studentDataSource.filter(student => student.email != returnData.email);
      }
    })
   }
