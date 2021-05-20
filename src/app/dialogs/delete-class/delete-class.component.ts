@@ -21,7 +21,7 @@ export class DeleteClassComponent implements OnInit {
   }
 
   deleteClass(){
-    this.classService.deleteClassForDirector(this.classData).then(() => {
+    this.classService.deleteClassForDirector(this.classData).then((result) => {
       this.dialogRef.close(this.classData.id);
     })
   }

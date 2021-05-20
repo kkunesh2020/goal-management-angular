@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CreateStudentComponent } from 'src/app/dialogs/create-student/create-student.component';
 import { DeleteClassComponent } from 'src/app/dialogs/delete-class/delete-class.component';
 import { DeleteStudentComponent } from 'src/app/dialogs/delete-student/delete-student.component';
@@ -23,6 +24,7 @@ export class DirectorClassComponent implements OnInit {
   classData: DirectorClass;
   displayedColumns: string[] = ['name', 'email', 'edit'];
   students = [];
+  retrieveClassSubscription: Subscription;
   studentDataSource = [];
 
   constructor(
@@ -32,7 +34,7 @@ export class DirectorClassComponent implements OnInit {
     private classService: ClassService,
     private router: Router
   ) {
-    this.auth.user$.subscribe(async (userProfile) => {
+    this.retrieveClassSubscription = this.auth.user$.subscribe(async (userProfile) => {
       this.loading = true;
       this.classID = this.route.snapshot.paramMap.get('classID');
       if (!userProfile) {
@@ -42,8 +44,8 @@ export class DirectorClassComponent implements OnInit {
       this.classService.getDataForClass(this.classID).subscribe(async(classData) => {
         this.loading = true;
           this.classData = classData;
-          this.classData.id = this.classID;
           if(classData){
+            this.classData.id = this.classID;
             this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
           }
           // replace with email code
@@ -71,6 +73,7 @@ export class DirectorClassComponent implements OnInit {
 
    dialogRef.afterClosed().subscribe((returnData) => {
      if(returnData){
+       this.retrieveClassSubscription.unsubscribe();
       this.router.navigate(['/director'], {state: {action: "delete", id: returnData}});
      }
    })

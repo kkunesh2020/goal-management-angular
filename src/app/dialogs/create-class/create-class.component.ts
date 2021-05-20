@@ -20,6 +20,7 @@ export class CreateClassComponent implements OnInit {
   class: DirectorClass;
   loading = false;
   teachers: User[] = [];
+  teacherData: string;
   studentEmailInput: string;
   assignedStudentID: string[] = [];
   studentEmails: string[] = [];
@@ -31,10 +32,6 @@ export class CreateClassComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService, private authService: AuthService, 
               public dialogRef: MatDialogRef<CreateGoalComponent>, private classService: ClassService) {
     this.class = new DirectorClassClass('', '', [], '', [], 'book');
-    this.authService.user$.subscribe(async (userProfile) => {
-      this.class.teacherUID = userProfile.uid;
-    });
-    
    }
 
   ngOnInit() {
@@ -93,6 +90,7 @@ export class CreateClassComponent implements OnInit {
     this.loading = true;
     this.class.studentEmails = [];
     this.class.classIcon = this.selectedIcon;
+    this.class.teacherUID = this.teacherData;
     this.classService.createClassFromDirectorModel(this.class).then((id) => {
       // close dialog and update class list
       this.loading = false;

@@ -222,6 +222,7 @@ export class ClassService {
   }
 
   async deleteClassFromStudent(studentID: string, classID: string): Promise<any>{
+    console.log("DELETING", studentID)
     let promise = this.userCollection.doc(studentID).update({
       classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classID)),
     })
@@ -230,12 +231,16 @@ export class ClassService {
 
   async deleteClassForDirector(classData: DirectorClass): Promise<any>{
     // delete class from every student
-    this.getStudentsByEmails(classData.students).then(async(students) => {
-      students.forEach(async (student) => {
-        await this.deleteClassFromStudent(student.id, classData.id);
+    let promise = new Promise((resolve, reject) => {
+      this.getStudentsByEmails(classData.students).then(async(students) => {
+        students.forEach(async (student) => {
+          await this.deleteClassFromStudent(student.id, classData.id);
+        })
+        await this.classCollection.doc(classData.id).delete();
+        resolve("done")
       })
     })
-    const promise = this.classCollection.doc(classData.id).delete();
+    
     return promise;
   }
 
