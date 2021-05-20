@@ -223,7 +223,7 @@ export class ClassService {
 
   async deleteClassFromStudent(studentID: string, classID: string): Promise<any>{
     let promise = this.userCollection.doc(studentID).update({
-      classes: firebase.firestore.FieldValue.arrayRemove(classID),
+      classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classID)),
     })
     return promise;
   }
@@ -240,7 +240,7 @@ export class ClassService {
   }
 
   async createClassFromDirectorModel(classData: DirectorClass): Promise<string>{
-     const promise = this.classCollection.add({members: classData.members, title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: [], classIcon: classData.classIcon})
+     const promise = this.classCollection.add({title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: [], classIcon: classData.classIcon})
      .then((doc) => {
       return doc.id;
      });
@@ -265,7 +265,7 @@ export class ClassService {
       .then((collection) => {
         const data = [];
         collection.forEach((doc) => {
-          let classData: DirectorClass = new DirectorClassClass(doc.data().members, doc.data().title, doc.data().teacherUID, doc.data().students, doc.id, doc.data().studentEmails, doc.data().classIcon);
+          let classData: DirectorClass = new DirectorClassClass(doc.data().title, doc.data().teacherUID, doc.data().students, doc.id, doc.data().studentEmails, doc.data().classIcon);
           data.push(classData);
         })
         return data;

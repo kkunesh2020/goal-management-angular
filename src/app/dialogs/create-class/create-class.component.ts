@@ -30,7 +30,7 @@ export class CreateClassComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService, private authService: AuthService, 
               public dialogRef: MatDialogRef<CreateGoalComponent>, private classService: ClassService) {
-    this.class = new DirectorClassClass(0, '', '', [], '', [], 'book');
+    this.class = new DirectorClassClass('', '', [], '', [], 'book');
     this.authService.user$.subscribe(async (userProfile) => {
       this.class.teacherUID = userProfile.uid;
     });
@@ -92,7 +92,6 @@ export class CreateClassComponent implements OnInit {
   createClass() {
     this.loading = true;
     this.class.studentEmails = [];
-    this.class.members = 0;
     this.class.classIcon = this.selectedIcon;
     this.classService.createClassFromDirectorModel(this.class).then((id) => {
       // close dialog and update class list

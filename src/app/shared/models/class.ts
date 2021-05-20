@@ -3,7 +3,6 @@ import { User } from './user.model';
 import { DocumentReference } from '@angular/fire/firestore';
 
 export default class ClassClass implements Class {
-  members: number;
   title: string;
   teacherUID: string;
   students: DocumentReference[];
@@ -13,7 +12,6 @@ export default class ClassClass implements Class {
   classIcon: string;
 
   constructor(
-    members: number,
     title: string,
     teacherUID: string,
     students: DocumentReference[],
@@ -23,7 +21,6 @@ export default class ClassClass implements Class {
     classIcon: string
     ) {
       this.title = title;
-      this.members = members;
       this.teacherUID = teacherUID;
       this.students = students;
       this.id = id;
