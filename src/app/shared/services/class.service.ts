@@ -103,27 +103,23 @@ export class ClassService {
     return promise;
   }
 
-  getDataForClass(classID: string) : Observable<DirectorClass | undefined>{
+  getDataForClass(classID: string): Observable<DirectorClass | undefined> {
     let doc = this.afs.collection("classes").doc<DirectorClass>(classID).valueChanges();
     return doc;
   }
 
-  getStudentsByEmails(emails: string[]): Promise<any>{
-    let studentDataArray = [];
-    let promise = new Promise(async(resolve, reject) => {
-      emails.forEach((email) => {
-      this.userCollection.where("email", "==", email).get().then((studentData) => {
-        if(studentData){
-         studentData.forEach((studentDoc) => {
-          studentDataArray.push({...studentDoc.data()});
-         })
-        }
-      }).catch((err) => reject(err));
-      resolve(studentDataArray);
-    })
-  })
-  
-    return promise;
+  async getStudentsByEmails(emails: string[]) {
+      let studentDataArray = [];
+      for(let email of emails){
+        let studentData = await this.userCollection.where("email", "==", email).get();
+          if (studentData) {
+            studentData.forEach((studentDoc) => {
+              console.log("pushing", studentDoc);
+              studentDataArray.push({ ...studentDoc.data() });
+            })
+          }
+      }
+      return studentDataArray;
   }
 
   //  helper method for getting length of array
@@ -163,7 +159,7 @@ export class ClassService {
       .then((doc) => {
         if (doc.exists) {
           doc.data().classes.forEach((ref) => {
-            ref.get().then((paper) => classes.push({id: paper.id, ...paper.data()}));
+            ref.get().then((paper) => classes.push({ id: paper.id, ...paper.data() }));
           });
         }
       })
@@ -171,28 +167,28 @@ export class ClassService {
     return classes;
   }
 
-  getClassDataForDirector(id: string): Promise<DirectorClass>{
+  getClassDataForDirector(id: string): Promise<DirectorClass> {
     let returnData = null;
     let promise = this.classCollection.doc(id).get().then((data) => {
-      returnData = {...data.data(), id: data.id} as DirectorClass;
+      returnData = { ...data.data(), id: data.id } as DirectorClass;
       return returnData;
     })
     return promise;
   }
 
-  getClassesByEmail(email: string): Class[]{
+  getClassesByEmail(email: string): Class[] {
     let classes: Class[] = [];
     this.classCollection.where("studentEmails", "array-contains", email).get().then((snapshot) => {
       snapshot.forEach((doc) => {
-        classes.push({...doc.data(), id: doc.id} as Class);
+        classes.push({ ...doc.data(), id: doc.id } as Class);
       })
     })
     return classes;
   }
 
-  getTeacherData(teacherUID: string): Promise<any>{
+  getTeacherData(teacherUID: string): Promise<any> {
     const promise = this.userCollection.doc(teacherUID).get().then((teacherDoc) => {
-      let teacherUser = {id: teacherDoc.id, ...teacherDoc.data()};
+      let teacherUser = { id: teacherDoc.id, ...teacherDoc.data() };
       return teacherUser;
     })
     return promise;
@@ -216,12 +212,12 @@ export class ClassService {
   }
 
 
-  async updateClassForDirector(classData: DirectorClass): Promise<any>{
-    const promise = this.classCollection.doc(classData.id).update({teacherUID: classData.teacherUID, title: classData.title, classIcon: classData.classIcon});
-     return promise;
+  async updateClassForDirector(classData: DirectorClass): Promise<any> {
+    const promise = this.classCollection.doc(classData.id).update({ teacherUID: classData.teacherUID, title: classData.title, classIcon: classData.classIcon });
+    return promise;
   }
 
-  async deleteClassFromStudent(studentID: string, classID: string): Promise<any>{
+  async deleteClassFromStudent(studentID: string, classID: string): Promise<any> {
     console.log("DELETING", studentID)
     let promise = this.userCollection.doc(studentID).update({
       classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classID)),
@@ -229,31 +225,44 @@ export class ClassService {
     return promise;
   }
 
-  async deleteClassForDirector(classData: DirectorClass): Promise<any>{
-    // delete class from every student
-    let promise = new Promise((resolve, reject) => {
-      this.getStudentsByEmails(classData.students).then(async(students) => {
-        students.forEach(async (student) => {
-          await this.deleteClassFromStudent(student.id, classData.id);
-        })
-        await this.classCollection.doc(classData.id).delete();
-        resolve("done")
+  deleteStudentFromClass(classData: DirectorClass, studentData: any): Promise<any> {
+    const promise = new Promise(async (resolve, reject) => {
+      await this.userCollection.doc(studentData.uid).update({
+        classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classData.id))
       })
+
+      resolve(studentData);
     })
-    
     return promise;
   }
 
-  async createClassFromDirectorModel(classData: DirectorClass): Promise<string>{
-     const promise = this.classCollection.add({title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: [], classIcon: classData.classIcon})
-     .then((doc) => {
-      return doc.id;
-     });
-     return promise;
+  async deleteClassForDirector(classData: DirectorClass) {
+    // delete class from every student
+    if (classData.students.length > 0) {
+      console.log("deleting student data....");
+      this.getStudentsByEmails(classData.students).then(async (students) => {
+        console.log("looping throught students", students);
+        students.forEach(async (student) => {
+          console.log("DELETING", student);
+          await this.deleteStudentFromClass(classData, student);
+        })
+      })
+    }
+    this.classCollection.doc(classData.id).delete().then(() => {
+      return;
+    });
   }
 
-  getAllTeachers(): Promise<User[]>{
-    let teachers : User[] = [];
+  async createClassFromDirectorModel(classData: DirectorClass): Promise<string> {
+    const promise = this.classCollection.add({ title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: [], classIcon: classData.classIcon })
+      .then((doc) => {
+        return doc.id;
+      });
+    return promise;
+  }
+
+  getAllTeachers(): Promise<User[]> {
+    let teachers: User[] = [];
     const promise = this.userCollection.where("accountType", "==", "teacher").get().then((snapshot) => {
       snapshot.forEach((doc) => {
         teachers.push(doc.data() as User);
@@ -263,7 +272,7 @@ export class ClassService {
     return promise;
   }
 
-   // get all classes from the collection
+  // get all classes from the collection
   getAllClasses(): Promise<Class[]> {
     const promise = this.classCollection
       .get()
