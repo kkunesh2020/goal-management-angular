@@ -49,14 +49,16 @@ export class DirectorClassComponent implements OnInit {
             this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
 
             this.classService.getStudentsByEmails(classData.students).then((studentData) => {
+              this.loading = true;
               console.log("got student data by emails", studentData)
               if(studentData.length > 0){
                 this.studentDataSource = studentData;
               }
+              this.loading = false;
             });
           }
         
-        this.loading = false;
+        // this.loading = false;
       })
     });
   }

@@ -54,7 +54,7 @@
     </table>
   </div>
 
-  <h3 *ngIf="studentDataSource && studentDataSource.length == 0" class="warning">
+  <h3 *ngIf="studentDataSource && studentDataSource.length == 0 && !loading" class="warning">
     There are no students added to this class yet.
   </h3>
 </div>
