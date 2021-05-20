@@ -5,6 +5,7 @@ import {
   CollectionReference,
   DocumentReference,
 } from '@angular/fire/firestore';
+import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 import { StudentData } from 'src/app/teacher/class/class.component';
 import ClassClass from '../models/class';
@@ -107,7 +108,7 @@ export class ClassService {
     return doc;
   }
 
-   getStudentsByEmails(emails: string[]): Promise<any>{
+  getStudentsByEmails(emails: string[]): Promise<any>{
     let studentDataArray = [];
     let promise = new Promise(async(resolve, reject) => {
       emails.forEach((email) => {
@@ -220,8 +221,21 @@ export class ClassService {
      return promise;
   }
 
-  async deleteClassForDirector(classID: string): Promise<any>{
-    const promise = this.classCollection.doc(classID).delete();
+  async deleteClassFromStudent(studentID: string, classID: string): Promise<any>{
+    let promise = this.userCollection.doc(studentID).update({
+      classes: firebase.firestore.FieldValue.arrayRemove(classID),
+    })
+    return promise;
+  }
+
+  async deleteClassForDirector(classData: DirectorClass): Promise<any>{
+    // delete class from every student
+    this.getStudentsByEmails(classData.students).then(async(students) => {
+      students.forEach(async (student) => {
+        await this.deleteClassFromStudent(student.id, classData.id);
+      })
+    })
+    const promise = this.classCollection.doc(classData.id).delete();
     return promise;
   }
 
