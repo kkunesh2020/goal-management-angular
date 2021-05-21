@@ -5,7 +5,7 @@ import { DocumentReference } from '@angular/fire/firestore';
 export default class ClassClass implements Class {
   title: string;
   teacherUID: string;
-  students: DocumentReference[];
+  students: string[];
   id: string;
   studentEmails: string[];
   goals: DocumentReference[];
@@ -14,7 +14,7 @@ export default class ClassClass implements Class {
   constructor(
     title: string,
     teacherUID: string,
-    students: DocumentReference[],
+    students: string[],
     id: string,
     goals: DocumentReference[],
     studentEmails: string[],
