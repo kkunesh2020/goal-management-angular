@@ -25,6 +25,7 @@ export class UpdateGoalComponent {
   isLoading = false;
   currentGoal: any;
   isCompleted = false;
+  updated: boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -52,7 +53,7 @@ export class UpdateGoalComponent {
     };
     this.currentGoal = this.goalService.validateGoal(this.currentGoal);
     this.isCompleted = data.isCompleted;
-    console.log('commits', this.currentGoal.commits);
+    console.log('commits', this.currentGoal);
   }
 
   updateGoal(isDone) {
@@ -79,6 +80,16 @@ export class UpdateGoalComponent {
     }
   }
 
+  closeModal(){
+    console.log("returning", this.currentGoal)
+    if(this.updated){
+      this.dialogRef.close({data: this.currentGoal, status: "updated"});
+    }else{
+      this.dialogRef.close();
+    }
+    
+  }
+
   insertFileDialog() {
     const dialogRef = this.dialog.open(UploaderComponent, {
       height: '40rem',
@@ -89,6 +100,7 @@ export class UpdateGoalComponent {
       if (result !== '') {
         this.currentGoal.files = this.currentGoal.files.concat(result);
         console.log('detected the changes', result);
+        this.updated = true;
       }
     });
   }
@@ -105,6 +117,7 @@ export class UpdateGoalComponent {
       });
       dialogRef.afterClosed().subscribe((result) => {
         if (result !== '') {
+          this.updated = true;
           this.currentGoal.commits != null
             ? (this.currentGoal.commits = this.currentGoal.commits.concat(
                 result
@@ -124,6 +137,7 @@ export class UpdateGoalComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== '') {
+        this.updated = true;
         this.currentGoal.links != null
           ? (this.currentGoal.links = this.currentGoal.links.concat(result))
           : (this.currentGoal.links = result);
@@ -144,12 +158,14 @@ export class UpdateGoalComponent {
     this.currentGoal.files.splice(this.findIndexOfFile(file), 1); // remove file from array
     this.currentGoal.files = this.currentGoal.files;
     this.goalService.deleteFileFromGoal(file, this.currentGoal.id);
+    this.updated = true;
   }
 
   deleteLink(url: string) {
     const newLinks = this.currentGoal.links.filter((e) => e.url !== url);
     this.currentGoal.links = newLinks;
     this.goalService.removeLinks(newLinks, this.currentGoal.id);
+    this.updated = true;
   }
 
   goToLink(urlToOpen: string) {

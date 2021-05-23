@@ -88,6 +88,46 @@ export class GoalsComponent {
             this.router.navigate(['/goals']);
           });
       }
+
+      if(result && result.data && result.status == "updated"){
+        let goalRef = new GoalClass(
+          result.data.description,
+          result.data.dueDate,
+          result.data.classID,
+          result.data.hasCompleted,
+          result.data.pending,
+          result.data.declined,
+          result.data.id,
+          result.data.createdBy,
+          result.data.assignedToID,
+          result.data.declinedMessages,
+          result.data.files,
+          result.data.links,
+          result.data.commits
+        );
+        const status = this.goalService.getUserStatus(
+          goalRef.hasCompleted,
+          goalRef.pending,
+          goalRef.declined,
+          result.data.uid
+        );
+
+        let newItem = {
+          description: result.data.description,
+          dueDate: result.data.dueDate,
+          isCompleted: this.goalService.userHasCompleted(goalRef.hasCompleted, result.data.uid),
+          createdBy: result.data.createdBy.name,
+          goalReference: goalRef,
+          status
+        };
+        console.log("gottem", result);
+        let newData = this.dataSource.data;
+        newData = newData.filter(classData => classData.goalReference.id != result.data.id);
+        console.log("new Data 1", newData);
+        newData.push(newItem);
+        console.log("new Data", newData);
+        this.dataSource.data = newData;
+      }
     });
   }
 }
