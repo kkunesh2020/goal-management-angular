@@ -72,7 +72,7 @@ export class DirectorService {
 
    async deleteStudentFromClass(classData: DirectorClass, studentData: any){
       await this.classCollection.doc(classData.id).update({
-        students: firebase.firestore.FieldValue.arrayRemove(studentData.email)
+        students: firebase.firestore.FieldValue.arrayRemove(this.userCollection.doc(studentData.uid))
       })
 
       await this.userCollection.doc(studentData.uid).update({
