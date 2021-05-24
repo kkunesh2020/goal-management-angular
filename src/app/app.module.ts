@@ -8,6 +8,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
@@ -107,6 +108,7 @@ import { DeleteClassComponent } from './dialogs/delete-class/delete-class.compon
     MatPaginatorModule,
     FlexLayoutModule,
     MatMenuModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
     MatRadioModule
