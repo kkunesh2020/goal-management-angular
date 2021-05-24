@@ -119,9 +119,15 @@ export class DirectorClassComponent implements OnInit {
    })
   }
 
-  sendEmail(name: string){
+  async sendEmail(name: string){
+    console.log('sending email 2');
     const callable = this.functions.httpsCallable('studentAddedToClass');
-    callable({ subject: `You are invited to join ${this.classData.title}!`, class: this.classData.title, teacher: this.teacherData.name, link: 'google.com', name: name}).subscribe();
+    await callable({ subject: `You are invited to join ${this.classData.title}!`, class: this.classData.title, teacher: this.teacherData.name, link: 'https://goal-management-system.web.app/goals', name: name}).toPromise().then(() => {
+      return
+    }).catch((err) => {
+      console.log("ERROR", err);
+    });
+    console.log("sent!");
   }
 
   openStudentCreateModal(){
@@ -131,11 +137,12 @@ export class DirectorClassComponent implements OnInit {
       panelClass: 'custom-modalbox',
       data: this.classData
     })
-    ref.afterClosed().subscribe((data) => {
+    ref.afterClosed().subscribe(async(data) => {
       console.log("got the data", data);
       if(data && data.uid){
         this.studentDataSource.push(data);
-        this.sendEmail(data.name);
+        console.log('sending email 1');
+        await this.sendEmail(data.name);
       }
     })
   }

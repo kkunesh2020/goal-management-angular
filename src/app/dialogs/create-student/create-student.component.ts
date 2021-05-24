@@ -58,10 +58,12 @@ export class CreateStudentComponent implements OnInit {
       this.loading = true;
       this.director.createStudentForClass(this.data.id, this.userValue.value).then((result) => {
         // close dialog
-        if(result){
-          this.dialogRef.close(result);
+        if(this.data){
+          console.log("closing with", this.data);
+          this.dialogRef.close(this.userValue.value);
+        }else{
+          this.dialogRef.close();
         }
-        this.dialogRef.close();
       }).catch((err) => {
         alert("Something went wrong. Please try again");
       })
