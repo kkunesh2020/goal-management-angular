@@ -52,6 +52,17 @@ export class DirectorService {
     return promise;
   }
 
+  async getAllStudentData(): Promise<UserClass[]>{
+    let studentData: UserClass[] =[];
+    let promise = this.userCollection.where('accountType', '==', "student").get().then((snapshot) => {
+      snapshot.forEach((doc) => {
+        studentData.push({uid: doc.id, ...doc.data()} as User);
+      });
+      return studentData;
+    });
+    return promise;
+  }
+
   async getStudentDataByEmail(email: string): Promise<any>{
     let promise = this.userCollection.where("email", "==", email).get().then((data) => {
       if(data.empty){

@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatNativeDateModule} from '@angular/material';
+import {MatAutocompleteModule, MatNativeDateModule} from '@angular/material';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from 'src/environments/environment';
@@ -92,6 +92,7 @@ import { DeleteClassComponent } from './dialogs/delete-class/delete-class.compon
     BrowserModule,
     AppRoutingModule,
     MatDialogModule,
+    MatAutocompleteModule,
     MaterialModule,
     FormsModule,
     BrowserAnimationsModule,

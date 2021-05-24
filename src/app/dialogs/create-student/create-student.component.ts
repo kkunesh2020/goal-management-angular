@@ -1,5 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { startWith } from 'rxjs/operators';
+import { User } from 'src/app/shared/models/user.model';
 import { DirectorService } from 'src/app/shared/services/director.service';
 
 @Component({
@@ -9,7 +14,9 @@ import { DirectorService } from 'src/app/shared/services/director.service';
 })
 export class CreateStudentComponent implements OnInit {
   loading: boolean = false;
-  studentData: any = {name: "", email: ""};
+  userValue = new FormControl();
+  studentData: User[] = [];
+  filteredOptions: Observable<User[]>;
   errorMessage:string = "";
   constructor(
     private director: DirectorService,
@@ -18,33 +25,36 @@ export class CreateStudentComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.director.getAllStudentData().then((result) => {
+      this.studentData = result;
+      console.log("student data", this.studentData);
+    });
+
+    this.filteredOptions = this.userValue.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name) : this.studentData.slice())
+      );
   }
 
   formComplete(): boolean{
-    return this.studentData.name.length > 0 && this.studentData.email.length > 0;
+    return this.userValue.value != null;
   }
 
-  checkValidEmail(email: string):boolean{
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(!re.test(String(email).toLowerCase())){
-      this.errorMessage = "Please enter a valid email address";
-      return false;
-    }
-    this.errorMessage = "";
-    return true;
+  displayFn(user: User): string {
+    return user && user.name ? user.name : '';
   }
 
-  checkChadwickEmail(email: string){
-    // if(!/@chadwickschool\.org$/.test(email)){
-    //   this.errorMessage = "Email must be a valid Chadwick email";
-    //   return false;
-    // }
-    // this.errorMessage = "";
-    return true;
+  private _filter(name: string): User[] {
+    console.log("calling", name);
+    const filterValue = name.toLowerCase();
+
+    return this.studentData.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
   }
+
 
   createStudent(){
-    if(this.checkValidEmail(this.studentData.email) && this.checkChadwickEmail(this.studentData.email)){
       this.loading = true;
       this.director.createStudentForClass(this.data.id, this.studentData).then((result) => {
         // close dialog
@@ -55,7 +65,6 @@ export class CreateStudentComponent implements OnInit {
       }).catch((err) => {
         alert("Something went wrong. Please try again");
       })
-    }
   }
 
 
