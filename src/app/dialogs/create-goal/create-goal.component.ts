@@ -28,6 +28,7 @@ export class CreateGoalComponent implements OnInit {
   }
 
   assignAllStudents() {
+    console.log("data", this.data);
     this.assignedStudentID = [];
     this.data.students.forEach(student => {
       this.assignedStudentID.push(student.uid);

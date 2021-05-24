@@ -228,13 +228,14 @@ export class ClassComponent {
     });
   }
 
-  createGoalDialog() {
+  async createGoalDialog() {
     // opens up the create goal dialog to create a new goal
     const data = {
       createdBy: this.user,
       classID: this.classID,
-      students: this.classService.getStudentsDataByReference(this.class.students),
+      students: [],
     };
+    data.students = await this.classService.getStudentsDataByReference(this.class.students)
     // passes in class data into the dialog
     const dialogRef = this.dialog.open(CreateGoalComponent, {
       data,
