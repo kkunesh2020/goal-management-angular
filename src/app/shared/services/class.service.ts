@@ -204,6 +204,18 @@ export class ClassService {
     return promise;
   }
 
+  async updateTeacherForDirector(classData: DirectorClass, teacherData: User, oldTeacherUID: string){
+    // remove old teacher
+    await this.userCollection.doc(oldTeacherUID).update({
+      classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classData.id))
+    })
+    // update new teacher
+    await this.userCollection.doc(teacherData.uid).update({
+      classes: firebase.firestore.FieldValue.arrayUnion(this.classCollection.doc(classData.id))
+    })
+    return;
+  }
+
   async deleteClassFromStudent(studentID: string, classID: string): Promise<any> {
     console.log("DELETING", studentID)
     let promise = this.userCollection.doc(studentID).update({
@@ -242,7 +254,8 @@ export class ClassService {
 
   async createClassFromDirectorModel(classData: DirectorClass): Promise<string> {
     const promise = this.classCollection.add({ title: classData.title, teacherUID: classData.teacherUID, students: classData.students, goals: [], classIcon: classData.classIcon })
-      .then((doc) => {
+      .then(async(doc) => {
+        await this.userCollection.doc(classData.teacherUID).update({ classes: firebase.firestore.FieldValue.arrayUnion(this.classCollection.doc(doc.id)) });
         return doc.id;
       });
     return promise;

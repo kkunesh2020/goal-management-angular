@@ -52,7 +52,9 @@ export class AuthService {
       console.log("err", err);
       return null;
     });
-    await this.updateUserData(credential.user);
+    if(credential.user){
+      await this.updateUserData(credential.user);
+    }
     this.route.navigate(['/classes']);
     return;
   }

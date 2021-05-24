@@ -78,9 +78,13 @@ export class UpdateClassComponent implements OnInit {
       this.selectedIcon = icon;
     }
 
-    updateClass() {
+    async updateClass() {
       this.loading = true;
       this.class.classIcon = this.selectedIcon;
+      if(this.class.teacherUID != this.teacherData.uid){
+        console.log("input", this.class, this.teacherData, this.initialClass.uid);
+        await this.classService.updateTeacherForDirector(this.class, this.teacherData, this.initialClass.teacherUID);
+      }
       this.class.teacherUID = this.teacherData.uid;
       this.classService.updateClassForDirector(this.class).then((id) => {
         // close dialog and update class list
