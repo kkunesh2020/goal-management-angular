@@ -108,19 +108,6 @@ export class ClassService {
     return doc;
   }
 
-  async getStudentsByEmails(emails: string[]) {
-      let studentDataArray = [];
-      for(let email of emails){
-        let studentData = await this.userCollection.where("email", "==", email).get();
-          if (studentData) {
-            studentData.forEach((studentDoc) => {
-              console.log("pushing", studentDoc);
-              studentDataArray.push({ ...studentDoc.data() });
-            })
-          }
-      }
-      return studentDataArray;
-  }
 
   //  helper method for getting length of array
   getLengthOf(array: any[]) {
@@ -240,7 +227,7 @@ export class ClassService {
     // delete class from every student
     if (classData.students.length > 0) {
       console.log("deleting student data....");
-      this.getStudentsByEmails(classData.students).then(async (students) => {
+      this.getStudentsDataByReference(classData.students).then(async (students) => {
         console.log("looping throught students", students);
         students.forEach(async (student) => {
           console.log("DELETING", student);
@@ -254,7 +241,7 @@ export class ClassService {
   }
 
   async createClassFromDirectorModel(classData: DirectorClass): Promise<string> {
-    const promise = this.classCollection.add({ title: classData.title, teacherUID: classData.teacherUID, students: classData.students, studentEmails: classData.studentEmails, goals: [], classIcon: classData.classIcon })
+    const promise = this.classCollection.add({ title: classData.title, teacherUID: classData.teacherUID, students: classData.students, goals: [], classIcon: classData.classIcon })
       .then((doc) => {
         return doc.id;
       });
@@ -279,7 +266,7 @@ export class ClassService {
       .then((collection) => {
         const data = [];
         collection.forEach((doc) => {
-          let classData: DirectorClass = new DirectorClassClass(doc.data().title, doc.data().teacherUID, doc.data().students, doc.id, doc.data().studentEmails, doc.data().classIcon);
+          let classData: DirectorClass = new DirectorClassClass(doc.data().title, doc.data().teacherUID, doc.data().students, doc.id, doc.data().classIcon);
           data.push(classData);
         })
         return data;

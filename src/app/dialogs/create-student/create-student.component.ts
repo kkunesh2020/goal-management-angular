@@ -56,7 +56,7 @@ export class CreateStudentComponent implements OnInit {
 
   createStudent(){
       this.loading = true;
-      this.director.createStudentForClass(this.data.id, this.studentData).then((result) => {
+      this.director.createStudentForClass(this.data.id, this.userValue.value).then((result) => {
         // close dialog
         if(result){
           this.dialogRef.close(result);

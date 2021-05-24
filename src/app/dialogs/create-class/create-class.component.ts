@@ -31,7 +31,7 @@ export class CreateClassComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService, private authService: AuthService, 
               public dialogRef: MatDialogRef<CreateGoalComponent>, private classService: ClassService) {
-    this.class = new DirectorClassClass('', '', [], '', [], 'book');
+    this.class = new DirectorClassClass('', '', [], '', 'book');
    }
 
   ngOnInit() {
@@ -88,7 +88,6 @@ export class CreateClassComponent implements OnInit {
 
   createClass() {
     this.loading = true;
-    this.class.studentEmails = [];
     this.class.classIcon = this.selectedIcon;
     this.class.teacherUID = this.teacherData;
     this.classService.createClassFromDirectorModel(this.class).then((id) => {
