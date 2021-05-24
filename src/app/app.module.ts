@@ -9,6 +9,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
@@ -108,6 +109,7 @@ import { DeleteClassComponent } from './dialogs/delete-class/delete-class.compon
     MatDatepickerModule,
     MatPaginatorModule,
     FlexLayoutModule,
+    AngularFireFunctionsModule,
     MatMenuModule,
     ReactiveFormsModule,
     HttpClientModule,

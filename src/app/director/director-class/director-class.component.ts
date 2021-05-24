@@ -9,6 +9,7 @@ import { UpdateClassComponent } from 'src/app/dialogs/update-class/update-class.
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
 import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { AngularFireFunctions } from '@angular/fire/functions';
 import { ClassService } from 'src/app/shared/services/class.service';
 import { HomeService } from 'src/app/shared/services/home.service';
 
@@ -32,10 +33,12 @@ export class DirectorClassComponent implements OnInit {
     private auth: AuthService,
     public dialog: MatDialog,
     private classService: ClassService,
-    private router: Router
+    private router: Router,
+    private functions: AngularFireFunctions
   ) {
     this.retrieveClassSubscription = this.auth.user$.subscribe(async (userProfile) => {
       this.loading = true;
+
       this.classID = this.route.snapshot.paramMap.get('classID');
       if (!userProfile) {
         return;
@@ -116,6 +119,11 @@ export class DirectorClassComponent implements OnInit {
    })
   }
 
+  sendEmail(name: string){
+    const callable = this.functions.httpsCallable('studentAddedToClass');
+    callable({ subject: `You are invited to join ${this.classData.title}!`, class: this.classData.title, teacher: this.teacherData.name, link: 'google.com', name: name}).subscribe();
+  }
+
   openStudentCreateModal(){
     let ref = this.dialog.open(CreateStudentComponent, {
       width: '27rem',
@@ -127,6 +135,7 @@ export class DirectorClassComponent implements OnInit {
       console.log("got the data", data);
       if(data && data.uid){
         this.studentDataSource.push(data);
+        this.sendEmail(data.name);
       }
     })
   }
