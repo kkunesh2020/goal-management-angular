@@ -22,11 +22,8 @@ export class ClassListComponent {
       if (!userProfile) {
         return;
       }
-      if(userProfile.accountType == "teacher"){
-        this.getTeacherClasses(userProfile.email);
-      }else{
-        this.getStudentClasses(userProfile.uid);
-      }
+      this.classes = this.classService.getClasses(userProfile.uid);
+       this.loading = false;
       
     });
   }
@@ -35,13 +32,4 @@ export class ClassListComponent {
     this.router.navigate([`/classes/${classID}`]);
   }
 
-  getTeacherClasses(email: string) {
-    this.classes = this.classService.getClassesByEmail(email);
-    this.loading = false;
-  }
-
-  getStudentClasses(uid: string){
-    this.classes = this.classService.getClasses(uid);
-    this.loading = false;
-  }
 }
