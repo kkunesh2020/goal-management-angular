@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { ClassService } from 'src/app/shared/services/class.service';
 import { HomeService } from 'src/app/shared/services/home.service';
-
 @Component({
   selector: 'gms-director-class',
   templateUrl: './director-class.component.html',
@@ -119,14 +118,10 @@ export class DirectorClassComponent implements OnInit {
    })
   }
 
-  async sendEmail(name: string){
+  async sendEmail(name: string, email: string){
     console.log('sending email 2');
     const callable = this.functions.httpsCallable('studentAddedToClass');
-    await callable({ subject: `You are invited to join ${this.classData.title}!`, class: this.classData.title, teacher: this.teacherData.name, link: 'https://goal-management-system.web.app/goals', name: name}).toPromise().then(() => {
-      return
-    }).catch((err) => {
-      console.log("ERROR", err);
-    });
+    callable({ subject: `You are invited to join ${this.classData.title}!`, class: this.classData.title, teacher: this.teacherData.name, link: 'https://goal-management-system.web.app/goals', name: name, email: email}).subscribe();
     console.log("sent!");
   }
 
@@ -142,7 +137,7 @@ export class DirectorClassComponent implements OnInit {
       if(data && data.uid){
         this.studentDataSource.push(data);
         console.log('sending email 1');
-        await this.sendEmail(data.name);
+        await this.sendEmail(data.name, data.email);
       }
     })
   }

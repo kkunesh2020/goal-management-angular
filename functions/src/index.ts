@@ -27,13 +27,14 @@ export const studentAddedToClass = functions.https.onCall(async (data, context) 
         },
     };
 
-    await sgMail.send(msg);
-
-    // Handle errors here
-
-    // Response must be JSON serializable
-    return { success: true };
-
+    sgMail.send(msg).then(() => {
+        console.log('Message sent')
+        return { success: true };
+    }).catch((error) => {
+        console.log(error.response.body)
+        return { success: false, error:error  };
+        // console.log(error.response.body.errors[0].message)
+    })
 });
 
 // student creates goal
