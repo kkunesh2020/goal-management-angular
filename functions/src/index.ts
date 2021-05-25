@@ -5,36 +5,37 @@ admin.initializeApp();
 
 // Sendgrid Config
 import * as sgMail from '@sendgrid/mail';
+const URL = 'https://goal-management-system.web.app/';
 
 const API_KEY = functions.config().sendgrid.key;
-const TEMPLATE_ID = functions.config().sendgrid.template;
+// const TEMPLATE_ID = functions.config().sendgrid.template;
 sgMail.setApiKey(API_KEY);
 
 
 // student added to class
 export const studentAddedToClass = functions.https.onCall(async (data, context) => {
+  sgMail.setApiKey(API_KEY);
 
     const msg = {
         to: data.email,
-        from: 'goalmanagement@chadwickschool.org',
-        templateId: TEMPLATE_ID,
-        dynamic_template_data: {
-            subject: data.subject,
-            name: data.name,
-            class: data.class,
-            teacher: data.teacher,
-            link: data.link
+        from: {
+          name: 'Chadwick School Goal Management',
+          email: 'wickgoalmanagement@gmail.com'
         },
+        subject: `You are invited to join ${data.class}!`,
+        text: `You have b ${data.goal} for ${data.class} created by ${data.teacher}. Please visit ${URL}/goals to accept the goal.`,
+        html: `
+        <p>Hey there!</p>
+        <p>
+        You have been added to <b>${data.class} taught by ${data.teacher}</b>.
+        Please visit <a href="${URL}/classes">click here</a> to view the class.
+        </p>
+        <p>
+          - Chadwick School Goal Management
+        </p>`,
     };
 
-    sgMail.send(msg).then(() => {
-        console.log('Message sent')
-        return { success: true };
-    }).catch((error) => {
-        console.log(error.response.body)
-        return { success: false, error:error  };
-        // console.log(error.response.body.errors[0].message)
-    })
+   await sgMail.send(msg);
 });
 
 // student creates goal
@@ -49,7 +50,7 @@ export const studentCreatesGoal = functions.https.onCall(async (data, context) =
         // TODO: Use an actual domain.
         from: {
           name: 'Chadwick School Goal Management',
-          email: 'goalmanagement@chadwickschool.org'
+          email: 'wickgoalmanagement@gmail.com'
         },
         subject: `You have a new goal ${data.goal}!`,
         text: `You have a new goal ${data.goal} for ${data.class} created by ${data.teacher}. Please visit ${URL}/goals to accept the goal.`,
@@ -85,7 +86,7 @@ export const teacherCreatesGoal = functions.https.onCall(async (data, context) =
         // TODO: Use an actual domain.
         from: {
           name: 'Chadwick School Goal Management',
-          email: 'goalmanagement@chadwickschool.org'
+          email: 'wickgoalmanagement@gmail.com'
         },
         subject: `${data.student} created a goal!`,
         text: `Your student, ${data.student}, created <b> a goal called ${data.goal} for ${data.class}. </b> Please <a href="${URL}/goals">click here</a> to check it out.`,

@@ -8,6 +8,7 @@ import { DeleteStudentComponent } from 'src/app/dialogs/delete-student/delete-st
 import { UpdateClassComponent } from 'src/app/dialogs/update-class/update-class.component';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
 import { User } from 'src/app/shared/models/user.model';
+import firebase from 'firebase/app';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { ClassService } from 'src/app/shared/services/class.service';
@@ -25,6 +26,7 @@ export class DirectorClassComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'edit'];
   students = [];
   retrieveClassSubscription: Subscription;
+  sendEmailSubscription = firebase.functions().httpsCallable('studentAddedToClass');
   studentDataSource = [];
 
   constructor(
@@ -119,10 +121,12 @@ export class DirectorClassComponent implements OnInit {
   }
 
   async sendEmail(name: string, email: string){
-    console.log('sending email 2');
-    const callable = this.functions.httpsCallable('studentAddedToClass');
-    callable({ subject: `You are invited to join ${this.classData.title}!`, class: this.classData.title, teacher: this.teacherData.name, link: 'https://goal-management-system.web.app/goals', name: name, email: email}).subscribe();
-    console.log("sent!");
+    console.log('sending email 2', email);
+    this.sendEmailSubscription({ subject: `You are invited to join ${this.classData.title}!`, class: this.classData.title, teacher: this.teacherData.name, link: 'https://goal-management-system.web.app/goals', name: name, email: email}).then(() => {
+      console.log("sent!");
+    }).catch((err) => {
+      console.log("ERROR",err);
+    })
   }
 
   openStudentCreateModal(){
