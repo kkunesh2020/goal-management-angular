@@ -88,6 +88,7 @@ export class DirectorClassComponent implements OnInit {
 
 
   editDialog(){
+    console.log("updating data with", this.classData);
     const dialogRef = this.dialog.open(UpdateClassComponent, {
       data: this.classData,
       height: '31rem',
