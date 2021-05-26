@@ -122,8 +122,8 @@ export class DirectorClassComponent implements OnInit {
 
   async sendEmail(name: string, email: string){
     console.log('sending email 2', email);
-    this.sendEmailSubscription({ subject: `You are invited to join ${this.classData.title}!`, class: this.classData.title, teacher: this.teacherData.name, link: 'https://goal-management-system.web.app/goals', name: name, email: email}).then(() => {
-      console.log("sent!");
+    this.sendEmailSubscription({ subject: `You are invited to join ${this.classData.title}!`, class: this.classData.title, teacher: this.teacherData.name, link: 'https://goal-management-system.web.app/goals', name: name, email: email}).then((response) => {
+      console.log("sent!", response);
     }).catch((err) => {
       console.log("ERROR",err);
     })

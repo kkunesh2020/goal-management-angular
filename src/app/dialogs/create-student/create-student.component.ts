@@ -39,7 +39,7 @@ export class CreateStudentComponent implements OnInit {
   }
 
   formComplete(): boolean{
-    return this.userValue.value != null;
+    return this.userValue.value && this.userValue.value.email != null;
   }
 
   displayFn(user: User): string {

@@ -1,16 +1,22 @@
 // Firebase Config
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
-admin.initializeApp();
+let firebase = require('firebase-admin');
+firebase.initializeApp();
 
 // Sendgrid Config
 import * as sgMail from '@sendgrid/mail';
 const URL = 'https://goal-management-system.web.app/';
 
+var serviceAccount = require("./config/goal-management-system-firebase-adminsdk-53bx2-4b89ce373e.json");
+
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount),
+  databaseURL: "https://wick-bridge.firebaseio.com"
+});
+
 const API_KEY = functions.config().sendgrid.key;
 // const TEMPLATE_ID = functions.config().sendgrid.template;
 sgMail.setApiKey(API_KEY);
-
 
 // student added to class
 export const studentAddedToClass = functions.https.onCall(async (data, context) => {
