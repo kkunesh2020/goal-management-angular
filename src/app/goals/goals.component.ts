@@ -10,6 +10,7 @@ import { GoalService } from '../shared/services/goal.service';
 import { GoalsTableData, GoalStat } from '../teacher/class/class.component';
 import GoalClass from '../shared/models/goal';
 import { ChangeStatusComponent } from '../dialogs/change-status/change-status.component';
+import { WarningPendingComponent } from '../dialogs/warning-pending/warning-pending.component';
 
 @Component({
   selector: 'gms-goals',
@@ -65,13 +66,19 @@ export class GoalsComponent {
     data.isCompleted = isCompleted;
     let dialogRef;
     // if goal status is pending open Change Status dialog otherwise open Update Goal dialog
-    if (status === 'pending') {
+    if (status === 'pending' && data.createdBy.accountType == "teacher") {
       dialogRef = this.dialog.open(ChangeStatusComponent, {
         data,
         height: '20rem',
         width: '30rem',
       });
-    } else {
+    }else if(status === 'pending' && data.createdBy.accountType == "student"){
+      dialogRef = this.dialog.open(WarningPendingComponent, {
+        height: '15rem',
+        width: '30rem',
+      });
+    }
+    else {
       dialogRef = this.dialog.open(UpdateGoalComponent, {
         data,
         height: '30rem',

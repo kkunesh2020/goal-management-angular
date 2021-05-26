@@ -122,6 +122,6 @@ import { WarningPendingComponent } from './dialogs/warning-pending/warning-pendi
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
     DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent,
-     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent, CreateStudentComponent, DeleteStudentComponent, UpdateClassComponent, DeleteClassComponent]
+     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent, CreateStudentComponent, DeleteStudentComponent, UpdateClassComponent, DeleteClassComponent, WarningPendingComponent]
 })
 export class AppModule { }
