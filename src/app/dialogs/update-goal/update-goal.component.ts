@@ -25,6 +25,7 @@ export class UpdateGoalComponent {
   isLoading = false;
   currentGoal: any;
   isCompleted = false;
+  createdByStudent: boolean = false;
   updated: boolean = false;
 
   constructor(
@@ -51,6 +52,7 @@ export class UpdateGoalComponent {
       links: data.links,
       commits: data.commits,
     };
+    this.createdByStudent = (this.currentGoal.createdBy.accountType == "student");
     this.currentGoal = this.goalService.validateGoal(this.currentGoal);
     this.isCompleted = data.isCompleted;
     console.log('commits', this.currentGoal);
@@ -78,6 +80,13 @@ export class UpdateGoalComponent {
           this.dialogRef.close('updated');
         });
     }
+  }
+
+  deleteGoal(){
+    this.isLoading = true;
+    this.goalService.deleteGoal(this.currentGoal).then(() => {
+      this.dialogRef.close({status: "deleted", id: this.currentGoal.id});
+    })
   }
 
   closeModal(){

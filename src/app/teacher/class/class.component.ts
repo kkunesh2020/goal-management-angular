@@ -215,7 +215,7 @@ export class ClassComponent {
       // otherwise display the update goal component
       dialogRef = this.dialog.open(UpdateGoalComponent, {
         data,
-        height: '30rem',
+        height: '33rem',
         width: '30rem',
       });
     }
@@ -224,6 +224,11 @@ export class ClassComponent {
       // reshow goals when dialog is closed
       if (result === 'updated' && this.accountType === 'student') {
         this.getGoalsForStudent(this.classID, this.uid);
+      }
+
+      if(result.status == 'deleted'){
+        let newGoals = this.goalsDataSource.filter(goal => goal != result.id);
+        this.goalsDataSource = newGoals;
       }
     });
   }

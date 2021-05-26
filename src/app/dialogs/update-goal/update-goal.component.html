@@ -43,7 +43,8 @@
   </mat-menu>
 
   <div class="actionButton" *ngIf="!isCompleted">
-    <button mat-raised-button color="primary" class="acButton markButton" *ngIf="!isLoading" (click)="updateGoal(true)" [class.spinner]="isLoading" [disabled]="isLoading"><mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon> Mark As Done</button>
+    <button mat-raised-button color="primary" class="acButton markButton" *ngIf="!isLoading" (click)="updateGoal(true)" [class.spinner]="isLoading" [disabled]="isLoading"><mat-icon>done</mat-icon> Mark As Done</button>
+    <button mat-raised-button class="acButton deleteButton" (click)="deleteGoal()" [class.spinner]="isLoading" [disabled]="isLoading" *ngIf="createdByStudent && !isLoading"><mat-icon>delete</mat-icon> Delete Goal</button>
   </div>
 
   <div class="actionButton" *ngIf="isCompleted">
