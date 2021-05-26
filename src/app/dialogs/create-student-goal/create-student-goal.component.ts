@@ -22,7 +22,7 @@ export class CreateStudentGoalComponent {
       null,
       data.classID,
       [],
-      [],
+      [data.createdBy.uid],
       [],
       '',
       data.createdBy,
