@@ -24,7 +24,8 @@ export class ChangeStatusComponent {
     this.loading = true;
     this.teacherName = data.createdBy.name;
     this.goalTitle = data.description;
-    this.dueDate = new Date(data.dueDate.seconds * 1000);
+    console.log("date due", data.dueDate.toDate());
+    this.dueDate = data.dueDate.toDate();
     this.loading = false;
     this.rejectionNote = '';
   }
