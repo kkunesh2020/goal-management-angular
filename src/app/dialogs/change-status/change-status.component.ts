@@ -10,6 +10,7 @@ import { GoalService } from 'src/app/shared/services/goal.service';
 export class ChangeStatusComponent {
   loading: boolean;
   teacherName: string;
+  studentName: string;
   goalTitle: string;
   dueDate: Date;
   rejected: boolean;
@@ -22,7 +23,12 @@ export class ChangeStatusComponent {
     private goalService: GoalService) {
 
     this.loading = true;
-    this.teacherName = data.createdBy.name;
+    if(data.createdBy.accountType == "teacher"){
+      this.teacherName = data.createdBy.name;
+    }else{
+      this.studentName = data.createdBy.name;
+    }
+    
     this.goalTitle = data.description;
     console.log("date due", data.dueDate.toDate());
     this.dueDate = data.dueDate.toDate();

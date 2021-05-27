@@ -40,7 +40,7 @@ export interface GoalStat {
   pending: Array<string>;
   declined: Array<string>;
   id: string;
-  createdBy: string;
+  createdBy: any;
 }
 
 @Component({
@@ -162,7 +162,7 @@ export class ClassComponent {
           declined: element.declined,
           hasCompleted: element.hasCompleted,
           assignedToID: element.assignedToID,
-          createdBy: element.createdBy.uid,
+          createdBy: element.createdBy,
           id: element.id,
         };
         goals.push(newGoal);
@@ -181,7 +181,7 @@ export class ClassComponent {
   }
 
   studentCreatedClass(goal: GoalStat): boolean{
-    if(this.getLengthOf(goal.assignedToID) == 1 && (goal.createdBy == goal.assignedToID[0])){
+    if(this.getLengthOf(goal.assignedToID) == 1 && (goal.createdBy.uid == goal.assignedToID[0])){
       return true;
     }
     return false;
