@@ -70,6 +70,7 @@ export class ViewStudentDataComponent implements OnInit {
             declined: element.declined,
             assignedToID: element.assignedToID,
             id: element.id,
+            createdBy: element.createdBy
           };
           goals.push(newGoal);
         });

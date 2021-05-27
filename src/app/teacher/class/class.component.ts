@@ -40,6 +40,7 @@ export interface GoalStat {
   pending: Array<string>;
   declined: Array<string>;
   id: string;
+  createdBy: string;
 }
 
 @Component({
@@ -118,9 +119,20 @@ export class ClassComponent {
     this.router.navigate([`/classes/${this.classID}/students/${studentID}`]);
   }
 
-  openGoalData(goalID: string) {
-    this.studentsGoalService.setStudentGoalData(null, null);
-    this.router.navigate([`/classes/${this.classID}/goals/${goalID}`]);
+  openGoalData(goal: GoalStat) {
+    //pending check
+    console.log("pending", goal);
+    console.log(this.getLengthOf(goal.pending), this.getLengthOf(goal.assignedToID), this.studentCreatedClass(goal));
+    if(this.getLengthOf(goal.pending) == 1 && this.getLengthOf(goal.assignedToID) == 1 && this.studentCreatedClass(goal)){
+      let dialogRef = this.dialog.open(ChangeStatusComponent, {
+        data: goal,
+        height: '20rem',
+        width: '30rem',
+      });
+    }else{
+      this.studentsGoalService.setStudentGoalData(null, null);
+      this.router.navigate([`/classes/${this.classID}/goals/${goal.id}`]);
+    }
   }
 
   goalIsCompleted(hasCompleted: string[], userID: string) {
@@ -150,6 +162,7 @@ export class ClassComponent {
           declined: element.declined,
           hasCompleted: element.hasCompleted,
           assignedToID: element.assignedToID,
+          createdBy: element.createdBy.uid,
           id: element.id,
         };
         goals.push(newGoal);
@@ -165,6 +178,13 @@ export class ClassComponent {
       return 0;
     }
     return array.length;
+  }
+
+  studentCreatedClass(goal: GoalStat): boolean{
+    if(this.getLengthOf(goal.assignedToID) == 1 && (goal.createdBy == goal.assignedToID[0])){
+      return true;
+    }
+    return false;
   }
 
   getGoalsForStudent(classID: string, studentID: string) {
