@@ -15,12 +15,13 @@ import { DeleteGoalComponent } from 'src/app/dialogs/delete-goal/delete-goal.com
 import { ChangeStatusComponent } from 'src/app/dialogs/change-status/change-status.component';
 import { CreateStudentGoalComponent } from 'src/app/dialogs/create-student-goal/create-student-goal.component';
 import { GoalStudentDataService } from 'src/app/shared/services/goal-student-data.service';
+import { DocumentReference } from '@angular/fire/firestore';
 
 export interface StudentData {
   name: string;
   id: string;
   goalsAssigned: number;
-  goalsCompleted: number;
+  goalsCompleted: number
 }
 
 export interface GoalsTableData {
@@ -108,7 +109,7 @@ export class ClassComponent {
   getStudentData() {
     // work on this
     this.classService
-      .getStudentsDataByReference(this.class.students)
+      .getStudentsDataByReference(this.class.students, this.classID)
       .then((studentData) => {
         console.log('retrieved student data', studentData);
         this.studentDataSource = studentData;
@@ -125,7 +126,7 @@ export class ClassComponent {
     console.log(this.getLengthOf(goal.pending), this.getLengthOf(goal.assignedToID), this.studentCreatedClass(goal));
     if(this.getLengthOf(goal.pending) == 1 && this.getLengthOf(goal.assignedToID) == 1 && this.studentCreatedClass(goal)){
       let dialogRef = this.dialog.open(ChangeStatusComponent, {
-        data: goal,
+        data: {...goal, uid: goal.assignedToID[0]},
         height: '20rem',
         width: '30rem',
       });
@@ -133,6 +134,12 @@ export class ClassComponent {
       this.studentsGoalService.setStudentGoalData(null, null);
       this.router.navigate([`/classes/${this.classID}/goals/${goal.id}`]);
     }
+  }
+
+  async getAssignmentCount(studentAssignments: DocumentReference[]): Promise<number>{
+    let count = 0;
+    
+    return count;
   }
 
   goalIsCompleted(hasCompleted: string[], userID: string) {
@@ -260,7 +267,7 @@ export class ClassComponent {
       classID: this.classID,
       students: [],
     };
-    data.students = await this.classService.getStudentsDataByReference(this.class.students)
+    data.students = await this.classService.getStudentsDataByReference(this.class.students, "")
     // passes in class data into the dialog
     const dialogRef = this.dialog.open(CreateGoalComponent, {
       data,
@@ -281,7 +288,7 @@ export class ClassComponent {
     const data = {
       createdBy: this.user,
       classID: this.classID,
-      students: this.classService.getStudentsDataByReference(this.class.students),
+      students: this.classService.getStudentsDataByReference(this.class.students, ""),
     };
     const dialogRef = this.dialog.open(CreateStudentGoalComponent, {
       data,

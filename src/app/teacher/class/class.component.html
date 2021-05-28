@@ -80,7 +80,7 @@
             </mat-menu>
           </span>
 
-          <span [hidden]="getLengthOf(element.assignedToID) > 1">
+          <span [hidden]="getLengthOf(element.assignedToID) > 1 || getLengthOf(element.pending) != 1 ">
             <mat-icon [matMenuTriggerFor]="actionMenu">schedule</mat-icon>
             <mat-menu #actionMenu="matMenu">
               <button mat-menu-item (click)="editDialog(element)">Edit</button>
@@ -93,9 +93,9 @@
 
       <tr mat-header-row *matHeaderRowDef="classgoalsDisplayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: classgoalsDisplayedColumns;"
-      [class.green-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) >= .8 && !studentCreatedClass(row)"
+      [class.green-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) >= .8 && !(getLengthOf(row.pending) == 1 && getLengthOf(row.assignedToID) == 1)"
       [class.yellow-row]="getLengthOf(row.pending) == 1 && getLengthOf(row.assignedToID) == 1 && studentCreatedClass(row)"
-      [class.red-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) < .5 && !studentCreatedClass(row)"></tr>
+      [class.red-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) < .5 && !(getLengthOf(row.pending) == 1 && getLengthOf(row.assignedToID) == 1)"></tr>
     </table>
   </div>
 </div>

@@ -165,7 +165,7 @@ export class GoalService {
   // @params doc: DocumentReference
   getGoalByReference(doc: DocumentReference): Promise<any> {
     const promise = doc.get().then((paper) => {
-      return doc;
+      return {...paper.data(), id: paper.id};
     });
     return promise;
   }

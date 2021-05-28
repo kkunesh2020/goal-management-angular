@@ -117,16 +117,42 @@ export class ClassService {
     return array.length;
   }
 
+  getGoalByReference(doc: DocumentReference): Promise<any> {
+    const promise = doc.get().then((paper) => {
+      return {...paper.data(), id: paper.id};
+    });
+    return promise;
+  }
+
   // given an array of student document references get the student data for each ref.
   // @param refs: DocumentReference[]
-  async getStudentsDataByReference(refs: DocumentReference[]): Promise<any> {
+  async getStudentsDataByReference(refs: DocumentReference[], classID: string): Promise<any> {
     const studentsData: StudentData[] = [];
     for (const studentRef of refs) {
       const student = await this.getStudentData(studentRef);
+      let assignmentCount = 0;
+      let completedCount = 0;
+      if(classID != ""){
+        student.goalsAssigned.forEach(async(assignement) => {
+          let result = await this.getGoalByReference(assignement);
+          if(result.classID == classID){
+            assignmentCount++;
+          }
+  
+          if(result.classID == classID && result.hasCompleted.includes(student.uid)){
+            completedCount++;
+          }
+        });
+      }else{
+        assignmentCount = this.getLengthOf(student.goalsAssigned);
+        completedCount = this.getLengthOf(student.goalsCompleted);
+      }
+
+    
       const data: StudentData = {
         name: student.name,
-        goalsAssigned: this.getLengthOf(student.goalsAssigned),
-        goalsCompleted: this.getLengthOf(student.goalsCompleted),
+        goalsAssigned: assignmentCount,
+        goalsCompleted: completedCount,
         id: studentRef.id,
         uid: studentRef.id,
         email: student.email
@@ -239,7 +265,7 @@ export class ClassService {
     // delete class from every student
     if (classData.students.length > 0) {
       console.log("deleting student data....");
-      this.getStudentsDataByReference(classData.students).then(async (students) => {
+      this.getStudentsDataByReference(classData.students, "").then(async (students) => {
         console.log("looping throught students", students);
         students.forEach(async (student) => {
           console.log("DELETING", student);
