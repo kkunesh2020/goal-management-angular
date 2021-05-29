@@ -109,7 +109,7 @@ export class ClassComponent {
   getStudentData() {
     // work on this
     this.classService
-      .getStudentsDataByReference(this.class.students, this.classID)
+      .getStudentsDataByReferenceClassID(this.class.students, this.classID)
       .then((studentData) => {
         console.log('retrieved student data', studentData);
         this.studentDataSource = studentData;
@@ -267,7 +267,7 @@ export class ClassComponent {
       classID: this.classID,
       students: [],
     };
-    data.students = await this.classService.getStudentsDataByReference(this.class.students, "")
+    data.students = await this.classService.getStudentsDataByReference(this.class.students)
     // passes in class data into the dialog
     const dialogRef = this.dialog.open(CreateGoalComponent, {
       data,
@@ -288,7 +288,7 @@ export class ClassComponent {
     const data = {
       createdBy: this.user,
       classID: this.classID,
-      students: this.classService.getStudentsDataByReference(this.class.students, ""),
+      students: this.classService.getStudentsDataByReference(this.class.students),
     };
     const dialogRef = this.dialog.open(CreateStudentGoalComponent, {
       data,
