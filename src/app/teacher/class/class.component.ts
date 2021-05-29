@@ -16,6 +16,7 @@ import { ChangeStatusComponent } from 'src/app/dialogs/change-status/change-stat
 import { CreateStudentGoalComponent } from 'src/app/dialogs/create-student-goal/create-student-goal.component';
 import { GoalStudentDataService } from 'src/app/shared/services/goal-student-data.service';
 import { DocumentReference } from '@angular/fire/firestore';
+import { WarningPendingComponent } from 'src/app/dialogs/warning-pending/warning-pending.component';
 
 export interface StudentData {
   name: string;
@@ -124,6 +125,7 @@ export class ClassComponent {
     //pending check
     console.log("pending", goal);
     console.log(this.getLengthOf(goal.pending), this.getLengthOf(goal.assignedToID), this.studentCreatedClass(goal));
+
     if(this.getLengthOf(goal.pending) == 1 && this.getLengthOf(goal.assignedToID) == 1 && this.studentCreatedClass(goal)){
       let dialogRef = this.dialog.open(ChangeStatusComponent, {
         data: {...goal, uid: goal.assignedToID[0]},
@@ -188,6 +190,7 @@ export class ClassComponent {
   }
 
   studentCreatedClass(goal: GoalStat): boolean{
+    console.log("student created", this.getLengthOf(goal.assignedToID), goal.createdBy.uid, goal.assignedToID[0]);
     if(this.getLengthOf(goal.assignedToID) == 1 && (goal.createdBy.uid == goal.assignedToID[0])){
       return true;
     }
@@ -231,7 +234,14 @@ export class ClassComponent {
     data.uid = userID;
     data.isCompleted = isCompleted;
     let dialogRef;
-    if (status === 'pending') {
+
+    if(status == "pending" && this.studentCreatedClass(data)){
+      console.log("open pending");
+     dialogRef = this.dialog.open(WarningPendingComponent, {
+       height: '15rem',
+       width: '30rem',
+     });
+   } else if (status === 'pending') {
       // if the goal status is pending display the change status dialog
       dialogRef = this.dialog.open(ChangeStatusComponent, {
         data,
