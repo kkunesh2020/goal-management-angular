@@ -23,8 +23,6 @@ export class CreateGoalComponent implements OnInit {
    }
 
   ngOnInit() {
-  // initially assign to all students
-    this.assignAllStudents();
   }
 
   assignAllStudents() {
@@ -44,7 +42,7 @@ export class CreateGoalComponent implements OnInit {
     if (assigned) {
       this.assignedStudentID.push(studentID);
     } else { // removes from assigned student array
-      this.assignedStudentID = this.assignedStudentID.filter(id => id !== studentID);
+      this.assignedStudentID = this.assignedStudentID.filter(id => id != studentID);
     }
   }
 
