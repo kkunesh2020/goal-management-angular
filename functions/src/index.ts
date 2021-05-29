@@ -15,6 +15,7 @@ import * as sgMail from '@sendgrid/mail';
 // });
 
 const API_KEY = functions.config().sendgrid.key;
+const TEMPLATE_ID = functions.config().sendgrid.template;
 // const TEMPLATE_ID = functions.config().sendgrid.template;
 sgMail.setApiKey(API_KEY);
 
@@ -22,24 +23,18 @@ sgMail.setApiKey(API_KEY);
 export const studentAddedToClass = functions.https.onCall(async (data, context) => {
   sgMail.setApiKey(API_KEY);
 
-    const msg = {
-        to: data.email,
-        from: {
-          name: 'Chadwick School Goal Management',
-          email: 'wickgoalmanagement@gmail.com'
-        },
-        subject: `You are invited to join ${data.class}!`,
-        text: `You have b ${data.goal} for ${data.class} created by ${data.teacher}. Please visit ${URL}/goals to accept the goal.`,
-        html: `
-        <p>Hey there!</p>
-        <p>
-        You have been added to <b>${data.class} taught by ${data.teacher}</b>.
-        Please visit <a href="${URL}/classes">click here</a> to view the class.
-        </p>
-        <p>
-          - Chadwick School Goal Management
-        </p>`,
-    };
+  const msg = {
+    to: data.email,
+    from: 'goalmanagement@chadwickschool.org',
+    templateId: TEMPLATE_ID,
+    dynamic_template_data: {
+        subject: data.subject,
+        name: data.name,
+        class: data.class,
+        teacher: data.teacher,
+        link: data.link
+    },
+};
 
    await sgMail.send(msg);
 });

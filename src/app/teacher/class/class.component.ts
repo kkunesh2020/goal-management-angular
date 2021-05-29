@@ -132,6 +132,13 @@ export class ClassComponent {
         height: '20rem',
         width: '30rem',
       });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === 'updated') {
+          // if the goal is successfully deleted, reshow goals
+          this.getAllGoalsForTeacher(this.classID);
+        }
+      });
     }else{
       this.studentsGoalService.setStudentGoalData(null, null);
       this.router.navigate([`/classes/${this.classID}/goals/${goal.id}`]);
@@ -263,7 +270,7 @@ export class ClassComponent {
         this.getGoalsForStudent(this.classID, this.uid);
       }
 
-      if(result.status == 'deleted'){
+      if(result && result.status == 'deleted'){
         let newGoals = this.goalsDataSource.filter(goal => goal != result.id);
         this.goalsDataSource = newGoals;
       }

@@ -71,7 +71,7 @@ export class AuthService {
 
   async githubSignin() {
     const provider = new auth.GithubAuthProvider();
-    const credential: any = await this.afAuth.auth.signInWithPopup(provider);
+    const credential: any = await this.afAuth.auth.getRedirectResult();
     await this.updateUserData(credential.user);
     this.userGithubID = credential.credential.accessToken;
     this.githubUsername = credential.additionalUserInfo.username;
