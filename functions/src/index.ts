@@ -2,10 +2,10 @@
 import * as functions from 'firebase-functions';
 let firebase = require('firebase-admin');
 firebase.initializeApp();
-
+const db = firebase.firestore();
 // Sendgrid Config
 import * as sgMail from '@sendgrid/mail';
-// const URL = 'https://goal-management-system.web.app/';
+const URL = 'https://goal-management-system.web.app/';
 
 // var serviceAccount = require("./config/goal-management-system-firebase-adminsdk-53bx2-4b89ce373e.json");
 
@@ -15,7 +15,6 @@ import * as sgMail from '@sendgrid/mail';
 // });
 
 const API_KEY = functions.config().sendgrid.key;
-const TEMPLATE_ID = functions.config().sendgrid.template;
 // const TEMPLATE_ID = functions.config().sendgrid.template;
 sgMail.setApiKey(API_KEY);
 
@@ -23,18 +22,24 @@ sgMail.setApiKey(API_KEY);
 export const studentAddedToClass = functions.https.onCall(async (data, context) => {
   sgMail.setApiKey(API_KEY);
 
-  const msg = {
-    to: data.email,
-    from: 'goalmanagement@chadwickschool.org',
-    templateId: TEMPLATE_ID,
-    dynamic_template_data: {
-        subject: data.subject,
-        name: data.name,
-        class: data.class,
-        teacher: data.teacher,
-        link: data.link
-    },
-};
+    const msg = {
+        to: data.email,
+        from: {
+          name: 'Chadwick School Goal Management',
+          email: 'wickgoalmanagement@gmail.com'
+        },
+        subject: `You are invited to join ${data.class}!`,
+        text: `You have b ${data.goal} for ${data.class} created by ${data.teacher}. Please visit ${URL}/goals to accept the goal.`,
+        html: `
+        <p>Hey there!</p>
+        <p>
+        You have been added to <b>${data.class} taught by ${data.teacher}</b>.
+        Please visit <a href="${URL}/classes">click here</a> to view the class.
+        </p>
+        <p>
+          - Chadwick School Goal Management
+        </p>`
+    };
 
    await sgMail.send(msg);
 });
@@ -75,38 +80,38 @@ export const studentAddedToClass = functions.https.onCall(async (data, context) 
 
 // });
 
-// // teacher creates goal
-// export const teacherCreatesGoal = functions.https.onCall(async (data, context) => {
 
-//     if (!context.auth && !context.auth.token.email) {
-//         throw new functions.https.HttpsError('failed-precondition', 'Must be logged with an email address');
-//     }
+export const teacherCreatesGoal = functions.firestore.document('goals/{goalID}').onCreate( async (change, context) => {
 
-//     let msg = {
-//         to: data.email,
-//         // TODO: Use an actual domain.
-//         from: {
-//           name: 'Chadwick School Goal Management',
-//           email: 'wickgoalmanagement@gmail.com'
-//         },
-//         subject: `${data.student} created a goal!`,
-//         text: `Your student, ${data.student}, created <b> a goal called ${data.goal} for ${data.class}. </b> Please <a href="${URL}/goals">click here</a> to check it out.`,
-//         html: `
-//         <p>Hi ${data.teacher}!</p>
-//         <p>
-//           Your student, ${data.student}, created <b> a goal called ${data.goal} for ${data.class}. </b>
-//           Please <a href="${URL}/goals">click here</a> to check it out.
-//         </p>
-//         <p>
-//           - Chadwick School Goal Management
-//         </p>`,
-//       }
+  // Read the post document
+  const postSnap = await db.collection('goals').doc(context.params.postId).get();
 
-//     await sgMail.send(msg);
+  // Raw Data
+  const goal = postSnap.data(); 
+  const classData = await db.collection('classes').doc(goal.classID).get().data();
+  const teacherData = await db.collection('users').doc(classData.teacherUID).get().data();
 
-//     // Handle errors here
+  // Email
+  const msg = {
+      to: goal.createdBy.email,
+      from: {
+        name: 'Chadwick School Goal Management',
+        email: 'wickgoalmanagement@gmail.com'
+      },
+      subject: `You have a new goal ${goal.description}!`,
+      text: `You were assigned a new goal ${goal.description} for ${classData.title} created by ${teacherData.name}. Please <a href="${URL}/goals">click here</a> to view the goal.`,
+      html: `
+      <p>Hey there!</p>
+      <p>
+        You have a <b>new goal ${goal.description}</b> for ${classData.titles} created by ${teacherData.name}.
+        Please <a href="${URL}/goals">click here</a> to view the goal.
+      </p>
+      <p>
+        - Chadwick School Goal Management
+      </p>`,
+  };
 
-//     // Response must be JSON serializable
-//     return { success: true };
+  // Send it
+  await sgMail.send(msg);
 
-// });
+});
