@@ -59,7 +59,7 @@ export class GoalDetailsComponent implements OnInit {
           this.studentData.status = 'pending';
         }
 
-        console.log(this.studentData.status);
+        this.studentData.status = this.studentData.status.status;
       }
     });
   }

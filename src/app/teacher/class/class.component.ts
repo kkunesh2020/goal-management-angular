@@ -197,7 +197,6 @@ export class ClassComponent {
   }
 
   studentCreatedClass(goal: GoalStat): boolean{
-    console.log("student created", this.getLengthOf(goal.assignedToID), goal.createdBy.uid, goal.assignedToID[0]);
     if(this.getLengthOf(goal.assignedToID) == 1 && (goal.createdBy.uid == goal.assignedToID[0])){
       return true;
     }
@@ -216,7 +215,6 @@ export class ClassComponent {
           element.declined,
           studentID
         );
-        console.log('goal status', status);
         const newGoal: GoalsTableData = {
           // intializes goal object to display on table
           description: element.description,
@@ -232,7 +230,6 @@ export class ClassComponent {
         }
       });
       this.goalsDataSource = goals;
-      console.log(this.goalsDataSource);
     });
     this.loading = false;
   }

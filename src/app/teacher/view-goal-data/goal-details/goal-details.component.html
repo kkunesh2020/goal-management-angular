@@ -13,21 +13,21 @@
 
   <div class="studentGoalData" *ngIf="studentData != null">
     <h1>{{studentData.name}}</h1>
-    <div *ngIf="studentData.status == 'completed'" class="complete">
+    <div *ngIf="studentData.status == 'completed'" class="complete status">
       <mat-icon aria-hidden="false" aria-label="done icon">done</mat-icon>
-      <p>Completed</p>
+      <span>Completed</span>
     </div>
-    <div *ngIf="studentData.status == 'incompleted'" class="uncomplete">
+    <div *ngIf="studentData.status == 'incompleted'" class="uncomplete status">
       <mat-icon aria-hidden="false" aria-label="done icon">clear</mat-icon>
-      <p>Not Completed</p>
+      <span>Not Completed</span>
     </div>
-    <div *ngIf="studentData.status == 'pending'" class="pending">
+    <div *ngIf="studentData.status == 'pending'" class="pending status">
       <mat-icon aria-hidden="false" aria-label="done icon">schedule</mat-icon>
-      <p>Pending</p>
+      <span>Pending</span>
     </div>
-    <div *ngIf="studentData.status == 'declined'" class="declined">
+    <div *ngIf="studentData.status == 'declined'" class="declined status">
       <mat-icon aria-hidden="false" aria-label="done icon">report_problem</mat-icon>
-      <p>Declined</p>
+      <span>Declined</span>
     </div>
     <div class="completedSection" *ngIf="studentData.status == 'completed'">
       <h1 class="reason">Attached Work: </h1>

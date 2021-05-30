@@ -48,9 +48,13 @@
 }
 
 .pending{
-  color: rgb(221, 205, 132);
+  color: rgb(230, 191, 63);
 }
 
+.status{
+  display: flex;
+  align-items: center;
+}
 
 .reason{
   font-size: 1.5rem;
