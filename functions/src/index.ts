@@ -44,55 +44,22 @@ export const studentAddedToClass = functions.https.onCall(async (data, context) 
    await sgMail.send(msg);
 });
 
-// student creates goal
-// export const studentCreatesGoal = functions.https.onCall(async (data, context) => {
 
-//     if (!context.auth && !context.auth.token.email) {
-//         throw new functions.https.HttpsError('failed-precondition', 'Must be logged with an email address');
-//     }
-
-//     let msg = {
-//         to: data.email,
-//         // TODO: Use an actual domain.
-//         from: {
-//           name: 'Chadwick School Goal Management',
-//           email: 'wickgoalmanagement@gmail.com'
-//         },
-//         subject: `You have a new goal ${data.goal}!`,
-//         text: `You have a new goal ${data.goal} for ${data.class} created by ${data.teacher}. Please visit ${URL}/goals to accept the goal.`,
-//         html: `
-//         <p>Hey there!</p>
-//         <p>
-//          You have a <b>new goal ${data.goal}</b> for ${data.class} created by ${data.teacher}.
-//           Please <a href="${URL}/goals">click here</a> to read it.
-//         </p>
-//         <p>
-//           - Chadwick School Goal Management
-//         </p>`,
-//       }
-
-//     await sgMail.send(msg);
-
-//     // Handle errors here
-
-//     // Response must be JSON serializable
-//     return { success: true };
-
-// });
-
-
-export const teacherCreatesGoal = functions.firestore.document('goals/{goalID}').onCreate( async (change, context) => {
+export const userCreatedGoalEmail = functions.firestore.document('goals/{goalID}').onCreate( async (change, context) => {
 
   // Read the post document
-  const postSnap = await db.collection('goals').doc(context.params.postId).get();
+  const postSnap = await db.collection('goals').doc(context.params.goalID).get();
 
   // Raw Data
   const goal = postSnap.data(); 
-  const classData = await db.collection('classes').doc(goal.classID).get().data();
-  const teacherData = await db.collection('users').doc(classData.teacherUID).get().data();
+  const classDoc = await db.collection('classes').doc(goal.classID).get();
+  const classData = classDoc.data();
+  const teacherDoc = await db.collection('users').doc(classData.teacherUID).get();
+  const teacherData = teacherDoc.data()
 
-  // Email
-  const msg = {
+
+  // Email if teacher creates goal
+  let msg = {
       to: goal.createdBy.email,
       from: {
         name: 'Chadwick School Goal Management',
@@ -111,7 +78,28 @@ export const teacherCreatesGoal = functions.firestore.document('goals/{goalID}')
       </p>`,
   };
 
-  // Send it
-  await sgMail.send(msg);
-
+  // Email if student creates goal
+  if(goal.createdBy.accountType == "student"){
+    msg.to = teacherData.email;
+    msg.subject = `${goal.createdBy.name} created a new goal!`;
+    msg.text = `Your student, ${goal.createdBy.name}, created a new goal called ${goal.description} for your class ${classData.title}. Please <a href="${URL}/classes/${classDoc.id}/goals/${postSnap.id}">click here</a> to view the goal.`;
+    msg.html = `
+    <p>Hey there!</p>
+      <p>
+        Your student, ${goal.createdBy.name}, created a new goal called ${goal.description} for your class ${classData.title}.
+        Please <a href="${URL}/classes/${classDoc.id}/goals/${postSnap.id}">click here</a> to view the goal.
+      </p>
+      <p>
+        - Chadwick School Goal Management
+      </p>
+    `;
+    await sgMail.send(msg);
+    return;
+  }else{
+    for(let student of goal.assignedToID){
+      let studentDoc = await db.collection('users').doc(student).get();
+      msg.to = studentDoc.data().email;
+      await sgMail.send(msg);
+    }
+  }
 });
