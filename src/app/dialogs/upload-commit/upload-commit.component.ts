@@ -27,7 +27,7 @@ export class UploadCommitComponent implements OnInit {
     private goalService: GoalService
   ) {
     this.goalID = data.goal.id;
-    this.uid = data.uid;
+    this.uid = data.email;
   }
 
   ngOnInit() {

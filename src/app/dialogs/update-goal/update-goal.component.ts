@@ -64,7 +64,7 @@ export class UpdateGoalComponent {
     if (isDone) {
       // mark as done
       this.goalService
-        .completeGoal(this.currentGoal, this.data.uid)
+        .completeGoal(this.currentGoal, this.data.email)
         .then(() => {
           this.isLoading = false;
           this.madeChanges = true;
@@ -73,7 +73,7 @@ export class UpdateGoalComponent {
     } else {
       // unsubmit
       this.goalService
-        .unsubmitGoal(this.currentGoal, this.data.uid)
+        .unsubmitGoal(this.currentGoal, this.data.email)
         .then(() => {
           this.isLoading = false;
           this.madeChanges = true;
@@ -103,7 +103,7 @@ export class UpdateGoalComponent {
     const dialogRef = this.dialog.open(UploaderComponent, {
       height: '40rem',
       width: '60rem',
-      data: { goal: this.currentGoal, uid: this.data.uid },
+      data: { goal: this.currentGoal, uid: this.data.email },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== '') {
@@ -122,7 +122,7 @@ export class UpdateGoalComponent {
       const dialogRef = this.dialog.open(UploadCommitComponent, {
         height: '30rem',
         width: '25rem',
-        data: { goal: this.currentGoal, uid: this.data.uid },
+        data: { goal: this.currentGoal, uid: this.data.email },
       });
       dialogRef.afterClosed().subscribe((result) => {
         if (result !== '') {
@@ -142,7 +142,7 @@ export class UpdateGoalComponent {
     const dialogRef = this.dialog.open(UploadLinkComponent, {
       height: '14rem',
       width: '25rem',
-      data: { goal: this.currentGoal, uid: this.data.uid },
+      data: { goal: this.currentGoal, email: this.data.email },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== '') {

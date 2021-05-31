@@ -62,7 +62,7 @@ export class GoalsComponent {
   }
 
   openDialog(data: any, userID: string, isCompleted: boolean, status: string) {
-    data.uid = userID;
+    data.email = userID;
     data.isCompleted = isCompleted;
     let dialogRef;
     // if goal status is pending open Change Status dialog otherwise open Update Goal dialog
@@ -116,13 +116,13 @@ export class GoalsComponent {
           goalRef.hasCompleted,
           goalRef.pending,
           goalRef.declined,
-          result.data.uid
+          result.data.email
         );
 
         let newItem = {
           description: result.data.description,
           dueDate: result.data.dueDate,
-          isCompleted: this.goalService.userHasCompleted(goalRef.hasCompleted, result.data.uid),
+          isCompleted: this.goalService.userHasCompleted(goalRef.hasCompleted, result.data.email),
           createdBy: result.data.createdBy.name,
           goalReference: goalRef,
           status

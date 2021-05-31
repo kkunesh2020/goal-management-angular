@@ -42,7 +42,7 @@ export class ChangeStatusComponent {
 
   updateStatus(status: string) {
     this.loading = true;
-    this.goalService.updateGoalStatus(this.data.id, status, this.data.uid, this.rejectionNote).then(() => {
+    this.goalService.updateGoalStatus(this.data.id, status, this.data.email, this.rejectionNote).then(() => {
       this.dialogRef.close('updated');
     });
   }

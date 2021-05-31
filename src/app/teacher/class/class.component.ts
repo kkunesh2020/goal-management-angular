@@ -235,7 +235,7 @@ export class ClassComponent {
   }
 
   openDialog(data: any, userID: string, isCompleted: boolean, status: string) {
-    data.uid = userID;
+    data.email = userID;
     data.isCompleted = isCompleted;
     let dialogRef;
 

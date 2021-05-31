@@ -139,7 +139,7 @@ export class DirectorClassComponent implements OnInit {
     })
     ref.afterClosed().subscribe(async(data) => {
       console.log("got the data", data);
-      if(data && data.uid){
+      if(data && data.email){
         this.studentDataSource.push(data);
         console.log('sending email 1');
         await this.sendEmail(data.name, data.email);

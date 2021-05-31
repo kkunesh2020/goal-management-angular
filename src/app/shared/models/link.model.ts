@@ -1,4 +1,4 @@
 export interface Link {
-  uid: string;
+  email: string;
   url: string;
 }

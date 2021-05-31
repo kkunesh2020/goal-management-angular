@@ -305,7 +305,7 @@ export class ClassService {
       classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classData.id))
     })
     // update new teacher
-    await this.userCollection.doc(teacherData.uid).update({
+    await this.userCollection.doc(teacherData.email).update({
       classes: firebase.firestore.FieldValue.arrayUnion(this.classCollection.doc(classData.id))
     })
     return;

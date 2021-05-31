@@ -11,21 +11,21 @@ import { GoalService } from 'src/app/shared/services/goal.service';
 export class UploadLinkComponent  {
   loading: boolean;
   url = '';
-  uid: string;
+  email: string;
   link: LinkClass;
   goalID: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<UploadLinkComponent>, private goalService: GoalService) {
         this.goalID = data.goal.id;
-        this.uid = data.uid;
+        this.email = data.email;
   }
 
   // add link to goal object
   addLink() {
     this.loading = true;
     // add link
-    const newLink = {url: this.url, uid: this.uid} as LinkClass;
+    const newLink = {url: this.url, email: this.email} as LinkClass;
     console.log('new link', newLink);
     this.goalService.addLinkToGoal(this.goalID, newLink).then(() => {
       this.loading = false;

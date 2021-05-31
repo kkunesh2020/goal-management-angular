@@ -86,7 +86,7 @@ export const userCreatedGoalEmail = functions.firestore.document('goals/{goalID}
     msg.html = `
     <p>Hey there!</p>
       <p>
-        Your student, ${goal.createdBy.name}, created a new goal called ${goal.description} for your class ${classData.title}.
+        Your student, ${goal.createdBy.name}, <b>created a new goal called ${goal.description} for your class ${classData.title}.</b>
         Please <a href="${URL}/classes/${classDoc.id}/goals/${postSnap.id}">click here</a> to view the goal.
       </p>
       <p>

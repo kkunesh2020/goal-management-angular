@@ -33,7 +33,7 @@ export class UpdateClassComponent implements OnInit {
 
     formComplete(): boolean {
       if(this.teacherData){
-        if(this.teacherData.uid != this.initialClass.teacherUID) return true;
+        if(this.teacherData.email != this.initialClass.teacherUID) return true;
       }
       return  (this.class.title != this.initialClass.title) || (this.selectedIcon != this.initialClass.classIcon);
     }
@@ -81,11 +81,11 @@ export class UpdateClassComponent implements OnInit {
     async updateClass() {
       this.loading = true;
       this.class.classIcon = this.selectedIcon;
-      if(this.class.teacherUID != this.teacherData.uid){
-        console.log("input", this.class, this.teacherData, this.initialClass.uid);
+      if(this.class.teacherUID != this.teacherData.email){
+        console.log("input", this.class, this.teacherData, this.initialClass.email);
         await this.classService.updateTeacherForDirector(this.class, this.teacherData, this.initialClass.teacherUID);
       }
-      this.class.teacherUID = this.teacherData.uid;
+      this.class.teacherUID = this.teacherData.email;
       this.classService.updateClassForDirector(this.class).then((id) => {
         // close dialog and update class list
         this.loading = false;

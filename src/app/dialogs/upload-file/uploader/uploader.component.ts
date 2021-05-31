@@ -14,7 +14,7 @@ export class UploaderComponent {
   isHovering: boolean;
   files: FileClass[] = [];
   goalData: any;
-  uid: string;
+  email: string;
   loading: boolean;
 
   constructor(
@@ -24,7 +24,7 @@ export class UploaderComponent {
     private goalService: GoalService
   ) {
     this.goalData = data.goal;
-    this.uid = data.uid;
+    this.email = data.email;
   }
 
   toggleHover(event: boolean) {

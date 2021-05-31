@@ -2,13 +2,13 @@ import { Link } from './link.model';
 
 export default class LinkClass implements Link {
   url: string;
-  uid: string;
+  email: string;
 
   constructor(
     url: string,
-    uid: string
+    email: string
     ) {
       this.url = url;
-      this.uid = uid;
+      this.email = email;
     }
 }
