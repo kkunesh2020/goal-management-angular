@@ -105,7 +105,7 @@ export class ClassService {
 
   getStudentDataByEmail(email: string): Promise<any>{
     const promise = this.userCollection.where('email', '==', email).get().then((doc) => {
-      return doc[0];
+      return doc.docs[0];
     });
     return promise;
   }

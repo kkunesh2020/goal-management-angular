@@ -27,10 +27,12 @@ export class EditGoalComponent implements OnInit {
   ) {
     this.editDate = new Date(data.dueDate.seconds * 1000);
     this.original = data;
+    console.log("orig", data.assignedToID);
     this.classService
-      .getStudentsDataByID(data.assignedToID)
+      .getStudentsDataByEmail(data.assignedToID)
       .then((studentsData) => {
         this.students = studentsData;
+        this.assignedToAll = this.students.length === this.goal.assignedToID.length;
       });
 
     // retrieve the data (class id, createdBy, assignedTo <= users)
@@ -52,7 +54,6 @@ export class EditGoalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.assignedToAll = this.students.length === this.goal.assignedToID.length;
   }
 
   formComplete(): boolean {
