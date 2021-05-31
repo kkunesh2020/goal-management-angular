@@ -47,15 +47,15 @@ export class GoalDetailsComponent implements OnInit {
           this.studentData.commits = [];
         }
 
-        if(this.goal.hasCompleted.includes(this.studentData.uid)) {
+        if(this.goal.hasCompleted.includes(this.studentData.email)) {
           this.studentData.status = 'completed';
         }
 
-        if (this.goal.declined.includes(this.studentData.uid)) {
+        if (this.goal.declined.includes(this.studentData.email)) {
           this.studentData.status = 'declined';
         }
 
-        if (this.goal.pending.includes(this.studentData.uid)) {
+        if (this.goal.pending.includes(this.studentData.email)) {
           this.studentData.status = 'pending';
         }
 

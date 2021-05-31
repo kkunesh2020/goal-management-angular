@@ -52,17 +52,17 @@ export class DirectorService {
   }
   
   async createStudentForClass(classId: string, studentData: any): Promise<any>{
-    console.log("studentData", studentData, studentData.uid, classId);
+    console.log("studentData", studentData, studentData.email, classId);
     let promise = new Promise(async(resolve, reject) => {
 
-      await this.userCollection.doc(studentData.uid).update({
+      await this.userCollection.doc(studentData.email).update({
         classes: firebase.firestore.FieldValue.arrayUnion(this.classCollection.doc(classId))
       }).catch((err) => {
         reject(err);
       });
 
       await this.classCollection.doc(classId).update({
-          students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentData.uid))
+          students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentData.email))
       })
       resolve(studentData);
     });
@@ -72,10 +72,10 @@ export class DirectorService {
 
    async deleteStudentFromClass(classData: DirectorClass, studentData: any){
       await this.classCollection.doc(classData.id).update({
-        students: firebase.firestore.FieldValue.arrayRemove(this.userCollection.doc(studentData.uid))
+        students: firebase.firestore.FieldValue.arrayRemove(this.userCollection.doc(studentData.email))
       })
 
-      await this.userCollection.doc(studentData.uid).update({
+      await this.userCollection.doc(studentData.email).update({
         classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classData.id))
       })
       

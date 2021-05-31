@@ -29,7 +29,7 @@ export const studentAddedToClass = functions.https.onCall(async (data, context) 
           email: 'wickgoalmanagement@gmail.com'
         },
         subject: `You are invited to join ${data.class}!`,
-        text: `You have b ${data.goal} for ${data.class} created by ${data.teacher}. Please visit ${URL}/goals to accept the goal.`,
+        text: `You have been added to ${data.class} taught by ${data.teacher}. Please visit ${URL}/goals to view the classs.`,
         html: `
         <p>Hey there!</p>
         <p>

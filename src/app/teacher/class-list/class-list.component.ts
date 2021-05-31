@@ -22,7 +22,7 @@ export class ClassListComponent {
       if (!userProfile) {
         return;
       }
-      this.classes = this.classService.getClasses(userProfile.uid);
+      this.classes = this.classService.getClasses(userProfile.email);
        this.loading = false;
       
     });

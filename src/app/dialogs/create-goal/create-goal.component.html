@@ -30,7 +30,7 @@
         <span class="example-list-section">
           <ul *ngIf="data.students.length > 0">
             <li *ngFor="let student of data.students">
-              <mat-checkbox (change)="checkSpecific(student.uid ,$event.checked)">
+              <mat-checkbox (change)="checkSpecific(student.email ,$event.checked)">
                 {{student.name}}
               </mat-checkbox>
             </li>

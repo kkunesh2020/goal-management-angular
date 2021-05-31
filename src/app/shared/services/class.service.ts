@@ -182,7 +182,7 @@ export class ClassService {
           assignmentCount++;
         }
 
-        if(result.classID == classID && result.hasCompleted.includes(student.uid)){
+        if(result.classID == classID && result.hasCompleted.includes(student.email)){
           completedCount++;
         }
       }    
@@ -321,7 +321,7 @@ export class ClassService {
 
   deleteStudentFromClass(classData: DirectorClass, studentData: any): Promise<any> {
     const promise = new Promise(async (resolve, reject) => {
-      await this.userCollection.doc(studentData.uid).update({
+      await this.userCollection.doc(studentData.email).update({
         classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classData.id))
       })
 
