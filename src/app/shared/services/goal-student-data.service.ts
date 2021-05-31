@@ -110,9 +110,9 @@ export class GoalStudentDataService {
   }
 
   // get a student's goal data with their uid and a goal object
-  // @param studentID: string, goal: Goal
-  setStudentGoalData(studentID: string, goal: Goal) {
-    if (studentID == null || goal == null) {
+  // @param studentEmail: string, goal: Goal
+  setStudentGoalData(studentEmail: string, goal: Goal) {
+    if (studentEmail == null || goal == null) {
       // checking for invalid parameters
       this.studentDataSource.next(null);
       return;
@@ -120,26 +120,27 @@ export class GoalStudentDataService {
     let student: UserClass;
     // set datasource to loading while fetching data
     this.studentDataSource.next('loading');
-    this.getStudentData(studentID).then((data) => {
+    this.getStudentData(studentEmail).then((data) => {
       student = data;
       let isCompleted: boolean;
       const status: string = this.getStudentStatus(
         goal.hasCompleted,
         goal.pending,
         goal.declined,
-        studentID
+        studentEmail
       );
       isCompleted = status === 'completed';
       const studentFiles: FileClass[] = this.getStudentFiles(
         goal.files ? goal.files : [],
-        studentID
+        studentEmail
       );
       const studentLinks: LinkClass[] = this.getStudentLinks(
         goal.links ? goal.links : [],
-        studentID
+        studentEmail
       );
       const studentData = {
-        id: studentID,
+        id: studentEmail,
+        email: studentEmail,
         completed: isCompleted,
         name: student.name,
         files: studentFiles,
@@ -151,7 +152,7 @@ export class GoalStudentDataService {
         // if the status is declined the student has a declined note
         studentData.declinedNote = this.getStudentDeclinedNote(
           goal.declinedMessages,
-          studentID
+          studentEmail
         ).note;
       }
       this.studentDataSource.next(studentData); // input student data in the studentDataSource

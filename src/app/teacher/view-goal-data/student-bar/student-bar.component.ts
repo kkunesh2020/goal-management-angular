@@ -32,7 +32,7 @@ export class StudentBarComponent implements OnInit {
   }
 
   getStudentData() { // get students assigned this goal
-    this.classService.getStudentsDataByID(this.goal.assignedToID).then(studentData => {
+    this.classService.getStudentsDataByEmail(this.goal.assignedToID).then(studentData => {
       console.log('retrieved student data', studentData);
       this.students = studentData;
     });
