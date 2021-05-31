@@ -19,6 +19,7 @@ export class CreateStudentComponent implements OnInit {
   studentData: User[] = [];
   filteredOptions: Observable<User[]>;
   errorMessage:string = "";
+  emailErrorMessage:string = "";
   constructor(
     private director: DirectorService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,9 +55,33 @@ export class CreateStudentComponent implements OnInit {
     return this.studentData.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
+  validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  checkChadwickEmail(email: string){
+    const chadwickRegex = /^[\w-\.]+@([chadwickschool+\.])+[\w-]{2,4}$/;
+    return chadwickRegex.test(String(email).toLowerCase());
+  }
+
 
   createStudent(){
       this.loading = true;
+      if(this.studentEmail.length > 0 && (this.userValue.value == null || this.userValue.value.email == null)){
+        if(!this.validateEmail(this.studentEmail)){
+          this.emailErrorMessage = "Please enter a valid email";
+          this.loading = false;
+          return;
+        }else if(!this.checkChadwickEmail(this.studentEmail)){
+          this.emailErrorMessage = "Please enter a valid Chadwick email";
+          this.loading = false;
+          return;
+        }else{
+          this.emailErrorMessage = "";
+          return;
+        }
+      }
       this.director.createStudentForClass(this.data.id, this.userValue.value).then((result) => {
         // close dialog
         if(this.data){

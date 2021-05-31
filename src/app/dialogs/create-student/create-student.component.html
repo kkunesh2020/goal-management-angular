@@ -23,13 +23,11 @@
 
   <div class="create-new-student section">
     <h3>Create new Student</h3>
-    <p>
       <mat-form-field>
         <mat-label>Student Email</mat-label>
         <input type="text" matInput [(ngModel)]="studentEmail" placeholder="jsmith2024@chadwickschool.org">
+        <mat-hint class="error-text">{{emailErrorMessage}}</mat-hint>
       </mat-form-field>
-    </p>
-    <p class="error-text">{{errorMessage}}</p>
   </div>
   
 </div>
