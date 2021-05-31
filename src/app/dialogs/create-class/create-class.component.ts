@@ -89,7 +89,7 @@ export class CreateClassComponent implements OnInit {
   createClass() {
     this.loading = true;
     this.class.classIcon = this.selectedIcon;
-    this.class.teacherUID = this.teacherData;
+    this.class.teacherEmail = this.teacherData;
     this.classService.createClassFromDirectorModel(this.class).then((id) => {
       // close dialog and update class list
       this.loading = false;

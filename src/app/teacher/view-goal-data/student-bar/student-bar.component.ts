@@ -14,7 +14,7 @@ export class StudentBarComponent implements OnInit {
 
   @Input() class: Class;
   @Input() goal: Goal;
-  @Input() teacherUID: string;
+  @Input() teacherEmail: string;
   students: StudentData[];
   // when highlightedStudent == 'all' show goal stats
   // when highlightedStudent == some student id: show goal stats for a particular student
@@ -27,7 +27,7 @@ export class StudentBarComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log('teacherUID', this.teacherUID);
+    console.log('teacherEmail', this.teacherEmail);
     this.getStudentData();
   }
 

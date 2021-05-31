@@ -45,8 +45,8 @@ export class GoalDashboardComponent {
     this.router.navigate([`classes/${this.classID}`]);
   }
 
-  getClass(id: string, teacherUID: string): Promise<any> {
-    const promise = this.classService.getClass(teacherUID, id).then((data) => {
+  getClass(id: string, teacherEmail: string): Promise<any> {
+    const promise = this.classService.getClass(teacherEmail, id).then((data) => {
       this.class = data;
     });
     return promise;

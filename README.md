@@ -97,7 +97,7 @@ Methods:
   navigateBack()
   
 // get a specific class for teacher
-  getClass(id: string, teacherUID: string): Promise<any>
+  getClass(id: string, teacherEmail: string): Promise<any>
   
 // get the goal 
   getGoal(): Promise<any>
@@ -344,7 +344,7 @@ Methods:
   getClasses(userID: string): Class[]
   
   // get a teachers class with their uid and the class id
-  getClass(teacherUID: string, classID: string): Promise<any>
+  getClass(teacherEmail: string, classID: string): Promise<any>
 ```
 
 ### GitHub

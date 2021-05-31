@@ -27,13 +27,13 @@ export class UpdateClassComponent implements OnInit {
     this.class = {...this.data};
     this.initialClass = {...this.data};
     this.selectedIcon = this.data.classIcon;
-    this.getTeacherData(this.class.teacherUID);
+    this.getTeacherData(this.class.teacherEmail);
   }
 
 
     formComplete(): boolean {
       if(this.teacherData){
-        if(this.teacherData.email != this.initialClass.teacherUID) return true;
+        if(this.teacherData.email != this.initialClass.teacherEmail) return true;
       }
       return  (this.class.title != this.initialClass.title) || (this.selectedIcon != this.initialClass.classIcon);
     }
@@ -56,12 +56,12 @@ export class UpdateClassComponent implements OnInit {
       return o1.name === o2.name && o1.uid === o2.uid;
     }
   
-    getTeacherData(teacherUID: string){
+    getTeacherData(teacherEmail: string){
       this.classService.getAllTeachers().then((teacher) => {
         console.log("setting", teacher);
         this.teachers = teacher;
         this.teachers.forEach((teacher) => {
-          if(teacher.uid == teacherUID){
+          if(teacher.email == teacherEmail){
             this.teacherData = teacher;
           }
         })
@@ -81,11 +81,11 @@ export class UpdateClassComponent implements OnInit {
     async updateClass() {
       this.loading = true;
       this.class.classIcon = this.selectedIcon;
-      if(this.class.teacherUID != this.teacherData.email){
+      if(this.class.teacherEmail != this.teacherData.email){
         console.log("input", this.class, this.teacherData, this.initialClass.email);
-        await this.classService.updateTeacherForDirector(this.class, this.teacherData, this.initialClass.teacherUID);
+        await this.classService.updateTeacherForDirector(this.class, this.teacherData, this.initialClass.teacherEmail);
       }
-      this.class.teacherUID = this.teacherData.email;
+      this.class.teacherEmail = this.teacherData.email;
       this.classService.updateClassForDirector(this.class).then((id) => {
         // close dialog and update class list
         this.loading = false;

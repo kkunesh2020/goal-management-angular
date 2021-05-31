@@ -3,7 +3,7 @@ import { DirectorClass } from './directorClass.model';
 
 export default class DirectorClassClass implements DirectorClass {
     title: string;
-    teacherUID: string;
+    teacherEmail: string;
     students: DocumentReference[];
     id: string;
     studentEmails: string[];
@@ -11,13 +11,13 @@ export default class DirectorClassClass implements DirectorClass {
 
   constructor(
     title: string,
-    teacherUID: string, 
+    teacherEmail: string, 
     students: DocumentReference[],
     id: string,
     classIcon: string
     ) {
       this.title = title;
-      this.teacherUID = teacherUID;
+      this.teacherEmail = teacherEmail;
       this.students = students;
       this.id = id;
       this.classIcon = classIcon;

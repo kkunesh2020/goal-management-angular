@@ -268,8 +268,8 @@ export class ClassService {
     return classes;
   }
 
-  getTeacherData(teacherUID: string): Promise<any> {
-    const promise = this.userCollection.doc(teacherUID).get().then((teacherDoc) => {
+  getTeacherData(teacherEmail: string): Promise<any> {
+    const promise = this.userCollection.doc(teacherEmail).get().then((teacherDoc) => {
       let teacherUser = { id: teacherDoc.id, ...teacherDoc.data() };
       return teacherUser;
     })
@@ -277,8 +277,8 @@ export class ClassService {
   }
 
   // get a teachers class with their uid and the class id
-  // @param teacherUID: string, classID: string
-  getClass(teacherUID: string, classID: string): Promise<any> {
+  // @param teacherEmail: string, classID: string
+  getClass(teacherEmail: string, classID: string): Promise<any> {
     const promise = this.classCollection
       .doc(classID)
       .get()
@@ -295,13 +295,13 @@ export class ClassService {
 
 
   async updateClassForDirector(classData: DirectorClass): Promise<any> {
-    const promise = this.classCollection.doc(classData.id).update({ teacherUID: classData.teacherUID, title: classData.title, classIcon: classData.classIcon });
+    const promise = this.classCollection.doc(classData.id).update({ teacherEmail: classData.teacherEmail, title: classData.title, classIcon: classData.classIcon });
     return promise;
   }
 
-  async updateTeacherForDirector(classData: DirectorClass, teacherData: User, oldTeacherUID: string){
+  async updateTeacherForDirector(classData: DirectorClass, teacherData: User, oldteacherEmail: string){
     // remove old teacher
-    await this.userCollection.doc(oldTeacherUID).update({
+    await this.userCollection.doc(oldteacherEmail).update({
       classes: firebase.firestore.FieldValue.arrayRemove(this.classCollection.doc(classData.id))
     })
     // update new teacher
@@ -348,9 +348,9 @@ export class ClassService {
   }
 
   async createClassFromDirectorModel(classData: DirectorClass): Promise<string> {
-    const promise = this.classCollection.add({ title: classData.title, teacherUID: classData.teacherUID, students: classData.students, goals: [], classIcon: classData.classIcon })
+    const promise = this.classCollection.add({ title: classData.title, teacherEmail: classData.teacherEmail, students: classData.students, goals: [], classIcon: classData.classIcon })
       .then(async(doc) => {
-        await this.userCollection.doc(classData.teacherUID).update({ classes: firebase.firestore.FieldValue.arrayUnion(this.classCollection.doc(doc.id)) });
+        await this.userCollection.doc(classData.teacherEmail).update({ classes: firebase.firestore.FieldValue.arrayUnion(this.classCollection.doc(doc.id)) });
         return doc.id;
       });
     return promise;
@@ -374,7 +374,7 @@ export class ClassService {
       .then((collection) => {
         const data = [];
         collection.forEach((doc) => {
-          let classData: DirectorClass = new DirectorClassClass(doc.data().title, doc.data().teacherUID, doc.data().students, doc.id, doc.data().classIcon);
+          let classData: DirectorClass = new DirectorClassClass(doc.data().title, doc.data().teacherEmail, doc.data().students, doc.id, doc.data().classIcon);
           data.push(classData);
         })
         return data;

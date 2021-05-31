@@ -54,7 +54,7 @@ export const userCreatedGoalEmail = functions.firestore.document('goals/{goalID}
   const goal = postSnap.data(); 
   const classDoc = await db.collection('classes').doc(goal.classID).get();
   const classData = classDoc.data();
-  const teacherDoc = await db.collection('users').doc(classData.teacherUID).get();
+  const teacherDoc = await db.collection('users').doc(classData.teacherEmail).get();
   const teacherData = teacherDoc.data()
 
 

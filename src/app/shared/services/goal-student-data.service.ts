@@ -59,7 +59,7 @@ export class GoalStudentDataService {
   getStudentFiles(files: FileClass[], studentID: string) {
     const studentFiles: FileClass[] = [];
     files.forEach((file) => {
-      if (file.uid === studentID) {
+      if (file.email === studentID) {
         // filters files to find files corresponding to the student's uid
         studentFiles.push(file);
       }
@@ -72,7 +72,7 @@ export class GoalStudentDataService {
   getStudentLinks(links: LinkClass[], studentID: string) {
     const studentLinks: LinkClass[] = [];
     links.forEach((link) => {
-      if (link.uid === studentID) {
+      if (link.email === studentID) {
         // filters links to find links corresponding to the student's uid
         studentLinks.push(link);
       }

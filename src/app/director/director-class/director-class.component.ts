@@ -50,7 +50,7 @@ export class DirectorClassComponent implements OnInit {
           this.classData = classData;
           if(classData){
             this.classData.id = this.classID;
-            this.teacherData = await this.classService.getTeacherData(this.classData.teacherUID);
+            this.teacherData = await this.classService.getTeacherData(this.classData.teacherEmail);
 
             this.classService.getStudentsDataByReference(classData.students).then((studentData) => {
               this.loading = true;
@@ -99,7 +99,7 @@ export class DirectorClassComponent implements OnInit {
      if(returnData){ 
        this.classData.title = returnData.data.title;
        this.classData.classIcon = returnData.data.classIcon;
-       this.classData.teacherUID = returnData.data.teacherUID;
+       this.classData.teacherEmail = returnData.data.teacherEmail;
      }
    })
   }
