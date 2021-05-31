@@ -132,8 +132,8 @@ export class DirectorClassComponent implements OnInit {
 
   openStudentCreateModal(){
     let ref = this.dialog.open(CreateStudentComponent, {
-      width: '27rem',
       height: '20rem',
+      width: '40rem',
       panelClass: 'custom-modalbox',
       data: this.classData
     })

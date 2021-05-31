@@ -15,6 +15,7 @@ import { DirectorService } from 'src/app/shared/services/director.service';
 export class CreateStudentComponent implements OnInit {
   loading: boolean = false;
   userValue = new FormControl();
+  studentEmail: string = "";
   studentData: User[] = [];
   filteredOptions: Observable<User[]>;
   errorMessage:string = "";
@@ -39,7 +40,7 @@ export class CreateStudentComponent implements OnInit {
   }
 
   formComplete(): boolean{
-    return this.userValue.value && this.userValue.value.email != null;
+    return (this.userValue.value && this.userValue.value.email != null) || (this.studentEmail.length > 0);
   }
 
   displayFn(user: User): string {

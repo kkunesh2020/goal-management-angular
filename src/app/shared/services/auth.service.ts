@@ -69,12 +69,8 @@ export class AuthService {
   async githubSignin() {
     const provider = new auth.GithubAuthProvider();
     const credential: any = await this.afAuth.auth.getRedirectResult();
+    console.log("updating1", credential);
     await this.updateUserData(credential.user);
-    this.userGithubID = credential.credential.accessToken;
-    this.githubUsername = credential.additionalUserInfo.username;
-    this.githubProfile = credential.additionalUserInfo.profile;
-    this.setGithubInfo(this.githubUsername, this.githubProfile, this.userGithubID);
-    console.log('user repos', this.githubService.viewUserRepos());
     return;
   }
 
@@ -92,6 +88,7 @@ export class AuthService {
     // Sets user data to firestore on login
     const previousUserData = await this.getUserByEmail(user.email);
     const userRef = this.afs.firestore.doc(`users/${user.email}`);
+    console.log("updating", user);
 
     const data = {
       name: user.displayName,

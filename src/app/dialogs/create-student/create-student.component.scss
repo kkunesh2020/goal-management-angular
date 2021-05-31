@@ -20,7 +20,7 @@ ul {
   }
   
   mat-form-field {
-    width: 80%;
+    width: 100%;
   }
   
   .mat-dialog-content{
@@ -66,8 +66,13 @@ ul {
   .mat-dialog-title{
     font-size: 1.8rem;
   }
+
+  .content{
+    display: flex;
+    justify-content: space-around;
+  }
   
   .spacer{
-    width: 43%;
+    width: 60%;
   }
   

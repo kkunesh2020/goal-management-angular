@@ -2,21 +2,36 @@
   <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
 </button>
 <h1 mat-dialog-title>Add a Student</h1>
-<div mat-dialog-content>
-  <!-- Name -->
-  <h3>Student Name:</h3>
-  <p>
-    <mat-form-field>
-      <mat-label>Student Name:</mat-label>
-      <input type="text" matInput [formControl]="userValue" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let student of studentData" [value]="student">
-          {{student.name}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </p>
-  <p class="error-text">{{errorMessage}}</p>
+<div mat-dialog-content class="content">
+  <div class="add-existing-student section">
+    <h3>Add Existing Student</h3>
+    <p>
+      <mat-form-field>
+        <mat-label>Student Name:</mat-label>
+        <input type="text" matInput [formControl]="userValue" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let student of studentData" [value]="student">
+            {{student.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </p>
+    <p class="error-text">{{errorMessage}}</p>
+  </div>
+
+  <h3>OR</h3>
+
+  <div class="create-new-student section">
+    <h3>Create new Student</h3>
+    <p>
+      <mat-form-field>
+        <mat-label>Student Email</mat-label>
+        <input type="text" matInput [(ngModel)]="studentEmail" placeholder="jsmith2024@chadwickschool.org">
+      </mat-form-field>
+    </p>
+    <p class="error-text">{{errorMessage}}</p>
+  </div>
+  
 </div>
 
 <mat-dialog-actions>
