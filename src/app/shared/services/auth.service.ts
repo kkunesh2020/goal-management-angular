@@ -22,7 +22,6 @@ export class AuthService {
   user$: Observable<User>;
   userGithubID: string;
   githubUsername = '';
-  customUID: string = '';
   githubProfile: any;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private route: Router, private githubService: GithubService) {
@@ -112,8 +111,6 @@ export class AuthService {
       if(previousUserData){
         // just sign in via google func instead of auth 
         await this.afs.firestore.doc(`users/${previousUserData.id}`).update({name: user.displayName });
-        this.customUID = previousUserData.id;
-        console.log("new custom", this.customUID)
       }
     });
 

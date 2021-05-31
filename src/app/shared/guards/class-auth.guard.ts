@@ -38,7 +38,7 @@ export class ClassAuthGuard implements CanActivate {
           console.log('student id', studentID);
           this.classService.allowedInClass(studentID, classID);
         }
-        this.classService.allowedInClass(userProfile.uid, classID);
+        this.classService.allowedInClass(userProfile.email, classID);
       }
     });
     return true;

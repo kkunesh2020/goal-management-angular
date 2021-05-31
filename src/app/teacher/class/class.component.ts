@@ -91,12 +91,12 @@ export class ClassComponent {
       if (!userProfile) {
         return;
       }
-      this.getClass(this.classID, userProfile.uid).then(() => {
+      this.getClass(this.classID, userProfile.email).then(() => {
         this.user = userProfile;
         this.accountType = userProfile.accountType;
-        this.uid = userProfile.uid;
+        this.uid = userProfile.email;
         if (this.accountType === 'student') {
-          this.getGoalsForStudent(this.classID, userProfile.uid);
+          this.getGoalsForStudent(this.classID, userProfile.email);
           this.loading = false;
         } else if (this.accountType === 'teacher') {
           this.getStudentData();

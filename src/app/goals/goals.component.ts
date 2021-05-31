@@ -41,7 +41,7 @@ export class GoalsComponent {
       if (userProfile == null) {
         return;
       }
-      this.uid = userProfile.uid;
+      this.uid = userProfile.email;
       if (userProfile.goalsAssigned.length > 0) {
         this.getStudentGoals(userProfile.goalsAssigned);
       } else {

@@ -30,7 +30,7 @@ export class GoalDashboardComponent {
     this.auth.user$.subscribe(async (userProfile) => {
       this.classID = this.route.snapshot.paramMap.get('classID');
       this.goalID = this.route.snapshot.paramMap.get('goalID');
-      this.teacherID = userProfile.uid;
+      this.teacherID = userProfile.email;
       // get the goal and then get the class data
       this.getGoal().then(() => {
         this.getClass(this.classID, this.teacherID);

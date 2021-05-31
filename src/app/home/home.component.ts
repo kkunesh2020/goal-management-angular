@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
       this.loading = true;
       if (userProfile) {
         // when userProfile is not null set the variables below
-        this.uid = userProfile.uid;
+        this.uid = userProfile.email;
         this.accountType = userProfile.accountType;
       }
       this.loading = false;
