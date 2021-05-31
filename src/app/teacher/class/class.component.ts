@@ -281,6 +281,7 @@ export class ClassComponent {
     // opens up the create goal dialog to create a new goal
     const data = {
       createdBy: this.user,
+      teacherEmail: this.class.teacherEmail,
       classID: this.classID,
       students: [],
     };
