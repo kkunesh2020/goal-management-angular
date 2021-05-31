@@ -41,13 +41,13 @@ export class GoalStudentDataService {
     return 'incompleted';
   }
   // get a student's data with their id
-  // @param studentID: string
-  getStudentData(studentID: string): Promise<UserClass> {
-    console.log('getting student data', studentID);
+  // @param studentEmail: string
+  getStudentData(studentEmail: string): Promise<UserClass> {
+    console.log('getting student data', studentEmail);
     const promise = this.classService
-      .getStudentDataByID(studentID)
+      .getStudentDataByEmail(studentEmail)
       .then((studentData) => {
-        return studentData;
+        return studentData.data();
       });
 
     return promise;
@@ -122,14 +122,15 @@ export class GoalStudentDataService {
     this.studentDataSource.next('loading');
     this.getStudentData(studentEmail).then((data) => {
       student = data;
+      console.log(student);
       let isCompleted: boolean;
-      const status: string = this.getStudentStatus(
+      let status: string = this.getStudentStatus(
         goal.hasCompleted,
         goal.pending,
         goal.declined,
         studentEmail
       );
-      isCompleted = status === 'completed';
+      isCompleted = (status === 'completed');
       const studentFiles: FileClass[] = this.getStudentFiles(
         goal.files ? goal.files : [],
         studentEmail
@@ -138,24 +139,26 @@ export class GoalStudentDataService {
         goal.links ? goal.links : [],
         studentEmail
       );
-      const studentData = {
+
+      let studentDataResult = {
         id: studentEmail,
         email: studentEmail,
         completed: isCompleted,
         name: student.name,
         files: studentFiles,
         links: studentLinks,
-        status: { status },
-        declinedNote: '',
+        declinedNote: ''
       };
+
       if (status === 'declined') {
         // if the status is declined the student has a declined note
-        studentData.declinedNote = this.getStudentDeclinedNote(
+        studentDataResult.declinedNote = this.getStudentDeclinedNote(
           goal.declinedMessages,
           studentEmail
         ).note;
       }
-      this.studentDataSource.next(studentData); // input student data in the studentDataSource
+      console.log("returning", {...studentDataResult, status});
+      this.studentDataSource.next({...studentDataResult, status}); // input student data in the studentDataSource
     });
   }
 }

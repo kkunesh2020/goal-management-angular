@@ -50,6 +50,7 @@ export class ViewStudentDataComponent implements OnInit {
 
   getStudentData() {
     this.classService.getStudentDataByID(this.studentID).then((studentData) => {
+      console.log("changing", studentData);
       this.student = studentData;
     });
   }
