@@ -38,9 +38,9 @@ export class StudentBarComponent implements OnInit {
     });
   }
 
-  viewStudentData(uid: string) { // method for viewing students stats on goal
-    this.studentDataService.setStudentGoalData(uid, this.goal);
-    this.highlightedStudent = uid;
+  viewStudentData(email: string) { // method for viewing students stats on goal
+    this.studentDataService.setStudentGoalData(email, this.goal);
+    this.highlightedStudent = email;
   }
 
   viewStudentsData() { // method for viewing all goal stats

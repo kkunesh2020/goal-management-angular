@@ -101,7 +101,7 @@ export class GoalStudentDataService {
   ): NoteClass {
     let noteData = null;
     declinedNotes.forEach((note) => {
-      if (note.uid === studentID) {
+      if (note.email === studentID) {
         // filters declined notes to find declined notes corresponding to the student's uid
         noteData = note;
       }

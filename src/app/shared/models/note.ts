@@ -2,13 +2,13 @@ import { Note } from './note.model';
 
 export default class NoteClass implements Note {
   note: string;
-  uid: string;
+  email: string;
 
   constructor(
-    uid: string,
+    email: string,
     note: string
     ) {
-      this.uid = uid;
+      this.email = email;
       this.note = note;
     }
 }

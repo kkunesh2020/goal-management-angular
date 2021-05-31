@@ -1,4 +1,4 @@
 export interface Note {
-    uid: string;
+    email: string;
     note: string;
 }

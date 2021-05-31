@@ -353,7 +353,7 @@ export class GoalService {
   updateGoalStatus(
     goalID: string,
     status: string,
-    uid: string,
+    email: string,
     rejectionNote?: string
   ): Promise<any> {
     const goalRef = this.goalsCollection.doc(goalID);
@@ -363,19 +363,19 @@ export class GoalService {
       console.log('incomplete');
       // if status is incomplete the user has accepted the goal
       promise = goalRef.update({
-        pending: firebase.firestore.FieldValue.arrayRemove(uid),
+        pending: firebase.firestore.FieldValue.arrayRemove(email),
       });
     }
 
     if (status === 'declined') {
       // adds user to declined field of goal if the goal is marked as declined
       promise = goalRef
-        .update({ declined: firebase.firestore.FieldValue.arrayUnion(uid) })
+        .update({ declined: firebase.firestore.FieldValue.arrayUnion(email) })
         .then(() => {
           goalRef.update({
-            pending: firebase.firestore.FieldValue.arrayRemove(uid),
+            pending: firebase.firestore.FieldValue.arrayRemove(email),
           });
-          const rejectNote: NoteClass = { uid, note: rejectionNote };
+          const rejectNote: NoteClass = { email, note: rejectionNote };
           console.log('reject note', rejectNote);
           this.goalsCollection.doc(goalID).update({
             declinedMessages: firebase.firestore.FieldValue.arrayUnion({
@@ -387,7 +387,7 @@ export class GoalService {
 
     if (status === 'completed') {
       promise = goalRef.update({
-        hasCompleted: firebase.firestore.FieldValue.arrayUnion(uid),
+        hasCompleted: firebase.firestore.FieldValue.arrayUnion(email),
       });
     }
 

@@ -70,7 +70,7 @@ export class ClassComponent {
   class: Class;
   accountType: string;
   loading = true;
-  uid: string;
+  email: string;
   user: UserClass;
   classID: string;
   studentSource: StudentData[];
@@ -94,7 +94,7 @@ export class ClassComponent {
       this.getClass(this.classID, userProfile.email).then(() => {
         this.user = userProfile;
         this.accountType = userProfile.accountType;
-        this.uid = userProfile.email;
+        this.email = userProfile.email;
         if (this.accountType === 'student') {
           this.getGoalsForStudent(this.classID, userProfile.email);
           this.loading = false;
@@ -197,29 +197,29 @@ export class ClassComponent {
   }
 
   studentCreatedClass(goal: GoalStat): boolean{
-    if(this.getLengthOf(goal.assignedToID) == 1 && (goal.createdBy.uid == goal.assignedToID[0])){
+    if(this.getLengthOf(goal.assignedToID) == 1 && (goal.createdBy.email == goal.assignedToID[0])){
       return true;
     }
     return false;
   }
 
-  getGoalsForStudent(classID: string, studentID: string) {
+  getGoalsForStudent(classID: string, email: string) {
     this.loading = true;
     const goals: GoalsTableData[] = [];
     // get goals for class and loop through each
-    this.goalService.getGoalsForClassWithId(classID, studentID).then((data) => {
+    this.goalService.getGoalsForClassWithId(classID, email).then((data) => {
       data.forEach((element) => {
         const status = this.goalService.getUserStatus(
           element.hasCompleted,
           element.pending,
           element.declined,
-          studentID
+          email
         );
         const newGoal: GoalsTableData = {
           // intializes goal object to display on table
           description: element.description,
           dueDate: element.dueDate,
-          isCompleted: this.goalIsCompleted(element.hasCompleted, studentID),
+          isCompleted: this.goalIsCompleted(element.hasCompleted, email),
           createdBy: element.createdBy,
           goalReference: element,
           status,
@@ -264,7 +264,7 @@ export class ClassComponent {
     dialogRef.afterClosed().subscribe((result) => {
       // reshow goals when dialog is closed
       if (result === 'updated' && this.accountType === 'student') {
-        this.getGoalsForStudent(this.classID, this.uid);
+        this.getGoalsForStudent(this.classID, this.email);
       }
 
       if(result && result.status == 'deleted'){
