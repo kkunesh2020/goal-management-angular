@@ -103,6 +103,13 @@ export class ClassService {
     return promise;
   }
 
+  getStudentDataByEmail(email: string): Promise<any>{
+    const promise = this.userCollection.where('email', '==', email).get().then((doc) => {
+      return doc[0];
+    });
+    return promise;
+  }
+
   getDataForClass(classID: string): Observable<DirectorClass | undefined> {
     let doc = this.afs.collection("classes").doc<DirectorClass>(classID).valueChanges();
     return doc;
@@ -144,6 +151,25 @@ export class ClassService {
     return studentsData;
   }
 
+  async getStudentsDataByEmail(emails: string[]): Promise<any>{
+    const studentsData: StudentData[] = [];
+    for (const email of emails) {
+      const student = await this.getStudentDataByEmail(email);
+      let studentData = student.data();
+      const data: StudentData = {
+        name: studentData.name,
+        goalsAssigned: this.getLengthOf(studentData.goalsAssigned),
+        goalsCompleted: this.getLengthOf(studentData.goalsCompleted),
+        id: student.id,
+        uid: student.id,
+        email: studentData.email
+      } as StudentData;
+
+      studentsData.push(data);
+    }
+    return studentsData;
+  }
+
   async getStudentsDataByReferenceClassID(refs: DocumentReference[], classID: string): Promise<any> {
     const studentsData: StudentData[] = [];
     for (const studentRef of refs) {
@@ -167,6 +193,37 @@ export class ClassService {
         id: studentRef.id,
         uid: studentRef.id,
         email: student.email
+      } as StudentData;
+      
+      studentsData.push(data);
+    }
+    return studentsData;
+  }
+
+  async getStudentsDataByEmailClassID(emails: string[], classID: string): Promise<any> {
+    const studentsData: StudentData[] = [];
+    for (const email of emails) {
+      const student = await this.getStudentDataByEmail(email);
+      const studentData = student.data();
+      let assignmentCount = 0;
+      let completedCount = 0;
+      for await(let assignement of studentData.goalsAssigned) {
+        let result = await this.getGoalByReference(assignement);
+        if(result.classID == classID){
+          assignmentCount++;
+        }
+
+        if(result.classID == classID && result.hasCompleted.includes(student.id)){
+          completedCount++;
+        }
+      }    
+      const data: StudentData = {
+        name: studentData.name,
+        goalsAssigned: assignmentCount,
+        goalsCompleted: completedCount,
+        id: student.id,
+        uid: student.id,
+        email: studentData.email
       } as StudentData;
       
       studentsData.push(data);
