@@ -103,7 +103,7 @@ export class UpdateGoalComponent {
     const dialogRef = this.dialog.open(UploaderComponent, {
       height: '40rem',
       width: '60rem',
-      data: { goal: this.currentGoal, uid: this.data.email },
+      data: { goal: this.currentGoal, email: this.data.email },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== '') {

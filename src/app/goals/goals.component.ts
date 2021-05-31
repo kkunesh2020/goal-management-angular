@@ -81,7 +81,6 @@ export class GoalsComponent {
     else {
       dialogRef = this.dialog.open(UpdateGoalComponent, {
         data,
-        height: '30rem',
         width: '30rem',
       });
     }

@@ -258,7 +258,6 @@ export class ClassComponent {
       // otherwise display the update goal component
       dialogRef = this.dialog.open(UpdateGoalComponent, {
         data,
-        height: '33rem',
         width: '30rem',
       });
     }

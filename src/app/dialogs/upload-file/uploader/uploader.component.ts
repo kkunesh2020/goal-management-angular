@@ -59,7 +59,7 @@ export class UploaderComponent {
       task.then(async () => {
         downloadURL = await ref.getDownloadURL().toPromise();
         fileData = new FileClass(file.name, downloadURL, path, this.email);
-        console.log('got the file data', fileData);
+        console.log('got the file data', fileData, this.goalData);
         await this.goalService.uploadFile(this.goalData.id, fileData);
         resolve(fileData);
       });
