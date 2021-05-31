@@ -6,6 +6,7 @@ import NoteClass from './note';
 import CommitClass from './commit';
 
 export interface Goal {
+  teacherEmail:string;
   description: string;
   dueDate: Date;
   // array of student ids who have completed the goal

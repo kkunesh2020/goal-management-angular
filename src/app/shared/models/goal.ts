@@ -9,6 +9,7 @@ import { Commit } from './commit.model';
 export default class GoalClass implements Goal {
   description: string;
   dueDate: Date;
+  teacherEmail: string;
   hasCompleted: Array<string>;
   createdBy: User;
   assignedTo?: Array<any>;
@@ -23,6 +24,7 @@ export default class GoalClass implements Goal {
   declinedMessages: Array<NoteClass>;
 
   constructor(
+    teacherEmail: string,
     description: string,
     dueDate: Date,
     classID: string,
@@ -37,6 +39,7 @@ export default class GoalClass implements Goal {
     links?: Array<LinkClass>,
     commits?: Array<Commit>,
     ) {
+      this.teacherEmail = teacherEmail;
       this.description = description;
       this.dueDate = dueDate;
       this.hasCompleted = hasCompleted;

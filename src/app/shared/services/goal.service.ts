@@ -51,6 +51,7 @@ export class GoalService {
         querySnapshot.forEach((doc) => {
           goals.push(
             new GoalClass(
+              doc.data().teacherEmail,
               doc.data().description,
               doc.data().dueDate,
               doc.data().classID,
@@ -83,6 +84,7 @@ export class GoalService {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const newGoal = new GoalClass(
+            doc.data().teacherEmail,
             doc.data().description,
             doc.data().dueDate,
             doc.data().classID,
@@ -124,6 +126,7 @@ export class GoalService {
     for (const goal of goalIDs) {
       const doc = await this.goalsCollection.doc(goal.id).get();
       const goalRef = new GoalClass(
+        doc.data().teacherEmail,
         doc.data().description,
         doc.data().dueDate,
         doc.data().classID,

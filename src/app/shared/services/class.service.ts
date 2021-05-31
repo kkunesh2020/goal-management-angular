@@ -57,7 +57,6 @@ export class ClassService {
       .get()
       .then((doc) => {
         return new UserClass(
-          id,
           doc.data().name,
           doc.data().email,
           doc.data().accountType,

@@ -37,6 +37,7 @@ export class EditGoalComponent implements OnInit {
 
     // retrieve the data (class id, createdBy, assignedTo <= users)
     this.goal = new GoalClass(
+      data.teacherEmail,
       data.description,
       this.editDate,
       data.classID,

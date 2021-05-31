@@ -64,6 +64,7 @@ export class ViewStudentDataComponent implements OnInit {
         // loop through each goal
         data.forEach((element) => {
           const newGoal: GoalStat = {
+            teacherEmail: element.teacherEmail,
             description: element.description,
             dueDate: element.dueDate,
             hasCompleted: element.hasCompleted,

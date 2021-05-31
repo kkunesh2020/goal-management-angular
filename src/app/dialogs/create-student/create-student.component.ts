@@ -93,7 +93,15 @@ export class CreateStudentComponent implements OnInit {
           return;
         }else{
           this.emailErrorMessage = "";
-
+          this.director.addStudentToClassByEmail(this.data.id, this.studentEmail).then((result) => {
+            if(this.data){
+              this.dialogRef.close(result);
+            }else{
+              this.dialogRef.close();
+            }
+          }).catch((err) => {
+            alert("Something went wrong. Please try again");
+          })
           return;
         }
       }

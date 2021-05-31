@@ -19,6 +19,7 @@ export class CreateStudentGoalComponent {
   ) {
     this.goal = new GoalClass(
       '',
+      '',
       null,
       data.classID,
       [],

@@ -36,6 +36,7 @@ export interface GoalsTableData {
 
 export interface GoalStat {
   description: string;
+  teacherEmail: string;
   dueDate: Date;
   assignedToID: Array<string>;
   hasCompleted: Array<string>;
@@ -172,6 +173,7 @@ export class ClassComponent {
     this.goalService.getGoalsForClass(classID).then((data) => {
       data.forEach((element) => {
         const newGoal: GoalStat = {
+          teacherEmail: element.teacherEmail,
           description: element.description,
           dueDate: element.dueDate,
           pending: element.pending,
@@ -321,6 +323,7 @@ export class ClassComponent {
   // shows dialog for editing a goal
   editDialog(goal: GoalStat) {
     const editData = new GoalClass(
+      goal.teacherEmail,
       goal.description,
       goal.dueDate,
       this.classID,
@@ -350,6 +353,7 @@ export class ClassComponent {
   // opens up dialog to delete a goal
   deleteDialog(goal: GoalStat) {
     const deleteData = new GoalClass(
+      goal.teacherEmail,
       goal.description,
       goal.dueDate,
       this.classID,

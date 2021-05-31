@@ -21,6 +21,7 @@ export class DeleteGoalComponent {
     this.editDate = new Date(data.dueDate.seconds * 1000);
 
     this.goal = new GoalClass(
+      data.teacherEmail,
       data.description,
       this.editDate,
       data.classID,
