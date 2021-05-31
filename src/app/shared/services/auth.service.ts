@@ -31,9 +31,7 @@ export class AuthService {
       switchMap(user => {
         // Logged in
         if (user) {
-          console.log('logged in');
-          console.log("the user is", user);
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.afs.doc<User>(`users/${user.email}`).valueChanges();
         } else {
           // Logged out
           return of(null);
@@ -94,10 +92,9 @@ export class AuthService {
   private async updateUserData(user) {
     // Sets user data to firestore on login
     const previousUserData = await this.getUserByEmail(user.email);
-    const userRef = this.afs.firestore.doc(`users/${user.uid}`);
+    const userRef = this.afs.firestore.doc(`users/${user.email}`);
 
     const data = {
-      uid: user.uid,
       name: user.displayName,
       email: user.email,
       accountType: "student",
