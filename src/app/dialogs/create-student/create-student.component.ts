@@ -65,7 +65,17 @@ export class CreateStudentComponent implements OnInit {
     return chadwickRegex.test(String(email).toLowerCase());
   }
 
+  checkContainsEmail(email: string){
+    for(let student of this.studentData){
+      if(student.email == email){
+        return true;
+      }
+    }
+    return false;
+  }
 
+
+  // TODO: clean up code
   createStudent(){
       this.loading = true;
       if(this.studentEmail.length > 0 && (this.userValue.value == null || this.userValue.value.email == null)){
@@ -77,8 +87,13 @@ export class CreateStudentComponent implements OnInit {
           this.emailErrorMessage = "Please enter a valid Chadwick email";
           this.loading = false;
           return;
+        }else if(this.checkContainsEmail(this.studentEmail)){
+          this.emailErrorMessage = "User already exists. Please add user instead.";
+          this.loading = false;
+          return;
         }else{
           this.emailErrorMessage = "";
+
           return;
         }
       }

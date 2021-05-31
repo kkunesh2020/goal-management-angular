@@ -3,7 +3,6 @@ import { Class } from './class.model';
 import { DocumentReference } from '@angular/fire/firestore';
 
 export default class UserClass implements User {
-  uid: string;
   name: string;
   email: string;
   accountType: string;
@@ -12,7 +11,6 @@ export default class UserClass implements User {
   goalsCompleted: Array<DocumentReference>;
 
   constructor(
-    uid: string,
     name: string,
     email: string,
     accountType: string,
@@ -20,7 +18,6 @@ export default class UserClass implements User {
     goalsAssigned: Array<DocumentReference>,
     goalsCompleted: Array<DocumentReference>
   ) {
-    this.uid = uid;
     this.name = name;
     this.email = email;
     this.accountType = accountType;

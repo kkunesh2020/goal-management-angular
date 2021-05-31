@@ -32,7 +32,7 @@ export class DirectorService {
     let promise = this.userCollection.where('accountType', '==', "student").get().then((snapshot) => {
       snapshot.forEach((doc) => {
         console.log("got", doc.data())
-        studentData.push({uid: doc.id, ...doc.data()} as User);
+        studentData.push({...doc.data()} as User);
       });
       return studentData;
     });
@@ -63,6 +63,29 @@ export class DirectorService {
 
       await this.classCollection.doc(classId).update({
           students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentData.email))
+      })
+      resolve(studentData);
+    });
+    
+    return promise;
+  }
+
+  async addStudentToClassByEmail(classId: string, studentEmail: string): Promise<any>{
+    let promise = new Promise(async(resolve, reject) => {
+
+      let studentData: User = {
+        name: '',
+        email: studentEmail,
+        accountType: 'student',
+        classes: [this.classCollection.doc(classId)],
+        goalsAssigned: [],
+        goalsCompleted: []
+      }
+
+      await this.userCollection.doc(studentEmail).set(studentData);
+
+      await this.classCollection.doc(classId).update({
+          students: firebase.firestore.FieldValue.arrayUnion(this.userCollection.doc(studentEmail))
       })
       resolve(studentData);
     });
