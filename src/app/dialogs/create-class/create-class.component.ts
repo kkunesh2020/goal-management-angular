@@ -20,9 +20,9 @@ export class CreateClassComponent implements OnInit {
   class: DirectorClass;
   loading = false;
   teachers: User[] = [];
-  teacherData: string;
+  teacherData: string = "";
   studentEmailInput: string;
-  assignedStudentID: string[] = [];
+  assignedStudentEmails: string[] = [];
   studentEmails: string[] = [];
   studentEmailError: string = "";
   selectedIcon: string = "science";
@@ -41,23 +41,9 @@ export class CreateClassComponent implements OnInit {
 
 
   formComplete(): boolean {
-    return this.class.title != "";
+    return this.class.title != "" && this.teacherData.length > 0;
   }
 
-  checkSpecific(studentID: string, assigned: boolean) {
-    if (assigned) {
-      this.assignedStudentID.push(studentID);
-    } else { // removes from assigned student array
-      this.assignedStudentID = this.assignedStudentID.filter(id => id !== studentID);
-    }
-  }
-
-
-  resetList() {
-    this.assignedToAll = false;
-    console.log(this.assignedToAll);
-    this.assignedStudentID = [];
-  }
 
   getTeacherData(){
     this.classService.getAllTeachers().then((teacher) => {

@@ -30,7 +30,6 @@ export class ChangeStatusComponent {
     }
     
     this.goalTitle = data.description;
-    console.log("date due", data.dueDate.toDate());
     this.dueDate = data.dueDate.toDate();
     this.loading = false;
     this.rejectionNote = '';

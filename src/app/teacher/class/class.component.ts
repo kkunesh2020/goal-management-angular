@@ -128,7 +128,7 @@ export class ClassComponent {
 
     if(this.getLengthOf(goal.pending) == 1 && this.getLengthOf(goal.assignedToID) == 1 && this.studentCreatedClass(goal)){
       let dialogRef = this.dialog.open(ChangeStatusComponent, {
-        data: {...goal, uid: goal.assignedToID[0]},
+        data: {...goal, uid: goal.assignedToID[0], email: goal.assignedToID[0]},
         height: '20rem',
         width: '30rem',
       });
@@ -234,10 +234,11 @@ export class ClassComponent {
     this.loading = false;
   }
 
-  openDialog(data: any, userID: string, isCompleted: boolean, status: string) {
-    data.email = userID;
+  openDialog(data: any, userEmail: string, isCompleted: boolean, status: string) {
+    data.email = userEmail;
     data.isCompleted = isCompleted;
     let dialogRef;
+    console.log("sending data", data);
 
     if(status == "pending" && this.studentCreatedClass(data)){
       console.log("open pending");
@@ -247,6 +248,7 @@ export class ClassComponent {
      });
    } else if (status === 'pending') {
       // if the goal status is pending display the change status dialog
+      console.log("open pending 2", data);
       dialogRef = this.dialog.open(ChangeStatusComponent, {
         data,
         height: '20rem',

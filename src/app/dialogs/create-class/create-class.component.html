@@ -19,7 +19,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Class Teacher</mat-label>
         <mat-select [(ngModel)]="teacherData">
-          <mat-option *ngFor="let teacher of teachers" [value]="teacher.uid">
+          <mat-option *ngFor="let teacher of teachers" [value]="teacher.email">
             {{teacher.name}}
           </mat-option>
         </mat-select>
