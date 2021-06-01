@@ -47,13 +47,16 @@ export const studentAddedToClass = functions.https.onCall(async (data, context) 
 
 export const userCreatedGoalEmail = functions.firestore.document('goals/{goalID}').onCreate( async (change, context) => {
 
+  console.log("goalID", context.params.goalID);
   // Read the post document
   const postSnap = await db.collection('goals').doc(context.params.goalID).get();
 
   // Raw Data
   const goal = postSnap.data(); 
+  console.log("classID", goal.classID);
   const classDoc = await db.collection('classes').doc(goal.classID).get();
   const classData = classDoc.data();
+  console.log("teacher Email", classData.teacherEmail);
   const teacherDoc = await db.collection('users').doc(classData.teacherEmail).get();
   const teacherData = teacherDoc.data()
 
@@ -70,7 +73,7 @@ export const userCreatedGoalEmail = functions.firestore.document('goals/{goalID}
       html: `
       <p>Hey there!</p>
       <p>
-        You have a <b>new goal ${goal.description}</b> for ${classData.titles} created by ${teacherData.name}.
+        You have a <b>new goal ${goal.description}</b> for ${classData.title} created by ${teacherData.name}.
         Please <a href="${URL}/goals">click here</a> to view the goal.
       </p>
       <p>
@@ -97,6 +100,7 @@ export const userCreatedGoalEmail = functions.firestore.document('goals/{goalID}
     return;
   }else{
     for(let student of goal.assignedToID){
+      console.log("student....", student);
       let studentDoc = await db.collection('users').doc(student).get();
       msg.to = studentDoc.data().email;
       await sgMail.send(msg);
