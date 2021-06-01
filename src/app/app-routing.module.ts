@@ -1,5 +1,5 @@
 import { NgModule, ViewChild } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 import { ClassListComponent } from './teacher/class-list/class-list.component';
@@ -19,6 +19,13 @@ import { DirectorClassComponent } from './director/director-class/director-class
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'goals', component: GoalsComponent, canActivate: [StudentAuthGuard]},
+  {path: 'hangman', component: HomeComponent,
+  resolve: {
+      url: 'externalUrlRedirectResolver'
+  },
+  data: {
+      externalUrl: 'https://angelina-tsuboi.github.io/AP_CS_Hangman/'
+  }},
   {path: 'help', component: HelpComponent},
   {path: 'director', component: DirectorViewComponent, canActivate: [AuthGuard]},
   {path: 'director/:classID', component: DirectorClassComponent, canActivate: [AuthGuard]},
@@ -30,6 +37,15 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    {
+        provide: 'externalUrlRedirectResolver',
+        useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
+        {
+            window.location.href = (route.data as any).externalUrl;
+        }
+    }
+]
 })
 export class AppRoutingModule {}
