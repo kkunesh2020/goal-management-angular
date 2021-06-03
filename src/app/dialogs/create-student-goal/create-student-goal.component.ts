@@ -11,6 +11,7 @@ import { GoalService } from 'src/app/shared/services/goal.service';
 export class CreateStudentGoalComponent {
   goal: GoalClass;
   loading = false;
+  dateErrors: string = "";
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -32,12 +33,19 @@ export class CreateStudentGoalComponent {
   }
 
   formComplete(): boolean {
-    return this.goal.description !== '' && this.goal.dueDate != null;
+    return this.goal.description !== '' && this.goal.dueDate != null && this.goal.description.length <= 40 && !this.checkDateErrors();
+  }
+
+  checkDateErrors(): boolean {
+    if (this.goal.dueDate < new Date()) {
+      this.dateErrors = "Due date cannot be before or during today";
+      return true;
+    }
+    return false;
   }
 
   createGoal() {
     this.loading = true;
-    console.log(this.goal.assignedToID);
     this.goalService.createGoal(this.goal).then(() => {
       this.loading = false;
       this.dialogRef.close('success');
