@@ -15,6 +15,7 @@ export class CreateGoalComponent implements OnInit {
   loading = false;
   assignedStudentID: string[] = [];
   assignedToAll: boolean;
+  dateErrors: string = "";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
               public dialogRef: MatDialogRef<CreateGoalComponent>) {
@@ -35,7 +36,7 @@ export class CreateGoalComponent implements OnInit {
 
 
   formComplete(): boolean {
-    return this.assignedStudentID.length > 0 && this.goal.description !== '' && this.goal.dueDate != null;
+    return this.assignedStudentID.length > 0 && this.goal.description !== '' && this.goal.dueDate != null && this.goal.description.length <= 40 && !this.checkDateErrors();
   }
 
   checkSpecific(studentID: string, assigned: boolean) {
@@ -52,6 +53,13 @@ export class CreateGoalComponent implements OnInit {
     this.assignedStudentID = [];
   }
 
+  checkDateErrors(): boolean {
+    if (this.goal.dueDate < new Date()) {
+      this.dateErrors = "Due date cannot be before or during today";
+      return true;
+    }
+    return false;
+  }
 
   createGoal() {
     this.loading = true;

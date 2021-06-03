@@ -9,7 +9,7 @@
       <mat-form-field>
         <mat-label>Goal Title</mat-label>
         <input matInput [(ngModel)]="goal.description">
-        <mat-hint>this is a limit</mat-hint>
+        <mat-hint [hidden]="goal.description.length <= 40" class="error">Description must be less than 40 chars.</mat-hint>
       </mat-form-field>
     </p>
     <!-- Due Date -->
@@ -19,6 +19,7 @@
         <input matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)]="goal.dueDate">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+    <mat-hint [hidden]="!checkDateErrors()" class="error">{{dateErrors}}</mat-hint>
       </mat-form-field>
     </p>
     <!-- Students -->
