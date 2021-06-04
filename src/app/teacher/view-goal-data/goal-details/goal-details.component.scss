@@ -39,7 +39,7 @@
   }
 
   mat-icon{
-    padding-right: .5rem;
+    padding-right: 4px;
   }
 }
 
@@ -85,6 +85,11 @@
       font-weight: normal;
     }
   }
+}
+
+.status{
+  display: flex;
+  align-items: center;
 }
 
 a{

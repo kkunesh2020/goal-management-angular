@@ -16,17 +16,28 @@ export class GoalDetailsComponent implements OnInit {
   studentData: any;
   displayedColumns = ['name', 'status'];
   loading: boolean;
-  students: StudentData[];
+  students: any[] = [];
 
   constructor(private studentGoalService: GoalStudentDataService, private classService: ClassService) {}
 
   ngOnInit() {
     console.log('received goal', this.goal);
 
-    this.classService.getStudentsDataByEmail(this.goal.assignedToID).then(studentData => {
-      console.log('retrieved student data', studentData);
-      this.students = studentData;
-    });
+    if(this.goal){
+      this.goal.assignedToID.forEach((studentEmail) => {
+        this.studentGoalService.getStudentData(studentEmail).then((data) => {
+          let status: string = this.studentGoalService.getStudentStatus(
+            this.goal.hasCompleted,
+            this.goal.pending,
+            this.goal.declined,
+            studentEmail
+          );
+          this.students.push({...data, status});
+        })
+      })
+      console.log(this.students);
+    }
+    
 
     this.studentGoalService.currentStudentGoal.subscribe((studentGoalData) => {
       if (studentGoalData == null) {
