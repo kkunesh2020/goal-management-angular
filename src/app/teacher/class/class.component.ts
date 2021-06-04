@@ -253,7 +253,6 @@ export class ClassComponent {
       console.log("open pending 2", data);
       dialogRef = this.dialog.open(ChangeStatusComponent, {
         data,
-        height: '20rem',
         width: '30rem',
       });
     } else {

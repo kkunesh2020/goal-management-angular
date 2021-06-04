@@ -69,7 +69,6 @@ export class GoalsComponent {
     if (status === 'pending' && data.createdBy.accountType == "teacher") {
       dialogRef = this.dialog.open(ChangeStatusComponent, {
         data,
-        height: '20rem',
         width: '30rem',
       });
     }else if(status === 'pending' && data.createdBy.accountType == "student"){
