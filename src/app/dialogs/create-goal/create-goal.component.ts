@@ -36,7 +36,7 @@ export class CreateGoalComponent implements OnInit {
 
 
   formComplete(): boolean {
-    return this.assignedStudentID.length > 0 && this.goal.description !== '' && this.goal.dueDate != null && this.goal.description.length <= 40 && !this.checkDateErrors();
+    return this.assignedStudentID.length > 0 && this.goal.description.trim() !== '' && this.goal.dueDate != null && this.goal.description.length <= 40 && !this.checkDateErrors();
   }
 
   checkSpecific(studentID: string, assigned: boolean) {
@@ -72,6 +72,7 @@ export class CreateGoalComponent implements OnInit {
     this.loading = true;
     this.goal.assignedToID = this.assignedStudentID;
     this.goal.pending = this.assignedStudentID;
+    this.goal.description = this.goal.description.trim();
     console.log(this.goal.assignedToID);
     this.goalService.createGoal(this.goal).then(() => {
       this.loading = false;

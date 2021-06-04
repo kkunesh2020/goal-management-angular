@@ -33,7 +33,7 @@ export class CreateStudentGoalComponent {
   }
 
   formComplete(): boolean {
-    return this.goal.description !== '' && this.goal.dueDate != null && this.goal.description.length <= 40 && !this.checkDateErrors();
+    return this.goal.description.trim() !== '' && this.goal.dueDate != null && this.goal.description.length <= 40 && !this.checkDateErrors();
   }
 
   checkDateErrors(): boolean {
@@ -53,6 +53,7 @@ export class CreateStudentGoalComponent {
 
   createGoal() {
     this.loading = true;
+    this.goal.description = this.goal.description.trim();
     this.goalService.createGoal(this.goal).then(() => {
       this.loading = false;
       this.dialogRef.close('success');
