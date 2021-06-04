@@ -125,12 +125,9 @@ export class GoalsComponent {
           goalReference: goalRef,
           status
         };
-        console.log("gottem", result);
         let newData = this.dataSource.data;
         newData = newData.filter(classData => classData.goalReference.id != result.data.id);
-        console.log("new Data 1", newData);
         newData.push(newItem);
-        console.log("new Data", newData);
         this.dataSource.data = newData;
       }
     });

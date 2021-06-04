@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Class } from 'src/app/shared/models/class.model';
 import { Goal } from 'src/app/shared/models/goal.model';
+import { ClassService } from 'src/app/shared/services/class.service';
 import { GoalStudentDataService } from 'src/app/shared/services/goal-student-data.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
+import { StudentData } from '../../class/class.component';
 
 @Component({
   selector: 'gms-goal-details',
@@ -12,12 +14,20 @@ import { GoalService } from 'src/app/shared/services/goal.service';
 export class GoalDetailsComponent implements OnInit {
   @Input() goal: Goal;
   studentData: any;
+  displayedColumns = ['name', 'status'];
   loading: boolean;
+  students: StudentData[];
 
-  constructor(private studentGoalService: GoalStudentDataService) {}
+  constructor(private studentGoalService: GoalStudentDataService, private classService: ClassService) {}
 
   ngOnInit() {
     console.log('received goal', this.goal);
+
+    this.classService.getStudentsDataByEmail(this.goal.assignedToID).then(studentData => {
+      console.log('retrieved student data', studentData);
+      this.students = studentData;
+    });
+
     this.studentGoalService.currentStudentGoal.subscribe((studentGoalData) => {
       if (studentGoalData == null) {
         this.studentData = null;

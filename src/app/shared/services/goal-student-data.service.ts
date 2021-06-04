@@ -157,7 +157,6 @@ export class GoalStudentDataService {
           studentEmail
         ).note;
       }
-      console.log("returning", {...studentDataResult, status});
       this.studentDataSource.next({...studentDataResult, status}); // input student data in the studentDataSource
     });
   }
