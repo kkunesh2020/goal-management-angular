@@ -15,6 +15,8 @@ export class GoalDetailsComponent implements OnInit {
   @Input() goal: Goal;
   studentData: any;
   displayedColumns = ['name', 'status'];
+  statColumns = ['assigned', 'hasCompleted', 'pending', 'declined']
+  stats: any[] = [];
   loading: boolean;
   students: any[] = [];
 
@@ -36,6 +38,7 @@ export class GoalDetailsComponent implements OnInit {
         })
       })
       console.log(this.students);
+      this.stats.push({assigned: this.goal.assignedToID.length, hasCompleted: this.goal.hasCompleted.length, pending: this.goal.pending.length, declined: this.goal.declined.length});
     }
     
 
