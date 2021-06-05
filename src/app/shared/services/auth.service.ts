@@ -22,6 +22,7 @@ export class AuthService {
   user$: Observable<User>;
   userGithubID: string;
   githubUsername = '';
+  userEmail: string = ";"
   githubProfile: any;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private route: Router, private githubService: GithubService) {
@@ -30,7 +31,7 @@ export class AuthService {
       switchMap(user => {
         // Logged in
         if (user) {
-          return this.afs.doc<User>(`users/${user.email}`).valueChanges();
+          return this.afs.doc<User>(`users/${this.userEmail}`).valueChanges();
         } else {
           // Logged out
           return of(null);
@@ -68,9 +69,14 @@ export class AuthService {
 
   async githubSignin() {
     const provider = new auth.GithubAuthProvider();
-    const credential: any = await this.afAuth.auth.getRedirectResult();
-    console.log("updating1", credential);
-    await this.updateUserData(credential.user);
+    provider.addScope('email');
+    provider.setCustomParameters({
+      'allow_signup': 'false'
+    });    
+    const credential: any = await this.afAuth.auth.signInWithPopup(provider);
+    this.githubService.githubUsername = credential.additionalUserInfo.username;
+    this.githubService.githubProfile = credential.user;
+    this.githubService.userGithubToken = credential.credential.accessToken;
     return;
   }
 
@@ -89,6 +95,7 @@ export class AuthService {
     const previousUserData = await this.getUserByEmail(user.email);
     const userRef = this.afs.firestore.doc(`users/${user.email}`);
     console.log("updating", user);
+    this.userEmail = user.email;
 
     const data = {
       name: user.displayName,

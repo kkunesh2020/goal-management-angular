@@ -114,28 +114,29 @@ export class UpdateGoalComponent {
     });
   }
 
-  viewGithubCommit() {
+  async viewGithubCommit() {
     if (this.githubService.githubProfile == null) {
-      this.authService.githubSignin();
-    } else {
-      // this.$userRepos = this.githubService.viewUserRepos();
-      const dialogRef = this.dialog.open(UploadCommitComponent, {
-        height: '30rem',
-        width: '25rem',
-        data: { goal: this.currentGoal, uid: this.data.email },
-      });
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result !== '') {
-          this.updated = true;
-          this.currentGoal.commits != null
-            ? (this.currentGoal.commits = this.currentGoal.commits.concat(
-                result
-              ))
-            : (this.currentGoal.commits = result);
-        }
-      });
-      console.log(this.githubService.githubProfile);
-    }
+      await this.authService.githubSignin();
+    } 
+
+    // this.$userRepos = this.githubService.viewUserRepos();
+    const dialogRef = this.dialog.open(UploadCommitComponent, {
+      height: '30rem',
+      width: '25rem',
+      data: { goal: this.currentGoal, uid: this.data.email },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== '') {
+        this.updated = true;
+        this.currentGoal.commits != null
+          ? (this.currentGoal.commits = this.currentGoal.commits.concat(
+              result
+            ))
+          : (this.currentGoal.commits = result);
+      }
+    });
+    console.log(this.githubService.githubProfile);
+    
   }
 
   insertLinkDialog() {

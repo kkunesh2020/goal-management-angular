@@ -33,7 +33,7 @@ export class UploadCommitComponent implements OnInit {
   ngOnInit() {
     this.githubService.viewUserRepos().then((data) => {
       this.userRepos = data;
-      console.log('got the user repos');
+      console.log('got the user repos', this.userRepos);
       console.log(this.userRepos);
     });
   }
