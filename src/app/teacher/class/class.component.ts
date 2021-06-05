@@ -226,10 +226,7 @@ export class ClassComponent {
           goalReference: element,
           status,
         };
-        if (newGoal.status !== 'declined') {
-          // doesn't show declined goals
           goals.push(newGoal);
-        }
       });
       this.goalsDataSource = goals;
     });

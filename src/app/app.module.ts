@@ -56,6 +56,7 @@ import { DeleteStudentComponent } from './dialogs/delete-student/delete-student.
 import { UpdateClassComponent } from './dialogs/update-class/update-class.component';
 import { DeleteClassComponent } from './dialogs/delete-class/delete-class.component';
 import { WarningPendingComponent } from './dialogs/warning-pending/warning-pending.component';
+import { ViewTeacherRejectionComponent } from './dialogs/view-teacher-rejection/view-teacher-rejection.component';
 
 
 
@@ -89,7 +90,8 @@ import { WarningPendingComponent } from './dialogs/warning-pending/warning-pendi
     DeleteStudentComponent,
     UpdateClassComponent,
     DeleteClassComponent,
-    WarningPendingComponent
+    WarningPendingComponent,
+    ViewTeacherRejectionComponent
   ],
   imports: [
     BrowserModule,
