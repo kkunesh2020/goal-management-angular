@@ -20,7 +20,7 @@ export class GoalDetailsComponent implements OnInit {
   loading: boolean;
   students: any[] = [];
 
-  constructor(private studentGoalService: GoalStudentDataService, private classService: ClassService) {}
+  constructor(private studentGoalService: GoalStudentDataService, private classService: ClassService, private studentDataService: GoalStudentDataService) {}
 
   ngOnInit() {
     console.log('received goal', this.goal);
@@ -86,6 +86,11 @@ export class GoalDetailsComponent implements OnInit {
         this.studentData.status = this.studentData.status;
       }
     });
+  }
+
+  viewStudentData(email: string) { // method for viewing students stats on goal
+    this.studentDataService.setStudentGoalData(email, this.goal);
+    // open and hightlight student data
   }
 
   // opens up link in another tab

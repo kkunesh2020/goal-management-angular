@@ -152,10 +152,16 @@ export class GoalStudentDataService {
 
       if (status === 'declined') {
         // if the status is declined the student has a declined note
-        studentDataResult.declinedNote = this.getStudentDeclinedNote(
+        studentDataResult.declinedNote = null;
+        if(this.getStudentDeclinedNote(
           goal.declinedMessages,
           studentEmail
-        ).note;
+        )){
+          studentDataResult.declinedNote = this.getStudentDeclinedNote(
+            goal.declinedMessages,
+            studentEmail
+          ).note;
+        }
       }
       this.studentDataSource.next({...studentDataResult, status}); // input student data in the studentDataSource
     });
