@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-teacher-rejection.component.scss']
 })
 export class ViewTeacherRejectionComponent implements OnInit {
-
+  declinedNote: string = "";
   constructor() { }
 
   ngOnInit() {

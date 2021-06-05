@@ -17,6 +17,7 @@ import { CreateStudentGoalComponent } from 'src/app/dialogs/create-student-goal/
 import { GoalStudentDataService } from 'src/app/shared/services/goal-student-data.service';
 import { DocumentReference } from '@angular/fire/firestore';
 import { WarningPendingComponent } from 'src/app/dialogs/warning-pending/warning-pending.component';
+import { ViewTeacherRejectionComponent } from 'src/app/dialogs/view-teacher-rejection/view-teacher-rejection.component';
 
 export interface StudentData {
   name: string;
@@ -252,7 +253,13 @@ export class ClassComponent {
         data,
         width: '30rem',
       });
-    } else {
+    } else if(status === 'declined'){
+      dialogRef = this.dialog.open(ViewTeacherRejectionComponent, {
+        data,
+        width: '30rem',
+      });
+    }
+    else {
       // otherwise display the update goal component
       dialogRef = this.dialog.open(UpdateGoalComponent, {
         data,

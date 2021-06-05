@@ -124,6 +124,6 @@ import { ViewTeacherRejectionComponent } from './dialogs/view-teacher-rejection/
   bootstrap: [AppComponent],
   entryComponents: [UpdateGoalComponent, CreateGoalComponent, EditGoalComponent,
     DeleteGoalComponent, UploadLinkComponent, UploaderComponent, ChangeStatusComponent,
-     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent, CreateStudentComponent, DeleteStudentComponent, UpdateClassComponent, DeleteClassComponent, WarningPendingComponent]
+     CreateStudentGoalComponent, UploadCommitComponent, CreateClassComponent, CreateStudentComponent, DeleteStudentComponent, UpdateClassComponent, DeleteClassComponent, WarningPendingComponent, ViewTeacherRejectionComponent]
 })
 export class AppModule { }

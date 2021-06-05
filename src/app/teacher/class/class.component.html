@@ -124,7 +124,7 @@
     <ng-container matColumnDef="isCompleted">
       <th mat-header-cell *matHeaderCellDef> Completed? </th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon aria-hidden="false" aria-label="Example done icon" *ngIf="element.isCompleted">done</mat-icon>
+        <mat-icon *ngIf="element.isCompleted">done</mat-icon>
         <mat-icon aria-hidden="false" aria-label="Example close icon" *ngIf="element.status == 'incomplete'">close</mat-icon>
         <mat-icon aria-hidden="false" aria-label="Example close icon" *ngIf="element.status == 'declined'">warning</mat-icon>
         <mat-icon aria-hidden="false" aria-label="Example close icon" *ngIf="element.status == 'pending'">schedule</mat-icon>
