@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'gms-view-teacher-rejection',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewTeacherRejectionComponent implements OnInit {
   declinedNote: string = "";
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+    this.declinedNote = this.data.declinedNote;
   }
 
 }

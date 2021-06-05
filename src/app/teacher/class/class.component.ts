@@ -237,6 +237,7 @@ export class ClassComponent {
   openDialog(data: any, userEmail: string, isCompleted: boolean, status: string) {
     data.email = userEmail;
     data.isCompleted = isCompleted;
+    
     let dialogRef;
     console.log("sending data", data);
 
