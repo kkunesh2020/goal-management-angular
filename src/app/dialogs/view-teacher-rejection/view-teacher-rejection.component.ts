@@ -7,11 +7,11 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./view-teacher-rejection.component.scss']
 })
 export class ViewTeacherRejectionComponent implements OnInit {
-  declinedNote: string = "";
+  declinedNote: any;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    this.declinedNote = this.data.declinedNote;
+    this.declinedNote = this.data.declinedMessages[0];
   }
 
 }
