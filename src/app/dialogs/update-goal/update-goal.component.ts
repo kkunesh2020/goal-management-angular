@@ -74,7 +74,7 @@ export class UpdateGoalComponent {
     } else {
       // unsubmit
       this.goalService
-        .unsubmitGoal(this.currentGoal, this.authService.userEmail)
+        .unsubmitGoal(this.currentGoal, this.data.email)
         .then(() => {
           this.isLoading = false;
           this.madeChanges = true;

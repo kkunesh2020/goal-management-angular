@@ -96,7 +96,8 @@ export class GoalService {
             doc.data().assignedToID,
             doc.data().declinedMessages,
             doc.data().files,
-            doc.data().links
+            doc.data().links,
+            doc.data().commits
           );
           goals.push(newGoal);
         });
