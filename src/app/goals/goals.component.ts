@@ -11,6 +11,8 @@ import { GoalsTableData, GoalStat } from '../teacher/class/class.component';
 import GoalClass from '../shared/models/goal';
 import { ChangeStatusComponent } from '../dialogs/change-status/change-status.component';
 import { WarningPendingComponent } from '../dialogs/warning-pending/warning-pending.component';
+import { Class } from '../shared/models/class.model';
+import { ClassService } from '../shared/services/class.service';
 
 @Component({
   selector: 'gms-goals',
@@ -21,6 +23,7 @@ export class GoalsComponent {
   loading = true;
   uid: string;
   dataSource = new MatTableDataSource([]);
+  classes: Class[] = [];
 
   goalsDisplayedColumns: string[] = [
     'description',
@@ -33,7 +36,8 @@ export class GoalsComponent {
     private auth: AuthService,
     private goalService: GoalService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private classService: ClassService
   ) {
     this.loading = true;
     // get userProfile data for user
@@ -42,6 +46,8 @@ export class GoalsComponent {
         return;
       }
       this.uid = userProfile.email;
+      this.classes = await this.classService.getClasses(userProfile.email);
+      console.log("classes", this.classes)
       if (userProfile.goalsAssigned.length > 0) {
         this.getStudentGoals(userProfile.goalsAssigned);
       } else {
@@ -59,6 +65,10 @@ export class GoalsComponent {
       this.dataSource.data = [...goalData];
       this.loading = false;
     });
+  }
+
+  createGoalDialog(classData: Class){
+    console.log("opening for ", classData)
   }
 
   openDialog(data: any, userID: string, isCompleted: boolean, status: string) {

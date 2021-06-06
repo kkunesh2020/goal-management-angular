@@ -1,6 +1,18 @@
 <h1 class="title">Current Goals</h1>
 <div class="=loading-shade" *ngIf="loading">
 </div>
+
+<div style="display: inline;" [hidden]="!classes || classes.length == 0">
+  <button mat-button color="primary" id="createGoal" *ngIf="!loading" [matMenuTriggerFor]="menu"><mat-icon>add</mat-icon> Create Goal</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let class of classes" (click)="createGoalDialog(class)">
+      <mat-icon>{{class.classIcon ? class.classIcon : 'class'}}</mat-icon>
+      {{class.title}}
+    </button>
+  </mat-menu>
+</div>
+
+
 <p *ngIf="dataSource.data.length == 0 && !loading" class="subtitle">No Goals Assigned Yet.</p>
 
 
