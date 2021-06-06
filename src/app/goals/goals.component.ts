@@ -4,17 +4,15 @@ import { MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UpdateGoalComponent } from '../dialogs/update-goal/update-goal.component';
-import { Goal } from '../shared/models/goal.model';
 import { AuthService } from '../shared/services/auth.service';
 import { GoalService } from '../shared/services/goal.service';
-import { GoalsTableData, GoalStat } from '../teacher/class/class.component';
 import GoalClass from '../shared/models/goal';
 import { ChangeStatusComponent } from '../dialogs/change-status/change-status.component';
 import { WarningPendingComponent } from '../dialogs/warning-pending/warning-pending.component';
 import { Class } from '../shared/models/class.model';
 import { ClassService } from '../shared/services/class.service';
-import { CreateGoalComponent } from '../dialogs/create-goal/create-goal.component';
 import UserClass from '../shared/models/user';
+import { CreateStudentGoalComponent } from '../dialogs/create-student-goal/create-student-goal.component';
 
 @Component({
   selector: 'gms-goals',
@@ -72,24 +70,19 @@ export class GoalsComponent {
   }
 
   async createGoalDialog(classData: Class){
-    console.log("opening for ", classData)
     const data = {
       createdBy: this.user,
-      teacherEmail: classData.teacherEmail,
       classID: classData.id,
-      students: [],
+      students: this.classService.getStudentsDataByReference(classData.students),
     };
-    data.students = await this.classService.getStudentsDataByReference(classData.students)
-    // passes in class data into the dialog
-    const dialogRef = this.dialog.open(CreateGoalComponent, {
+    const dialogRef = this.dialog.open(CreateStudentGoalComponent, {
       data,
       width: '27rem',
-      height: '30rem',
+      height: '23rem',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'success') {
-        // if a goal is created reshow goals
         this.getStudentGoals(this.user.goalsAssigned);
       }
     });
