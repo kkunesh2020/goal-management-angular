@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs/internal/Observable';
 import CommitClass from 'src/app/shared/models/commit';
 import { Commit } from 'src/app/shared/models/commit.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { GithubService } from 'src/app/shared/services/github.service';
 import { GoalService } from 'src/app/shared/services/goal.service';
 
@@ -23,11 +24,12 @@ export class UploadCommitComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private githubService: GithubService,
+    private authService: AuthService,
     public dialogRef: MatDialogRef<UploadCommitComponent>,
     private goalService: GoalService
   ) {
     this.goalID = data.goal.id;
-    this.uid = data.email;
+    this.uid = this.authService.userEmail;
   }
 
   ngOnInit() {
@@ -43,7 +45,6 @@ export class UploadCommitComponent implements OnInit {
     const altLink = commitLink.split('{')[0]; // getting only commit link (removes unessary error)
     this.githubService.viewRepoCommits(altLink).then((data) => {
       this.userCommits = data;
-      console.log('da commits', this.userCommits);
     });
   }
 

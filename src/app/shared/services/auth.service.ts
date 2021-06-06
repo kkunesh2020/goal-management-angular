@@ -31,6 +31,7 @@ export class AuthService {
       switchMap(user => {
         // Logged in
         if (user) {
+          if(user.email) return this.afs.doc<User>(`users/${user.email}`).valueChanges();
           return this.afs.doc<User>(`users/${this.userEmail}`).valueChanges();
         } else {
           // Logged out

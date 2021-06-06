@@ -63,8 +63,9 @@ export class UpdateGoalComponent {
     this.isLoading = true;
     if (isDone) {
       // mark as done
+      console.log("intpus", this.currentGoal);
       this.goalService
-        .completeGoal(this.currentGoal, this.data.email)
+        .completeGoal(this.currentGoal, this.authService.userEmail)
         .then(() => {
           this.isLoading = false;
           this.madeChanges = true;
@@ -73,7 +74,7 @@ export class UpdateGoalComponent {
     } else {
       // unsubmit
       this.goalService
-        .unsubmitGoal(this.currentGoal, this.data.email)
+        .unsubmitGoal(this.currentGoal, this.authService.userEmail)
         .then(() => {
           this.isLoading = false;
           this.madeChanges = true;
@@ -103,7 +104,7 @@ export class UpdateGoalComponent {
     const dialogRef = this.dialog.open(UploaderComponent, {
       height: '40rem',
       width: '60rem',
-      data: { goal: this.currentGoal, email: this.data.email },
+      data: { goal: this.currentGoal, email: this.authService.userEmail },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== '') {

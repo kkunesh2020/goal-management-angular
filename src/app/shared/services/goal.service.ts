@@ -245,6 +245,12 @@ export class GoalService {
     } else {
       goal.files = goal.files.map((file) => Object.assign({}, file));
     }
+    
+    if (goal.commits == null) {
+      goal.commits = [];
+    } else {
+      goal.commits = goal.commits.map((commit) => Object.assign({}, commit));
+    }
 
     const promise = this.afs
       .doc<Goal>(`goals/` + goal.id)
@@ -519,7 +525,7 @@ export class GoalService {
   addCommitToGoal(goalID: string, commit: Commit): Promise<any> {
     const promise = this.goalsCollection
       .doc(goalID)
-      .update({ commits: firebase.firestore.FieldValue.arrayUnion(commit) })
+      .update({ commits: firebase.firestore.FieldValue.arrayUnion(Object.assign({}, commit)) })
       .then(() => {
         return;
       })

@@ -140,6 +140,11 @@ export class GoalStudentDataService {
         studentEmail
       );
 
+      const studentCommits: CommitClass[] = this.getStudentCommits(
+        goal.commits ? goal.commits : [],
+        studentEmail
+      );
+
       let studentDataResult = {
         id: studentEmail,
         email: studentEmail,
@@ -147,6 +152,7 @@ export class GoalStudentDataService {
         name: student.name,
         files: studentFiles,
         links: studentLinks,
+        commits: studentCommits,
         declinedNote: ''
       };
 
