@@ -13,6 +13,8 @@ import { ChangeStatusComponent } from '../dialogs/change-status/change-status.co
 import { WarningPendingComponent } from '../dialogs/warning-pending/warning-pending.component';
 import { Class } from '../shared/models/class.model';
 import { ClassService } from '../shared/services/class.service';
+import { CreateGoalComponent } from '../dialogs/create-goal/create-goal.component';
+import UserClass from '../shared/models/user';
 
 @Component({
   selector: 'gms-goals',
@@ -24,6 +26,7 @@ export class GoalsComponent {
   uid: string;
   dataSource = new MatTableDataSource([]);
   classes: Class[] = [];
+  user:UserClass;
 
   goalsDisplayedColumns: string[] = [
     'description',
@@ -45,6 +48,7 @@ export class GoalsComponent {
       if (userProfile == null) {
         return;
       }
+      this.user = userProfile;
       this.uid = userProfile.email;
       this.classes = await this.classService.getClasses(userProfile.email);
       console.log("classes", this.classes)
@@ -67,8 +71,28 @@ export class GoalsComponent {
     });
   }
 
-  createGoalDialog(classData: Class){
+  async createGoalDialog(classData: Class){
     console.log("opening for ", classData)
+    const data = {
+      createdBy: this.user,
+      teacherEmail: classData.teacherEmail,
+      classID: classData.id,
+      students: [],
+    };
+    data.students = await this.classService.getStudentsDataByReference(classData.students)
+    // passes in class data into the dialog
+    const dialogRef = this.dialog.open(CreateGoalComponent, {
+      data,
+      width: '27rem',
+      height: '30rem',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'success') {
+        // if a goal is created reshow goals
+        this.getStudentGoals(this.user.goalsAssigned);
+      }
+    });
   }
 
   openDialog(data: any, userID: string, isCompleted: boolean, status: string) {
