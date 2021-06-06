@@ -1,9 +1,9 @@
 <h1 mat-dialog-title>Your goal was rejected by the teacher.</h1>
 <div mat-dialog-content>
     <span [hidden]="declinedNote && declinedNote.note && declinedNote.note != ''">This goal was declined. </span>
-    <div [hidden]="!declinedNote || !declinedNote.note || declinedNote.note == ''">
+    <div [hidden]="!declinedNote">
         Your teacher left the following note: 
-        <p>{{declinedNote.note}}</p>
+        <p>{{declinedNote ? declinedNote.note: ''}}</p>
     </div>
 </div>
 <div mat-dialog-actions>

@@ -69,13 +69,13 @@ export class AuthService {
 
   async githubSignin() {
     const provider = new auth.GithubAuthProvider();
-    provider.addScope('email');
+    provider.addScope('repo');
     provider.setCustomParameters({
       'allow_signup': 'false'
     });    
     const credential: any = await this.afAuth.auth.signInWithPopup(provider);
     this.githubService.githubUsername = credential.additionalUserInfo.username;
-    this.githubService.githubProfile = credential.user;
+    this.githubService.githubProfile = credential.additionalUserInfo.profile;
     this.githubService.userGithubToken = credential.credential.accessToken;
     return;
   }

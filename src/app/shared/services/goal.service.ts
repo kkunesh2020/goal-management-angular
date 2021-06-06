@@ -108,7 +108,6 @@ export class GoalService {
   // get individual goal supplied with goalID
   // @params goalID: string
   getGoalById(goalID: string): Promise<any> {
-    console.log('gettng goal by id', goalID);
     const promise = this.goalsCollection
       .doc(goalID)
       .get()
@@ -159,8 +158,6 @@ export class GoalService {
         });
       }
     }
-
-    console.log('done with goals', goals);
     return goals;
   }
 
@@ -205,8 +202,6 @@ export class GoalService {
   // check if the user has completed a goal
   // @params completedUsersID: string[], userID: string
   userHasCompleted(completedUsersID: string[], userID: string) {
-    console.log('completedUsersID', completedUsersID);
-    console.log('userID', userID);
     if (completedUsersID == null) {
       return false;
     }
@@ -361,9 +356,7 @@ export class GoalService {
   ): Promise<any> {
     const goalRef = this.goalsCollection.doc(goalID);
     let promise: Promise<any>;
-    console.log('updating goal status');
     if (status === 'incomplete') {
-      console.log('incomplete');
       // if status is incomplete the user has accepted the goal
       promise = goalRef.update({
         pending: firebase.firestore.FieldValue.arrayRemove(email),
@@ -379,7 +372,6 @@ export class GoalService {
             pending: firebase.firestore.FieldValue.arrayRemove(email),
           });
           const rejectNote: NoteClass = { email, note: rejectionNote };
-          console.log('reject note', rejectNote);
           this.goalsCollection.doc(goalID).update({
             declinedMessages: firebase.firestore.FieldValue.arrayUnion({
               ...rejectNote,

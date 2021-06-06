@@ -14,10 +14,11 @@ export class GithubService {
   constructor(private http: HttpClient) {}
 
   viewUserRepos(): Promise<any> {
-    const header = new HttpHeaders().set('Authorization', this.userGithubToken);
+    console.log("getting from", this.userGithubToken, this.githubUsername, this.githubProfile)
+    const header = new HttpHeaders().set('Authorization', `Bearer ${this.userGithubToken}`);
 
     return this.http
-      .get(`${this.githubProfile.repos_url}`, { headers: header })
+      .get(`https://api.github.com/user/repos`, { headers: header })
       .pipe(take(1))
       .toPromise();
   }
