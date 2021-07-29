@@ -18,11 +18,44 @@
   background: linear-gradient(to right,#01022F, #093A97, #00BAED);
   height: 100%;
 
+  .logoBrand{
+    display: flex;
+    margin-left: 8%;
+    margin-top: 1rem;
+    img{
+      width: 40px;
+      height: 40px;
+      margin-right: 7px;
+    }
+
+    span{
+      font-size: 30px;
+      margin-top: 4px;
+    }
+  }
+
+  .bottom-star{
+    bottom: -3.5rem;
+    left: -3.5rem;
+    width: 15rem;
+    height: 15rem;
+    position: absolute;
+  }
+
+  h3{
+    font-size: 3rem;
+    margin-top: 25%;
+  }
   .logo{
     margin:auto;
     margin-top: 5rem;
     width: 15rem;
     height: 15rem;
+  }
+
+  .illustration{
+    width: 65%;
+    margin-top: 20%;
   }
 
   .title{
@@ -31,6 +64,23 @@
     color: white;
   }
   
+  .logIn{
+    display: flex;
+
+    .left{
+      width: 50%;
+      height: 100vh;
+      background-color: white;
+    }
+
+    .right{
+      position: relative;
+      width: 50%;
+      height: 100vh;
+      display:block; 
+      margin: auto auto;
+    }
+  }
 
 
   .loader {
