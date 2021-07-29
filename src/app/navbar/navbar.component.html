@@ -1,5 +1,5 @@
 <!-- Main toolbar -->
-<mat-toolbar color="primary">
+<mat-toolbar>
   <div fxHide.gt-xs>
     <button mat-icon-button (click)="toggleSidenav.emit()">
       <mat-icon>menu</mat-icon>
@@ -7,10 +7,8 @@
   </div>
   <div>
     <a [routerLink]="'/'" class="title">
-      <div class="logo">
-        <img src="../../assets/chadwicklogo.jpeg" class="logoImage"/>
-      </div>
-      <span class="text">CHADWICK GMS</span>
+      <img src="../../assets/starlogo.png" class="logoImage"/>
+      <span class="text">A* STAR</span>
     </a>
   </div>
 
