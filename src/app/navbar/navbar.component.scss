@@ -2,20 +2,20 @@
 
 mat-sidenav-container, mat-sidenav-content, mat-sidenav {
   height: 100%;
-  font-family: 'Mukta', sans-serif;
+  // font-family: 'Mukta', sans-serif;
 }
 
 mat-toolbar{
-  background-color: rgb(13, 37, 116) !important;
+  background-color: white !important;
 }
 
 mat-sidenav {
   width: 15rem;
-  color: rgb(17, 50, 156);
+
 }
 a {
   text-decoration: none;
-  color: white;
+  color: gray;
 }
 
 .title{
@@ -30,7 +30,7 @@ a {
     margin-top: 1.5%;
     margin-left: 1%;
   }
-  font-family: 'Mukta', sans-serif;
+  // font-family: 'Mukta', sans-serif;
   font-weight: bold;
   display: flex;
 }
@@ -43,14 +43,14 @@ a:active {
 .navigation-items {
   list-style: none;
   padding: 0;
-  font-family: 'Mukta', sans-serif;
+  // font-family: 'Mukta', sans-serif;
   margin: 0;
   cursor: pointer;
 }
 
 .icon {
   display: inline-block;
-  height: 30px;
+  height: 15px;
   margin: 0 auto;
   padding-right: 3px;
   text-align: center;
@@ -60,7 +60,7 @@ a:active {
 .label {
   // display: inline-block;
   padding-left: 0.3rem;
-  line-height: 30px;
+  line-height: 15px;
   margin: 0;
   width: 85%;
 }

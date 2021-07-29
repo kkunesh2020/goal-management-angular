@@ -16,27 +16,24 @@
     <ul fxLayout fxLayoutGap="20px" class="navigation-items">
       <li>
         <a [routerLink]="'/'">
-          <mat-icon id="home-icon" class="icon">home</mat-icon>
-          <span class="label">HOME</span>
+          <span class="label">Home</span>
         </a>
       </li>
       <div *ngIf="auth.user$ | async as user">
         <li>
           <a [routerLink]="'/help'">
-            <mat-icon class="icon">info</mat-icon>
-            <span class="label">HELP</span>
+            <span class="label">Help</span>
           </a>
         </li>
       </div>
       <li>
         <a>
-          <mat-icon id="input-icon" class="icon">input</mat-icon>
           <div *ngIf="auth.user$ | async; then user; else guest"></div>
           <ng-template #user>
-            <span class="label" (click)="auth.signOut()">LOGOUT</span>
+            <span class="label" (click)="auth.signOut()">Logout</span>
           </ng-template>
           <ng-template #guest>
-            <span class="label" (click)="auth.googleSignin()">LOGIN</span>
+            <span class="label" (click)="auth.googleSignin()">Login</span>
           </ng-template>
         </a>
       </li>
