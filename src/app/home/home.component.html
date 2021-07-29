@@ -1,6 +1,4 @@
 <div class="main">
-  <img src="../../assets/chadwicklogo.jpeg" class="logo"/>
-  <h1 class="title">CHADWICK SCHOOL GOAL MANAGEMENT</h1>
 
   <div class="loader" *ngIf="loading"></div>
   <div class="logIn" *ngIf="!loggedIn" [hidden]="loading">
@@ -13,7 +11,7 @@
   </div>
 
 
-  <div *ngIf="loggedIn" [hidden]="loading">
+  <!-- <div *ngIf="loggedIn" [hidden]="loading">
     <div class="teacherSection" *ngIf="accountType=='teacher'">
       <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
     </div>
@@ -24,10 +22,8 @@
       <p class="or">OR</p>
       <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
     </div>
-
-    <!-- update for the director's router links -->
     <div class="directorSection" *ngIf="accountType=='director'">
       <button class="class-button" [routerLink]="['/director']">VIEW CLASSES</button>
     </div>  
-  </div>
+  </div> -->
 </div>
