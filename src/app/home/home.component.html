@@ -30,18 +30,18 @@
 
 
   <div *ngIf="loggedIn" [hidden]="loading">
-    <h1 class="userWelcome">Welcome, {{username}}!</h1>
+    <h1 class="userWelcome">Welcome, <span>{{username}}!</span></h1>
     <div class="teacherSection" *ngIf="accountType=='teacher'">
-      <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
+      <button nbButton status="primary" [routerLink]="['/classes']">VIEW CLASSES</button>
     </div>
 
     <div class="studentSection" *ngIf="accountType=='student'">
-      <button class="class-button" [routerLink]="['/goals']">VIEW GOALS</button>
+      <button nbButton status="primary" [routerLink]="['/goals']">VIEW GOALS</button>
       <p class="or">OR</p>
-      <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
+      <button nbButton status="primary" [routerLink]="['/classes']">VIEW CLASSES</button>
     </div>
     <div class="directorSection" *ngIf="accountType=='director'">
-      <button class="class-button" [routerLink]="['/director']">VIEW CLASSES</button>
+      <button nbButton status="primary" [routerLink]="['/director']">VIEW CLASSES</button>
     </div>  
   </div>
 </div>

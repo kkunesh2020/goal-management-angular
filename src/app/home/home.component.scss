@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap');
 
 .mat-row{
   cursor: pointer;
@@ -156,6 +157,16 @@
     width: 18px;
     height: 18px;
     box-sizing: border-box;
+  }
+
+  .userWelcome{
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: normal;
+    color: gray;
+    span{
+      font-weight: 600;
+      color: black;
+    }
   }
 
   .google-button__icon--plus {
