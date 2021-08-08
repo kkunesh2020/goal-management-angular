@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   loading = true;
   accountType: string;
   uid: string;
+  username: string;
   studentAssignments: GoalsTableData[];
   goalsDisplayedColumns: string[] = [
     'description',
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
       if (userProfile) {
         // when userProfile is not null set the variables below
         this.uid = userProfile.email;
+        this.username = userProfile.name;
         this.accountType = userProfile.accountType;
       }
       this.loading = false;

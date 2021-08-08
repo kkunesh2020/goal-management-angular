@@ -30,8 +30,8 @@ a {
   font-size: 20px !important;
   font-family: 'Heebo', sans-serif;
   .logoImage{
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     margin-right: 7px;
   }
 
@@ -71,6 +71,12 @@ a:active {
   line-height: 15px;
   margin: 0;
   width: 85%;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.label:hover{
+  color: #36f;
 }
 
 #input-icon {

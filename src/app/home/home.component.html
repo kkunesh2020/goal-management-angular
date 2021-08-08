@@ -28,11 +28,12 @@
   </div>
 
 
-  <!-- <div *ngIf="loggedIn" [hidden]="loading">
+
+  <div *ngIf="loggedIn" [hidden]="loading">
+    <h1 class="userWelcome">Welcome, {{username}}!</h1>
     <div class="teacherSection" *ngIf="accountType=='teacher'">
       <button class="class-button" [routerLink]="['/classes']">VIEW CLASSES</button>
     </div>
-
 
     <div class="studentSection" *ngIf="accountType=='student'">
       <button class="class-button" [routerLink]="['/goals']">VIEW GOALS</button>
@@ -42,5 +43,5 @@
     <div class="directorSection" *ngIf="accountType=='director'">
       <button class="class-button" [routerLink]="['/director']">VIEW CLASSES</button>
     </div>  
-  </div> -->
+  </div>
 </div>
