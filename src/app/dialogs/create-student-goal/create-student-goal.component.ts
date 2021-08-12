@@ -1,8 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import GoalClass from 'src/app/shared/models/goal';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { GoalService } from 'src/app/shared/services/goal.service';
-import { NbDialogRef } from '@nebular/theme';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-create-student-goal',
@@ -15,23 +15,10 @@ export class CreateStudentGoalComponent {
   dateErrors: string = "";
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogService: NbDialogService,
     private goalService: GoalService,
-    public dialogRef: MatDialogRef<CreateStudentGoalComponent>,
-    protected ref: NbDialogRef<CreateStudentGoalComponent>
+    @Optional() protected ref: NbDialogRef<CreateStudentGoalComponent>
   ) {
-    this.goal = new GoalClass(
-      '',
-      '',
-      null,
-      data.classID,
-      [],
-      [data.createdBy.email],
-      [],
-      '',
-      data.createdBy,
-      [data.createdBy.email]
-    );
   }
 
   formComplete(): boolean {
@@ -62,7 +49,7 @@ export class CreateStudentGoalComponent {
     this.goal.description = this.goal.description.trim();
     this.goalService.createGoal(this.goal).then(() => {
       this.loading = false;
-      this.dialogRef.close('success');
+      this.ref.close('success');
     });
   }
 }
