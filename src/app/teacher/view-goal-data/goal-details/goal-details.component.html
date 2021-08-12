@@ -1,5 +1,5 @@
 <div class="goal" *ngIf="goal">
-  <mat-spinner *ngIf="loading"></mat-spinner>
+  <gms-spinner *ngIf="loading"></gms-spinner>
   <div class="goalDescription" *ngIf="studentData == null">
     <h1>{{goal.description}}</h1>
     <p>{{goal.dueDate.seconds * 1000 | date}}</p>  

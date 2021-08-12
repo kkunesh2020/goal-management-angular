@@ -1,12 +1,12 @@
 <h1 class="title" *ngIf="class">{{class.title}}</h1>
 <div class="example-loading-shade" *ngIf="loading">
-  <mat-spinner *ngIf="loading"></mat-spinner>
+  <gms-spinner *ngIf="loading"></gms-spinner>
 </div>
 
 <div class="teacherSection" *ngIf="class && accountType=='teacher'">
   <div fxLayoutAlign="center center">
     <div class="example-loading-shade" *ngIf="loading">
-      <mat-spinner *ngIf="loading"></mat-spinner>
+      <gms-spinner *ngIf="loading"></gms-spinner>
     </div>
     <table mat-table [dataSource]="studentDataSource" *ngIf="studentDataSource.length > 0" class="mat-elevation-z8 table">
       <!-- Name Column -->
@@ -40,7 +40,7 @@
     <p *ngIf="classGoals.length == 0 && accountType=='teacher' && !loading" class="subtitle">No Goals Assigned Yet.</p>
     <div fxLayoutAlign="center center">
       <div class="example-loading-shade" *ngIf="loading">
-        <mat-spinner *ngIf="loading"></mat-spinner>
+        <gms-spinner *ngIf="loading"></gms-spinner>
       </div>
 
     <table mat-table [dataSource]="classGoals" class="mat-elevation-z8 table" *ngIf="!loading && classGoals.length != 0">
@@ -107,7 +107,7 @@
 
 <div class="studentSection" *ngIf="class && accountType=='student'" fxLayoutAlign="center center">
   <div class="example-loading-shade" *ngIf="loading">
-    <mat-spinner *ngIf="loading"></mat-spinner>
+    <gms-spinner *ngIf="loading"></gms-spinner>
   </div>
   <table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8 table" *ngIf="!loading && goalsDataSource.length != 0">
     <!-- Description Column -->

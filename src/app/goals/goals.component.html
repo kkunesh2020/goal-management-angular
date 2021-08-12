@@ -17,7 +17,7 @@
 
 
 <div class="main">
-  <mat-spinner *ngIf="loading"></mat-spinner>
+  <gms-spinner *ngIf="loading"></gms-spinner>
   <table mat-table [dataSource]="dataSource" class="table" *ngIf="dataSource.data.length > 0">
     <!-- Description Column -->
     <ng-container matColumnDef="description">
