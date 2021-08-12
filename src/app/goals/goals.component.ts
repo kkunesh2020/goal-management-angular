@@ -13,6 +13,7 @@ import { Class } from '../shared/models/class.model';
 import { ClassService } from '../shared/services/class.service';
 import UserClass from '../shared/models/user';
 import { CreateStudentGoalComponent } from '../dialogs/create-student-goal/create-student-goal.component';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-goals',
@@ -38,7 +39,8 @@ export class GoalsComponent {
     private goalService: GoalService,
     public dialog: MatDialog,
     private router: Router,
-    private classService: ClassService
+    private classService: ClassService,
+    private dialogService: NbDialogService
   ) {
     this.loading = true;
     // get userProfile data for user
@@ -75,17 +77,26 @@ export class GoalsComponent {
       classID: classData.id,
       students: this.classService.getStudentsDataByReference(classData.students),
     };
-    const dialogRef = this.dialog.open(CreateStudentGoalComponent, {
-      data,
-      width: '27rem',
-      height: '23rem',
-    });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'success') {
-        this.getStudentGoals(this.user.goalsAssigned);
-      }
-    });
+    let goalData = new GoalClass(
+      '',
+      '',
+      null,
+      data.classID,
+      [],
+      [data.createdBy.email],
+      [],
+      '',
+      data.createdBy,
+      [data.createdBy.email]
+    );
+
+    this.dialogService.open(CreateStudentGoalComponent, {context: {goal: goalData}})
+      .onClose.subscribe(result => {
+        if(result == "success"){
+          this.getStudentGoals(this.user.goalsAssigned);
+        }
+      });
   }
 
   openDialog(data: any, userID: string, isCompleted: boolean, status: string) {
