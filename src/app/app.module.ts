@@ -59,6 +59,7 @@ import { WarningPendingComponent } from './dialogs/warning-pending/warning-pendi
 import { ViewTeacherRejectionComponent } from './dialogs/view-teacher-rejection/view-teacher-rejection.component';
 import { NbThemeModule, NbLayoutModule, NbButtonModule, NbIconModule, NbCardModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 
@@ -93,7 +94,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     UpdateClassComponent,
     DeleteClassComponent,
     WarningPendingComponent,
-    ViewTeacherRejectionComponent
+    ViewTeacherRejectionComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
