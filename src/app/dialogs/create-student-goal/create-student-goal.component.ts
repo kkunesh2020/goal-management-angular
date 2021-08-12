@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import GoalClass from 'src/app/shared/models/goal';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { GoalService } from 'src/app/shared/services/goal.service';
+import { NbDialogRef } from '@nebular/theme';
 
 @Component({
   selector: 'gms-create-student-goal',
@@ -16,7 +17,8 @@ export class CreateStudentGoalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private goalService: GoalService,
-    public dialogRef: MatDialogRef<CreateStudentGoalComponent>
+    public dialogRef: MatDialogRef<CreateStudentGoalComponent>,
+    protected ref: NbDialogRef<CreateStudentGoalComponent>
   ) {
     this.goal = new GoalClass(
       '',
@@ -34,6 +36,10 @@ export class CreateStudentGoalComponent {
 
   formComplete(): boolean {
     return this.goal.description.trim() !== '' && this.goal.dueDate != null && this.goal.description.length <= 40 && !this.checkDateErrors();
+  }
+
+  closeDialog(){
+    this.ref.close();
   }
 
   checkDateErrors(): boolean {
