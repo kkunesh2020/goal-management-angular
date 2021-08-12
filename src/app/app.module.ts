@@ -57,7 +57,7 @@ import { UpdateClassComponent } from './dialogs/update-class/update-class.compon
 import { DeleteClassComponent } from './dialogs/delete-class/delete-class.component';
 import { WarningPendingComponent } from './dialogs/warning-pending/warning-pending.component';
 import { ViewTeacherRejectionComponent } from './dialogs/view-teacher-rejection/view-teacher-rejection.component';
-import { NbThemeModule, NbLayoutModule, NbButtonModule, NbIconModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbButtonModule, NbIconModule, NbCardModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 
@@ -125,6 +125,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbLayoutModule,
     NbButtonModule,
     NbIconModule,
+    NbCardModule,
     NbEvaIconsModule
   ],
   providers: [],

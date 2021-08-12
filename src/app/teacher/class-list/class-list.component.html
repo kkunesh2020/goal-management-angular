@@ -3,10 +3,10 @@
 </div>
 <h3 *ngIf="classes && classes.length == 0 && !loading" class="context">No Classes Assigned Yet.</h3>
 <div class="classes">
-  <mat-card class="block" *ngFor="let class of classes" (click)="goToCard(class.id)">
+  <nb-card size="medium" *ngFor="let class of classes" (click)="goToCard(class.id)">
     <mat-icon>{{class.classIcon ? class.classIcon : 'class'}}</mat-icon>
     <h2>{{class.title}}</h2>
     <p>{{class.students.length}} students</p>
-  </mat-card>
+  </nb-card>
 </div>
 
