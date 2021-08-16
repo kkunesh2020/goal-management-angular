@@ -15,6 +15,19 @@ import UserClass from '../shared/models/user';
 import { CreateStudentGoalComponent } from '../dialogs/create-student-goal/create-student-goal.component';
 import { NbDialogService } from '@nebular/theme';
 
+interface TreeNode<T> {
+  data: T;
+  children?: TreeNode<T>[];
+  expanded?: boolean;
+}
+
+interface FSEntry {
+  name: string;
+  size: string;
+  kind: string;
+  items?: number;
+}
+
 @Component({
   selector: 'gms-goals',
   templateUrl: './goals.component.html',
@@ -26,12 +39,27 @@ export class GoalsComponent {
   dataSource = new MatTableDataSource([]);
   classes: Class[] = [];
   user:UserClass;
+  customColumn = 'name';
+  defaultColumns = [ 'size', 'kind', 'items' ];
+  allColumns = [ this.customColumn, ...this.defaultColumns ];
 
   goalsDisplayedColumns: string[] = [
     'description',
     'dueDate',
     'isCompleted',
     'createdBy',
+  ];
+
+  data: TreeNode<FSEntry>[] = [
+    {
+      data: { name: 'Projects', size: '1.8 MB', items: 5, kind: 'dir' },
+    },
+    {
+      data: { name: 'Reports', kind: 'dir', size: '400 KB', items: 2 },
+    },
+    {
+      data: { name: 'Other', kind: 'dir', size: '109 MB', items: 2 },
+    },
   ];
 
   constructor(

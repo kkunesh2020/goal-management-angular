@@ -3,7 +3,7 @@
 </div>
 
 <div style="display: inline;" [hidden]="!classes || classes.length == 0">
-  <button mat-button color="primary" id="createGoal" *ngIf="!loading" [matMenuTriggerFor]="menu"><mat-icon>add</mat-icon> Create Goal</button>
+  <button nbButton status="primary" size="small" *ngIf="!loading" id="createGoal" [matMenuTriggerFor]="menu"><nb-icon icon="plus-outline"></nb-icon>Create Goal</button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item *ngFor="let class of classes" (click)="createGoalDialog(class)">
       <mat-icon>{{class.classIcon ? class.classIcon : 'class'}}</mat-icon>
@@ -54,6 +54,25 @@
     [class.green-row]="row.status == 'completed'"
     [class.yellow-row]="row.status == 'pending'"
     [class.red-row]="row.status == 'incomplete'"></tr>
+  </table>
+
+
+  <table [nbTreeGrid]="data" equalColumnsWidth>
+
+    <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+
+    <ng-container [nbTreeGridColumnDef]="customColumn">
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+        {{row.data.name}}
+
+      </td>
+    </ng-container>
+
+    <ng-container *ngFor="let column of defaultColumns" [nbTreeGridColumnDef]="column">
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column]}}</td>
+    </ng-container>
+
   </table>
 
 </div>

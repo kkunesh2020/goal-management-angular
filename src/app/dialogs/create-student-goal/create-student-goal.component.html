@@ -19,7 +19,7 @@
     <div>
       <label for="dueDate" class="label">Due Date</label>
       <div class="form-field">
-        <input nbInput [nbDatepicker]="datepicker" [(ngModel)]="goal.dueDate">
+        <input nbInput [nbDatepicker]="datepicker" [(ngModel)]="goal.dueDate" placeholder="Pick Due Date">
         <nb-datepicker #datepicker></nb-datepicker>
         <p [hidden]="!checkDateErrors()" class="error">{{dateErrors}}</p>
       </div>
