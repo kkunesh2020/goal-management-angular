@@ -57,7 +57,7 @@ import { UpdateClassComponent } from './dialogs/update-class/update-class.compon
 import { DeleteClassComponent } from './dialogs/delete-class/delete-class.component';
 import { WarningPendingComponent } from './dialogs/warning-pending/warning-pending.component';
 import { ViewTeacherRejectionComponent } from './dialogs/view-teacher-rejection/view-teacher-rejection.component';
-import { NbThemeModule, NbLayoutModule, NbButtonModule, NbIconModule, NbCardModule, NbDialogModule, NbDialogService, NbSpinnerModule, NbDialogRef, NbDatepickerModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbButtonModule, NbIconModule, NbCardModule, NbDialogModule, NbDialogService, NbSpinnerModule, NbDialogRef, NbDatepickerModule, NbInputModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { SpinnerComponent } from './spinner/spinner.component';
 
@@ -130,6 +130,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     NbCardModule,
     NbDialogModule.forRoot(), 
     NbEvaIconsModule,
+    NbInputModule,
     NbSpinnerModule,
     NbDatepickerModule.forRoot()
   ],

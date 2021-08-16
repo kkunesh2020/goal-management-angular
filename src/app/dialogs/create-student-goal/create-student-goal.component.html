@@ -1,11 +1,11 @@
 <nb-card> 
   <nb-card-header>
-    Create a Goal
+    ✍️ Create a Goal
   </nb-card-header>
   <nb-card-body *ngIf="goal">
     <div>
       <label for="title" class="label">Goal Title</label>
-      <div>
+      <div class="form-field">
         <input type="text" nbInput id="title" fullWidth
         placeholder="Enter Goal Title"
         required
@@ -18,11 +18,9 @@
 
     <div>
       <label for="dueDate" class="label">Due Date</label>
-      <div>
+      <div class="form-field">
         <input nbInput [nbDatepicker]="datepicker" [(ngModel)]="goal.dueDate">
-        <nb-icon nbSuffix icon="calendar-outline"></nb-icon>
         <nb-datepicker #datepicker></nb-datepicker>
-
         <p [hidden]="!checkDateErrors()" class="error">{{dateErrors}}</p>
       </div>
     </div>
@@ -32,7 +30,9 @@
   
   
     <nb-card-footer>
-      <button nbButton (click)="closeDialog()">Cancel</button>
-      <button nbButton status="info" (click)="createGoal()" [nbSpinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
+      <div class="card-footer">
+        <button nbButton status="basic" (click)="closeDialog()" class="cancel">Cancel</button>
+        <button nbButton (click)="createGoal()" [nbSpinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
+      </div>
     </nb-card-footer>
   </nb-card>
