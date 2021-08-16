@@ -16,6 +16,7 @@ import { ChangeStatusComponent } from 'src/app/dialogs/change-status/change-stat
 import { CreateStudentGoalComponent } from 'src/app/dialogs/create-student-goal/create-student-goal.component';
 import { GoalStudentDataService } from 'src/app/shared/services/goal-student-data.service';
 import { DocumentReference } from '@angular/fire/firestore';
+import { NbDialogService } from '@nebular/theme';
 import { WarningPendingComponent } from 'src/app/dialogs/warning-pending/warning-pending.component';
 import { ViewTeacherRejectionComponent } from 'src/app/dialogs/view-teacher-rejection/view-teacher-rejection.component';
 
@@ -85,7 +86,8 @@ export class ClassComponent {
     public dialog: MatDialog,
     private goalService: GoalService,
     private router: Router,
-    private studentsGoalService: GoalStudentDataService
+    private studentsGoalService: GoalStudentDataService,
+    private dialogService: NbDialogService
   ) {
     this.auth.user$.subscribe(async (userProfile) => {
       this.loading = true;
@@ -312,15 +314,23 @@ export class ClassComponent {
       classID: this.classID,
       students: this.classService.getStudentsDataByReference(this.class.students),
     };
-    const dialogRef = this.dialog.open(CreateStudentGoalComponent, {
-      data,
-      width: '27rem',
-      height: '23rem',
-    });
+    let goalData = new GoalClass(
+      '',
+      '',
+      null,
+      data.classID,
+      [],
+      [data.createdBy.email],
+      [],
+      '',
+      data.createdBy,
+      [data.createdBy.email]
+    );
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'success') {
-        this.getAllGoalsForTeacher(this.classID);
+    this.dialogService.open(CreateStudentGoalComponent, {context: {goal: goalData}})
+    .onClose.subscribe(result => {
+      if(result == "success"){
+            this.getAllGoalsForTeacher(this.classID);
       }
     });
   }
