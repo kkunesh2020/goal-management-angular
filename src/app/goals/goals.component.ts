@@ -68,7 +68,7 @@ export class GoalsComponent {
     this.source = dataSourceBuilder.create(this.data);
   }
 
-  formatGoals(goals:any): any[]{
+  private formatGoals(goals:any): any[]{
     let result = []
     goals.forEach((goal) => {
       result.push({

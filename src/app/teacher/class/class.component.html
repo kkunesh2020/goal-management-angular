@@ -109,41 +109,47 @@
   <div class="example-loading-shade" *ngIf="loading">
     <gms-spinner *ngIf="loading"></gms-spinner>
   </div>
-  <table mat-table [dataSource]="goalsDataSource" class="mat-elevation-z8 table" *ngIf="!loading && goalsDataSource.length != 0">
-    <!-- Description Column -->
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> description </th>
-      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container>
+  <table [nbTreeGrid]="source" class="table">
+    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+    <tr class="table-row" nbTreeGridRow  (click)="openDialog(row.data.goalReference, uid, row.data.isCompleted, row.data.status)" *nbTreeGridRowDef="let row; columns: allColumns"
+    ></tr>
 
-    <!-- Due Date Column -->
-    <ng-container matColumnDef="dueDate">
-      <th mat-header-cell *matHeaderCellDef> Due Date </th>
-      <td mat-cell *matCellDef="let element" >{{ element.dueDate.seconds * 1000 | date}}</td>
-    </ng-container>
+    <ng-container nbTreeGridColumnDef="description">
+      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Description</th>
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">
 
-    <!-- isCompleted Column -->
-    <ng-container matColumnDef="isCompleted">
-      <th mat-header-cell *matHeaderCellDef> Completed? </th>
-      <td mat-cell *matCellDef="let element">
-        <mat-icon *ngIf="element.isCompleted">done</mat-icon>
-        <mat-icon aria-hidden="false" aria-label="Example close icon" *ngIf="element.status == 'incomplete'">close</mat-icon>
-        <mat-icon aria-hidden="false" aria-label="Example close icon" *ngIf="element.status == 'declined'">warning</mat-icon>
-        <mat-icon aria-hidden="false" aria-label="Example close icon" *ngIf="element.status == 'pending'">schedule</mat-icon>
+        {{row.data.description}}
+
       </td>
     </ng-container>
 
-    <!-- isCompleted Column -->
-    <ng-container matColumnDef="createdBy">
-      <th mat-header-cell *matHeaderCellDef> Created By </th>
-      <td mat-cell *matCellDef="let element"> {{ element.createdBy.name}} </td>
+    <ng-container nbTreeGridColumnDef="dueDate">
+      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Due Date</th>
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+        {{ row.data.dueDate.seconds * 1000 | date}}
+
+      </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="goalsDisplayedColumns"></tr>
-    <tr mat-row (click)="openDialog(row.goalReference, email, row.isCompleted, row.status)" *matRowDef="let row; columns: goalsDisplayedColumns;"
-    [class.green-row]="row.status == 'completed'"
-    [class.red-row]="row.status == 'incomplete' || row.status == 'declined'"
-    [class.yellow-row]="row.status == 'pending'"></tr>
+    <ng-container nbTreeGridColumnDef="isCompleted">
+      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Is Completed?</th>
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">
+        <p *ngIf="row.data.isCompleted">✅</p>
+        <p *ngIf="!row.data.isCompleted && row.data.status != 'pending'">❌</p>
+        <p *ngIf="row.data.status == 'pending'">⏳</p>
+
+      </td>
+    </ng-container>
+
+    <ng-container nbTreeGridColumnDef="createdBy">
+      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Created By</th>
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+        {{row.data.createdBy.name}}
+
+      </td>
+    </ng-container>
   </table>
 </div>
 

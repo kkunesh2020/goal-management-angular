@@ -16,15 +16,21 @@ import { ChangeStatusComponent } from 'src/app/dialogs/change-status/change-stat
 import { CreateStudentGoalComponent } from 'src/app/dialogs/create-student-goal/create-student-goal.component';
 import { GoalStudentDataService } from 'src/app/shared/services/goal-student-data.service';
 import { DocumentReference } from '@angular/fire/firestore';
-import { NbDialogService } from '@nebular/theme';
 import { WarningPendingComponent } from 'src/app/dialogs/warning-pending/warning-pending.component';
 import { ViewTeacherRejectionComponent } from 'src/app/dialogs/view-teacher-rejection/view-teacher-rejection.component';
+import { NbDialogService, NbGetters, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 
 export interface StudentData {
   name: string;
   id: string;
   goalsAssigned: number;
   goalsCompleted: number
+}
+
+interface TreeNode<T> {
+  data: T;
+  children?: TreeNode<T>[];
+  expanded?: boolean;
 }
 
 export interface GoalsTableData {
@@ -54,6 +60,10 @@ export interface GoalStat {
   styleUrls: ['./class.component.scss'],
 })
 export class ClassComponent {
+  source: NbTreeGridDataSource<any>;
+  customColumn = 'description';
+  defaultColumns = [ 'dueDate', 'isCompleted', 'createdBy' ];
+  allColumns = [ this.customColumn, ...this.defaultColumns ];
   displayedColumns: string[] = ['name', 'goalsAssigned', 'goalsCompleted'];
   goalsDisplayedColumns: string[] = [
     'description',
@@ -61,6 +71,10 @@ export class ClassComponent {
     'isCompleted',
     'createdBy',
   ];
+
+  data: TreeNode<any>[] = [
+  ];
+
   classgoalsDisplayedColumns: string[] = [
     'description',
     'dueDate',
@@ -87,7 +101,8 @@ export class ClassComponent {
     private goalService: GoalService,
     private router: Router,
     private studentsGoalService: GoalStudentDataService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>
   ) {
     this.auth.user$.subscribe(async (userProfile) => {
       this.loading = true;
@@ -95,6 +110,7 @@ export class ClassComponent {
       if (!userProfile) {
         return;
       }
+      this.source = dataSourceBuilder.create(this.data);
       this.getClass(this.classID, userProfile.email).then(() => {
         this.user = userProfile;
         this.accountType = userProfile.accountType;
@@ -119,6 +135,16 @@ export class ClassComponent {
         console.log('retrieved student data', studentData);
         this.studentDataSource = studentData;
       });
+  }
+
+  private formatGoals(goals:any): any[]{
+    let result = []
+    goals.forEach((goal) => {
+      result.push({
+        data: goal
+      })
+    });
+    return result;
   }
 
   openStudentData(studentID: string) {
@@ -189,7 +215,9 @@ export class ClassComponent {
         goals.push(newGoal);
       });
       this.classGoals = goals;
-      console.log('class goals', this.classGoals);
+      this.data = this.formatGoals(data)
+      this.source = this.dataSourceBuilder.create(this.data);
+      console.log('class goals', this.source);
     });
     this.loading = false;
   }
@@ -232,6 +260,9 @@ export class ClassComponent {
           goals.push(newGoal);
       });
       this.goalsDataSource = goals;
+      this.data = this.formatGoals(data)
+      this.source = this.dataSourceBuilder.create(this.data);
+      console.log('class goals', this.source);
     });
     this.loading = false;
   }
