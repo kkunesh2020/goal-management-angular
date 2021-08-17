@@ -1,5 +1,11 @@
-<h1 mat-dialog-title>Please wait for your teacher to accept the goal.</h1>
-<div mat-dialog-content>This goal is still pending. Please tell your teacher to accept the goal.</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close class="closeButton">Close</button>
-</div>
+<nb-card>
+  <nb-card-header>
+    Pending Goal
+  </nb-card-header>
+  <nb-card-body>
+    <p>This goal is still pending. Please wait for your teacher to accept the goal.</p>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="basic" (click)="closeDialog()" class="cancel">Close</button>
+  </nb-card-footer>
+</nb-card>

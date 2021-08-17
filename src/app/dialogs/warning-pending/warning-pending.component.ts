@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-warning-pending',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WarningPendingComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Optional() protected ref: NbDialogRef<WarningPendingComponent>) { }
 
   ngOnInit() {
+  }
+
+  closeDialog(){
+    this.ref.close();
   }
 
 }
