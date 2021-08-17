@@ -245,7 +245,7 @@ export class ClassComponent {
 
     if(status == "pending" && this.studentCreatedClass(data)){
       console.log("open pending");
-      this.dialogService.open(WarningPendingComponent)
+      dialogRef = this.dialogService.open(WarningPendingComponent)
    } else if (status === 'pending') {
       // if the goal status is pending display the change status dialog
       console.log("open pending 2", data);
@@ -275,6 +275,19 @@ export class ClassComponent {
         this.goalsDataSource = newGoals;
       }
     });
+
+    //TODO: replace
+
+    // dialogRef.onClose.subscribe(result => {
+    //   if (result === 'updated' && this.accountType === 'student') {
+    //     this.getGoalsForStudent(this.classID, this.email);
+    //   }
+
+    //   if(result && result.status == 'deleted'){
+    //     let newGoals = this.goalsDataSource.filter(goal => goal != result.id);
+    //     this.goalsDataSource = newGoals;
+    //   }
+    // });
   }
 
   async createGoalDialog() {

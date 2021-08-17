@@ -128,10 +128,7 @@ export class GoalsComponent {
         width: '30rem',
       });
     }else if(status === 'pending' && data.createdBy.accountType == "student"){
-      dialogRef = this.dialog.open(WarningPendingComponent, {
-        height: '15rem',
-        width: '30rem',
-      });
+      dialogRef = this.dialogService.open(WarningPendingComponent);
     }
     else {
       dialogRef = this.dialog.open(UpdateGoalComponent, {
