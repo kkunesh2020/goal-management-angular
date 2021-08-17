@@ -33,8 +33,8 @@ export class GoalsComponent {
   source: NbTreeGridDataSource<any>;
   classes: Class[] = [];
   user:UserClass;
-  customColumn = 'name';
-  defaultColumns = [ 'size', 'kind', 'items' ];
+  customColumn = 'description';
+  defaultColumns = [ 'dueDate', 'isCompleted', 'createdBy' ];
   allColumns = [ this.customColumn, ...this.defaultColumns ];
 
   goalsDisplayedColumns: string[] = [
@@ -45,15 +45,6 @@ export class GoalsComponent {
   ];
 
   data: TreeNode<any>[] = [
-    {
-      data: { name: 'Projects', size: '1.8 MB', items: 5, kind: 'dir' },
-    },
-    {
-      data: { name: 'Reports', kind: 'dir', size: '400 KB', items: 2 },
-    },
-    {
-      data: { name: 'Other', kind: 'dir', size: '109 MB', items: 2 },
-    },
   ];
 
   constructor(
@@ -63,7 +54,7 @@ export class GoalsComponent {
     private router: Router,
     private classService: ClassService,
     private dialogService: NbDialogService,
-     dataSourceBuilder: NbTreeGridDataSourceBuilder<any>
+    private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>
   ) {
     this.loading = true;
     // get userProfile data for user
@@ -103,6 +94,8 @@ export class GoalsComponent {
       // spread out each goal object into dataSource using spread operator
       this.dataSource.data = [...goalData];
       console.log("datasourve data", this.formatGoals(goalData));
+      this.data = this.formatGoals(goalData)
+      this.source = this.dataSourceBuilder.create(this.data);
       this.loading = false;
     });
   }
