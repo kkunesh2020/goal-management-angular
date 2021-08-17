@@ -13,7 +13,7 @@ import { Class } from '../shared/models/class.model';
 import { ClassService } from '../shared/services/class.service';
 import UserClass from '../shared/models/user';
 import { CreateStudentGoalComponent } from '../dialogs/create-student-goal/create-student-goal.component';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbGetters, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 
 interface TreeNode<T> {
   data: T;
@@ -37,6 +37,7 @@ export class GoalsComponent {
   loading = true;
   uid: string;
   dataSource = new MatTableDataSource([]);
+  source: NbTreeGridDataSource<FSEntry>;
   classes: Class[] = [];
   user:UserClass;
   customColumn = 'name';
@@ -68,7 +69,8 @@ export class GoalsComponent {
     public dialog: MatDialog,
     private router: Router,
     private classService: ClassService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+     dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>
   ) {
     this.loading = true;
     // get userProfile data for user
@@ -86,6 +88,8 @@ export class GoalsComponent {
         this.loading = false;
       }
     });
+
+    this.source = dataSourceBuilder.create(this.data);
   }
 
   // get goals for student given a goal array containing goal document refs
