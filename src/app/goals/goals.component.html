@@ -75,7 +75,7 @@
         <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Due Date</th>
         <td nbTreeGridCell *nbTreeGridCellDef="let row">
 
-          {{row.data.dueDate}}
+          {{ row.data.dueDate.seconds * 1000 | date}}
 
         </td>
       </ng-container>
@@ -83,8 +83,9 @@
       <ng-container nbTreeGridColumnDef="isCompleted">
         <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Is Completed?</th>
         <td nbTreeGridCell *nbTreeGridCellDef="let row">
-
-          {{row.data.isCompleted}}
+          <nb-icon icon="checkmark-outline" *ngIf="row.data.isCompleted"></nb-icon>
+          <nb-icon icon="close-outline" *ngIf="!row.data.isCompleted && row.data.status != 'pending'"></nb-icon>
+          <nb-icon icon="clock-outline" *ngIf="row.data.status == 'pending'"></nb-icon>
 
         </td>
       </ng-container>
@@ -97,20 +98,6 @@
 
         </td>
       </ng-container>
-  
-      <!-- <ng-container [nbTreeGridColumnDef]="customColumn">
-        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>{{customColumn}}</th>
-        <td nbTreeGridCell *nbTreeGridCellDef="let row">
-  
-          {{row.data[customColumn]}}
-  
-        </td>
-      </ng-container>
-  
-      <ng-container *ngFor="let column of defaultColumns" [nbTreeGridColumnDef]="column">
-        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>{{column}}</th>
-        <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column]}}</td>
-      </ng-container> -->
     </table>
   </div>
   
