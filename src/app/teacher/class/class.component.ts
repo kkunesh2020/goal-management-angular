@@ -260,9 +260,9 @@ export class ClassComponent {
           goals.push(newGoal);
       });
       this.goalsDataSource = goals;
-      this.data = this.formatGoals(data)
+      this.data = this.formatGoals(goals)
       this.source = this.dataSourceBuilder.create(this.data);
-      console.log('class goals', this.source);
+      console.log('class goals', this.data);
     });
     this.loading = false;
   }

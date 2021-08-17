@@ -111,7 +111,7 @@
   </div>
   <table [nbTreeGrid]="source" class="table">
     <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
-    <tr class="table-row" nbTreeGridRow  (click)="openDialog(row.data.goalReference, uid, row.data.isCompleted, row.data.status)" *nbTreeGridRowDef="let row; columns: allColumns"
+    <tr class="table-row" nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns" (click)="openDialog(row.data.goalReference, email, row.data.isCompleted, row.data.status)"
     ></tr>
 
     <ng-container nbTreeGridColumnDef="description">
