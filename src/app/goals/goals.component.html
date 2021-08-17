@@ -23,7 +23,7 @@
   <div class="main" [hidden]="loading">
     <table [nbTreeGrid]="source">
       <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
-      <tr nbTreeGridRow  (click)="openDialog(row.data.goalReference, uid, row.data.isCompleted, row.data.status)" *nbTreeGridRowDef="let row; columns: allColumns"
+      <tr class="table-row" nbTreeGridRow  (click)="openDialog(row.data.goalReference, uid, row.data.isCompleted, row.data.status)" *nbTreeGridRowDef="let row; columns: allColumns"
       ></tr>
 
       <ng-container nbTreeGridColumnDef="description">
