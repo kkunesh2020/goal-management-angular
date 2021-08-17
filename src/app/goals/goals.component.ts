@@ -21,13 +21,6 @@ interface TreeNode<T> {
   expanded?: boolean;
 }
 
-interface FSEntry {
-  name: string;
-  size: string;
-  kind: string;
-  items?: number;
-}
-
 @Component({
   selector: 'gms-goals',
   templateUrl: './goals.component.html',
@@ -37,7 +30,7 @@ export class GoalsComponent {
   loading = true;
   uid: string;
   dataSource = new MatTableDataSource([]);
-  source: NbTreeGridDataSource<FSEntry>;
+  source: NbTreeGridDataSource<any>;
   classes: Class[] = [];
   user:UserClass;
   customColumn = 'name';
@@ -51,7 +44,7 @@ export class GoalsComponent {
     'createdBy',
   ];
 
-  data: TreeNode<FSEntry>[] = [
+  data: TreeNode<any>[] = [
     {
       data: { name: 'Projects', size: '1.8 MB', items: 5, kind: 'dir' },
     },
@@ -70,7 +63,7 @@ export class GoalsComponent {
     private router: Router,
     private classService: ClassService,
     private dialogService: NbDialogService,
-     dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>
+     dataSourceBuilder: NbTreeGridDataSourceBuilder<any>
   ) {
     this.loading = true;
     // get userProfile data for user
@@ -92,6 +85,16 @@ export class GoalsComponent {
     this.source = dataSourceBuilder.create(this.data);
   }
 
+  formatGoals(goals:any): any[]{
+    let result = []
+    goals.forEach((goal) => {
+      result.push({
+        data: goal
+      })
+    });
+    return result;
+  }
+
   // get goals for student given a goal array containing goal document refs
   getStudentGoals(goalArray: DocumentReference[]) {
     this.loading = true;
@@ -99,6 +102,7 @@ export class GoalsComponent {
       console.log('goals', goalData);
       // spread out each goal object into dataSource using spread operator
       this.dataSource.data = [...goalData];
+      console.log("datasourve data", this.formatGoals(goalData));
       this.loading = false;
     });
   }
