@@ -245,10 +245,7 @@ export class ClassComponent {
 
     if(status == "pending" && this.studentCreatedClass(data)){
       console.log("open pending");
-     dialogRef = this.dialog.open(WarningPendingComponent, {
-       height: '15rem',
-       width: '30rem',
-     });
+      this.dialogService.open(WarningPendingComponent)
    } else if (status === 'pending') {
       // if the goal status is pending display the change status dialog
       console.log("open pending 2", data);
