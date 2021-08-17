@@ -61,8 +61,44 @@
     <table [nbTreeGrid]="source">
       <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
       <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+
+      <ng-container nbTreeGridColumnDef="description">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Description</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          {{row.data.description}}
+
+        </td>
+      </ng-container>
+
+      <ng-container nbTreeGridColumnDef="dueDate">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Due Date</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          {{row.data.dueDate}}
+
+        </td>
+      </ng-container>
+
+      <ng-container nbTreeGridColumnDef="isCompleted">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Is Completed?</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          {{row.data.isCompleted}}
+
+        </td>
+      </ng-container>
+
+      <ng-container nbTreeGridColumnDef="createdBy">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Created By</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          {{row.data.createdBy}}
+
+        </td>
+      </ng-container>
   
-      <ng-container [nbTreeGridColumnDef]="customColumn">
+      <!-- <ng-container [nbTreeGridColumnDef]="customColumn">
         <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>{{customColumn}}</th>
         <td nbTreeGridCell *nbTreeGridCellDef="let row">
   
@@ -74,7 +110,7 @@
       <ng-container *ngFor="let column of defaultColumns" [nbTreeGridColumnDef]="column">
         <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>{{column}}</th>
         <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column]}}</td>
-      </ng-container>
+      </ng-container> -->
     </table>
   </div>
   
