@@ -4,7 +4,7 @@
 <h3 *ngIf="classes && classes.length == 0 && !loading" class="context">No Classes Assigned Yet.</h3>
 <div class="classes">
   <nb-card class="block" *ngFor="let class of classes" (click)="goToCard(class.id)">
-    <h1>{{class.classIcon ? class.classIcon : '📝'}}</h1>
+    <h1>{{class.classIcon}}</h1>
     <h2>{{class.title}}</h2>
     <p>{{class.students.length}} students</p>
   </nb-card>
