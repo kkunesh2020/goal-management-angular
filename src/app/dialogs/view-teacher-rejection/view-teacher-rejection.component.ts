@@ -1,5 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-view-teacher-rejection',
@@ -8,10 +9,15 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ViewTeacherRejectionComponent implements OnInit {
   declinedNote: any;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  data: any;
+  constructor(@Optional() protected ref: NbDialogRef<ViewTeacherRejectionComponent>) { }
 
   ngOnInit() {
     this.declinedNote = this.data.declinedMessages[0];
+  }
+
+  closeDialog(){
+    this.ref.close();
   }
 
 }

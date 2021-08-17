@@ -1,11 +1,14 @@
-<h1 mat-dialog-title>Your goal was rejected by the teacher.</h1>
-<div mat-dialog-content>
+
+<nb-card>
+  <nb-card-header><nb-icon icon="alert-triangle-outline"></nb-icon>Goal Declined</nb-card-header>
+  <nb-card-body>
     <span [hidden]="declinedNote && declinedNote.note && declinedNote.note != ''">This goal was declined. </span>
     <div [hidden]="!declinedNote">
-        Your teacher left the following note: 
+        <span style="font-weight: bold;">Your teacher left the following note: </span>
         <p>{{declinedNote ? declinedNote.note: ''}}</p>
     </div>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close class="closeButton">Close</button>
-</div>
+  </nb-card-body>
+  <nb-card-footer>
+      <button nbButton status="basic" (click)="closeDialog()" class="cancel">Close</button>
+  </nb-card-footer>
+</nb-card>
