@@ -289,10 +289,7 @@ export class ClassComponent {
     }
     else {
       // otherwise display the update goal component
-      dialogRef = this.dialog.open(UpdateGoalComponent, {
-        data,
-        width: '30rem',
-      });
+      dialogRef = this.dialogService.open(UpdateGoalComponent, {context: {data: data}});
     }
 
     dialogRef.afterClosed().subscribe((result) => {

@@ -1,7 +1,15 @@
-<button (click)="closeModal()" class="exit">
+<nb-card>
+  <nb-card-header>
+    {{currentGoal.description}}
+  </nb-card-header>
+  <nb-card-body></nb-card-body>
+  <nb-card-footer></nb-card-body>
+</nb-card>
+
+<!-- <button (click)="closeModal()" class="exit">
   <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
 </button>
-<h1 mat-dialog-title>{{currentGoal.description}}</h1>
+<h1 mat-dialog-title></h1>
 <div mat-dialog-content>
   <div class="date"><mat-icon>date_range</mat-icon><p> {{currentGoal.dueDate.seconds * 1000 | date}}</p></div>
   
@@ -28,7 +36,8 @@
     <div class="commit" *ngFor="let commit of currentGoal.commits">
       <mat-icon aria-hidden="false" aria-label="Example home icon">share</mat-icon>
       <a (click)="goToLink(commit.url)">Attached Commit</a>
-      <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteLink(link.url)">close</mat-icon> -->
+
+      <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteLink(link.url)">close</mat-icon>
     </div>
     <div class="file" *ngFor="let file of currentGoal.files">
       <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
@@ -51,4 +60,4 @@
     <button mat-raised-button color="primary" class="acButton" *ngIf="!isLoading" (click)="updateGoal(false)">Unsubmit</button>
   </div>
 
-</div>
+</div> -->

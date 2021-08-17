@@ -25,11 +25,11 @@ export class UpdateGoalComponent {
   isLoading = false;
   currentGoal: any;
   isCompleted = false;
+  data: any;
   createdByStudent: boolean = false;
   updated: boolean = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<UploaderComponent>,
     private afs: AngularFirestore,
     private goalService: GoalService,
@@ -39,22 +39,22 @@ export class UpdateGoalComponent {
   ) {
     console.log('data', this.data);
     this.currentGoal = {
-      description: data.description,
-      dueDate: data.dueDate,
-      hasCompleted: data.hasCompleted,
-      pending: data.pending,
-      declined: data.declined,
-      createdBy: data.createdBy,
-      assignedToID: data.assignedToID,
-      id: data.id,
-      classID: data.classID,
-      files: data.files,
-      links: data.links,
-      commits: data.commits,
+      description: this.data.description,
+      dueDate: this.data.dueDate,
+      hasCompleted:  this.data.hasCompleted,
+      pending:  this.data.pending,
+      declined:  this.data.declined,
+      createdBy:  this.data.createdBy,
+      assignedToID:  this.data.assignedToID,
+      id:  this.data.id,
+      classID:  this.data.classID,
+      files:  this.data.files,
+      links:  this.data.links,
+      commits:  this.data.commits,
     };
     this.createdByStudent = (this.currentGoal.createdBy.accountType == "student");
     this.currentGoal = this.goalService.validateGoal(this.currentGoal);
-    this.isCompleted = data.isCompleted;
+    this.isCompleted =  this.data.isCompleted;
     console.log('commits', this.currentGoal);
   }
 
