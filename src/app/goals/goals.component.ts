@@ -29,20 +29,12 @@ interface TreeNode<T> {
 export class GoalsComponent {
   loading = true;
   uid: string;
-  dataSource = new MatTableDataSource([]);
   source: NbTreeGridDataSource<any>;
   classes: Class[] = [];
   user:UserClass;
   customColumn = 'description';
   defaultColumns = [ 'dueDate', 'isCompleted', 'createdBy' ];
   allColumns = [ this.customColumn, ...this.defaultColumns ];
-
-  goalsDisplayedColumns: string[] = [
-    'description',
-    'dueDate',
-    'isCompleted',
-    'createdBy',
-  ];
 
   data: TreeNode<any>[] = [
   ];
@@ -90,10 +82,7 @@ export class GoalsComponent {
   getStudentGoals(goalArray: DocumentReference[]) {
     this.loading = true;
     this.goalService.getGoalsById(goalArray, this.uid).then((goalData) => {
-      console.log('goals', goalData);
       // spread out each goal object into dataSource using spread operator
-      this.dataSource.data = [...goalData];
-      console.log("datasourve data", this.formatGoals(goalData));
       this.data = this.formatGoals(goalData)
       this.source = this.dataSourceBuilder.create(this.data);
       this.loading = false;
@@ -192,10 +181,11 @@ export class GoalsComponent {
           goalReference: goalRef,
           status
         };
-        let newData = this.dataSource.data;
-        newData = newData.filter(classData => classData.goalReference.id != result.data.id);
-        newData.push(newItem);
-        this.dataSource.data = newData;
+        let newData = this.data;
+        newData = newData.filter(classData => classData.data.goalReference.id != result.data.id);
+        newData.push({data: newItem});
+        this.data = newData;
+        this.source = this.dataSourceBuilder.create(this.data);
       }
     });
   }
