@@ -25,7 +25,7 @@ button{
   .block{
     margin-top: 5%;
     width: 13rem;
-    flex: 1 0 18%;
+    flex: 1 0 20%;
     flex-grow: 0;
     height: 13rem;
     margin-right: 30px;
@@ -59,19 +59,6 @@ button{
     }
   }
   
-  .loading-shade {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 56px;
-    height: 100%;
-    right: 0;
-    background: rgba(0, 0, 0, 0.15);
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   
   mat-card:hover{
     box-shadow: 0 8px 8px 8px rgba(0,0,0,.2), 0 8px 8px 0 rgba(0,0,0,.14), 0 8px 8px 0 rgba(0,0,0,.12) !important;

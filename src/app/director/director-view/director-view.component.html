@@ -1,7 +1,5 @@
 <div class="director-page">
-<div class="=loading-shade" *ngIf="loading">
-    <gms-spinner *ngIf="loading"></gms-spinner>
-  </div>
+  <gms-spinner *ngIf="loading"></gms-spinner>
   <button mat-button color="primary" id="createClassButton" (click)="createClassDialog()"><mat-icon>add</mat-icon> Create Class</button>
   <div class="classes">
     <mat-card class="block" *ngFor="let class of classes" (click)="goToCard(class.id)">

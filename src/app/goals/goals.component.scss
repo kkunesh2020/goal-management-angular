@@ -43,20 +43,6 @@ mat-spinner{
   cursor: pointer;
 }
 
-.loading-shade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 56px;
-  right: 0;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 
 .subtitle{
   text-align: center;

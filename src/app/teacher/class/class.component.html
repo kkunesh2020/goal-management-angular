@@ -1,13 +1,9 @@
 <h1 class="title" *ngIf="class">{{class.title}}</h1>
-<div class="example-loading-shade" *ngIf="loading">
-  <gms-spinner *ngIf="loading"></gms-spinner>
-</div>
+<gms-spinner *ngIf="loading"></gms-spinner>
 
 <div class="teacherSection" *ngIf="class && accountType=='teacher'">
   <div fxLayoutAlign="center center">
-    <div class="example-loading-shade" *ngIf="loading">
-      <gms-spinner *ngIf="loading"></gms-spinner>
-    </div>
+    <gms-spinner *ngIf="loading"></gms-spinner>
     <table mat-table [dataSource]="studentDataSource" *ngIf="studentDataSource.length > 0" class="mat-elevation-z8 table">
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -39,9 +35,7 @@
     <button nbButton status="primary" size="small" id="createGoal" (click)="createGoalDialog()"><nb-icon icon="plus-outline"></nb-icon> Create Goal</button>
     <p *ngIf="classGoals.length == 0 && accountType=='teacher' && !loading" class="subtitle">No Goals Assigned Yet.</p>
     <div fxLayoutAlign="center center">
-      <div class="example-loading-shade" *ngIf="loading">
-        <gms-spinner *ngIf="loading"></gms-spinner>
-      </div>
+      <gms-spinner *ngIf="loading"></gms-spinner>
 
     <table mat-table [dataSource]="classGoals" class="mat-elevation-z8 table" *ngIf="!loading && classGoals.length != 0">
       <!-- Description Column -->
@@ -106,9 +100,7 @@
 
 
 <div class="studentSection" *ngIf="class && accountType=='student'" fxLayoutAlign="center center">
-  <div class="example-loading-shade" *ngIf="loading">
-    <gms-spinner *ngIf="loading"></gms-spinner>
-  </div>
+  <gms-spinner *ngIf="loading"></gms-spinner>
   <table [nbTreeGrid]="source" class="table">
     <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
     <tr class="table-row" nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns" (click)="openDialog(row.data.goalReference, email, row.data.isCompleted, row.data.status)"
