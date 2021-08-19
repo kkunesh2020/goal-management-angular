@@ -198,6 +198,7 @@
 
   .left{
     margin: auto;
+    background: linear-gradient(135deg,#2a2ddd, #4579d8, #00BAED);
     width: 100% !important;
   }
 
@@ -207,5 +208,31 @@
 
   .right{
     display: none !important;
+  }
+
+  h3{
+    font-size: 1.5rem !important;
+    margin-bottom: 5px !important;
+    margin-top: 0% !important;
+    margin-bottom: 0px;
+  }
+
+  .info{
+    margin-top: 41% !important;
+    border-radius: 5px;
+    background-color: white;
+    border: 1.2rem solid white;
+    padding-left: 0%;
+    margin: auto;
+    width: 283px;
+  }
+
+  .info-list{
+    font-size: .8rem !important;
+  }
+
+  .info-desc{
+    font-size: 11px !important;
+    max-width: 269px;
   }
 }
