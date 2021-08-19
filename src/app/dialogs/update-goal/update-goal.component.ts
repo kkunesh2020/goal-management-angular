@@ -36,6 +36,7 @@ export class UpdateGoalComponent {
     private dialog: MatDialog,
     private githubService: GithubService,
     private authService: AuthService,
+    protected dialogService: NbDialogService,
     @Optional() protected dialogRef: NbDialogRef<UpdateGoalComponent>
   ) {
     if(this.currentGoal){
@@ -90,10 +91,8 @@ export class UpdateGoalComponent {
   }
 
   insertFileDialog() {
-    const dialogRef = this.dialog.open(UploaderComponent, {
-      height: '40rem',
-      width: '60rem',
-      data: { goal: this.currentGoal, email: this.authService.userEmail },
+    const dialogRef = this.dialogService.open(UploaderComponent, {
+      context: {data: { goal: this.currentGoal, email: this.authService.userEmail }}
     });
     dialogRef.onClose.subscribe((result) => {
       if (result !== '') {
@@ -110,10 +109,8 @@ export class UpdateGoalComponent {
     } 
 
     // this.$userRepos = this.githubService.viewUserRepos();
-    const dialogRef = this.dialog.open(UploadCommitComponent, {
-      height: '30rem',
-      width: '25rem',
-      data: { goal: this.currentGoal, uid: this.data.email },
+    const dialogRef = this.dialogService.open(UploadCommitComponent, {
+      context: {data: { goal: this.currentGoal, uid: this.data.email }}
     });
     dialogRef.onClose.subscribe((result) => {
       if (result !== '') {
@@ -130,10 +127,8 @@ export class UpdateGoalComponent {
   }
 
   insertLinkDialog() {
-    const dialogRef = this.dialog.open(UploadLinkComponent, {
-      height: '14rem',
-      width: '25rem',
-      data: { goal: this.currentGoal, email: this.data.email },
+    const dialogRef = this.dialogService.open(UploadLinkComponent, {
+      context: {data: { goal: this.currentGoal, email: this.data.email }}
     });
     dialogRef.onClose.subscribe((result) => {
       if (result !== '') {

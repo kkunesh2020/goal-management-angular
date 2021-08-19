@@ -20,15 +20,15 @@ export class UploadCommitComponent implements OnInit {
   uid: string;
   selectedCommitObj: Commit;
   selectRepo = '';
+  public data: any;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private githubService: GithubService,
     private authService: AuthService,
     public dialogRef: MatDialogRef<UploadCommitComponent>,
     private goalService: GoalService
   ) {
-    this.goalID = data.goal.id;
+    this.goalID = this.data.goal.id;
     this.uid = this.authService.userEmail;
   }
 

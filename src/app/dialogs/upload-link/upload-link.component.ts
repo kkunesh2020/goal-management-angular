@@ -13,12 +13,13 @@ export class UploadLinkComponent  {
   url = '';
   email: string;
   link: LinkClass;
+  public data: any;
   goalID: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              public dialogRef: MatDialogRef<UploadLinkComponent>, private goalService: GoalService) {
-        this.goalID = data.goal.id;
-        this.email = data.email;
+  constructor(
+        public dialogRef: MatDialogRef<UploadLinkComponent>, private goalService: GoalService) {
+        this.goalID = this.data.goal.id;
+        this.email = this.data.email;
   }
 
   // add link to goal object
