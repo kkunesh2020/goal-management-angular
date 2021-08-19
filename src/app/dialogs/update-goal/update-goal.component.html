@@ -7,11 +7,11 @@
   </nb-card-header>
   <nb-card-body>
     <div class="date">
-      <mat-icon>date_range</mat-icon>
+      <nb-icon icon="calendar-outline"></nb-icon>
       <p> {{currentGoal.dueDate.seconds * 1000 | date}}</p>
     </div>
 
-    <p>Created By: {{currentGoal.createdBy.name}}</p>
+    <p><span style="font-weight: bold;">Created By: </span>{{currentGoal.createdBy.name}}</p>
     <div *ngIf="isCompleted" class="complete">
       <mat-icon aria-hidden="false" aria-label="done icon" class="actionIcon">done</mat-icon>
       <p>Completed</p>
