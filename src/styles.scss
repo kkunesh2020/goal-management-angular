@@ -18,7 +18,6 @@ button{
 // styles for class view formats
 .classes{
     display: flex;
-    height: 100%;
     flex-wrap: wrap;
   }
   
@@ -49,6 +48,15 @@ button{
       margin-top: 0px;
     }
   
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 500px) {
+    .block{
+      flex: none !important;
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 1rem !important;
+    }
   }
   
   .loading-shade {
