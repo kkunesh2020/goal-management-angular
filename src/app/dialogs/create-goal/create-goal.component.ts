@@ -16,10 +16,11 @@ export class CreateGoalComponent implements OnInit {
   assignedStudentID: string[] = [];
   assignedToAll: boolean;
   dateErrors: string = "";
+  public data: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private goalService: GoalService,
+  constructor(private goalService: GoalService,
               public dialogRef: MatDialogRef<CreateGoalComponent>) {
-    this.goal = new GoalClass(data.teacherEmail,'', null, data.classID, [], [], [], '', data.createdBy, []);
+    this.goal = new GoalClass(this.data.teacherEmail,'', null, this.data.classID, [], [], [], '', this.data.createdBy, []);
 
    }
 

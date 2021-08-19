@@ -14,23 +14,22 @@ export class ChangeStatusComponent {
   goalTitle: string;
   dueDate: Date;
   rejected: boolean;
+  public data: any;
   rejectionNote: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: any,
     public dialogRef: MatDialogRef<ChangeStatusComponent>,
     private goalService: GoalService) {
 
     this.loading = true;
-    if(data.createdBy.accountType == "teacher"){
-      this.teacherName = data.createdBy.name;
+    if(this.data.createdBy.accountType == "teacher"){
+      this.teacherName = this.data.createdBy.name;
     }else{
-      this.studentName = data.createdBy.name;
+      this.studentName = this.data.createdBy.name;
     }
     
-    this.goalTitle = data.description;
-    this.dueDate = data.dueDate.toDate();
+    this.goalTitle = this.data.description;
+    this.dueDate = this.data.dueDate.toDate();
     this.loading = false;
     this.rejectionNote = '';
   }

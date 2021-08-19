@@ -157,10 +157,8 @@ export class ClassComponent {
     console.log(this.getLengthOf(goal.pending), this.getLengthOf(goal.assignedToID), this.studentCreatedClass(goal));
 
     if(this.getLengthOf(goal.pending) == 1 && this.getLengthOf(goal.assignedToID) == 1 && this.studentCreatedClass(goal)){
-      let dialogRef = this.dialog.open(ChangeStatusComponent, {
-        data: {...goal, uid: goal.assignedToID[0], email: goal.assignedToID[0]},
-        height: '20rem',
-        width: '30rem',
+      let dialogRef = this.dialogService.open(ChangeStatusComponent, {
+        context: {data: {...goal, uid: goal.assignedToID[0], email: goal.assignedToID[0]}}
       });
 
       dialogRef.onClose.subscribe((result) => {
@@ -329,11 +327,8 @@ export class ClassComponent {
     };
     data.students = await this.classService.getStudentsDataByReference(this.class.students)
     // passes in class data into the dialog
-    const dialogRef = this.dialog.open(CreateGoalComponent, {
-      data,
-      width: '27rem',
-      height: '30rem',
-      panelClass: 'custom-modalbox',
+    const dialogRef = this.dialogService.open(CreateGoalComponent, {
+      context: {data: data}
     });
 
     dialogRef.onClose.subscribe((result) => {
@@ -387,10 +382,8 @@ export class ClassComponent {
     );
     console.log('edit data', editData);
     // inputs class data into dialog
-    const dialogRef = this.dialog.open(EditGoalComponent, {
-      data: editData,
-      height: '23rem',
-      width: '30rem',
+    const dialogRef = this.dialogService.open(EditGoalComponent, {
+     context: { data: editData}
     });
 
     dialogRef.onClose.subscribe((result) => {
@@ -415,10 +408,8 @@ export class ClassComponent {
       this.user,
       goal.assignedToID
     );
-    const dialogRef = this.dialog.open(DeleteGoalComponent, {
-      data: deleteData,
-      height: '15rem',
-      width: '20rem',
+    const dialogRef = this.dialogService.open(DeleteGoalComponent, {
+      context: {data: deleteData}
     });
 
     dialogRef.onClose.subscribe((result) => {

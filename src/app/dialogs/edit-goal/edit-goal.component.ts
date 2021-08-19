@@ -17,19 +17,19 @@ export class EditGoalComponent implements OnInit {
   assignedToAll = false;
   students: any[];
   original: any;
+  public data: any;
   editDate: Date;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private goalService: GoalService,
     public dialogRef: MatDialogRef<EditGoalComponent>,
     private classService: ClassService
   ) {
-    this.editDate = new Date(data.dueDate.seconds * 1000);
-    this.original = data;
-    console.log("orig", data.assignedToID);
+    this.editDate = new Date(this.data.dueDate.seconds * 1000);
+    this.original = this.data;
+    
     this.classService
-      .getStudentsDataByEmail(data.assignedToID)
+      .getStudentsDataByEmail(this.data.assignedToID)
       .then((studentsData) => {
         this.students = studentsData;
         this.assignedToAll = this.students.length === this.goal.assignedToID.length;
@@ -37,19 +37,19 @@ export class EditGoalComponent implements OnInit {
 
     // retrieve the data (class id, createdBy, assignedTo <= users)
     this.goal = new GoalClass(
-      data.teacherEmail,
-      data.description,
+      this.data.teacherEmail,
+      this.data.description,
       this.editDate,
-      data.classID,
-      data.hasCompleted,
-      data.pending,
-      data.declined,
-      data.id,
-      data.createdBy,
-      data.assignedToID,
-      data.declinedMessages,
-      data.files,
-      data.links
+      this.data.classID,
+      this.data.hasCompleted,
+      this.data.pending,
+      this.data.declined,
+      this.data.id,
+      this.data.createdBy,
+      this.data.assignedToID,
+      this.data.declinedMessages,
+      this.data.files,
+      this.data.links
     );
     this.prevGoal = this.goal;
   }
