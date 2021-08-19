@@ -45,28 +45,28 @@
     </mat-menu> -->
 
 
-    <div class="attachments"
+    <nb-list
       *ngIf="currentGoal.files.length > 0 || currentGoal.links.length > 0 || currentGoal.commits.length > 0">
-      <div class="link" *ngFor="let link of currentGoal.links">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
+      <nb-list-item  *ngFor="let link of currentGoal.links">
+        <nb-icon icon="link-outline">link</nb-icon>
         <a (click)="goToLink(link.url)">{{link.url}}</a>
-        <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteLink(link.url)">close
-        </mat-icon>
-      </div>
-      <div class="commit" *ngFor="let commit of currentGoal.commits">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">share</mat-icon>
+        <nb-icon icon="close-outline" (click)="deleteLink(link.url)">
+        </nb-icon>
+      </nb-list-item>
+      <nb-list-item *ngFor="let commit of currentGoal.commits">
+        <nb-icon icon="code-outline">share</nb-icon>
         <a (click)="goToLink(commit.url)">Attached Commit</a>
 
-        <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteLink(link.url)">close
-        </mat-icon>
-      </div>
-      <div class="file" *ngFor="let file of currentGoal.files">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
+        <nb-icon icon="close-outline" (click)="deleteLink(link.url)">
+        </nb-icon>
+      </nb-list-item>
+      <nb-list-item *ngFor="let file of currentGoal.files">
+        <nb-icon icon="file-outline"></nb-icon>
         <a (click)="goToLink(file.downloadURL)">{{file.name}}</a>
-        <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteFile(file)">close
-        </mat-icon>
-      </div>
-    </div>
+        <nb-icon icon="close-outline" (click)="deleteFile(file)">
+        </nb-icon>
+      </nb-list-item>
+    </nb-list>
 
   </nb-card-body>
   <nb-card-footer>
