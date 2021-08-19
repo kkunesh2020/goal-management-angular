@@ -12,6 +12,7 @@ import firebase from 'firebase/app';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { ClassService } from 'src/app/shared/services/class.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { HomeService } from 'src/app/shared/services/home.service';
 @Component({
   selector: 'gms-director-class',
@@ -33,6 +34,7 @@ export class DirectorClassComponent implements OnInit {
     private route: ActivatedRoute,
     private auth: AuthService,
     public dialog: MatDialog,
+    protected dialogService: NbDialogService,
     private classService: ClassService,
     private router: Router,
     private functions: AngularFireFunctions
@@ -71,10 +73,8 @@ export class DirectorClassComponent implements OnInit {
 
 
   deleteClassDialog(){
-    const dialogRef = this.dialog.open(DeleteClassComponent, {
-      data: this.classData,
-      height: '15rem',
-      width: '25rem',
+    const dialogRef = this.dialogService.open(DeleteClassComponent, {
+      context: {dialogData: this.classData}
     });
 
    dialogRef.onClose.subscribe((returnData) => {
@@ -88,10 +88,8 @@ export class DirectorClassComponent implements OnInit {
 
   editDialog(){
     console.log("updating data with", this.classData);
-    const dialogRef = this.dialog.open(UpdateClassComponent, {
-      data: this.classData,
-      height: '31rem',
-      width: '25rem',
+    const dialogRef = this.dialogService.open(UpdateClassComponent, {
+      context: {data: this.classData}
     });
 
    dialogRef.onClose.subscribe((returnData) => {
@@ -106,10 +104,8 @@ export class DirectorClassComponent implements OnInit {
 
   deleteDialog(data: any){
     console.log("deleting", data);
-    const dialogRef = this.dialog.open(DeleteStudentComponent, {
-      data: {student: data, class: this.classData},
-      height: '16rem',
-      width: '25rem',
+    const dialogRef = this.dialogService.open(DeleteStudentComponent, {
+      context: {dialogData: {student: data, class: this.classData}}
     });
 
    dialogRef.onClose.subscribe((returnData) => {
@@ -130,11 +126,8 @@ export class DirectorClassComponent implements OnInit {
   }
 
   openStudentCreateModal(){
-    let ref = this.dialog.open(CreateStudentComponent, {
-      height: '20rem',
-      width: '40rem',
-      panelClass: 'custom-modalbox',
-      data: this.classData
+    let ref = this.dialogService.open(CreateStudentComponent, {
+      context: {data: this.classData}
     })
     ref.onClose.subscribe(async(data) => {
       console.log("got the data", data);

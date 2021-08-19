@@ -17,12 +17,12 @@ export class CreateStudentComponent implements OnInit {
   userValue = new FormControl();
   studentEmail: string = "";
   studentData: User[] = [];
+  public data: any;
   filteredOptions: Observable<User[]>;
   errorMessage:string = "";
   emailErrorMessage:string = "";
   constructor(
     private director: DirectorService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CreateStudentComponent>
     ) { }
 

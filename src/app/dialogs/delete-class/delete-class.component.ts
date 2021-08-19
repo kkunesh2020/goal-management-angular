@@ -11,8 +11,9 @@ import { ClassService } from 'src/app/shared/services/class.service';
 export class DeleteClassComponent implements OnInit {
   loading: boolean = false;
   classData: DirectorClass;
+  public dialogData: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public dialogData: any,
+  constructor(
   public dialogRef: MatDialogRef<DeleteClassComponent>, private classService: ClassService) { }
 
   ngOnInit() {

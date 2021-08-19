@@ -14,6 +14,7 @@ export class UpdateClassComponent implements OnInit {
   initialClass: any;
   teacherData: User;
   errorMessage: string = "";
+  public data: any;
   loading: boolean = false;
   selectedIcon: string = "";
   assignedStudentID: string[] = [];
@@ -21,7 +22,7 @@ export class UpdateClassComponent implements OnInit {
   icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'computer', 'code', 'book_fill', 'biotech'];
   teachers = [];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private classService: ClassService, public dialogRef: MatDialogRef<UpdateClassComponent>) { }
+  constructor(private classService: ClassService, public dialogRef: MatDialogRef<UpdateClassComponent>) { }
 
   ngOnInit() {
     this.class = {...this.data};

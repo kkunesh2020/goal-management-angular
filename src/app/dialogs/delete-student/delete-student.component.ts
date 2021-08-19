@@ -10,8 +10,9 @@ import { DirectorService } from 'src/app/shared/services/director.service';
 export class DeleteStudentComponent implements OnInit {
   loading: boolean = false;
   studentData: any;
+  public dialogData: any;
   classData: any;
-  constructor(@Inject(MAT_DIALOG_DATA) public dialogData: any,
+  constructor(
   public dialogRef: MatDialogRef<DeleteStudentComponent>, private directorService: DirectorService) { }
 
   ngOnInit() {
