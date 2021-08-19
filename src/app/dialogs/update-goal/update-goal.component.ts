@@ -95,7 +95,7 @@ export class UpdateGoalComponent {
       width: '60rem',
       data: { goal: this.currentGoal, email: this.authService.userEmail },
     });
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.onClose.subscribe((result) => {
       if (result !== '') {
         this.currentGoal.files = this.currentGoal.files.concat(result);
         console.log('detected the changes', result);
@@ -115,7 +115,7 @@ export class UpdateGoalComponent {
       width: '25rem',
       data: { goal: this.currentGoal, uid: this.data.email },
     });
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.onClose.subscribe((result) => {
       if (result !== '') {
         this.updated = true;
         this.currentGoal.commits != null
@@ -135,7 +135,7 @@ export class UpdateGoalComponent {
       width: '25rem',
       data: { goal: this.currentGoal, email: this.data.email },
     });
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.onClose.subscribe((result) => {
       if (result !== '') {
         this.updated = true;
         this.currentGoal.links != null

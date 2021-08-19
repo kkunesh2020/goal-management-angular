@@ -133,7 +133,7 @@ export class GoalsComponent {
       });
     }
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.onClose.subscribe((result) => {
       if (result === 'updated') {
         // if goal is successfully updated reload data on page
         this.router

@@ -54,7 +54,7 @@ export class DirectorViewComponent implements OnInit {
       panelClass: 'custom-modalbox',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.onClose.subscribe((result) => {
       if (result.result === 'success') {
         // if a goal is created reshow goals
         this.classes.push(result.data);

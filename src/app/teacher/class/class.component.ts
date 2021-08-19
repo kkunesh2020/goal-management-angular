@@ -163,7 +163,7 @@ export class ClassComponent {
         width: '30rem',
       });
 
-      dialogRef.afterClosed().subscribe((result) => {
+      dialogRef.onClose.subscribe((result) => {
         if (result === 'updated') {
           // if the goal is successfully deleted, reshow goals
           this.getAllGoalsForTeacher(this.classID);
@@ -293,7 +293,7 @@ export class ClassComponent {
       dialogRef = this.dialogService.open(UpdateGoalComponent, {context: {data: data}});
     }
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.onClose.subscribe((result) => {
       // reshow goals when dialog is closed
       if (result === 'updated' && this.accountType === 'student') {
         this.getGoalsForStudent(this.classID, this.email);
@@ -336,7 +336,7 @@ export class ClassComponent {
       panelClass: 'custom-modalbox',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.onClose.subscribe((result) => {
       if (result === 'success') {
         // if a goal is created reshow goals
         this.getAllGoalsForTeacher(this.classID);
@@ -393,7 +393,7 @@ export class ClassComponent {
       width: '30rem',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.onClose.subscribe((result) => {
       if (result === 'success' && this.accountType === 'teacher') {
         // if the goal is successfully edited, reshow goals
         this.getAllGoalsForTeacher(this.classID);
@@ -421,7 +421,7 @@ export class ClassComponent {
       width: '20rem',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.onClose.subscribe((result) => {
       if (result === 'success' && this.accountType === 'teacher') {
         // if the goal is successfully deleted, reshow goals
         this.getAllGoalsForTeacher(this.classID);

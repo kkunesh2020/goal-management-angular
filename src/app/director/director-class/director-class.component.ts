@@ -77,7 +77,7 @@ export class DirectorClassComponent implements OnInit {
       width: '25rem',
     });
 
-   dialogRef.afterClosed().subscribe((returnData) => {
+   dialogRef.onClose.subscribe((returnData) => {
      if(returnData){
        this.retrieveClassSubscription.unsubscribe();
       this.router.navigate(['/director'], {state: {action: "delete", id: returnData}});
@@ -94,7 +94,7 @@ export class DirectorClassComponent implements OnInit {
       width: '25rem',
     });
 
-   dialogRef.afterClosed().subscribe((returnData) => {
+   dialogRef.onClose.subscribe((returnData) => {
      if(returnData){ 
        this.classData.title = returnData.data.title;
        this.classData.classIcon = returnData.data.classIcon;
@@ -112,7 +112,7 @@ export class DirectorClassComponent implements OnInit {
       width: '25rem',
     });
 
-   dialogRef.afterClosed().subscribe((returnData) => {
+   dialogRef.onClose.subscribe((returnData) => {
      if(returnData){ 
        console.log("yay", returnData);
        this.studentDataSource = this.studentDataSource.filter(student => student.email != returnData.email);
@@ -136,7 +136,7 @@ export class DirectorClassComponent implements OnInit {
       panelClass: 'custom-modalbox',
       data: this.classData
     })
-    ref.afterClosed().subscribe(async(data) => {
+    ref.onClose.subscribe(async(data) => {
       console.log("got the data", data);
       if(data && data.email){
         this.studentDataSource.push(data);
