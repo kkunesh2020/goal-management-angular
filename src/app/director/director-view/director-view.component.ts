@@ -6,6 +6,7 @@ import { CreateGoalComponent } from 'src/app/dialogs/create-goal/create-goal.com
 import { Class } from 'src/app/shared/models/class.model';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { ClassService } from 'src/app/shared/services/class.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class DirectorViewComponent implements OnInit {
   constructor(
     private classService: ClassService,
     private router: Router,
-    private dialog: MatDialog
+    protected dialogService: NbDialogService
   ) {
   }
 
@@ -48,11 +49,7 @@ export class DirectorViewComponent implements OnInit {
   createClassDialog() {
     // opens up the create goal dialog to create a new goal
     // passes in class data into the dialog
-    const dialogRef = this.dialog.open(CreateClassComponent, {
-      width: '27rem',
-      height: '40rem',
-      panelClass: 'custom-modalbox',
-    });
+    const dialogRef = this.dialogService.open(CreateClassComponent);
 
     dialogRef.onClose.subscribe((result) => {
       if (result.result === 'success') {
