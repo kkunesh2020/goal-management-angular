@@ -131,10 +131,7 @@ export class GoalsComponent {
       dialogRef = this.dialogService.open(WarningPendingComponent);
     }
     else {
-      dialogRef = this.dialog.open(UpdateGoalComponent, {
-        data,
-        width: '30rem',
-      });
+      dialogRef = this.dialogService.open(UpdateGoalComponent, {context: {data: data}});
     }
 
     dialogRef.afterClosed().subscribe((result) => {

@@ -289,6 +289,7 @@ export class ClassComponent {
     }
     else {
       // otherwise display the update goal component
+      console.log("updating with", data);
       dialogRef = this.dialogService.open(UpdateGoalComponent, {context: {data: data}});
     }
 
