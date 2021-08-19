@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Optional } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {
   MatDialog,
@@ -14,6 +14,7 @@ import { Goal } from '../../shared/models/goal.model';
 import { UploadCommitComponent } from '../upload-commit/upload-commit.component';
 import { UploaderComponent } from '../upload-file/uploader/uploader.component';
 import { UploadLinkComponent } from '../upload-link/upload-link.component';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-update-goal',
@@ -23,39 +24,27 @@ import { UploadLinkComponent } from '../upload-link/upload-link.component';
 export class UpdateGoalComponent {
   madeChanges = false;
   isLoading = false;
-  currentGoal: any;
+  public currentGoal: any;
   isCompleted = false;
   data: any;
   createdByStudent: boolean = false;
   updated: boolean = false;
 
   constructor(
-    public dialogRef: MatDialogRef<UploaderComponent>,
     private afs: AngularFirestore,
     private goalService: GoalService,
     private dialog: MatDialog,
     private githubService: GithubService,
-    private authService: AuthService
+    private authService: AuthService,
+    @Optional() protected dialogRef: NbDialogRef<UpdateGoalComponent>
   ) {
-    console.log('data', this.data);
-    this.currentGoal = {
-      description: this.data.description,
-      dueDate: this.data.dueDate,
-      hasCompleted:  this.data.hasCompleted,
-      pending:  this.data.pending,
-      declined:  this.data.declined,
-      createdBy:  this.data.createdBy,
-      assignedToID:  this.data.assignedToID,
-      id:  this.data.id,
-      classID:  this.data.classID,
-      files:  this.data.files,
-      links:  this.data.links,
-      commits:  this.data.commits,
-    };
-    this.createdByStudent = (this.currentGoal.createdBy.accountType == "student");
-    this.currentGoal = this.goalService.validateGoal(this.currentGoal);
-    this.isCompleted =  this.data.isCompleted;
-    console.log('commits', this.currentGoal);
+    if(this.currentGoal){
+      console.log("scope", this.currentGoal)
+      this.createdByStudent = (this.currentGoal.createdBy.accountType == "student");
+      this.currentGoal = this.goalService.validateGoal(this.currentGoal);
+      this.isCompleted =  this.data.isCompleted;
+      console.log('commits', this.currentGoal);
+    }
   }
 
   updateGoal(isDone) {

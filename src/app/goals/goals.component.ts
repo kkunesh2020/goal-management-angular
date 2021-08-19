@@ -42,7 +42,6 @@ export class GoalsComponent {
   constructor(
     private auth: AuthService,
     private goalService: GoalService,
-    public dialog: MatDialog,
     private router: Router,
     private classService: ClassService,
     private dialogService: NbDialogService,
@@ -123,15 +122,15 @@ export class GoalsComponent {
     let dialogRef;
     // if goal status is pending open Change Status dialog otherwise open Update Goal dialog
     if (status === 'pending' && data.createdBy.accountType == "teacher") {
-      dialogRef = this.dialog.open(ChangeStatusComponent, {
-        data,
-        width: '30rem',
-      });
+      dialogRef = this.dialogService.open(ChangeStatusComponent, {context: {data: data}});
     }else if(status === 'pending' && data.createdBy.accountType == "student"){
       dialogRef = this.dialogService.open(WarningPendingComponent);
     }
     else {
-      dialogRef = this.dialogService.open(UpdateGoalComponent, {context: {data: data}});
+      console.log("data context", data)
+      dialogRef = this.dialogService.open(UpdateGoalComponent, {
+        context: {currentGoal: data}
+      });
     }
 
     dialogRef.afterClosed().subscribe((result) => {
