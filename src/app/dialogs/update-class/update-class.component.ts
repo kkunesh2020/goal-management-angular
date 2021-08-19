@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
 import { User } from 'src/app/shared/models/user.model';
 import { ClassService } from 'src/app/shared/services/class.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-update-class',
@@ -22,7 +23,7 @@ export class UpdateClassComponent implements OnInit {
   icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'computer', 'code', 'book_fill', 'biotech'];
   teachers = [];
 
-  constructor(private classService: ClassService, public dialogRef: MatDialogRef<UpdateClassComponent>) { }
+  constructor(private classService: ClassService, @Optional() protected ref: NbDialogRef<UpdateClassComponent>) { }
 
   ngOnInit() {
     this.class = {...this.data};
@@ -90,7 +91,7 @@ export class UpdateClassComponent implements OnInit {
       this.classService.updateClassForDirector(this.class).then((id) => {
         // close dialog and update class list
         this.loading = false;
-        this.dialogRef.close({result: 'success', data: {...this.class, id: id}});
+        this.ref.close({result: 'success', data: {...this.class, id: id}});
       })
     }
   

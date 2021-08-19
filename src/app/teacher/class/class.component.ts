@@ -283,7 +283,7 @@ export class ClassComponent {
         width: '30rem',
       });
     } else if(status === 'declined'){
-      this.dialogService.open(ViewTeacherRejectionComponent, {context: {data: data}})
+      dialogRef = this.dialogService.open(ViewTeacherRejectionComponent, {context: {data: data}})
     }
     else {
       // otherwise display the update goal component

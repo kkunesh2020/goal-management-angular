@@ -1,6 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DirectorService } from 'src/app/shared/services/director.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-delete-student',
@@ -13,7 +14,7 @@ export class DeleteStudentComponent implements OnInit {
   public dialogData: any;
   classData: any;
   constructor(
-  public dialogRef: MatDialogRef<DeleteStudentComponent>, private directorService: DirectorService) { }
+    @Optional() protected ref: NbDialogRef<DeleteStudentComponent>, private directorService: DirectorService) { }
 
   ngOnInit() {
     this.studentData = this.dialogData.student;
@@ -25,7 +26,7 @@ export class DeleteStudentComponent implements OnInit {
     console.log("deleting...");
     let returnData = await this.directorService.deleteStudentFromClass(this.classData, this.studentData);
     if(returnData){
-      this.dialogRef.close(this.studentData);
+      this.ref.close(this.studentData);
     }  
   }
 

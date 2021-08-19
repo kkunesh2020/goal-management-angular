@@ -1,9 +1,10 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { finalize } from 'rxjs/operators';
 import FileClass from 'src/app/shared/models/file';
 import { GoalService } from 'src/app/shared/services/goal.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-uploader',
@@ -16,15 +17,18 @@ export class UploaderComponent {
   goalData: any;
   email: string;
   loading: boolean;
+  public data: any;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<UploaderComponent>,
+    @Optional() protected ref: NbDialogRef<UploaderComponent>,
     public storage: AngularFireStorage,
     private goalService: GoalService
   ) {
-    this.goalData = data.goal;
-    this.email = data.email;
+    if(this.data){
+      this.goalData = this.data.goal;
+      this.email = this.data.email;
+    }
+    
   }
 
   toggleHover(event: boolean) {
@@ -69,6 +73,6 @@ export class UploaderComponent {
 
   // pass back files data to dialog
   addFiles() {
-    this.dialogRef.close(this.files);
+    this.ref.close(this.files);
   }
 }
