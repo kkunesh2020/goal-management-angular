@@ -23,10 +23,28 @@
 
     <hr />
 
-    <h3 class="subtitle">Your Work</h3>
-    <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton" *ngIf="!isCompleted">
+    <div class="buttons">
+      <button nbButton status="basic" (click)="insertFileDialog()" size="small"><nb-icon icon="file-outline"></nb-icon>Attach File</button>
+      <button nbButton status="basic" (click)="insertLinkDialog()" size="small"><nb-icon icon="link-outline"></nb-icon>Attach Link</button>
+      <button nbButton status="basic" (click)="viewGithubCommit()" size="small"><nb-icon icon="code-outline"></nb-icon>Attach Code</button>
+    </div>
+    <!-- <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton" *ngIf="!isCompleted">
       <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Attachment
     </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="insertFileDialog()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon> File
+      </button>
+      <button mat-menu-item (click)="insertLinkDialog()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon> Link
+      </button>
+      <button mat-menu-item (click)="viewGithubCommit()">
+        <mat-icon aria-hidden="false" aria-label="Example github icon">code</mat-icon> Github Commit
+      </button>
+    </mat-menu> -->
+
+
     <div class="attachments"
       *ngIf="currentGoal.files.length > 0 || currentGoal.links.length > 0 || currentGoal.commits.length > 0">
       <div class="link" *ngFor="let link of currentGoal.links">
@@ -49,17 +67,6 @@
         </mat-icon>
       </div>
     </div>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="insertFileDialog()">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon> File
-      </button>
-      <button mat-menu-item (click)="insertLinkDialog()">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon> Link
-      </button>
-      <button mat-menu-item (click)="viewGithubCommit()">
-        <mat-icon aria-hidden="false" aria-label="Example github icon">code</mat-icon> Github Commit
-      </button>
-    </mat-menu>
 
   </nb-card-body>
   <nb-card-footer>

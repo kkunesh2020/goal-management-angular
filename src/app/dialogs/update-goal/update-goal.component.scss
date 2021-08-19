@@ -2,6 +2,15 @@
   to {transform: rotate(360deg);}
 }
 
+nb-card{
+  width: 30rem;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-around;
+}
+
 mat-form-field {
   width: 100%;
 }
