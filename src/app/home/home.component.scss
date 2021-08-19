@@ -22,7 +22,6 @@
   text-align: center;
   font-family: 'Heebo', sans-serif;
   // background: radial-gradient(43.63% 71.34% at 81.68% 35.42%, rgb(140 123 162 / 71%) 0, rgba(0, 0, 0, 0.2) 100%, rgba(0, 0, 0, 0.2) 100%) 0 0/cover, radial-gradient(26.65% 57.53% at 26.65% 63.95%, rgb(151 147 202 / 35%) 0, rgba(0, 0, 0, 0.2) 100%, rgba(0, 0, 0, 0.2) 100%) 0 0/cover, radial-gradient(34.81% 57.45% at 62.54% 73.38%, rgb(128 194 224 / 57%) 0, rgba(0, 0, 0, 0.2) 100%, rgba(0, 0, 0, 0.2) 100%) 0 0/cover, radial-gradient(16.67% 29.95% at 17.23% 14.34%, rgb(19 0 177 / 29%) 0, rgba(0, 0, 0, 0.2) 100%, rgba(0, 0, 0, 0.2) 100%) 0 0/cover, linear-gradient(180deg, #21a5f3 0, rgba(0, 28, 126, 0.04) 100%) 0 0/cover, url(/assets/background.jpeg) 0 0/cover;
-  // background: linear-gradient(to right,#01022F, #093A97, #00BAED);
 
   height: 100%;
 
@@ -59,7 +58,7 @@
   h3{
     font-size: 3rem;
     margin-bottom: 24px;
-    margin-top: 25%;
+    margin-top: 30%;
   }
   .logo{
     margin:auto;
@@ -92,6 +91,7 @@
       position: relative;
       width: 50%;
       height: 100vh;
+      background: linear-gradient(135deg,#2a2ddd, #4579d8, #00BAED);
       display:block; 
       margin: auto auto;
     }
