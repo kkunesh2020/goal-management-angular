@@ -12,19 +12,15 @@
      (dropped)="onDrop($event)"
      [class.hovering]="isHovering">
 
-     <h3>Drag and Drop a File</h3>
+     <h3 class="dTitle">Drag and Drop a File</h3>
      <div class="file">
         <label class="file-label">
 
           <span class="file-cta">
 
-            <span class="file-label">
-              or choose a file…
-            </span>
-
             <input class="file-input" style="display: none" multiple type="file" #hiddenFileInput accept="image/jpeg,image/x-png" (change)="onDrop($event.target.files)">
             <br>
-            <button mat-raised-button id="fileButton" color="primary" (click)="hiddenFileInput.click()"><mat-icon aria-hidden="false" aria-label="Example home icon">cloud_upload</mat-icon> Select a File</button>
+            <button nbButton id="fileButton" status="primary" (click)="hiddenFileInput.click()"><nb-icon icon="cloud-upload-outline"></nb-icon> Select a File</button>
           </span>
         </label>
       </div>
@@ -44,7 +40,7 @@
     </div>
   </nb-card-body>
   <nb-card-footer>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button (click)="addFiles()" [disabled]="loading || files.length == 0">Add Files</button>
+    <button nbButton status="basic">Cancel</button>
+    <button nbButton status="primary" (click)="addFiles()" [disabled]="loading || files.length == 0">Add Files</button>
   </nb-card-footer>
 </nb-card>

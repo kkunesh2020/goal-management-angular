@@ -6,20 +6,25 @@
   min-width: 80%;
   font-weight: 200;
   height: 300px;
-  border: 2px dashed #f16624;
+  background-color: #C8D9DF;
+  border: 2px dashed #93B0B2;
   border-radius: 5px;
-  background: white;
   margin: 10px 0;
   margin-top: 1.5rem;
 
   &.hovering {
-      border: 2px solid #f16624;
+      border: 2px solid gray;
       color: #dadada !important;
+      background-color: white;
   }
 
   .file-label {
       font-size: 1.2em;
   }
+}
+
+nb-card{
+  width: 30rem;
 }
 
 #fileButton{
@@ -58,5 +63,9 @@ progress::-webkit-progress-value {
 }
 
 .uploadTitle{
-  margin-top: 2rem;
+  font-size: 15px;
+}
+
+.dTitle{
+  margin-bottom: 0px;
 }
