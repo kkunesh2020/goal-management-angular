@@ -29,21 +29,13 @@
   }
 
   .actions{
-    margin-top: 2rem;
 
     button{
       margin-right: 1rem;
     }
   }
 
-  .acceptButton{
-    width: 35%;
-    background-color: #91bf4b;
-    color: white;
+  nb-card{
+    width: 25rem;
   }
-
-  .rejectButton{
-    width: 35%;
-    color: red;
-    border: solid 2px red;
-  }
+  

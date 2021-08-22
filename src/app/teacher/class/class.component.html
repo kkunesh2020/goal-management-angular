@@ -69,16 +69,16 @@
           <span [hidden]="getLengthOf(element.pending) == 1 && getLengthOf(element.assignedToID) == 1">
             <mat-icon [matMenuTriggerFor]="actionMenu">more_vert</mat-icon>
             <mat-menu #actionMenu="matMenu">
-              <button mat-menu-item (click)="editDialog(element)">Edit</button>
-              <button mat-menu-item (click)="deleteDialog(element)">Delete</button>
+              <button mat-menu-item (click)="editDialog(element)">🖋 Edit</button>
+              <button mat-menu-item (click)="deleteDialog(element)">🗑 Delete</button>
             </mat-menu>
           </span>
 
           <span [hidden]="getLengthOf(element.assignedToID) > 1 || getLengthOf(element.pending) != 1 ">
             <mat-icon [matMenuTriggerFor]="actionMenu">schedule</mat-icon>
             <mat-menu #actionMenu="matMenu">
-              <button mat-menu-item (click)="editDialog(element)">Edit</button>
-              <button mat-menu-item (click)="deleteDialog(element)">Delete</button>
+              <button mat-menu-item (click)="editDialog(element)">🖋 Edit</button>
+              <button mat-menu-item (click)="deleteDialog(element)">🗑 Delete</button>
             </mat-menu>
           </span>
           
