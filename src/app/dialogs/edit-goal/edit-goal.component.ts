@@ -18,6 +18,7 @@ export class EditGoalComponent implements OnInit {
   assignedToAll = false;
   students: any[];
   original: any;
+  dateErrors: string = "";
   public data: any;
   editDate: Date;
 
@@ -76,5 +77,24 @@ export class EditGoalComponent implements OnInit {
       this.loading = false;
       this.ref.close('success');
     });
+  }
+
+  checkDateErrors(): boolean {
+    if(this.editDate){
+      let beforeDateOffset = new Date(this.editDate.getTime() + (24*60*60*1000));
+      let afterDateOffset = new Date(this.editDate.getTime() - (24*60*60*1000 * 14));
+      if (beforeDateOffset < new Date()) {
+        this.dateErrors = "Due date cannot be before or during today";
+        return true;
+      }else if(afterDateOffset > new Date()){
+        this.dateErrors = "Due date must be within 2 weeks";
+        return true;
+      }
+    }
+    return false;
+  }
+
+  closeDialog(){
+    this.ref.close()
   }
 }

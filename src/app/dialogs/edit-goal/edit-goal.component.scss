@@ -7,20 +7,12 @@ h3{
   margin-top: 2rem;
 }
 
-mat-form-field {
-  width: 100%;
-}
-
-mat-dialog-title{
-  font-size: 1.4rem;
-}
-
-mat-radio-button{
-  margin-right: 1rem;
-}
-
 .deleteButton{
   margin-bottom: 2rem;
+}
+
+nb-card{
+  width: 30rem;
 }
 
 .exit{
@@ -35,14 +27,20 @@ mat-radio-button{
   cursor: pointer;
 }
 
-.mat-dialog-title{
-  font-size: 1.8rem;
+
+input{
+  width: 100% !important;
+  max-width: 30rem !important;
 }
 
-mat-form-field {
-  width: 80%;
+.card-footer{
+  float: right;
+
+  .cancel{
+    margin-right: 1rem;
+  }
 }
 
-.spacer{
-  width: 43%;
+.form-field{
+  margin-bottom: 1rem;
 }
