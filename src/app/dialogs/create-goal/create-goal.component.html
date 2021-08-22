@@ -34,7 +34,7 @@
           <span class="example-list-section">
             <ul *ngIf="data.students.length > 0">
               <li *ngFor="let student of data.students">
-                <nb-checkbox (change)="checkSpecific(student.email ,$event.checked)">
+                <nb-checkbox (checkedChange)="checkSpecific(student.email, $event)">
                   {{student.name}}
                 </nb-checkbox>
               </li>
@@ -45,7 +45,7 @@
 
     <nb-card-footer>
       <div class="card-footer">
-        <button nbButton status="basic" class="cancel" (click)="closeDialog">Cancel</button>
+        <button nbButton status="basic" class="cancel" (click)="closeDialog()">Cancel</button>
         <button nbButton status="primary" (click)="createGoal()" [nbSpinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
       </div>
     </nb-card-footer>

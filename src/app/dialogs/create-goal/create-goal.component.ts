@@ -14,7 +14,7 @@ export class CreateGoalComponent implements OnInit {
   goal: GoalClass;
   loading = false;
   assignedStudentID: string[] = [];
-  assignedToAll: boolean;
+  assignedToAll: boolean = false;
   dateErrors: string = "";
   public data: any;
 
@@ -43,7 +43,7 @@ export class CreateGoalComponent implements OnInit {
   }
 
   checkSpecific(studentID: string, assigned: boolean) {
-    console.log("checked")
+    console.log("checked", studentID, assigned)
     if (assigned) {
       this.assignedStudentID.push(studentID);
     } else { // removes from assigned student array
