@@ -1,6 +1,6 @@
-<nb-card *ngIf="currentGoal">
+<nb-card *ngIf="data">
   <nb-card-header>
-    {{currentGoal.description}}
+    {{data.description}}
     <button (click)="closeModal()" class="exit">
       <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
     </button>
@@ -8,10 +8,10 @@
   <nb-card-body>
     <div class="date">
       <nb-icon icon="calendar-outline"></nb-icon>
-      <p> {{currentGoal.dueDate.seconds * 1000 | date}}</p>
+      <p> {{data.dueDate.seconds * 1000 | date}}</p>
     </div>
 
-    <p><span style="font-weight: bold;">Created By: </span>{{currentGoal.createdBy.name}}</p>
+    <p><span style="font-weight: bold;">Created By: </span>{{data.createdBy.name}}</p>
     <div *ngIf="isCompleted" class="complete">
       <mat-icon aria-hidden="false" aria-label="done icon" class="actionIcon">done</mat-icon>
       <p>Completed</p>
@@ -46,21 +46,21 @@
 
 
     <nb-list
-      *ngIf="currentGoal.files.length > 0 || currentGoal.links.length > 0 || currentGoal.commits.length > 0">
-      <nb-list-item  *ngFor="let link of currentGoal.links">
+      *ngIf="data.files.length > 0 || data.links.length > 0 || data.commits.length > 0">
+      <nb-list-item  *ngFor="let link of data.links">
         <nb-icon icon="link-outline">link</nb-icon>
         <a (click)="goToLink(link.url)">{{link.url}}</a>
         <nb-icon icon="close-outline" (click)="deleteLink(link.url)">
         </nb-icon>
       </nb-list-item>
-      <nb-list-item *ngFor="let commit of currentGoal.commits">
+      <nb-list-item *ngFor="let commit of data.commits">
         <nb-icon icon="code-outline">share</nb-icon>
         <a (click)="goToLink(commit.url)">Attached Commit</a>
 
         <nb-icon icon="close-outline" (click)="deleteLink(link.url)">
         </nb-icon>
       </nb-list-item>
-      <nb-list-item *ngFor="let file of currentGoal.files">
+      <nb-list-item *ngFor="let file of data.files">
         <nb-icon icon="file-outline"></nb-icon>
         <a (click)="goToLink(file.downloadURL)">{{file.name}}</a>
         <nb-icon icon="close-outline" (click)="deleteFile(file)">
@@ -89,9 +89,9 @@
 </button>
 
 <div mat-dialog-content>
-  <div class="date"><mat-icon>date_range</mat-icon><p> {{currentGoal.dueDate.seconds * 1000 | date}}</p></div>
+  <div class="date"><mat-icon>date_range</mat-icon><p> {{data.dueDate.seconds * 1000 | date}}</p></div>
   
-  <p>Created By: {{currentGoal.createdBy.name}}</p>
+  <p>Created By: {{data.createdBy.name}}</p>
   <div *ngIf="isCompleted" class="complete">
     <mat-icon aria-hidden="false" aria-label="done icon" class="actionIcon">done</mat-icon>
     <p>Completed</p>
@@ -105,19 +105,19 @@
 
   <h3 class="subtitle">Your Work</h3>
   <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton" *ngIf="!isCompleted"><mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Attachment</button>
-  <div class="attachments" *ngIf="currentGoal.files.length > 0 || currentGoal.links.length > 0 || currentGoal.commits.length > 0">
-    <div class="link" *ngFor="let link of currentGoal.links">
+  <div class="attachments" *ngIf="data.files.length > 0 || data.links.length > 0 || data.commits.length > 0">
+    <div class="link" *ngFor="let link of data.links">
       <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon>
       <a (click)="goToLink(link.url)">{{link.url}}</a>
       <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteLink(link.url)">close</mat-icon>
     </div>
-    <div class="commit" *ngFor="let commit of currentGoal.commits">
+    <div class="commit" *ngFor="let commit of data.commits">
       <mat-icon aria-hidden="false" aria-label="Example home icon">share</mat-icon>
       <a (click)="goToLink(commit.url)">Attached Commit</a>
 
       <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteLink(link.url)">close</mat-icon>
     </div>
-    <div class="file" *ngFor="let file of currentGoal.files">
+    <div class="file" *ngFor="let file of data.files">
       <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon>
       <a (click)="goToLink(file.downloadURL)">{{file.name}}</a>
       <mat-icon aria-hidden="false" aria-label="Example home icon" class="close" (click)="deleteFile(file)">close</mat-icon>

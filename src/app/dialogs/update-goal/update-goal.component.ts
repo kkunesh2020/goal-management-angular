@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, Optional } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, Optional } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {
   MatDialog,
@@ -21,12 +21,11 @@ import { NbDialogRef, NbDialogService } from '@nebular/theme';
   templateUrl: './update-goal.component.html',
   styleUrls: ['./update-goal.component.scss'],
 })
-export class UpdateGoalComponent {
+export class UpdateGoalComponent implements OnInit{
   madeChanges = false;
   isLoading = false;
-  public currentGoal: any;
+  public data: any;
   isCompleted = false;
-  data: any;
   createdByStudent: boolean = false;
   updated: boolean = false;
 
@@ -39,12 +38,16 @@ export class UpdateGoalComponent {
     protected dialogService: NbDialogService,
     @Optional() protected dialogRef: NbDialogRef<UpdateGoalComponent>
   ) {
-    if(this.currentGoal){
-      console.log("scope", this.currentGoal)
-      this.createdByStudent = (this.currentGoal.createdBy.accountType == "student");
-      this.currentGoal = this.goalService.validateGoal(this.currentGoal);
+
+  }
+
+  ngOnInit(){
+    if(this.data){
+      console.log("scope", this.data)
+      this.createdByStudent = (this.data.createdBy.accountType == "student");
+      this.data = this.goalService.validateGoal(this.data);
       this.isCompleted =  this.data.isCompleted;
-      console.log('commits', this.currentGoal);
+      console.log('commits', this.data);
     }
   }
 
@@ -53,9 +56,9 @@ export class UpdateGoalComponent {
     this.isLoading = true;
     if (isDone) {
       // mark as done
-      console.log("intpus", this.currentGoal);
+      console.log("intpus", this.data);
       this.goalService
-        .completeGoal(this.currentGoal, this.authService.userEmail)
+        .completeGoal(this.data, this.authService.userEmail)
         .then(() => {
           this.isLoading = false;
           this.madeChanges = true;
@@ -64,7 +67,7 @@ export class UpdateGoalComponent {
     } else {
       // unsubmit
       this.goalService
-        .unsubmitGoal(this.currentGoal, this.data.email)
+        .unsubmitGoal(this.data, this.data.email)
         .then(() => {
           this.isLoading = false;
           this.madeChanges = true;
@@ -75,15 +78,15 @@ export class UpdateGoalComponent {
 
   deleteGoal(){
     this.isLoading = true;
-    this.goalService.deleteGoal(this.currentGoal).then(() => {
-      this.dialogRef.close({status: "deleted", id: this.currentGoal.id});
+    this.goalService.deleteGoal(this.data).then(() => {
+      this.dialogRef.close({status: "deleted", id: this.data.id});
     })
   }
 
   closeModal(){
-    console.log("returning", this.currentGoal)
+    console.log("returning", this.data)
     if(this.updated){
-      this.dialogRef.close({data: this.currentGoal, status: "updated"});
+      this.dialogRef.close({data: this.data, status: "updated"});
     }else{
       this.dialogRef.close();
     }
@@ -92,11 +95,11 @@ export class UpdateGoalComponent {
 
   insertFileDialog() {
     const dialogRef = this.dialogService.open(UploaderComponent, {
-      context: {data: { goal: this.currentGoal, email: this.authService.userEmail }}
+      context: {data: { goal: this.data, email: this.authService.userEmail }}
     });
     dialogRef.onClose.subscribe((result) => {
       if (result !== '') {
-        this.currentGoal.files = this.currentGoal.files.concat(result);
+        this.data.files = this.data.files.concat(result);
         console.log('detected the changes', result);
         this.updated = true;
       }
@@ -110,16 +113,16 @@ export class UpdateGoalComponent {
 
     // this.$userRepos = this.githubService.viewUserRepos();
     const dialogRef = this.dialogService.open(UploadCommitComponent, {
-      context: {data: { goal: this.currentGoal, uid: this.data.email }}
+      context: {data: { goal: this.data, uid: this.data.email }}
     });
     dialogRef.onClose.subscribe((result) => {
       if (result !== '') {
         this.updated = true;
-        this.currentGoal.commits != null
-          ? (this.currentGoal.commits = this.currentGoal.commits.concat(
+        this.data.commits != null
+          ? (this.data.commits = this.data.commits.concat(
               result
             ))
-          : (this.currentGoal.commits = result);
+          : (this.data.commits = result);
       }
     });
     console.log(this.githubService.githubProfile);
@@ -128,21 +131,21 @@ export class UpdateGoalComponent {
 
   insertLinkDialog() {
     const dialogRef = this.dialogService.open(UploadLinkComponent, {
-      context: {data: { goal: this.currentGoal, email: this.data.email }}
+      context: {data: { goal: this.data, email: this.data.email }}
     });
     dialogRef.onClose.subscribe((result) => {
       if (result !== '') {
         this.updated = true;
-        this.currentGoal.links != null
-          ? (this.currentGoal.links = this.currentGoal.links.concat(result))
-          : (this.currentGoal.links = result);
+        this.data.links != null
+          ? (this.data.links = this.data.links.concat(result))
+          : (this.data.links = result);
       }
     });
   }
 
   findIndexOfFile(file: FileClass) {
-    for (let i = 0; i < this.currentGoal.files.length; i++) {
-      const fileData: FileClass = this.currentGoal.files[i];
+    for (let i = 0; i < this.data.files.length; i++) {
+      const fileData: FileClass = this.data.files[i];
       if (fileData.downloadURL === file.downloadURL) {
         return i;
       }
@@ -150,16 +153,16 @@ export class UpdateGoalComponent {
   }
 
   deleteFile(file: FileClass) {
-    this.currentGoal.files.splice(this.findIndexOfFile(file), 1); // remove file from array
-    this.currentGoal.files = this.currentGoal.files;
-    this.goalService.deleteFileFromGoal(file, this.currentGoal.id);
+    this.data.files.splice(this.findIndexOfFile(file), 1); // remove file from array
+    this.data.files = this.data.files;
+    this.goalService.deleteFileFromGoal(file, this.data.id);
     this.updated = true;
   }
 
   deleteLink(url: string) {
-    const newLinks = this.currentGoal.links.filter((e) => e.url !== url);
-    this.currentGoal.links = newLinks;
-    this.goalService.removeLinks(newLinks, this.currentGoal.id);
+    const newLinks = this.data.links.filter((e) => e.url !== url);
+    this.data.links = newLinks;
+    this.goalService.removeLinks(newLinks, this.data.id);
     this.updated = true;
   }
 

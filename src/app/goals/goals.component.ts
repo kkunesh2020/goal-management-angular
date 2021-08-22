@@ -77,12 +77,14 @@ export class GoalsComponent {
     return result;
   }
 
+
   // get goals for student given a goal array containing goal document refs
   getStudentGoals(goalArray: DocumentReference[]) {
     this.loading = true;
     this.goalService.getGoalsById(goalArray, this.uid).then((goalData) => {
       // spread out each goal object into dataSource using spread operator
       this.data = this.formatGoals(goalData)
+      console.log("data is", this.data);
       this.source = this.dataSourceBuilder.create(this.data);
       this.loading = false;
     });
@@ -129,7 +131,7 @@ export class GoalsComponent {
     else {
       console.log("data context", data)
       dialogRef = this.dialogService.open(UpdateGoalComponent, {
-        context: {currentGoal: data}
+        context: {data: data}
       });
     }
 
