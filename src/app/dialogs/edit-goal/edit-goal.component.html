@@ -1,27 +1,33 @@
-<button mat-dialog-close class="exit">
-  <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
-</button>
-<h1 mat-dialog-title>Edit Goal</h1>
-<div mat-dialog-content>
-  <!-- Title -->
-  <p>
-    <mat-form-field cdkFocusInitial>
-      <mat-label>Goal Title</mat-label>
-      <input matInput [(ngModel)]="goal.description">
-    </mat-form-field>
-  </p>
-  <!-- Due Date -->
-  <p>
-    <mat-form-field>
-      <mat-label>Due Date</mat-label>
-      <input matInput (click)="picker.open()" [matDatepicker]="picker" [(ngModel)]="editDate">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </p>
-</div>
-<div mat-dialog-actions>
-  <div class="spacer"></div>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [class.spinner]="loading" [disabled]="loading || !formComplete()" (click)="editGoal()" color="primary"><mat-icon aria-hidden="false" aria-label="Example home icon">save</mat-icon>  Save Changes</button>
-</div>
+<nb-card>
+  <nb-card-header>
+    🖋 Edit Goal
+    <button class="exit">
+      <nb-icon class="exitIcon" icon="close-outline"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <!-- Title -->
+    <p>
+      <mat-form-field cdkFocusInitial>
+        <mat-label>Goal Title</mat-label>
+        <input matInput [(ngModel)]="goal.description">
+      </mat-form-field>
+    </p>
+    <!-- Due Date -->
+    <p>
+      <mat-form-field>
+        <mat-label>Due Date</mat-label>
+        <input matInput (click)="picker.open()" [matDatepicker]="picker" [(ngModel)]="editDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </p>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="basic">Cancel</button>
+    <button nbButton [nbSpinner]="loading" [disabled]="loading || !formComplete()" (click)="editGoal()"
+      status="primary">
+      Save Changes
+    </button>
+  </nb-card-footer>
+</nb-card>
