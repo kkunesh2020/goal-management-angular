@@ -66,3 +66,21 @@ mat-radio-button{
 .spacer{
   width: 43%;
 }
+
+
+input{
+  width: 100% !important;
+  max-width: 30rem !important;
+}
+
+.card-footer{
+  float: right;
+
+  .cancel{
+    margin-right: 1rem;
+  }
+}
+
+.form-field{
+  margin-bottom: 1rem;
+}

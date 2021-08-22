@@ -9,21 +9,22 @@
     </nb-card-header>
 
     <nb-card-body *ngIf="goal">
-        <div>
-          <label for="description">Goal Title</label>
-          <input nbInput [(ngModel)]="goal.description" id="description">
-          <span [hidden]="goal.description.length <= 40" class="error">Description must be less than 40 chars.</span>
+      <div>
+        <label for="description" class="label">Goal Title</label>
+        <div class="form-field">
+          <input nbInput [(ngModel)]="goal.description" id="description" fullWidth placeholder="Enter Goal Name...">
+          <p [hidden]="goal.description.length <= 40" class="error">Description must be less than 40 chars.</p>
         </div>
+      </div>
       <!-- Due Date -->
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Due Date</mat-label>
-          <input matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)]="goal.dueDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <mat-hint [hidden]="!checkDateErrors()" class="error">{{dateErrors}}</mat-hint>
-        </mat-form-field>
-      </p>
+    <div>
+      <label for="dueDate" class="label">Due Date</label>
+      <div class="form-field">
+        <input nbInput [nbDatepicker]="datepicker" [(ngModel)]="goal.dueDate" placeholder="Pick Due Date" id="dueDate">
+        <nb-datepicker #datepicker></nb-datepicker>
+        <p [hidden]="!checkDateErrors()" class="error">{{dateErrors}}</p>
+      </div>
+    </div>
       <!-- Students -->
         <h3>Assign To</h3>
         <mat-radio-group aria-label="Select an option">
