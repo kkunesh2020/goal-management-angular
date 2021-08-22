@@ -25,6 +25,16 @@ export class UploadLinkComponent implements OnInit{
     this.email = this.data.email;
   }
 
+  validLink(): boolean{
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(this.url);
+  }
+
   // add link to goal object
   addLink() {
     this.loading = true;
@@ -35,5 +45,9 @@ export class UploadLinkComponent implements OnInit{
       this.loading = false;
       this.dialogRef.close(newLink);
     });
+  }
+
+  closeDialog(){
+    this.dialogRef.close();
   }
 }

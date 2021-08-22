@@ -1,14 +1,19 @@
-<button mat-dialog-close class="exit">
-  <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
-</button>
-<h1 mat-dialog-title>Upload Link</h1>
-<div mat-dialog-content>
-  <mat-form-field class="example-form-field">
-    <mat-label>Enter URL:</mat-label>
-    <input matInput type="text" [(ngModel)]="url" required>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="addLink()" [disabled]="loading || url == ''">Add Link</button>
-</div>
+<nb-card>
+  <nb-card-header>🔗 Upload Link
+    <button class="exit" (click)="closeDialog()">
+      <nb-icon class="exitIcon" icon="close-outline"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <div>
+      <label class="label" for="url">Enter URL:</label>
+      <input nbInput type="text" [(ngModel)]="url" required id="url">
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="card-footer">
+      <button nbButton status="basic" class="cancel" (click)="closeDialog()">Cancel</button>
+      <button nbButton (click)="addLink()" [disabled]="loading || url == '' || !validLink()" status="primary" [nbSpinner]="loading">Add Link</button>
+    </div>
+  </nb-card-footer>
+</nb-card>
