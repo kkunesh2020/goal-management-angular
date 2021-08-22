@@ -1,14 +1,14 @@
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import LinkClass from 'src/app/shared/models/link';
 import { GoalService } from 'src/app/shared/services/goal.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-upload-link',
   templateUrl: './upload-link.component.html',
   styleUrls: ['./upload-link.component.scss']
 })
-export class UploadLinkComponent  {
+export class UploadLinkComponent implements OnInit{
   loading: boolean;
   url = '';
   email: string;
@@ -17,9 +17,12 @@ export class UploadLinkComponent  {
   goalID: string;
 
   constructor(
-        public dialogRef: MatDialogRef<UploadLinkComponent>, private goalService: GoalService) {
-        this.goalID = this.data.goal.id;
-        this.email = this.data.email;
+        @Optional() protected dialogRef: NbDialogRef<UploadLinkComponent>, private goalService: GoalService) {
+  }
+
+  ngOnInit(){
+    this.goalID = this.data.goal.id;
+    this.email = this.data.email;
   }
 
   // add link to goal object

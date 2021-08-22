@@ -1,9 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, Optional } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
+  MatDialog
 } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import FileClass from 'src/app/shared/models/file';
