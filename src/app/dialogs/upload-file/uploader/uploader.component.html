@@ -1,14 +1,16 @@
-<button mat-dialog-close class="exit">
-  <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
-</button>
-
-
-<div class="dropzone"
+<nb-card>
+  <nb-card-header>
+    📄 Upload a File
+    <button mat-dialog-close class="exit">
+      <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="dropzone"
      dropzone
      (hovered)="toggleHover($event)"
      (dropped)="onDrop($event)"
      [class.hovering]="isHovering">
-
 
      <h3>Drag and Drop a File</h3>
      <div class="file">
@@ -27,22 +29,22 @@
         </label>
       </div>
 </div>
-
-<div *ngIf="loading">
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</div>
-
-<h3 class="uploadTitle">Uploads</h3>
-
-<div *ngFor="let file of files">
-    <div class="file">
-      <mat-icon>description</mat-icon>
-      <h3>{{file.name}}</h3>
+    <div *ngIf="loading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
-   
-</div>
-
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="addFiles()" [disabled]="loading || files.length == 0">Add Files</button>
-</mat-dialog-actions>
+    
+    <h3 class="uploadTitle">Uploads</h3>
+    
+    <div *ngFor="let file of files">
+        <div class="file">
+          <mat-icon>description</mat-icon>
+          <h3>{{file.name}}</h3>
+        </div>
+       
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button (click)="addFiles()" [disabled]="loading || files.length == 0">Add Files</button>
+  </nb-card-footer>
+</nb-card>
