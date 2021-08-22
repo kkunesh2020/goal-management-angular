@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { GoalService } from 'src/app/shared/services/goal.service';
 import { StudentData } from 'src/app/teacher/class/class.component';
 import GoalClass from '../../shared/models/goal';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-create-goal',
@@ -19,9 +19,11 @@ export class CreateGoalComponent implements OnInit {
   public data: any;
 
   constructor(private goalService: GoalService,
-              public dialogRef: MatDialogRef<CreateGoalComponent>) {
-    this.goal = new GoalClass(this.data.teacherEmail,'', null, this.data.classID, [], [], [], '', this.data.createdBy, []);
-
+              @Optional() protected dialogRef: NbDialogRef<CreateGoalComponent>) {
+    if(this.data){
+      this.goal = new GoalClass(this.data.teacherEmail,'', null, this.data.classID, [], [], [], '', this.data.createdBy, []);
+    }
+    
    }
 
   ngOnInit() {
