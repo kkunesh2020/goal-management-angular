@@ -43,6 +43,7 @@ export class CreateGoalComponent implements OnInit {
   }
 
   checkSpecific(studentID: string, assigned: boolean) {
+    console.log("checked")
     if (assigned) {
       this.assignedStudentID.push(studentID);
     } else { // removes from assigned student array
@@ -69,6 +70,10 @@ export class CreateGoalComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  closeDialog(){
+    this.dialogRef.close();
   }
 
   createGoal() {

@@ -1,8 +1,7 @@
   <nb-card>
 
     <nb-card-header>
-      Create a Goal
-
+      ✍️ Create a Goal
       <div class="exit">
         <nb-icon class="exitIcon" icon="close-outline"></nb-icon>
       </div>
@@ -26,28 +25,28 @@
       </div>
     </div>
       <!-- Students -->
-        <h3>Assign To</h3>
-        <mat-radio-group aria-label="Select an option">
-          <mat-radio-button [checked]="assignedToAll" value="true" [(ngModel)]="assignedToAll" ngDefaultControl (click)="assignAllStudents()">Everyone</mat-radio-button>
-          <mat-radio-button [checked]="!assignedToAll" value="false" [(ngModel)]="assignedToAll" ngDefaultControl (click)="resetList()">Specific</mat-radio-button>
-        </mat-radio-group>
+        <label class="label">Assign To</label>
+        <nb-radio-group [(ngModel)]="assignedToAll">
+          <nb-radio [value]="true"  (click)="assignAllStudents()">Everyone</nb-radio>
+          <nb-radio [value]="false" (click)="resetList()">Specific</nb-radio>
+        </nb-radio-group>
         <section class="student-section" [hidden]="assignedToAll">
           <span class="example-list-section">
             <ul *ngIf="data.students.length > 0">
               <li *ngFor="let student of data.students">
-                <mat-checkbox (change)="checkSpecific(student.email ,$event.checked)">
+                <nb-checkbox (change)="checkSpecific(student.email ,$event.checked)">
                   {{student.name}}
-                </mat-checkbox>
+                </nb-checkbox>
               </li>
             </ul>
           </span>
         </section>
-        <input type="hidden" autofocus="true" class="hiddenInput"/>
     </nb-card-body>
 
     <nb-card-footer>
-      <div class="spacer"></div>
-      <button nbButton status="basic">Cancel</button>
-      <button nbButton status="primary" (click)="createGoal()" [nbSpinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
+      <div class="card-footer">
+        <button nbButton status="basic" class="cancel" (click)="closeDialog">Cancel</button>
+        <button nbButton status="primary" (click)="createGoal()" [nbSpinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
+      </div>
     </nb-card-footer>
   </nb-card>
