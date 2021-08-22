@@ -1,9 +1,13 @@
-<button mat-dialog-close class="exit">
-  <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
-</button>
-
-<h1 mat-dialog-title>Delete Goal</h1>
-<div mat-dialog-content>
+<nb-card>
+  <nb-card-header>
+    🗑 Delete Goal
+    <button class="exit" (click)="closeDialog()">
+      <nb-icon class="exitIcon" icon="close-outline"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
     <p>Be careful! This will permanently delete your goal.</p>
-    <button mat-raised-button color="warn" class="deleteButton" (click)="deleteGoal()" [class.spinner]="loading">Delete Goal</button>
-</div>
+    <button nbButton status="danger" class="deleteButton" (click)="deleteGoal()" [nbSpinner]="loading">Delete Goal</button>
+  </nb-card-body>
+
+</nb-card>

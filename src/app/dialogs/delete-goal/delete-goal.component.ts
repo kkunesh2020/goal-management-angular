@@ -1,36 +1,41 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import GoalClass from 'src/app/shared/models/goal';
 import { GoalService } from 'src/app/shared/services/goal.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
+
 
 @Component({
   selector: 'gms-delete-goal',
   templateUrl: './delete-goal.component.html',
   styleUrls: ['./delete-goal.component.scss'],
 })
-export class DeleteGoalComponent {
+export class DeleteGoalComponent implements OnInit{
   goal: GoalClass;
   editDate: Date;
+  public data: any;
   loading: boolean;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private goalService: GoalService,
-    public dialogRef: MatDialogRef<DeleteGoalComponent>
+    @Optional() protected dialogRef: NbDialogRef<DeleteGoalComponent>
   ) {
-    this.editDate = new Date(data.dueDate.seconds * 1000);
+  }
+
+  ngOnInit(){
+    this.editDate = new Date(this.data.dueDate.seconds * 1000);
 
     this.goal = new GoalClass(
-      data.teacherEmail,
-      data.description,
+      this.data.teacherEmail,
+      this.data.description,
       this.editDate,
-      data.classID,
-      data.hasCompleted,
-      data.pending,
-      data.declined,
-      data.id,
-      data.createdBy,
-      data.assignedToID
+      this.data.classID,
+      this.data.hasCompleted,
+      this.data.pending,
+      this.data.declined,
+      this.data.id,
+      this.data.createdBy,
+      this.data.assignedToID
     );
   }
 
@@ -40,5 +45,9 @@ export class DeleteGoalComponent {
       this.loading = false;
       this.dialogRef.close('success');
     });
+  }
+
+  closeDialog(){
+    this.dialogRef.close();
   }
 }

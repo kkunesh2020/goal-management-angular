@@ -1,13 +1,14 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { GoalService } from 'src/app/shared/services/goal.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-change-status',
   templateUrl: './change-status.component.html',
   styleUrls: ['./change-status.component.scss']
 })
-export class ChangeStatusComponent {
+export class ChangeStatusComponent implements OnInit {
   loading: boolean;
   teacherName: string;
   studentName: string;
@@ -18,9 +19,11 @@ export class ChangeStatusComponent {
   rejectionNote: string;
 
   constructor(
-    public dialogRef: MatDialogRef<ChangeStatusComponent>,
+    public dialogRef: NbDialogRef<ChangeStatusComponent>,
     private goalService: GoalService) {
+  }
 
+  ngOnInit(){
     this.loading = true;
     if(this.data.createdBy.accountType == "teacher"){
       this.teacherName = this.data.createdBy.name;
