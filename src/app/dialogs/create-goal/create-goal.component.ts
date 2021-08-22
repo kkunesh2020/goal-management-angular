@@ -20,13 +20,13 @@ export class CreateGoalComponent implements OnInit {
 
   constructor(private goalService: GoalService,
               @Optional() protected dialogRef: NbDialogRef<CreateGoalComponent>) {
-    if(this.data){
-      this.goal = new GoalClass(this.data.teacherEmail,'', null, this.data.classID, [], [], [], '', this.data.createdBy, []);
-    }
     
    }
 
   ngOnInit() {
+    if(this.data){
+      this.goal = new GoalClass(this.data.teacherEmail,'', null, this.data.classID, [], [], [], '', this.data.createdBy, []);
+    }
   }
 
   assignAllStudents() {

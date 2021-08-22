@@ -8,14 +8,12 @@
       </div>
     </nb-card-header>
 
-    <nb-card-body>
-      <p>
-        <mat-form-field>
-          <mat-label>Goal Title</mat-label>
-          <input matInput [(ngModel)]="goal.description">
-          <mat-hint [hidden]="goal.description.length <= 40" class="error">Description must be less than 40 chars.</mat-hint>
-        </mat-form-field>
-      </p>
+    <nb-card-body *ngIf="goal">
+        <div>
+          <label for="description">Goal Title</label>
+          <input nbInput [(ngModel)]="goal.description" id="description">
+          <span [hidden]="goal.description.length <= 40" class="error">Description must be less than 40 chars.</span>
+        </div>
       <!-- Due Date -->
       <p>
         <mat-form-field appearance="outline">
@@ -48,7 +46,7 @@
 
     <nb-card-footer>
       <div class="spacer"></div>
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-raised-button color="primary" (click)="createGoal()" [class.spinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
+      <button nbButton status="basic">Cancel</button>
+      <button nbButton status="primary" (click)="createGoal()" [nbSpinner]="loading" [disabled]="!formComplete() || loading">Create Goal</button>
     </nb-card-footer>
   </nb-card>
