@@ -6,15 +6,14 @@
   min-width: 80%;
   font-weight: 200;
   height: 300px;
-  background-color: #C8D9DF;
-  border: 2px dashed #93B0B2;
+  background-color: #ccf2ff;
+  border: 2px dashed #2196f3;
   border-radius: 5px;
   margin: 10px 0;
   margin-top: 1.5rem;
 
   &.hovering {
-      border: 2px solid gray;
-      color: #dadada !important;
+      border: 2px solid rgb(25, 48, 225);
       background-color: white;
   }
 
@@ -68,4 +67,12 @@ progress::-webkit-progress-value {
 
 .dTitle{
   margin-bottom: 0px;
+}
+
+.card-footer{
+  float: right;
+
+  .cancel{
+    margin-right: 1rem;
+  }
 }

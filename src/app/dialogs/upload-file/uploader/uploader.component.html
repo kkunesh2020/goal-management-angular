@@ -40,7 +40,9 @@
     </div>
   </nb-card-body>
   <nb-card-footer>
-    <button nbButton status="basic">Cancel</button>
+    <div class="card-footer">
+    <button nbButton status="basic" class="cancel" >Cancel</button>
     <button nbButton status="primary" (click)="addFiles()" [disabled]="loading || files.length == 0">Add Files</button>
+  </div>
   </nb-card-footer>
 </nb-card>
