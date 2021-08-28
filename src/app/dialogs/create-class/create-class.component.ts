@@ -41,6 +41,10 @@ export class CreateClassComponent implements OnInit {
     this.getTeacherData();
   }
 
+  closeDialog(){
+    this.dialogRef.close();
+  }
+
 
   formComplete(): boolean {
     return this.class.title != "" && this.teacherData.length > 0 && this.class.title.length < 20;
