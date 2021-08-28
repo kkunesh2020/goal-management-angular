@@ -1,8 +1,11 @@
-<button mat-dialog-close class="exit">
-  <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
-</button>
-<h1 mat-dialog-title>Add a Student</h1>
-<div mat-dialog-content class="content">
+<nb-card>
+  <nb-card-header>
+    🧑‍🎓 Add a Student
+  <button mat-dialog-close class="exit">
+    <mat-icon class="exitIcon">clear</mat-icon>
+  </button>
+</nb-card-header>
+<nb-card-body class="content">
   <div class="add-existing-student section">
     <h3>Add Existing Student</h3>
     <p>
@@ -30,11 +33,13 @@
       </mat-form-field>
   </div>
   
-</div>
+</nb-card-body>
 
-<mat-dialog-actions>
-  <div class="spacer"></div>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary" (click)="createStudent()" [class.spinner]="loading"
-    [disabled]="!formComplete() || loading">Add Student</button>
-</mat-dialog-actions>
+<nb-card-footer>
+  <div class="card-footer">
+    <button nbButton mat-dialog-close status="basic">Cancel</button>
+    <button nbButton status="primary" (click)="createStudent()" [nbSpinner]="loading"
+      [disabled]="!formComplete() || loading">Add Student</button>
+  </div>
+</nb-card-footer>
+</nb-card>
