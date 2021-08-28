@@ -71,15 +71,15 @@
   </nb-card-body>
   <nb-card-footer>
     <button nbButton (click)="updateGoal(true)" [nbSpinner]="isLoading" [disabled]="isLoading"
-      *ngIf="!isCompleted && !isLoading">
+      *ngIf="!isCompleted">
       <nb-icon icon="checkmark-outline"></nb-icon> Mark As Done
     </button>
     <button nbButton (click)="deleteGoal()" status="danger" [nbSpinner]="isLoading" [disabled]="isLoading"
-      *ngIf="createdByStudent && !isLoading && !isCompleted">
+      *ngIf="createdByStudent && !isCompleted">
       <nb-icon icon="trash-2-outline"></nb-icon> Delete Goal
     </button>
 
-    <button nbButton status="primary" class="acButton" *ngIf="!isLoading && isCompleted" (click)="updateGoal(false)">Unsubmit</button>
+    <button nbButton status="primary" [nbSpinner]="isLoading" class="acButton" *ngIf="isCompleted" (click)="updateGoal(false)">Unsubmit</button>
 
   </nb-card-footer>
 </nb-card>

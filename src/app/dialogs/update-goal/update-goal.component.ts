@@ -54,7 +54,7 @@ export class UpdateGoalComponent implements OnInit{
     this.isLoading = true;
     if (isDone) {
       // mark as done
-      console.log("intpus", this.data);
+      console.log("intpus", this.authService.userEmail);
       this.goalService
         .completeGoal(this.data, this.authService.userEmail)
         .then(() => {
