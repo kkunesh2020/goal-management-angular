@@ -3,13 +3,11 @@
   <button nbButton status="primary" id="createClassButton" (click)="createClassDialog()"><nb-icon icon="plus-outline"></nb-icon> Create Class</button>
   <p class="warning" *ngIf="classes.length == 0">No classes created yet.</p>
   <div class="classes">
-    <mat-card class="block" *ngFor="let class of classes" (click)="goToCard(class.id)">
-      <mat-icon *ngIf="!class.classIcon">class</mat-icon>
-      <mat-icon *ngIf="class.classIcon">{{class.classIcon}}</mat-icon>
+    <nb-card class="block" *ngFor="let class of classes" (click)="goToCard(class.id)">
+      <h1>{{class.classIcon}}</h1>
       <h2>{{class.title}}</h2>
-      <!-- TODO: change code -->
       <p>{{class.students.length}} students</p>
-    </mat-card>
+    </nb-card>
   </div>
   
 </div>

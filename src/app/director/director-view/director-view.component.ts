@@ -52,7 +52,7 @@ export class DirectorViewComponent implements OnInit {
     const dialogRef = this.dialogService.open(CreateClassComponent);
 
     dialogRef.onClose.subscribe((result) => {
-      if (result.result === 'success') {
+      if (result && result.result === 'success') {
         // if a goal is created reshow goals
         this.classes.push(result.data);
       }
