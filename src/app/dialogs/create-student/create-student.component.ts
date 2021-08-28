@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { startWith } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user.model';
 import { DirectorService } from 'src/app/shared/services/director.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-create-student',
@@ -23,7 +24,7 @@ export class CreateStudentComponent implements OnInit {
   emailErrorMessage:string = "";
   constructor(
     private director: DirectorService,
-    public dialogRef: MatDialogRef<CreateStudentComponent>
+    @Optional() protected dialogRef: NbDialogRef<CreateStudentComponent>
     ) { }
 
   ngOnInit() {
