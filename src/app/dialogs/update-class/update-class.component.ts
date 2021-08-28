@@ -20,7 +20,7 @@ export class UpdateClassComponent implements OnInit {
   selectedIcon: string = "";
   assignedStudentID: string[] = [];
   assignedToAll: boolean;
-  icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'computer', 'code', 'book_fill', 'biotech'];
+  icons = ['📚', '🛠', '🔭', '🧠', '🔬', '🏛', '🎨', '🧮', '💻', '🧪', '🤖', '🖋', '🎭', '📐']
   teachers = [];
 
   constructor(private classService: ClassService, @Optional() protected ref: NbDialogRef<UpdateClassComponent>) { }
