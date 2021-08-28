@@ -28,4 +28,8 @@ export class DeleteClassComponent implements OnInit {
       this.dialogRef.close(this.classData.id);
     })
   }
+
+  closeDialog(){
+    this.dialogRef.close();
+  }
 }
