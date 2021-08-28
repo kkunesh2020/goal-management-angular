@@ -25,7 +25,7 @@ export const studentAddedToClass = functions.https.onCall(async (data, context) 
     const msg = {
         to: data.email,
         from: {
-          name: 'Chadwick School Goal Management',
+          name: 'A-Star Learning',
           email: 'wickgoalmanagement@gmail.com'
         },
         subject: `You are invited to join ${data.class}!`,
@@ -37,7 +37,7 @@ export const studentAddedToClass = functions.https.onCall(async (data, context) 
         Please visit <a href="${URL}/classes">click here</a> to view the class.
         </p>
         <p>
-          - Chadwick School Goal Management
+          - A-Star Learning
         </p>`
     };
 
@@ -65,7 +65,7 @@ export const userCreatedGoalEmail = functions.firestore.document('goals/{goalID}
   let msg = {
       to: goal.createdBy.email,
       from: {
-        name: 'Chadwick School Goal Management',
+        name: 'A-Star Learning',
         email: 'wickgoalmanagement@gmail.com'
       },
       subject: `You have a new goal ${goal.description}!`,
@@ -77,7 +77,7 @@ export const userCreatedGoalEmail = functions.firestore.document('goals/{goalID}
         Please <a href="${URL}/goals">click here</a> to view the goal.
       </p>
       <p>
-        - Chadwick School Goal Management
+        - A-Star Learning
       </p>`,
   };
 
@@ -93,7 +93,7 @@ export const userCreatedGoalEmail = functions.firestore.document('goals/{goalID}
         Please <a href="${URL}/classes/${classDoc.id}/goals/${postSnap.id}">click here</a> to view the goal.
       </p>
       <p>
-        - Chadwick School Goal Management
+        - A-Star Learning
       </p>
     `;
     await sgMail.send(msg);
