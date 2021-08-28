@@ -9,43 +9,44 @@
 
   <nb-card-body>
     <!-- Title -->
-    <p>
-      <mat-form-field>
-        <mat-label>Class Name</mat-label>
-        <input matInput [(ngModel)]="class.title">
-      </mat-form-field>
-    </p>
+    <div>
+      <label for="name" class="label">Class Name</label>
+      <div class="form-field">
+        <input nbInput [(ngModel)]="class.title" id="name" fullWidth placeholder="Enter Class Name...">
+        <p [hidden]="class.title.length <= 20" class="error">Name must be less than 20 chars.</p>
+      </div>
+    </div>
 
-    <p>Select Teacher:</p>
-
-    <mat-form-field appearance="fill" *ngIf="teacherData && teachers">
-      <mat-label>Class Teacher</mat-label>
-      <mat-select [(ngModel)]="teacherData" [compareWith]="compareObjects">
-        <mat-option *ngFor="let teacher of teachers" [value]="teacher">
+    <div class="form-block" *ngIf="teacherData && teachers">
+      <label for="teacher" class="label">Select Teacher:</label>
+      <div class="form-field">
+      <nb-select [(ngModel)]="teacherData" id="teacher">
+        <nb-option *ngFor="let teacher of teachers" [value]="teacher.email">
           {{teacher.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+        </nb-option>
+      </nb-select>
+    </div>
+    </div>
 
-
-    <p>Select Class Icon: </p>
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon"
-        *ngFor="let icon of icons | slice:0:(icons.length / 2)">
-        <mat-icon>{{icon}}</mat-icon>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-
-    <br />
-
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon"
-        *ngFor="let icon of icons | slice:(icons.length / 2):icons.length">
-        <mat-icon>{{icon}}</mat-icon>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-
-
+    <div class="form-block">
+      <label class="label">Select Class Icon:</label>
+      <div class="icon-block">
+        <mat-button-toggle-group>
+          <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:0:(icons.length / 2)">
+              <mat-icon>{{icon}}</mat-icon>
+          </mat-button-toggle>        
+        </mat-button-toggle-group>
+      </div>
+     
+      <div class="icon-block">
+        <mat-button-toggle-group>
+          <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:(icons.length / 2):icons.length">
+              <mat-icon>{{icon}}</mat-icon>
+          </mat-button-toggle>       
+        </mat-button-toggle-group>
+      </div>
+      
+    </div>
   </nb-card-body>
 
   <nb-card-footer>
