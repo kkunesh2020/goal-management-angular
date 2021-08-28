@@ -94,5 +94,9 @@ export class UpdateClassComponent implements OnInit {
         this.ref.close({result: 'success', data: {...this.class, id: id}});
       })
     }
+
+    closeDialog(){
+      this.ref.close()
+    }
   
 }

@@ -1,7 +1,7 @@
 <nb-card>
   <nb-card-header>
     🧑‍🎓 Add a Student
-  <button mat-dialog-close class="exit">
+  <button (click)="closeDialog()" class="exit">
     <mat-icon class="exitIcon">clear</mat-icon>
   </button>
 </nb-card-header>
@@ -36,7 +36,7 @@
 
 <nb-card-footer>
   <div class="card-footer">
-    <button nbButton mat-dialog-close status="basic" class="cancel">Cancel</button>
+    <button nbButton (click)="closeDialog()" status="basic" class="cancel">Cancel</button>
     <button nbButton status="primary" (click)="createStudent()" [nbSpinner]="loading"
       [disabled]="!formComplete() || loading">Add Student</button>
   </div>
