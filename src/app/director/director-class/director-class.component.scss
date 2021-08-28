@@ -8,7 +8,7 @@
 
   .classData{
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     height: 100%;
   }
 
@@ -30,7 +30,7 @@
 .warning{
     font-weight: normal;
     position: absolute;
-    left: 33%;
+    width: 100%;
     margin-top: 4rem;
 }
 
@@ -42,4 +42,11 @@
 
 .edit-icon:hover{
   cursor: pointer;
+}
+
+h3{
+  font-size: 21px;
+  font-weight: normal;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }

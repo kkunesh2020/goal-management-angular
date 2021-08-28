@@ -18,11 +18,12 @@
     </h1>
   </div>
  
+  <h3 *ngIf="teacherData">Teacher: {{teacherData.name}}</h3>
   <h3 *ngIf="!studentDataSource">0 students</h3>
   <h3 *ngIf="studentDataSource">{{classData.students.length}} students</h3>
-  <h3 *ngIf="teacherData">{{teacherData.name}}</h3>
-  <button mat-button color="primary" id="createClassButton" (click)="openStudentCreateModal()">
-    <mat-icon>add</mat-icon> Create Student
+  
+  <button nbButton status="primary" id="createClassButton" (click)="openStudentCreateModal()">
+    <nb-icon icon="plus-outline"></nb-icon> Create Student
   </button>
   <div *ngIf="studentDataSource && studentDataSource.length > 0">
     <table mat-table [dataSource]="studentDataSource" class="table">
