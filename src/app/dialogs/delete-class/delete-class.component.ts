@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { DirectorClass } from 'src/app/shared/models/directorClass.model';
 import { ClassService } from 'src/app/shared/services/class.service';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'gms-delete-class',
@@ -14,7 +14,7 @@ export class DeleteClassComponent implements OnInit {
   public dialogData: any;
 
   constructor(
-  public dialogRef: MatDialogRef<DeleteClassComponent>, private classService: ClassService) { }
+  @Optional() protected dialogRef: NbDialogRef<DeleteClassComponent>, private classService: ClassService) { }
 
   ngOnInit() {
     this.classData = this.dialogData;
