@@ -21,7 +21,7 @@
       <label for="teacher" class="label">Select Teacher:</label>
       <div class="form-field">
       <nb-select [(ngModel)]="teacherData" id="teacher">
-        <nb-option *ngFor="let teacher of teachers" [value]="teacher.email">
+        <nb-option *ngFor="let teacher of teachers" [value]="teacher">
           {{teacher.name}}
         </nb-option>
       </nb-select>

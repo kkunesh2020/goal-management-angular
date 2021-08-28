@@ -14,14 +14,7 @@ ul {
   .hiddenInput{
     display: none;
   }
-  
-  mat-dialog-title{
-    font-size: 1.4rem;
-  }
-  
-  mat-form-field {
-    width: 80%;
-  }
+
 
   .student-email-input-error{
     color: red;
@@ -40,10 +33,6 @@ ul {
         margin-left: 5px;
       }
   }
-  
-  .mat-dialog-content{
-    height: 75% !important;
-  }
 
   .students-section{
       margin-top: 1.5rem;
@@ -55,8 +44,6 @@ ul {
       width: 100%;
     }
   }
-
-  
   
   .exit{
     float: right;
@@ -93,14 +80,6 @@ ul {
     border: 2px solid #ffffff;
     border-top-color: #000000;
     animation: spinner .8s linear infinite;
-  }
-  
-  .mat-dialog-title{
-    font-size: 1.8rem;
-  }
-  
-  .spacer{
-    width: 43%;
   }
   
   .label{

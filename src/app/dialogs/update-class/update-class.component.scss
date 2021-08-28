@@ -83,6 +83,13 @@
       margin-right: 1rem;
     }
   }
+
+  .form-block{
+    margin-top: 1rem;
+    .icon-block{
+      width: 100%;
+    }
+  }
   
   .markButton{
     text-align: left;
@@ -147,4 +154,8 @@
       margin-left: 8px;
       margin-bottom: 0;
     }
+  }
+
+  .label{
+    line-height: 2rem;
   }
