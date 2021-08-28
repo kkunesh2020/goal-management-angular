@@ -1,14 +1,19 @@
 #createClassButton{
     margin-left: 75%;
-    font-size: 1rem;
     margin-bottom: 1rem;
     position: absolute;
     right: 5%;
-    mat-icon{
-      margin-right: .1rem;
-    }
   }
 
   .director-page{
       margin-top: 2rem;
+  }
+
+  .warning{
+    top: 20%;
+    position: absolute;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    width: 100%;
   }
