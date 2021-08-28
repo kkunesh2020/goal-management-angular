@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { finalize } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { NbDialogRef, NbDialogService } from '@nebular/theme';
   templateUrl: './uploader.component.html',
   styleUrls: ['./uploader.component.scss'],
 })
-export class UploaderComponent {
+export class UploaderComponent implements OnInit {
   isHovering: boolean;
   files: FileClass[] = [];
   goalData: any;
@@ -24,11 +24,11 @@ export class UploaderComponent {
     public storage: AngularFireStorage,
     private goalService: GoalService
   ) {
-    if(this.data){
-      this.goalData = this.data.goal;
-      this.email = this.data.email;
-    }
-    
+  }
+
+  ngOnInit(){
+    this.goalData = this.data.goal;
+    this.email = this.data.email;
   }
 
   toggleHover(event: boolean) {
