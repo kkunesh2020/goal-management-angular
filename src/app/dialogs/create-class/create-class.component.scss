@@ -48,6 +48,15 @@ ul {
   .students-section{
       margin-top: 1.5rem;
   }
+
+  .form-block{
+    margin-top: 1rem;
+    .icon-block{
+      width: 100%;
+    }
+  }
+
+  
   
   .exit{
     float: right;
@@ -63,6 +72,11 @@ ul {
   
   mat-radio-button{
     margin-right: 1rem;
+  }
+
+  mat-icon{
+    height: 30px;
+    width: 30px;
   }
   
   .spinner:before {

@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="form-block">
         <label for="teacher" class="label">Select Teacher:</label>
         <div class="form-field">
         <nb-select [(ngModel)]="teacherData" id="teacher">
@@ -28,27 +28,33 @@
       </div>
       </div>
 
+      <div class="form-block">
+        <label class="label">Select Class Icon:</label>
+        <div class="icon-block">
+          <mat-button-toggle-group>
+            <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:0:(icons.length / 2)">
+                <mat-icon>{{icon}}</mat-icon>
+            </mat-button-toggle>        
+          </mat-button-toggle-group>
+        </div>
+       
+        <div class="icon-block">
+          <mat-button-toggle-group>
+            <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:(icons.length / 2):icons.length">
+                <mat-icon>{{icon}}</mat-icon>
+            </mat-button-toggle>       
+          </mat-button-toggle-group>
+        </div>
+        
+      </div>
 
-      <p>Select Class Icon: </p>
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:0:(icons.length / 2)">
-            <mat-icon>{{icon}}</mat-icon>
-        </mat-button-toggle>        
-      </mat-button-toggle-group>
-
-      <br />
-
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:(icons.length / 2):icons.length">
-            <mat-icon>{{icon}}</mat-icon>
-        </mat-button-toggle>       
-      </mat-button-toggle-group>
+      
 
     </nb-card-body>
   
     <nb-card-footer>
       <div class="card-footer">
-      <button nbButton mat-dialog-close status="basic">Cancel</button>
+      <button nbButton mat-dialog-close status="basic" class="cancel">Cancel</button>
       <button nbButton status="primary" (click)="createClass()" [nbSpinner]="loading" [disabled]="!formComplete() || loading">Create Class</button>
       </div>
     </nb-card-footer>

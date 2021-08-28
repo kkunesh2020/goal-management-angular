@@ -70,3 +70,11 @@ button{
   .error{
     color: red !important;
   }
+
+  .card-footer{
+    float: right;
+  
+    .cancel{
+      margin-right: 1rem;
+    }
+  }

@@ -29,11 +29,11 @@ export class CreateClassComponent implements OnInit {
   selectedIcon: string = "science";
   assignedToAll: boolean;
   public data: any;
-  icons = ['science', 'engineering', 'construction', 'psychology', 'school', 'history_edu', 'draw', 'functions', 'superscript', 'pie_chart_outline', 'computer', 'code', 'book_fill', 'biotech']
+  icons = ['📚', '🛠', '🔭', '🧠', '🔬', '🏛', '🎨', '🧮', '💻', '🧪', '🤖', '🖋', '🎭', '📐']
 
   constructor(private goalService: GoalService, private authService: AuthService, 
   @Optional() protected dialogRef: NbDialogRef<CreateClassComponent>, private classService: ClassService) {
-    this.class = new DirectorClassClass('', '', [], '', 'book');
+    this.class = new DirectorClassClass('', '', [], '', '📚');
    }
 
   ngOnInit() {
