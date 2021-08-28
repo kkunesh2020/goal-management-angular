@@ -1,8 +1,8 @@
 <nb-card>
   <nb-card-header>
     📄 Upload a File
-    <button mat-dialog-close class="exit">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+    <button (click)="closeDialog()" class="exit">
+      <mat-icon class="exitIcon">clear</mat-icon>
     </button>
   </nb-card-header>
   <nb-card-body>
@@ -33,8 +33,7 @@
     
     <div *ngFor="let file of files">
         <div class="file">
-          <mat-icon>description</mat-icon>
-          <h3>{{file.name}}</h3>
+          <h3>📄 {{file.name}}</h3>
         </div>
        
     </div>

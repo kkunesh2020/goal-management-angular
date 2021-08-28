@@ -35,6 +35,10 @@ export class UploaderComponent implements OnInit {
     this.isHovering = event;
   }
 
+  closeDialog(){
+    this.ref.close();
+  }
+
   toggleDrag(event: boolean) {
     this.isHovering = event;
   }
