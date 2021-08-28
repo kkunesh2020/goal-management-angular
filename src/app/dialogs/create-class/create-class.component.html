@@ -8,23 +8,25 @@
   </nb-card-header>
   
     <nb-card-body>
-      <p>
-        <mat-form-field>
-          <mat-label>Class Name</mat-label>
-          <input matInput [(ngModel)]="class.title">
-        </mat-form-field>
-      </p>
 
-      <p>Select Teacher:</p>
+      <div>
+        <label for="name" class="label">Class Name</label>
+        <div class="form-field">
+          <input nbInput [(ngModel)]="class.title" id="name" fullWidth placeholder="Enter Class Name...">
+          <p [hidden]="class.title.length <= 20" class="error">Name must be less than 20 chars.</p>
+        </div>
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Class Teacher</mat-label>
-        <mat-select [(ngModel)]="teacherData">
-          <mat-option *ngFor="let teacher of teachers" [value]="teacher.email">
+      <div>
+        <label for="teacher" class="label">Select Teacher:</label>
+        <div class="form-field">
+        <nb-select [(ngModel)]="teacherData" id="teacher">
+          <nb-option *ngFor="let teacher of teachers" [value]="teacher.email">
             {{teacher.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          </nb-option>
+        </nb-select>
+      </div>
+      </div>
 
 
       <p>Select Class Icon: </p>

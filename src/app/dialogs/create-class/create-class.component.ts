@@ -43,7 +43,7 @@ export class CreateClassComponent implements OnInit {
 
 
   formComplete(): boolean {
-    return this.class.title != "" && this.teacherData.length > 0;
+    return this.class.title != "" && this.teacherData.length > 0 && this.class.title.length < 20;
   }
 
 
