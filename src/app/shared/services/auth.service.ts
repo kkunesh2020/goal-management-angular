@@ -57,7 +57,7 @@ export class AuthService {
     if(credential.user){
       await this.updateUserData(credential.user);
     }
-    this.route.navigate(['/classes']);
+    this.route.navigate(['/']);
     return;
   }
 

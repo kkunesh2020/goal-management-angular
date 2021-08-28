@@ -65,7 +65,7 @@ export class UpdateGoalComponent implements OnInit{
     } else {
       // unsubmit
       this.goalService
-        .unsubmitGoal(this.data, this.data.email)
+        .unsubmitGoal(this.data, this.authService.userEmail)
         .then(() => {
           this.isLoading = false;
           this.madeChanges = true;

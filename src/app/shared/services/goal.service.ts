@@ -311,6 +311,7 @@ export class GoalService {
   // unsubmit a goal
   // @params goal: Goal, uid: string
   unsubmitGoal(goal: Goal, uid: string): Promise<any> {
+    console.log("inputs", goal, uid)
     goal = this.validateGoal(goal);
     // filters out the inputted goal from the hasCompleted field therefore unsubmitting it
     goal.hasCompleted = goal.hasCompleted.filter((item) => item !== uid);

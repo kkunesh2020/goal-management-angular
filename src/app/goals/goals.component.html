@@ -3,6 +3,7 @@
 <div style="display: inline;" [hidden]="!classes || classes.length == 0">
   <button nbButton status="primary" size="small" *ngIf="!loading" id="createGoal" [matMenuTriggerFor]="menu"><nb-icon icon="plus-outline"></nb-icon>Create Goal</button>
   <mat-menu #menu="matMenu">
+    <p *ngIf="classes.length == 0">No Assigned Classes.</p>
     <button mat-menu-item *ngFor="let class of classes" (click)="createGoalDialog(class)">
       <mat-icon>{{class.classIcon ? class.classIcon : 'class'}}</mat-icon>
       {{class.title}}
