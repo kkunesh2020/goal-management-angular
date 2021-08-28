@@ -5,20 +5,19 @@
     <mat-icon class="exitIcon">clear</mat-icon>
   </button>
 </nb-card-header>
-<nb-card-body class="content">
+<nb-card-body>
   <div class="add-existing-student section">
     <h3>Add Existing Student</h3>
-    <p>
-      <mat-form-field>
-        <mat-label>Student Name:</mat-label>
-        <input type="text" matInput [formControl]="userValue" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let student of studentData" [value]="student">
-            {{student.name}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </p>
+
+    <div>
+      <label for="name" class="label">Student Name:</label>
+      <input type="text" nbInput fullWidth [formControl]="userValue" [matAutocomplete]="auto" id="name">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let student of studentData" [value]="student">
+          {{student.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
     <p class="error-text">{{errorMessage}}</p>
   </div>
 
@@ -26,18 +25,18 @@
 
   <div class="create-new-student section">
     <h3>Create new Student</h3>
-      <mat-form-field>
-        <mat-label>Student Email</mat-label>
-        <input type="text" matInput [(ngModel)]="studentEmail" placeholder="jsmith2024@chadwickschool.org">
-        <mat-hint class="error-text">{{emailErrorMessage}}</mat-hint>
-      </mat-form-field>
+      <div>
+        <label class="label" for="email">Student Email</label>
+        <input type="text" nbInput fullWidth [(ngModel)]="studentEmail" placeholder="atsuboi2024@chadwickschool.org" id="email">
+        <p class="error-text">{{emailErrorMessage}}</p>
+      </div>
   </div>
   
 </nb-card-body>
 
 <nb-card-footer>
   <div class="card-footer">
-    <button nbButton mat-dialog-close status="basic">Cancel</button>
+    <button nbButton mat-dialog-close status="basic" class="cancel">Cancel</button>
     <button nbButton status="primary" (click)="createStudent()" [nbSpinner]="loading"
       [disabled]="!formComplete() || loading">Add Student</button>
   </div>
