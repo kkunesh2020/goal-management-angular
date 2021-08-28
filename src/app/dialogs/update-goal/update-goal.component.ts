@@ -132,7 +132,7 @@ export class UpdateGoalComponent implements OnInit{
       context: {data: { goal: this.data, email: this.data.email }}
     });
     dialogRef.onClose.subscribe((result) => {
-      if (result !== '') {
+      if (result && result !== '') {
         this.updated = true;
         this.data.links != null
           ? (this.data.links = this.data.links.concat(result))
