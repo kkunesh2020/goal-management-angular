@@ -1,12 +1,13 @@
 
-<button mat-dialog-close class="exit">
-    <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
-  </button>
-    <h1 mat-dialog-title>Create a Class</h1>
-    <div mat-dialog-content>
-
-        <!-- title, students, icon -->
-      <!-- Title -->
+<nb-card>
+  <nb-card-header>
+      🏫 Create a Class
+      <button mat-dialog-close class="exit">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+      </button>
+  </nb-card-header>
+  
+    <nb-card-body>
       <p>
         <mat-form-field>
           <mat-label>Class Name</mat-label>
@@ -41,27 +42,12 @@
         </mat-button-toggle>       
       </mat-button-toggle-group>
 
-      <!-- <div class="students-section">
-        <mat-form-field>
-            <mat-label>Enter Student Email</mat-label>
-            <input matInput placeholder="Ex. johndoe2024@chadwickschool.org" (keyup.enter)="enterStudent()" [(ngModel)]="studentEmailInput">
-        </mat-form-field>
-        <p class="student-email-input-error">{{studentEmailError}}</p>
-
-        <h3 *ngFor="let email of studentEmails">
-            <div class="person-email">
-                <mat-icon>person</mat-icon>
-                <p>{{email}}</p>
-            </div>
-        </h3>         
-      </div> -->
-
-
-    </div>
+    </nb-card-body>
   
-    <mat-dialog-actions>
-      <div class="spacer"></div>
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-raised-button color="primary" (click)="createClass()" [class.spinner]="loading" [disabled]="!formComplete() || loading">Create Class</button>
-    </mat-dialog-actions>
-  
+    <nb-card-footer>
+      <div class="card-footer">
+      <button nbButton mat-dialog-close status="basic">Cancel</button>
+      <button nbButton status="primary" (click)="createClass()" [nbSpinner]="loading" [disabled]="!formComplete() || loading">Create Class</button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
