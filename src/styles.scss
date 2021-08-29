@@ -50,6 +50,11 @@ button{
   
   }
 
+  .block:hover{
+    box-shadow: 1px 8px 20px grey;
+    -webkit-transition:  all .6s ease-in;
+  }
+
   @media screen and (min-width: 320px) and (max-width: 500px) {
     .block{
       flex: none !important;
