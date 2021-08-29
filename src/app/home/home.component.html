@@ -29,7 +29,7 @@
 
 
 
-  <div *ngIf="loggedIn" [hidden]="loading">
+  <div *ngIf="loggedIn" [hidden]="loading" class="login-section">
     <h1 class="userWelcome">Welcome, <span>{{username}}!</span></h1>
     <div class="teacherSection" *ngIf="accountType=='teacher'">
       <button nbButton status="primary" [routerLink]="['/classes']">VIEW CLASSES</button>

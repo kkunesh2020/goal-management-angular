@@ -1,7 +1,7 @@
 <h1 class="title" *ngIf="class">{{class.title}}</h1>
 <gms-spinner *ngIf="loading"></gms-spinner>
 
-<div class="teacherSection" *ngIf="class && accountType=='teacher'">
+<div class="teacherSection" *ngIf="class && accountType=='teacher' && !loading">
   <div fxLayoutAlign="center center">
     <gms-spinner *ngIf="loading"></gms-spinner>
     <table mat-table [dataSource]="studentDataSource" *ngIf="studentDataSource.length > 0" class="mat-elevation-z8 table">
@@ -99,7 +99,7 @@
 <p *ngIf="goalsDataSource.length == 0 && accountType=='student' && !loading" class="subtitle">No Goals Assigned Yet.</p>
 
 
-<div class="studentSection" *ngIf="class && accountType=='student'" fxLayoutAlign="center center">
+<div class="studentSection" *ngIf="class && accountType=='student' && !loading" fxLayoutAlign="center center">
   <gms-spinner *ngIf="loading"></gms-spinner>
   <table [nbTreeGrid]="source" class="table">
     <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>

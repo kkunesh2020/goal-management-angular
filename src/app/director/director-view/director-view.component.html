@@ -1,7 +1,7 @@
 <div class="director-page">
   <gms-spinner *ngIf="loading"></gms-spinner>
   <button nbButton status="primary" id="createClassButton" (click)="createClassDialog()"><nb-icon icon="plus-outline"></nb-icon> Create Class</button>
-  <p class="warning" *ngIf="classes.length == 0">No classes created yet.</p>
+  <p class="warning" *ngIf="classes.length == 0 && !loading">No classes created yet.</p>
   <div class="classes">
     <nb-card class="block" *ngFor="let class of classes" (click)="goToCard(class.id)">
       <h1>{{class.classIcon}}</h1>
