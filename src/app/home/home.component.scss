@@ -69,7 +69,10 @@
 
   .illustration{
     width: 65%;
-    margin-top: 20%;
+    position: relative;
+    top: 50%;
+    left: 11%;
+    transform: translateY(-50%);
   }
 
   .title{
@@ -80,20 +83,20 @@
   
   .logIn{
     display: flex;
+    background: white;
 
     .left{
-      width: 50%;
+      width: 45%;
       height: 100vh;
       background-color: white;
     }
 
     .right{
       position: relative;
-      width: 50%;
+      width: 55%;
       height: 100vh;
+      clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
       background: linear-gradient(135deg,#2a2ddd, #4579d8, #00BAED);
-      display:block; 
-      margin: auto auto;
     }
   }
 
