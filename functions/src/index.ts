@@ -1,18 +1,17 @@
 // Firebase Config
 import * as functions from 'firebase-functions';
 let firebase = require('firebase-admin');
-firebase.initializeApp();
 const db = firebase.firestore();
 // Sendgrid Config
 import * as sgMail from '@sendgrid/mail';
 const URL = 'https://goal-management-system.web.app/';
 
-// var serviceAccount = require("./config/goal-management-system-firebase-adminsdk-53bx2-4b89ce373e.json");
+var serviceAccount = require("./config/goal-management-system-firebase-adminsdk-53bx2-4b89ce373e.json");
 
-// firebase.initializeApp({
-//   credential: firebase.credential.cert(serviceAccount),
-//   databaseURL: "https://wick-bridge.firebaseio.com"
-// });
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount),
+  databaseURL: "https://goal-management-system.firebaseio.com"
+});
 
 const API_KEY = functions.config().sendgrid.key;
 // const TEMPLATE_ID = functions.config().sendgrid.template;
