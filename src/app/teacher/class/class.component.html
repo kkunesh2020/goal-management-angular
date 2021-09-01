@@ -99,7 +99,7 @@
 <p *ngIf="goalsDataSource.length == 0 && accountType=='student' && !loading" class="subtitle">No Goals Assigned Yet.</p>
 
 
-<div class="studentSection" *ngIf="class && accountType=='student' && !loading" fxLayoutAlign="center center">
+<div class="studentSection" *ngIf="goalsDataSource.length > 0 && class && accountType=='student' && !loading" fxLayoutAlign="center center">
   <gms-spinner *ngIf="loading"></gms-spinner>
   <table [nbTreeGrid]="source" class="table">
     <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
