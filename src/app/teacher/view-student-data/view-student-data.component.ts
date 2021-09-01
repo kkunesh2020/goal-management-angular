@@ -110,7 +110,7 @@ export class ViewStudentDataComponent implements OnInit {
           this.completedGoals.push(goal);
         } else {
           console.log('missing!');
-          this.missingGoals.push(goal);
+          if(!goal.declined) this.missingGoals.push(goal);
         }
       });
     });
