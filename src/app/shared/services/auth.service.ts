@@ -50,13 +50,19 @@ export class AuthService {
    */
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider).catch((err) => {
+    provider.addScope('email');
+    this.afAuth.auth.signInWithPopup(provider).then(async(result) => {
+      if(result.user){
+        console.log("cred", result.user)
+        let additionalProfile: any = result.additionalUserInfo.profile;
+        await this.updateUserData(result.user, additionalProfile.email);
+      }
+      console.log("result is", result);
+    }).catch((err) => {
       console.log("err", err);
       return null;
     });
-    if(credential.user){
-      await this.updateUserData(credential.user);
-    }
+    
     this.route.navigate(['/']);
     return;
   }
@@ -94,16 +100,16 @@ export class AuthService {
    * adds user data to firebase after login
    * @param user -
    */
-  private async updateUserData(user) {
+  private async updateUserData(user, displayEmail) {
     // Sets user data to firestore on login
-    const previousUserData = await this.getUserByEmail(user.email);
-    const userRef = this.afs.firestore.doc(`users/${user.email}`);
-    console.log("updating", user);
-    this.userEmail = user.email;
+    const previousUserData = await this.getUserByEmail(displayEmail);
+    const userRef = this.afs.firestore.doc(`users/${displayEmail}`);
+    console.log("updating", user, displayEmail);
+    this.userEmail = displayEmail;
 
     const data = {
       name: user.displayName,
-      email: user.email,
+      email: displayEmail,
       accountType: "student",
       goalsAssigned: [],
       goalsCompleted: [],
@@ -116,10 +122,19 @@ export class AuthService {
         userRef.set(data, {merge: true});
       }
 
+      console.log(doc.exists, doc.data())
+
+      if(doc.exists && doc.data().name.length == 0){
+        console.log("update name")
+        await userRef.update(data)
+      }
+
       if(previousUserData){
         // just sign in via google func instead of auth 
         await this.afs.firestore.doc(`users/${previousUserData.id}`).update({name: user.displayName });
       }
+
+      this.route.navigate(['/classes']);
     });
 
   }

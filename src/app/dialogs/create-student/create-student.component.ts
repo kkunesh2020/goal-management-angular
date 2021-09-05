@@ -84,10 +84,6 @@ export class CreateStudentComponent implements OnInit {
           this.emailErrorMessage = "Please enter a valid email";
           this.loading = false;
           return;
-        }else if(!this.checkChadwickEmail(this.studentEmail)){
-          this.emailErrorMessage = "Please enter a valid Chadwick email";
-          this.loading = false;
-          return;
         }else if(this.checkContainsEmail(this.studentEmail)){
           this.emailErrorMessage = "User already exists. Please add user instead.";
           this.loading = false;
