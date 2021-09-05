@@ -31,10 +31,13 @@ export class AuthService {
       switchMap(user => {
         // Logged in
         if (user) {
+          console.log("user adata", user)
           if(user.email) {
+            console.log("topion 1")
             this.userEmail = user.email;
             return this.afs.doc<User>(`users/${user.email}`).valueChanges()
           };
+          console.log("topion 2", this.userEmail)
           return this.afs.doc<User>(`users/${this.userEmail}`).valueChanges();
         } else {
           // Logged out
@@ -126,7 +129,7 @@ export class AuthService {
 
       if(doc.exists && doc.data().name.length == 0){
         console.log("update name")
-        await userRef.update(data)
+        await userRef.update({name: data.name})
       }
 
       if(previousUserData){
