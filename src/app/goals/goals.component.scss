@@ -1,0 +1,63 @@
+.table, table {
+  width: 70%;
+  margin: auto;
+}
+
+mat-spinner{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+}
+
+.table-row{
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.table-row:hover{
+  background-color: rgb(239, 240, 240);
+}
+
+#createGoal{
+  margin-left: 75%;
+  margin-bottom: 1rem;
+}
+
+
+.red-row {
+  background-color: rgb(206, 105, 105);
+}
+
+.yellow-row {
+  background-color: #f5d564;
+}
+
+.green-row {
+  background-color: rgb(158, 227, 161);
+}
+
+.mat-row{
+  cursor: pointer;
+}
+
+
+.subtitle{
+  text-align: center;
+}
+
+.main{
+  margin-top: 2rem;
+  margin:auto;
+}
+
+.title{
+  margin-top: 2rem;
+  text-align: center;
+}
+
+::ng-deep html.cdk-global-scrollblock {
+  top: 0px !important;
+  }

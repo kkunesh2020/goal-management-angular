@@ -1,0 +1,13 @@
+<nb-card>
+  <nb-card-header>
+    🗑 Delete Goal
+    <button class="exit" (click)="closeDialog()">
+      <nb-icon class="exitIcon" icon="close-outline"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <p>Be careful! This will permanently delete your goal.</p>
+    <button nbButton status="danger" class="deleteButton" (click)="deleteGoal()" [nbSpinner]="loading">Delete Goal</button>
+  </nb-card-body>
+
+</nb-card>

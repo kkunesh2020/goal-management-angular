@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap');
+
+.mat-row{
+  cursor: pointer;
+}
+
+.table {
+  margin-top: 4%;
+  width: 70%;
+}
+
+.info{
+  text-align: left;
+  padding-left: 10%;
+}
+
+.login-section{
+  margin-top: 2rem;
+}
+
+.teacherSection, .studentSection, .directorSection{
+  margin-top: 1rem;
+}
+.main{
+  position: relative;
+  text-align: center;
+  font-family: 'Heebo', sans-serif;
+  // background: radial-gradient(43.63% 71.34% at 81.68% 35.42%, rgb(140 123 162 / 71%) 0, rgba(0, 0, 0, 0.2) 100%, rgba(0, 0, 0, 0.2) 100%) 0 0/cover, radial-gradient(26.65% 57.53% at 26.65% 63.95%, rgb(151 147 202 / 35%) 0, rgba(0, 0, 0, 0.2) 100%, rgba(0, 0, 0, 0.2) 100%) 0 0/cover, radial-gradient(34.81% 57.45% at 62.54% 73.38%, rgb(128 194 224 / 57%) 0, rgba(0, 0, 0, 0.2) 100%, rgba(0, 0, 0, 0.2) 100%) 0 0/cover, radial-gradient(16.67% 29.95% at 17.23% 14.34%, rgb(19 0 177 / 29%) 0, rgba(0, 0, 0, 0.2) 100%, rgba(0, 0, 0, 0.2) 100%) 0 0/cover, linear-gradient(180deg, #21a5f3 0, rgba(0, 28, 126, 0.04) 100%) 0 0/cover, url(/assets/background.jpeg) 0 0/cover;
+
+  height: 100%;
+
+  .logoBrand{
+    display: flex;
+    margin-left: 8%;
+    margin-top: 1rem;
+    img{
+      width: 40px;
+      height: 40px;
+      margin-right: 7px;
+    }
+
+    nb-icon{
+      margin-top: 10px;
+    }
+
+    span{
+      color: rgb(13, 5, 167);
+      font-size: 30px;
+      margin-top: 11px;
+      font-weight: bold;
+    }
+  }
+
+  .bottom-star{
+    bottom: -3.5rem;
+    left: -3.5rem;
+    width: 15rem;
+    height: 15rem;
+    position: absolute;
+  }
+
+  h3{
+    font-size: 3rem;
+    margin-bottom: 24px;
+    margin-top: 30%;
+  }
+  .logo{
+    margin:auto;
+    margin-top: 5rem;
+    width: 15rem;
+    height: 15rem;
+  }
+
+  .illustration{
+    width: 65%;
+    position: relative;
+    top: 50%;
+    left: 11%;
+    transform: translateY(-50%);
+  }
+
+  .title{
+    margin-bottom: 2%;
+    font-size: 2rem;
+    color: white;
+  }
+  
+  .logIn{
+    display: flex;
+    background: white;
+
+    .left{
+      width: 45%;
+      height: 100vh;
+      background-color: white;
+    }
+
+    .right{
+      position: relative;
+      width: 55%;
+      height: 100vh;
+      clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+      background: linear-gradient(135deg,#2a2ddd, #4579d8, #00BAED);
+    }
+  }
+
+
+  .loader {
+    margin: auto;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .class-button{
+      background-color: #0E2573;
+      border: 5px solid white !important;
+      border-radius: 4px;
+      color: white;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-weight: 300;
+      margin: 8px 0;
+      border: none;
+      width: 30%;
+  }
+
+  .class-button:hover {
+    cursor: pointer;
+  }
+
+  .or{
+    color: white;
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .google-button {
+    margin-top: 2rem;
+  }
+
+  .info-list{
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .google-button:hover{
+    cursor: pointer;
+  }
+
+  .google-button__icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 8px 0 8px 8px;
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+  }
+
+  .userWelcome{
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: normal;
+    color: gray;
+    span{
+      font-weight: 600;
+      color: black;
+    }
+  }
+
+  .google-button__icon--plus {
+    width: 27px;
+  }
+
+  .google-button__text {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 24px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto',arial,sans-serif;
+  }
+}
+
+
+/* iPads (portrait and landscape) ----------- */
+@media screen and (min-width: 550px) and (max-width: 800px) {
+  .class-button{
+    width: 50%;
+  }
+}
+/* mobiles (landscape and portrait) */
+@media screen and (min-width: 320px) and (max-width: 500px) {
+  .class-button{
+    width: 50%;
+  }
+
+  .left{
+    margin: auto;
+    background: linear-gradient(135deg,#2a2ddd, #4579d8, #00BAED);
+    width: 100% !important;
+  }
+
+  .bottom-star{
+    display: none;
+  }
+
+  .right{
+    display: none !important;
+  }
+
+  h3{
+    font-size: 1.5rem !important;
+    margin-bottom: 5px !important;
+    margin-top: 0% !important;
+    margin-bottom: 0px;
+  }
+
+  .info{
+    margin-top: 41% !important;
+    border-radius: 5px;
+    background-color: white;
+    border: 1.2rem solid white;
+    padding-left: 0%;
+    margin: auto;
+    width: 283px;
+  }
+
+  .info-list{
+    font-size: .8rem !important;
+  }
+
+  .info-desc{
+    font-size: 11px !important;
+    max-width: 269px;
+  }
+}

@@ -1,0 +1,76 @@
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 80%;
+  font-weight: 200;
+  height: 300px;
+  background-color: #ccf2ff;
+  border: 2px dashed #2196f3;
+  border-radius: 5px;
+  margin: 10px 0;
+  margin-top: 1.5rem;
+
+  &.hovering {
+      border: 2px solid rgb(25, 48, 225) !important;
+      background-color: white;
+  }
+
+  .file-label {
+      font-size: 1.2em;
+  }
+}
+
+nb-card{
+  width: 30rem;
+}
+
+#fileButton{
+  margin-top: 1rem;
+}
+
+progress::-webkit-progress-value {
+  transition: width 0.1s ease;
+}
+
+progress::-webkit-progress-value {
+  transition: width 0.1s ease;
+}
+
+.exit{
+  float: right;
+  top:-24px;
+  right:-24px;
+  border:none;
+  background: transparent;
+}
+
+.exit:hover{
+  cursor: pointer;
+}
+
+.file{
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+
+  h3{
+    font-size: 15px;
+  }
+}
+
+.uploadTitle{
+  font-size: 15px;
+}
+
+.dTitle{
+  margin-bottom: 0px;
+}
+
+.card-footer{
+  float: right;
+
+  .cancel{
+    margin-right: 1rem;
+  }
+}

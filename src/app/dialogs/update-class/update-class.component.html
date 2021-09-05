@@ -1,0 +1,60 @@
+<nb-card>
+
+  <nb-card-header>
+    🏫 Update Class
+    <button (click)="closeDialog()" class="exit">
+      <mat-icon class="exitIcon">clear</mat-icon>
+    </button>
+  </nb-card-header>
+
+  <nb-card-body>
+    <!-- Title -->
+    <div>
+      <label for="name" class="label">Class Name</label>
+      <div class="form-field">
+        <input nbInput [(ngModel)]="class.title" id="name" fullWidth placeholder="Enter Class Name...">
+        <p [hidden]="class.title.length <= 20" class="error">Name must be less than 20 chars.</p>
+      </div>
+    </div>
+
+    <div class="form-block" *ngIf="teacherData && teachers">
+      <label for="teacher" class="label">Select Teacher:</label>
+      <div class="form-field">
+      <nb-select [(ngModel)]="teacherData" id="teacher">
+        <nb-option *ngFor="let teacher of teachers" [value]="teacher">
+          {{teacher.name}}
+        </nb-option>
+      </nb-select>
+    </div>
+    </div>
+
+    <div class="form-block">
+      <label class="label">Select Class Icon:</label>
+      <div class="icon-block">
+        <mat-button-toggle-group>
+          <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:0:(icons.length / 2)">
+              <mat-icon>{{icon}}</mat-icon>
+          </mat-button-toggle>        
+        </mat-button-toggle-group>
+      </div>
+     
+      <div class="icon-block">
+        <mat-button-toggle-group>
+          <mat-button-toggle (click)="setSelectedIcon(icon)" [checked]="icon == selectedIcon" *ngFor="let icon of icons | slice:(icons.length / 2):icons.length">
+              <mat-icon>{{icon}}</mat-icon>
+          </mat-button-toggle>       
+        </mat-button-toggle-group>
+      </div>
+      
+    </div>
+  </nb-card-body>
+
+  <nb-card-footer>
+    <div class="card-footer">
+      <button nbButton (click)="closeDialog()" status="basic" class="cancel">Cancel</button>
+      <button nbButton status="primary" (click)="updateClass()" [nbSpinner]="loading"
+        [disabled]="!formComplete() || loading">Update Class</button>
+    </div>
+  </nb-card-footer>
+
+</nb-card>

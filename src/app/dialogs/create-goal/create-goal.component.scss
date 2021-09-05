@@ -1,0 +1,55 @@
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+}
+
+.student-section{
+  margin-bottom: 2rem;
+}
+
+
+.error{
+  margin-top: 5px;
+}
+
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+nb-card{
+  width: 30rem;
+}
+
+
+.hiddenInput{
+  display: none;
+}
+
+.exit{
+  float: right;
+  top:-24px;
+  right:-24px;
+  border:none;
+  background: transparent;
+}
+
+.exit:hover{
+  cursor: pointer;
+}
+
+mat-radio-button{
+  margin-right: 1rem;
+}
+
+
+input{
+  width: 100% !important;
+  max-width: 30rem !important;
+}
+
+
+
+.form-field{
+  margin-bottom: 1rem;
+}

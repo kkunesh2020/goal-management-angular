@@ -1,0 +1,47 @@
+<nb-card>
+  <nb-card-header>
+    📄 Upload a File
+    <button (click)="closeDialog()" class="exit">
+      <mat-icon class="exitIcon">clear</mat-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="dropzone"
+     dropzone
+     (hovered)="toggleHover($event)"
+     (dropped)="onDrop($event)"
+     [class.hovering]="isHovering">
+
+     <h3 class="dTitle">Drag and Drop a File</h3>
+     <div class="file">
+        <label class="file-label">
+
+          <span class="file-cta">
+
+            <input class="file-input" style="display: none" multiple type="file" #hiddenFileInput accept="image/jpeg,image/x-png" (change)="onDrop($event.target.files)">
+            <br>
+            <button nbButton id="fileButton" status="primary" (click)="hiddenFileInput.click()"><nb-icon icon="cloud-upload-outline"></nb-icon> Select a File</button>
+          </span>
+        </label>
+      </div>
+</div>
+    <div *ngIf="loading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    
+    <h3 class="uploadTitle">Uploads</h3>
+    
+    <div *ngFor="let file of files">
+        <div class="file">
+          <h3>📄 {{file.name}}</h3>
+        </div>
+       
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="card-footer">
+    <button nbButton status="basic" class="cancel" >Cancel</button>
+    <button nbButton status="primary" (click)="addFiles()" [disabled]="loading || files.length == 0">Add Files</button>
+  </div>
+  </nb-card-footer>
+</nb-card>

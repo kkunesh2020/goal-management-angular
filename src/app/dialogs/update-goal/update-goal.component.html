@@ -1,0 +1,85 @@
+<nb-card *ngIf="data">
+  <nb-card-header>
+    {{data.description}}
+    <button (click)="closeModal()" class="exit">
+      <mat-icon aria-hidden="false" aria-label="Example home icon" class="exitIcon">clear</mat-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="date">
+      <nb-icon icon="calendar-outline"></nb-icon>
+      <p> {{data.dueDate.seconds * 1000 | date}}</p>
+    </div>
+
+    <p><span style="font-weight: bold;">Created By: </span>{{data.createdBy.name}}</p>
+    <div *ngIf="isCompleted" class="complete">
+      <mat-icon aria-hidden="false" aria-label="done icon" class="actionIcon">done</mat-icon>
+      <p>Completed</p>
+    </div>
+    <div *ngIf="!isCompleted" class="uncomplete">
+      <mat-icon aria-hidden="false" aria-label="done icon" class="actionIcon">clear</mat-icon>
+      <p>Not Completed</p>
+    </div>
+
+    <hr />
+
+    <div class="buttons">
+      <button nbButton outline status="basic" (click)="insertFileDialog()" size="small"><nb-icon icon="file-outline"></nb-icon>Attach File</button>
+      <button nbButton outline status="info" (click)="insertLinkDialog()" size="small"><nb-icon icon="link-outline"></nb-icon>Attach Link</button>
+      <button nbButton outline status="primary" (click)="viewGithubCommit()" size="small"><nb-icon icon="code-outline"></nb-icon>Attach Code</button>
+    </div>
+    <!-- <button mat-button [matMenuTriggerFor]="menu" color="primary" class="fileButton" *ngIf="!isCompleted">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Attachment
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="insertFileDialog()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">insert_drive_file</mat-icon> File
+      </button>
+      <button mat-menu-item (click)="insertLinkDialog()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">link</mat-icon> Link
+      </button>
+      <button mat-menu-item (click)="viewGithubCommit()">
+        <mat-icon aria-hidden="false" aria-label="Example github icon">code</mat-icon> Github Commit
+      </button>
+    </mat-menu> -->
+
+
+    <nb-list
+      *ngIf="data.files.length > 0 || data.links.length > 0 || data.commits.length > 0">
+      <nb-list-item  *ngFor="let link of data.links">
+        <nb-icon icon="link-outline">link</nb-icon>
+        <a (click)="goToLink(link.url)">{{link.url}}</a>
+        <nb-icon icon="close-outline" (click)="deleteLink(link.url)">
+        </nb-icon>
+      </nb-list-item>
+      <nb-list-item *ngFor="let commit of data.commits">
+        <nb-icon icon="code-outline">share</nb-icon>
+        <a (click)="goToLink(commit.url)">Attached Commit</a>
+
+        <nb-icon icon="close-outline" (click)="deleteLink(link.url)">
+        </nb-icon>
+      </nb-list-item>
+      <nb-list-item *ngFor="let file of data.files">
+        <nb-icon icon="file-outline"></nb-icon>
+        <a (click)="goToLink(file.downloadURL)">{{file.name}}</a>
+        <nb-icon icon="close-outline" (click)="deleteFile(file)">
+        </nb-icon>
+      </nb-list-item>
+    </nb-list>
+
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="updateGoal(true)" [nbSpinner]="isLoading" [disabled]="isLoading"
+      *ngIf="!isCompleted">
+      <nb-icon icon="checkmark-outline"></nb-icon> Mark As Done
+    </button>
+    <button nbButton (click)="deleteGoal()" status="danger" [nbSpinner]="isLoading" [disabled]="isLoading"
+      *ngIf="createdByStudent && !isCompleted">
+      <nb-icon icon="trash-2-outline"></nb-icon> Delete Goal
+    </button>
+
+    <button nbButton status="primary" [nbSpinner]="isLoading" class="acButton" *ngIf="isCompleted" (click)="updateGoal(false)">Unsubmit</button>
+
+  </nb-card-footer>
+</nb-card>

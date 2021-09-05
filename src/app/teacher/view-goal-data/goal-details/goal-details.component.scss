@@ -1,0 +1,115 @@
+.file, .link{
+  display: flex;
+  color: rgb(31, 152, 192);
+  margin-bottom: 1rem;
+
+  a{
+    margin: 0;
+    padding-top: 2px;
+  }
+
+  .close{
+    color:black;
+    margin-left: 8px;
+  }
+
+  mat-icon{
+    padding-left: 5px;
+    padding-right: 10px;
+  }
+}
+
+.studentDataRow:hover{
+  cursor: pointer;
+}
+
+.studentTable{
+  width: 70%;
+}
+
+.statsContainer{
+  margin-top: 3rem;
+}
+
+.goal{
+  margin-left: 2rem;
+}
+
+.goalDescription{
+  margin-left: 1rem;
+}
+
+.complete, .uncomplete, .declined, .pending{
+  display: flex;
+
+  p{
+    margin: 0;
+  }
+
+  mat-icon{
+    padding-right: 4px;
+  }
+}
+
+.uncomplete, .declined{
+  color: red;
+}
+
+.complete{
+  color: rgb(149, 221, 132);
+}
+
+.pending{
+  color: rgb(230, 191, 63);
+}
+
+.status{
+  display: flex;
+  align-items: center;
+}
+
+.reason{
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+
+.stats{
+  padding-top: 1rem;
+  
+  .row{
+    display: flex;
+  }
+
+  .stat{
+    width: 8rem;
+    margin-right: 2rem;
+    height: 10rem;
+
+    h2{
+      font-size: 1.5rem;
+    }
+  
+    h3{
+      font-weight: normal;
+      font-size: 1.5rem;
+      color: rgb(130, 126, 126);
+    }
+  }
+}
+
+.status{
+  display: flex;
+  align-items: center;
+}
+
+a{
+  cursor: pointer;
+}
+
+mat-spinner{
+  top: 30%;
+  left: 50%;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+}

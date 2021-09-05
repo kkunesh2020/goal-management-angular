@@ -1,0 +1,161 @@
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  mat-dialog-title{
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+  }
+  
+  .subtitle{
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .close{
+    cursor: pointer;
+  }
+  
+  .complete{
+    display: flex;
+    color: rgb(142, 197, 59);
+    margin-bottom: 1rem;
+  
+    p{
+      margin: 4px 0px 0px 2px;
+    }
+  }
+  
+  .actionIcon{
+    margin-top: 2px;
+    padding-left: 4px;
+  }
+  
+  .uncomplete{
+    display: flex;
+    color: red;
+    margin-bottom: 1rem;
+  
+    p{
+      margin: 0;
+      margin-top: 3px;
+      margin-left: 4px;
+    }
+  }
+  
+  .exit{
+    float: right;
+    top:-24px;
+    right:-24px;
+    border:none;
+    background: transparent;
+  }
+  
+  .exit:hover{
+    cursor: pointer;
+  }
+  
+  .actionButton{
+    margin-bottom: 2rem;
+    margin-top: 4rem;
+  
+    mat-icon{
+      margin-right: 1rem;
+    }
+  }
+
+  .form-block{
+    margin-top: 1rem;
+    .icon-block{
+      width: 100%;
+    }
+  }
+  
+  .markButton{
+    text-align: left;
+  }
+  
+  
+  .fileButton{
+    margin-bottom: 2rem;
+    border: 2px solid gray;
+  }
+  
+  
+  .file, .link, .commit{
+    display: flex;
+    color: rgb(31, 152, 192);
+    margin-bottom: 1rem;
+  
+    a{
+      margin: 0;
+      padding-top: 2px;
+    }
+  
+    .close{
+      color:black;
+      margin-left: 8px;
+    }
+  
+    mat-icon{
+      padding-left: 5px;
+      padding-right: 10px;
+    }
+  }
+  
+  .commit:hover, .link:hover{
+    cursor: pointer;
+  }
+  
+  .spacer{
+    width: 43%;
+  }
+
+  mat-dialog-actions{
+      margin-top: 2rem;
+  }
+  .link{
+    color: rgb(60, 67, 70);
+  }
+  
+  .mat-dialog-title{
+    font-size: 1.8rem;
+  }
+  
+  .acButton{
+    width: 12rem;
+  }
+  
+  .date{
+    display: flex;
+  
+    p{
+      margin-top: 4px;
+      margin-left: 8px;
+      margin-bottom: 0;
+    }
+  }
+
+  .label{
+    line-height: 2rem;
+  }

@@ -1,0 +1,47 @@
+
+<div class="main">
+  <div class="loader" *ngIf="loading"></div>
+  <div class="logIn" *ngIf="!loggedIn" [hidden]="loading">
+    <div class="left">
+      <!-- <div class="logoBrand">
+        <img src="../../assets/starlogo.png" />
+        <span>A</span>
+        <nb-icon icon="star-outline"></nb-icon>
+      </div> -->
+      <div class="info">
+      <h3>Welcome to A-Star!</h3>
+      <p class="info-desc">Create customized goals for specific students to improve classroom learning.</p>
+      <p class="info-list">📚 Keep Track of Student Work</p>
+      <p class="info-list">📈 Mark Individual Progress</p>
+      <p class="info-list">🗓 Create Custom Deadlines</p>
+      <p class="info-list">🧑‍🎓Tailor to each Student's Needs</p>
+      <button nbButton status="info" class="google-button" (click)="auth.googleSignin()">
+        <nb-icon icon="google"></nb-icon>
+        Continue with Google
+      </button>
+    </div>
+      <img src="../../assets/starlogo.png" class="bottom-star"/>
+    </div>
+    <div class="right">
+      <img src="../../assets/Illustration.png" class="illustration"/>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="loggedIn" [hidden]="loading" class="login-section">
+    <h1 class="userWelcome">Welcome, <span>{{username}}!</span></h1>
+    <div class="teacherSection" *ngIf="accountType=='teacher'">
+      <button nbButton status="primary" [routerLink]="['/classes']">VIEW CLASSES</button>
+    </div>
+
+    <div class="studentSection" *ngIf="accountType=='student'">
+      <button nbButton status="primary" [routerLink]="['/goals']">VIEW GOALS</button>
+      <p class="or">OR</p>
+      <button nbButton status="primary" [routerLink]="['/classes']">VIEW CLASSES</button>
+    </div>
+    <div class="directorSection" *ngIf="accountType=='director'">
+      <button nbButton status="primary" [routerLink]="['/director']">VIEW CLASSES</button>
+    </div>  
+  </div>
+</div>

@@ -1,0 +1,85 @@
+ul {
+    list-style-type: none;
+    margin-top: 4px;
+  }
+  
+  .student-section{
+    margin-bottom: 2rem;
+  }
+  
+  @keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+  
+  .hiddenInput{
+    display: none;
+  }
+  
+  mat-dialog-title{
+    font-size: 1.4rem;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  .mat-dialog-content{
+    height: 50% !important;
+  }
+  
+  .exit{
+    float: right;
+    top:-24px;
+    right:-24px;
+    border:none;
+    background: transparent;
+  }
+  
+  .exit:hover{
+    cursor: pointer;
+  }
+  
+  mat-radio-button{
+    margin-right: 1rem;
+  }
+
+  .error-text{
+    color: red;
+  }
+  
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+  }
+  
+  .mat-dialog-title{
+    font-size: 1.8rem;
+  }
+
+
+  h3{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 17px;
+  }
+
+  .content{
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .spacer{
+    width: 60%;
+  }
+  

@@ -1,0 +1,148 @@
+<h1 class="title" *ngIf="class">{{class.title}}</h1>
+<gms-spinner *ngIf="loading"></gms-spinner>
+
+<div class="teacherSection" *ngIf="class && accountType=='teacher' && !loading">
+  <div fxLayoutAlign="center center">
+    <gms-spinner *ngIf="loading"></gms-spinner>
+    <table mat-table [dataSource]="studentDataSource" *ngIf="studentDataSource.length > 0" class="mat-elevation-z8 table">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Goals Assigned Column -->
+      <ng-container matColumnDef="goalsAssigned">
+        <th mat-header-cell *matHeaderCellDef> Assignments </th>
+        <td mat-cell *matCellDef="let element"> {{element.goalsAssigned}} </td>
+      </ng-container>
+
+      <!-- goalsCompleted Column -->
+      <ng-container matColumnDef="goalsCompleted">
+        <th mat-header-cell *matHeaderCellDef> Assignments Completed </th>
+        <td mat-cell *matCellDef="let element"> {{element.goalsCompleted}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [class.green-row]="row.goalsCompleted/row.goalsAssigned >= .8"
+        [class.yellow-row]="row.goalsCompleted/row.goalsAssigned >= .5"
+        [class.red-row]="row.goalsCompleted/row.goalsAssigned < .5" (click)="openStudentData(row.id)"></tr>
+    </table>
+    </div>
+
+
+    <button nbButton status="primary" size="small" id="createGoal" (click)="createGoalDialog()"><nb-icon icon="plus-outline"></nb-icon> Create Goal</button>
+    <p *ngIf="classGoals.length == 0 && accountType=='teacher' && !loading" class="subtitle">No Goals Assigned Yet.</p>
+    <div fxLayoutAlign="center center">
+      <gms-spinner *ngIf="loading"></gms-spinner>
+
+    <table mat-table [dataSource]="classGoals" class="mat-elevation-z8 table" *ngIf="!loading && classGoals.length != 0">
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element" (click)="openGoalData(element)"> {{element.description}} </td>
+      </ng-container>
+
+      <!-- Due Date Column -->
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef> Due Date </th>
+        <td mat-cell *matCellDef="let element" (click)="openGoalData(element)">{{ element.dueDate.seconds * 1000 | date}}</td>
+      </ng-container>
+
+      <!-- Assigned To Column -->
+      <ng-container matColumnDef="assignedTo">
+        <th mat-header-cell *matHeaderCellDef> Assigned To </th>
+        <td mat-cell *matCellDef="let element" (click)="openGoalData(element)"> {{getLengthOf(element.assignedToID)}} </td>
+      </ng-container>
+
+      <!-- isCompleted Column -->
+      <ng-container matColumnDef="completed">
+        <th mat-header-cell *matHeaderCellDef> Completed </th>
+        <td mat-cell *matCellDef="let element" (click)="openGoalData(element)"> {{ getLengthOf(element.hasCompleted)}} </td>
+      </ng-container>
+
+       <!-- Edit Icon Column -->
+      <ng-container matColumnDef="edit" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <span [hidden]="getLengthOf(element.pending) == 1 && getLengthOf(element.assignedToID) == 1">
+            <mat-icon [matMenuTriggerFor]="actionMenu">more_vert</mat-icon>
+            <mat-menu #actionMenu="matMenu">
+              <button mat-menu-item (click)="editDialog(element)">🖋 Edit</button>
+              <button mat-menu-item (click)="deleteDialog(element)">🗑 Delete</button>
+            </mat-menu>
+          </span>
+
+          <span [hidden]="getLengthOf(element.assignedToID) > 1 || getLengthOf(element.pending) != 1 ">
+            <mat-icon [matMenuTriggerFor]="actionMenu">schedule</mat-icon>
+            <mat-menu #actionMenu="matMenu">
+              <button mat-menu-item (click)="editDialog(element)">🖋 Edit</button>
+              <button mat-menu-item (click)="deleteDialog(element)">🗑 Delete</button>
+            </mat-menu>
+          </span>
+          
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="classgoalsDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: classgoalsDisplayedColumns;"
+      [class.green-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) >= .8 && !(getLengthOf(row.pending) == 1 && getLengthOf(row.assignedToID) == 1)"
+      [class.yellow-row]="getLengthOf(row.pending) == 1 && getLengthOf(row.assignedToID) == 1 && studentCreatedClass(row)"
+      [class.red-row]="getLengthOf(row.hasCompleted)/getLengthOf(row.assignedToID) < .5 && !(getLengthOf(row.pending) == 1 && getLengthOf(row.assignedToID) == 1)"></tr>
+    </table>
+  </div>
+</div>
+
+
+<button nbButton size="small" status="primary" id="createGoal" (click)="createStudentGoalDialog()" *ngIf="accountType=='student' && !loading"><nb-icon icon="plus-outline"></nb-icon> Create Goal</button>
+<p *ngIf="goalsDataSource.length == 0 && accountType=='student' && !loading" class="subtitle">No Goals Assigned Yet.</p>
+
+
+<div class="studentSection" *ngIf="goalsDataSource.length > 0 && class && accountType=='student' && !loading" fxLayoutAlign="center center">
+  <gms-spinner *ngIf="loading"></gms-spinner>
+  <table [nbTreeGrid]="source" class="table">
+    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+    <tr class="table-row" nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns" (click)="openDialog(row.data.goalReference, email, row.data.isCompleted, row.data.status)"
+    ></tr>
+
+    <ng-container nbTreeGridColumnDef="description">
+      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Description</th>
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+        {{row.data.description}}
+
+      </td>
+    </ng-container>
+
+    <ng-container nbTreeGridColumnDef="dueDate">
+      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Due Date</th>
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+        {{ row.data.dueDate.seconds * 1000 | date}}
+
+      </td>
+    </ng-container>
+
+    <ng-container nbTreeGridColumnDef="isCompleted">
+      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Is Completed?</th>
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">
+        <p *ngIf="row.data.isCompleted">✅</p>
+        <p *ngIf="!row.data.isCompleted && row.data.status != 'pending'">❌</p>
+        <p *ngIf="row.data.status == 'pending'">⏳</p>
+
+      </td>
+    </ng-container>
+
+    <ng-container nbTreeGridColumnDef="createdBy">
+      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Created By</th>
+      <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+        {{row.data.createdBy.name}}
+
+      </td>
+    </ng-container>
+  </table>
+</div>
+
+

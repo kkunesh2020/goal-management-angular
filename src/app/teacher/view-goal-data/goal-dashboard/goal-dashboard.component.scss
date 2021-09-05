@@ -1,0 +1,20 @@
+.backButton{
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.main{
+  margin-top: 1rem;
+  display: flex;
+
+  gms-student-bar{
+    width: 40%;
+    border-right: 1px solid gray;
+    height: 40rem;
+  }
+
+  gms-goal-details{
+    width: 75%;
+    margin-left: 1rem;
+  }
+}

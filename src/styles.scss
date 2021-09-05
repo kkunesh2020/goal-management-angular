@@ -1,1 +1,85 @@
+@import 'themes';
+
+@import '~@nebular/theme/styles/globals';
+
+@include nb-install() {
+  @include nb-theme-global();
+};
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+button{
+    outline: none;
+}
+
+
+// styles for class view formats
+.classes{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  
+  .block{
+    margin-top: 5%;
+    width: 13rem;
+    flex: 1 0 20%;
+    flex-grow: 0;
+    height: 13rem;
+    margin-right: 30px;
+    margin-left: 30px;
+    text-align: center;
+    cursor: pointer;
+  
+    h1{
+      font-size: 3rem !important;
+      margin-bottom: 17px;
+    }
+
+    h2{
+      margin-top: 0px;
+      margin-bottom: 10px;
+      font-size: 1.5rem !important;
+    }
+
+    p{
+      margin-top: 0px;
+    }
+  
+  }
+
+  .block:hover{
+    box-shadow: 1px 8px 20px grey;
+    -webkit-transition:  all .6s ease-in;
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 500px) {
+    .block{
+      flex: none !important;
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 1rem !important;
+    }
+  }
+  
+  
+  mat-card:hover{
+    box-shadow: 0 8px 8px 8px rgba(0,0,0,.2), 0 8px 8px 0 rgba(0,0,0,.14), 0 8px 8px 0 rgba(0,0,0,.12) !important;
+    transform: translate3d(0,0,0);
+    transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    cursor: pointer;
+  }
+  
+  .error{
+    color: red !important;
+  }
+
+  .card-footer{
+    float: right;
+  
+    .cancel{
+      margin-right: 1rem;
+    }
+  }

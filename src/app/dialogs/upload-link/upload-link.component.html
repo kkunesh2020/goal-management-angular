@@ -1,0 +1,19 @@
+<nb-card>
+  <nb-card-header>🔗 Upload Link
+    <button class="exit" (click)="closeDialog()">
+      <nb-icon class="exitIcon" icon="close-outline"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <div>
+      <label class="label" for="url">Enter URL:</label>
+      <input nbInput type="text" [(ngModel)]="url" required id="url">
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="card-footer">
+      <button nbButton status="basic" class="cancel" (click)="closeDialog()">Cancel</button>
+      <button nbButton (click)="addLink()" [disabled]="loading || url == '' || !validLink()" status="primary" [nbSpinner]="loading">Add Link</button>
+    </div>
+  </nb-card-footer>
+</nb-card>

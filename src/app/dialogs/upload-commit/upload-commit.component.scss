@@ -1,0 +1,15 @@
+.exit{
+    float: right;
+    top:-24px;
+    right:-24px;
+    border:none;
+    background: transparent;
+  }
+  
+  .exit:hover{
+    cursor: pointer;
+  }
+  
+  mat-form-field{
+    width: 20rem;
+  }

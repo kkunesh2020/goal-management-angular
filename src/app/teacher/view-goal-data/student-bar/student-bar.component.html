@@ -1,0 +1,27 @@
+<div class="student-sidebar">
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">group</mat-icon>
+      <p class="title">All Students</p>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-list>
+    <mat-divider></mat-divider>
+    <div class="student">
+      <mat-list-item class="student" [class.highlighted]="highlightedStudent == 'all'" (click)="viewStudentsData()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">group</mat-icon>
+        All Students
+      </mat-list-item>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="student" *ngFor="let student of students" (click)="viewStudentData(student.email)">
+      <mat-list-item class="student" [class.highlighted]="highlightedStudent == student.email">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon>
+        {{student.name}}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list>
+</mat-expansion-panel>
+</div>

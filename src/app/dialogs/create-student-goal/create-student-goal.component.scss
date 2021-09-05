@@ -1,0 +1,57 @@
+.exit{
+    float: right;
+    top:-24px;
+    right:-24px;
+    border:none;
+    background: transparent;
+  }
+
+  nb-card{
+    width: 30rem;
+  }
+  
+  .exit:hover{
+    cursor: pointer;
+  }
+  
+
+  mat-dialog-title{
+    font-size: 1.4rem;
+  }
+  
+  mat-form-field {
+    width: 80%;
+  }
+
+  .error{
+    margin-top: 5px;
+  }
+
+  .mat-dialog-title{
+    font-size: 1.8rem;
+  }
+
+  label{
+    line-height: 26px !important;
+  }
+  
+  .spacer{
+    width: 43%;
+  }
+
+  input{
+    width: 100% !important;
+    max-width: 30rem !important;
+  }
+
+  .card-footer{
+    float: right;
+
+    .cancel{
+      margin-right: 1rem;
+    }
+  }
+  
+  .form-field{
+    margin-bottom: 1rem;
+  }

@@ -1,0 +1,46 @@
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+}
+
+h3{
+  margin-top: 2rem;
+}
+
+.deleteButton{
+  margin-bottom: 2rem;
+}
+
+nb-card{
+  width: 30rem;
+}
+
+.exit{
+  float: right;
+  top:-24px;
+  right:-24px;
+  border:none;
+  background: transparent;
+}
+
+.exit:hover{
+  cursor: pointer;
+}
+
+
+input{
+  width: 100% !important;
+  max-width: 30rem !important;
+}
+
+.card-footer{
+  float: right;
+
+  .cancel{
+    margin-right: 1rem;
+  }
+}
+
+.form-field{
+  margin-bottom: 1rem;
+}

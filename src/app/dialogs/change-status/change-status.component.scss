@@ -1,0 +1,41 @@
+.exit{
+    float: right;
+    top:-24px;
+    right:-24px;
+    border:none;
+    background: transparent;
+  }
+  
+  .exit:hover{
+    cursor: pointer;
+  }
+
+  .rejection{
+    width: 84% !important;
+  }
+  
+  .deleteButton{
+    margin-top: 2rem;
+  }
+  
+  .description{
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+
+    mat-icon{
+      margin-right: 8px;
+    }
+  }
+
+  .actions{
+
+    button{
+      margin-right: 1rem;
+    }
+  }
+
+  nb-card{
+    width: 25rem;
+  }
+  

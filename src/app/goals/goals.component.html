@@ -1,0 +1,68 @@
+<h1 class="title">Current Goals</h1>
+
+<div style="display: inline;" [hidden]="!classes || classes.length == 0">
+  <button nbButton status="primary" size="small" *ngIf="!loading" id="createGoal" [matMenuTriggerFor]="menu"><nb-icon icon="plus-outline"></nb-icon>Create Goal</button>
+  <mat-menu #menu="matMenu">
+    <p *ngIf="classes.length == 0">No Assigned Classes.</p>
+    <button mat-menu-item *ngFor="let class of classes" (click)="createGoalDialog(class)">
+      <mat-icon>{{class.classIcon ? class.classIcon : 'class'}}</mat-icon>
+      {{class.title}}
+    </button>
+  </mat-menu>
+</div>
+
+
+<p *ngIf="source.length == 0 && !loading" class="subtitle">No Goals Assigned Yet.</p>
+
+
+<div class="main">
+  <gms-spinner *ngIf="loading"></gms-spinner>
+
+
+  <div class="main" [hidden]="loading">
+    <table [nbTreeGrid]="source">
+      <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+      <tr class="table-row" nbTreeGridRow  (click)="openDialog(row.data.goalReference, uid, row.data.isCompleted, row.data.status)" *nbTreeGridRowDef="let row; columns: allColumns"
+      ></tr>
+
+      <ng-container nbTreeGridColumnDef="description">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Description</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          {{row.data.description}}
+
+        </td>
+      </ng-container>
+
+      <ng-container nbTreeGridColumnDef="dueDate">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Due Date</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          {{ row.data.dueDate.seconds * 1000 | date}}
+
+        </td>
+      </ng-container>
+
+      <ng-container nbTreeGridColumnDef="isCompleted">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Is Completed?</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          <p *ngIf="row.data.isCompleted">✅</p>
+          <p *ngIf="!row.data.isCompleted && row.data.status != 'pending'">❌</p>
+          <p *ngIf="row.data.status == 'pending'">⏳</p>
+
+        </td>
+      </ng-container>
+
+      <ng-container nbTreeGridColumnDef="createdBy">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Created By</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          {{row.data.createdBy}}
+
+        </td>
+      </ng-container>
+    </table>
+  </div>
+  
+
+</div>

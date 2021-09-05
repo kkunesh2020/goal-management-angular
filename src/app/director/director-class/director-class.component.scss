@@ -1,0 +1,52 @@
+.table {
+    width: 90%;
+    margin-bottom: 2rem;
+    margin: auto;
+    margin-top: 2rem;
+    text-align: left;
+  }
+
+  .classData{
+    text-align: center;
+    margin-top: 2.5rem;
+    height: 100%;
+  }
+
+  .edit-icon{
+    right: 6%;
+    position: absolute;
+    top: 10%;
+  }
+  mat-spinner{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+  }
+  
+
+.warning{
+    font-weight: normal;
+    position: absolute;
+    width: 100%;
+    margin-top: 4rem;
+}
+
+#createClassButton{
+    float: right;
+    margin-bottom: 1rem;
+    margin-right: 2rem;
+}
+
+.edit-icon:hover{
+  cursor: pointer;
+}
+
+h3{
+  font-size: 21px;
+  font-weight: normal;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}

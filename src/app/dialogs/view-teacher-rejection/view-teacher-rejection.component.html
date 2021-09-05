@@ -1,0 +1,14 @@
+
+<nb-card>
+  <nb-card-header><nb-icon icon="alert-triangle-outline"></nb-icon>Goal Declined</nb-card-header>
+  <nb-card-body>
+    <span [hidden]="declinedNote && declinedNote.note && declinedNote.note != ''">This goal was declined. </span>
+    <div [hidden]="!declinedNote">
+        <span style="font-weight: bold;">Your teacher left the following note: </span>
+        <p>{{declinedNote ? declinedNote.note: ''}}</p>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+      <button nbButton status="basic" (click)="closeDialog()" class="cancel">Close</button>
+  </nb-card-footer>
+</nb-card>

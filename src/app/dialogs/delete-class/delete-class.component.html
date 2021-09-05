@@ -1,0 +1,14 @@
+<nb-card>
+    <nb-card-header>
+        Delete Class
+        <button (click)="closeDialog()" class="exit">
+            <mat-icon class="exitIcon">clear</mat-icon>
+        </button>
+    </nb-card-header>
+
+  <nb-card-body>
+      <p>Be careful! This will permanently delete your class.</p>
+      <button nbButton status="danger" class="deleteButton" (click)="deleteClass()" [nbSpinner]="loading">Delete Class</button>
+  </nb-card-body>
+</nb-card>
+  

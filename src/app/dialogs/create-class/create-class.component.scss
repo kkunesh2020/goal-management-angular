@@ -1,0 +1,87 @@
+ul {
+    list-style-type: none;
+    margin-top: 4px;
+  }
+  
+  .student-section{
+    margin-bottom: 2rem;
+  }
+  
+  @keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+  
+  .hiddenInput{
+    display: none;
+  }
+
+
+  .student-email-input-error{
+    color: red;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .person-email{
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+
+      p{
+        margin-top: 3px;
+        margin-bottom: 3px;
+        margin-left: 5px;
+      }
+  }
+
+  .students-section{
+      margin-top: 1.5rem;
+  }
+
+  .form-block{
+    margin-top: 1rem;
+    .icon-block{
+      width: 100%;
+    }
+  }
+  
+  .exit{
+    float: right;
+    top:-24px;
+    right:-24px;
+    border:none;
+    background: transparent;
+  }
+  
+  .exit:hover{
+    cursor: pointer;
+  }
+  
+  mat-radio-button{
+    margin-right: 1rem;
+  }
+
+  mat-icon{
+    height: 30px;
+    width: 30px;
+  }
+  
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+  }
+  
+  .label{
+    line-height: 2rem;
+  }
